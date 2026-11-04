@@ -13,6 +13,7 @@ export default async function PublicLayout({ children }: { children: React.React
           </Link>
           <nav className="flex items-center gap-4 text-sm">
             <Link href="/#how" className="hidden text-neutral-700 hover:text-brand-700 sm:inline">{t('nav.how')}</Link>
+            <Link href="/pricing" className="text-neutral-700 hover:text-brand-700">{t('nav.pricing')}</Link>
             <Link href="/login" className="text-neutral-700 hover:text-brand-700">{t('nav.login')}</Link>
             <Link href="/signup" className="rounded-md bg-brand-600 px-3 py-1.5 font-medium text-white hover:bg-brand-700">{t('nav.signup')}</Link>
             <LocaleSwitcher />

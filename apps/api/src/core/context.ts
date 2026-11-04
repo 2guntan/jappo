@@ -16,6 +16,8 @@ export interface ActorContext {
   permissions: ReadonlySet<string>;
   mfaEnrolmentRequired: boolean;
   orgSuspended?: boolean;
+  /** Platform invoices overdue > 60 days (SPEC §15): writes blocked except settlement, statements, billing. */
+  orgBillingRestricted?: boolean;
   ip: string | null;
   userAgent: string | null;
   requestId: string | null;

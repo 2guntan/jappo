@@ -17,6 +17,8 @@ const SETTINGS = [
   { href: '/app/settings/organization', key: 'organization', perm: 'org:read' },
   { href: '/app/settings/members', key: 'members', perm: 'member:manage' },
   { href: '/app/settings/api-keys', key: 'apiKeys', perm: 'apikey:manage' },
+  { href: '/app/settings/billing', key: 'billing', perm: 'billing:read' },
+  { href: '/app/settings/webhooks', key: 'webhooks', perm: 'webhook:manage' },
   { href: '/app/settings/security', key: 'security' },
 ] as const;
 
@@ -112,7 +114,14 @@ export function AppShell({ children }: { children: ReactNode }) {
             </button>
           </div>
         </header>
-        <main className="mx-auto w-full max-w-6xl flex-1 px-4 py-6">{children}</main>
+        <main className="mx-auto w-full max-w-6xl flex-1 px-4 py-6">
+          {session.activeMembership?.billingStatus && session.activeMembership.billingStatus !== 'ok' && (
+            <div role="alert" data-testid="billing-banner" className={`mb-4 rounded-md px-4 py-3 text-sm ${session.activeMembership.billingStatus === 'restricted' ? 'bg-red-50 text-red-800' : 'bg-amber-50 text-amber-800'}`}>
+              {t(session.activeMembership.billingStatus === 'restricted' ? 'billingRestricted' : 'billingOverdue')} <Link className="font-medium underline" href="/app/settings/billing">{t('billing')}</Link>
+            </div>
+          )}
+          {children}
+        </main>
       </div>
     </div>
   );

@@ -195,5 +195,10 @@
     "title": "Login code",
     "body": "Your Jappo code: {{code}} (10 min).",
     "sms": "Jappo: your login code is {{code}} (10 min)."
+  },
+  "billing.invoice_issued": {
+    "title": "Jappo invoice {{ref}}: {{amount}}",
+    "subject": "Jappo — invoice {{ref}}",
+    "body": "Your invoice {{ref}} of {{amount}} is available, due {{dueDate}}. {{link}}"
   }
 }

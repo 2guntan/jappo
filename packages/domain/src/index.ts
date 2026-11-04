@@ -15,3 +15,4 @@ export * from './facility';
 export * from './operations';
 export * from './settlement';
 export * from './kpis';
+export * from './billing';

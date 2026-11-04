@@ -1,6 +1,7 @@
 import { CONTRACT_TEMPLATE_SEEDS } from '@jappo/templates';
 import { contractTemplates } from '../modules/agreements/schema';
 import { alertRules } from '../modules/operations/schema';
+import { plans } from '../modules/billing/schema';
 import { DEFAULT_ALERT_RULES } from '@jappo/domain';
 import { eq } from 'drizzle-orm';
 import { ROLES, ROLE_ORG_TYPES, ORG_TYPES } from '@jappo/contracts';
@@ -68,6 +69,15 @@ export async function seedReference(db: Db): Promise<void> {
     GRIEVANCE_OPEN: 'Community grievance open for more than `days` days (warning)',
   };
   for (const r of DEFAULT_ALERT_RULES) await db.insert(alertRules).values({ code: r.code, enabled: r.enabled, params: r.params, description: RULE_TEXT[r.code] ?? r.code }).onConflictDoNothing();
+  // Plans (SPEC §15); prices editable by the platform admin.
+  const PLANS = [
+    { code: 'operator_starter', name: 'Opérateur Starter', orgTypes: ['operator'], priceModel: 'per_ha_season' as const, unitPriceXof: 5000, structuringFeeBps: 100, includedSeats: 0, features: ['dossier', 'marketplace', 'settlement'] },
+    { code: 'operator_pro', name: 'Opérateur Pro', orgTypes: ['operator'], priceModel: 'per_ha_season' as const, unitPriceXof: 4000, structuringFeeBps: 75, includedSeats: 0, features: ['dossier', 'marketplace', 'settlement', 'priority_support', 'api_keys', 'webhooks'] },
+    { code: 'lender_monitoring', name: 'Prêteur Suivi', orgTypes: ['lender'], priceModel: 'annual_seat' as const, unitPriceXof: 1_200_000, structuringFeeBps: 0, includedSeats: 5, features: ['opportunities', 'monitoring', 'reports'] },
+    { code: 'free_partner', name: 'Partenaire', orgTypes: ['buyer', 'guarantor', 'insurer'], priceModel: 'free' as const, unitPriceXof: 0, structuringFeeBps: 0, includedSeats: 0, features: ['portal'] },
+  ];
+  for (const p of PLANS) await db.insert(plans).values(p).onConflictDoNothing();
+  await db.insert(settings).values({ key: 'billing.payment_terms_days', value: 15 as unknown as object }).onConflictDoNothing();
   // Contract templates v1, fr + en (SPEC §14.2) — structured drafts to be reviewed by counsel.
   for (const t of CONTRACT_TEMPLATE_SEEDS) {
     await db.insert(contractTemplates).values({ code: t.code, locale: t.locale, templateVersion: 1, title: t.title, bodyHbs: t.bodyHbs, variablesSchema: t.variablesSchema, active: true }).onConflictDoNothing();

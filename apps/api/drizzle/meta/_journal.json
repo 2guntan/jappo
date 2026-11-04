@@ -71,6 +71,13 @@
       "when": 1793825106173,
       "tag": "0009_monitoring",
       "breakpoints": true
+    },
+    {
+      "idx": 10,
+      "version": "7",
+      "when": 1793826009954,
+      "tag": "0010_billing_webhooks",
+      "breakpoints": true
     }
   ]
 }

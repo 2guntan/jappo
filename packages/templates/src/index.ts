@@ -58,3 +58,4 @@ export { CONTRACT_CODES, CONTRACT_TEMPLATE_SEEDS, type ContractCode, type Contra
 export { renderBuyerInvoiceHtml, type BuyerInvoiceRenderInput } from './invoice';
 export { renderFarmerStatementHtml, type FarmerStatementInput } from './statement';
 export { renderReportHtml, type ReportRenderInput } from './report';
+export { renderPlatformInvoiceHtml, type PlatformInvoiceRenderInput } from './platform-invoice';

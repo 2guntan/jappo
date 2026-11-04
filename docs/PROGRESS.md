@@ -14,7 +14,7 @@ Source of truth for the next session. Phases from SPEC §17. Update after every 
 - [x] P7 Operations & harvest
 - [x] P8 Settlement
 - [x] P9 Monitoring
-- [ ] P10 Commercial
+- [x] P10 Commercial
 - [ ] P11 Hardening & acceptance
 
 ## P0 Scaffold — done
@@ -92,9 +92,17 @@ Web: home dashboards (operator KPIs, blocks by status, tasks, alerts; lender por
 Tests: domain 55; integration `monitoring.test.ts` (snapshots on a settled WF-1 season: farmers 3, women 100 %, disbursed 3 000 000, outstanding 122 000, delivered 23 000 kg, net income avg 767 333 / median 760 000; dashboards; guarantor exposure 61 000; reports; authz negatives) — 68 integration tests; Playwright `p9-monitoring.spec.ts`.
 Known limitations: dashboards are tables and tiles (no time-series charts yet; the KPI series endpoint is ready for them).
 
+## P10 Commercial — done
+
+Domain: `invoiceTotals`, `structuringFeeXof`, `billingStatusFor`, `nextWebhookAttempt` (+ tests).
+API: tables `plans` (seeded), `subscriptions`, `platform_invoices`, `webhook_endpoints`, `webhook_deliveries`, column `organizations.billing_status` (migration 0010); public plans, subscription (change plan; annual seats invoiced), invoices + PDF (VAT 18 %), event handlers `season.started` (per-ha fee) and `award.accepted` (structuring fee), daily billing job (renewals, overdue → banner / read-only enforced in the auth hook), admin plans and invoices (mark paid / void); webhooks CRUD, signed deliveries with retry/backoff, test action, delivery log, `GET /events`; admin console API (settings, holidays, template preview, webhook monitor).
+Web: public pricing page, billing settings (plans, subscribe, invoices with PDF), overdue/read-only banner in the app shell, webhooks settings (secret once, log, test, disable), admin billing (prices, invoices), admin console (settings, holidays, template editor with preview, webhook deliveries); navigation still generated from `/v1/modules`.
+Tests: domain 58; integration `billing-webhooks.test.ts` (self-signup → subscribe → 14 160 XOF invoice at season start, idempotent; restricted mode and recovery; structuring fee 35 400; lender licence 1 416 000; signed webhook verified with HMAC, retries to failed, test delivery, isolation, event feed) and `admin-console.test.ts`; Playwright `p10-commercial.spec.ts`.
+Known limitations: invoices are paid manually (admin marks paid); the platform issuer identity on invoices is generic "Jappo" until legal details are entered.
+
 ## In progress
 
-Nothing half-built. **Next concrete step:** P10 Commercial — read SPEC §15 (billing) and §10.17; tables plans, subscriptions, platform invoices (+ PDF, OHADA mentions, VAT 18 %), invoicing jobs (season start, structuring fee on award acceptance), overdue rules, public site pricing page, admin console completion (plans, subscriptions, invoices, settings, holidays, contract template editor with preview, webhooks delivery monitor), webhooks UI (`/v1/webhooks` already planned in §11.2), `/v1/modules`-generated navigation check. DoD: a new operator can self-signup, subscribe, and is invoiced at season start.
+Nothing half-built. **Next concrete step:** P11 Hardening & acceptance — security tests (rate limits on auth/OTP, OTP brute force lockout, IDOR suite across every resource id route), redact OTP codes from `notifications.data` after delivery, backup/restore scripts (`infra/scripts/backup.sh`, `restore.sh`, tested), prod compose with Caddy, `docs/RUNBOOK.md`, `docs/API.md`, performance check, then `pnpm e2e:full` (SPEC §17.1 full lifecycle: two lenders bid, operator awards, contracts, disbursement, season, harvest, escrow, settlement approved by both sides, statements; every figure = golden values — read §17.1 first, including D-046 and the investment-tranche note in P8).
 
 ## How to run
 

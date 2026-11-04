@@ -26,6 +26,9 @@ import { harvestRoutes } from './harvest/routes';
 import { settlementRoutes } from './settlement/routes';
 import { monitoringRoutes } from './monitoring/routes';
 import { snapshotKpis } from './monitoring/service';
+import { billingRoutes } from './billing/routes';
+import { adminConsoleRoutes } from './admin/console';
+import { deliverWebhooks, onAwardAccepted, onSeasonStarted, queueWebhooks, runBilling } from './billing/service';
 
 // Season start guard (SPEC §8.2) is provided by the facilities module.
 seasonStartGuards.hasConfirmedDisbursement = (tx, seasonId) => hasConfirmedDisbursement(tx, seasonId);
@@ -63,6 +66,7 @@ export const MODULES: JappoModule[] = validateModules([
         { key: 'admin-kyc', href: '/app/admin/kyc', labelKey: 'nav.adminKyc', permission: 'admin:read' },
         { key: 'admin-audit', href: '/app/admin/audit', labelKey: 'nav.adminAudit', permission: 'admin:read' },
         { key: 'admin-alert-rules', href: '/app/admin/alert-rules', labelKey: 'nav.adminAlertRules', permission: 'alert_rule:manage' },
+        { key: 'admin-console', href: '/app/admin/console', labelKey: 'nav.adminConsole', permission: 'settings:manage' },
       ],
     },
   },
@@ -221,6 +225,33 @@ export const MODULES: JappoModule[] = validateModules([
     core: true,
     dependsOn: ['monitoring'],
     ui: { workspace: ['guarantor', 'insurer'], navItems: [{ key: 'portfolio', href: '/app/guarantor', labelKey: 'nav.guarantor', permission: 'kpi:read' }] },
+  },
+  {
+    name: 'billing',
+    version: '1.0.0',
+    core: true,
+    dependsOn: ['marketplace', 'planning'],
+    routes: async (app, ctx) => {
+      await billingRoutes(app, ctx);
+      await adminConsoleRoutes(app, ctx);
+    },
+    eventHandlers: {
+      'season.started': (e, ctx) => onSeasonStarted(ctx, e),
+      'award.accepted': (e, ctx) => onAwardAccepted(ctx, e),
+      '*': (e, ctx) => queueWebhooks(ctx, e),
+    },
+    jobs: [
+      { name: 'billing.daily', cron: '45 3 * * *', handler: async (ctx) => void (await runBilling(ctx)) },
+      { name: 'webhooks.deliver', cron: '* * * * *', handler: async (ctx) => void (await deliverWebhooks(ctx)) },
+    ],
+    ui: {
+      workspace: ['operator', 'lender', 'buyer', 'guarantor', 'insurer', 'platform'],
+      navItems: [
+        { key: 'billing', href: '/app/settings/billing', labelKey: 'nav.billing', permission: 'billing:read' },
+        { key: 'webhooks', href: '/app/settings/webhooks', labelKey: 'nav.webhooks', permission: 'webhook:manage' },
+        { key: 'admin-billing', href: '/app/admin/billing', labelKey: 'nav.adminBilling', permission: 'invoice:manage' },
+      ],
+    },
   },
   {
     name: 'field',

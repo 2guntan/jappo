@@ -16,3 +16,4 @@ export * from '../../modules/operations/schema';
 export * from '../../modules/harvest/schema';
 export * from '../../modules/settlement/schema';
 export * from '../../modules/monitoring/schema';
+export * from '../../modules/billing/schema';

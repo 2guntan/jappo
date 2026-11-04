@@ -126,6 +126,8 @@ export const Membership = z.object({
   orgName: z.string(),
   roles: z.array(Role),
   kycStatus: KycStatus,
+  /** SPEC §15 billing banner / read-only mode. */
+  billingStatus: z.enum(['ok', 'overdue', 'restricted']).optional(),
 });
 
 export const Me = z

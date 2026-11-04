@@ -34,6 +34,8 @@ export const organizations = pgTable(
     lenderKind: lenderKind(),
     bceaoApprovalNo: text(),
     planId: uuid(),
+    /** SPEC §15: `overdue` → banner, `restricted` → read-only except settlement and statements. */
+    billingStatus: text().notNull().default('ok'),
     annualVolumeKgEstimate: numeric({ precision: 14, scale: 3 }),
     yearsInBusiness: integer(),
     bankReferenceFileId: uuid(),

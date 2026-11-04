@@ -164,7 +164,13 @@
     "adminAlertRules": "Alert rules",
     "settlements": "Settlements",
     "guarantor": "Covered portfolio",
-    "reports": "Reports"
+    "reports": "Reports",
+    "billing": "Plan and invoices",
+    "webhooks": "Webhooks",
+    "adminBilling": "Billing",
+    "adminConsole": "Console",
+    "billingOverdue": "Jappo invoices are more than 30 days overdue.",
+    "billingRestricted": "Read-only: invoices more than 60 days overdue (settlements and statements remain available)."
   },
   "app": {
     "welcome": "Hello {name}",
@@ -1550,5 +1556,94 @@
     "coverage": "Coverage",
     "overdueDays": "Days overdue",
     "claimCandidate": "Claim candidate"
+  },
+  "billing": {
+    "title": "Plan and invoices",
+    "current": "Current plan",
+    "none": "No subscription",
+    "currentBadge": "Current",
+    "free": "Free",
+    "per": {
+      "per_ha_season": "/ ha / season",
+      "annual_seat": "/ year",
+      "free": ""
+    },
+    "structuring": "structuring fee {pct}% of the awarded amount",
+    "seats": "{n} seats included",
+    "choose": "Choose this plan",
+    "subscribed": "Subscription updated.",
+    "invoices": "Jappo invoices",
+    "description": "Description",
+    "total": "Total incl. VAT",
+    "status": {
+      "draft": "Draft",
+      "issued": "Issued",
+      "paid": "Paid",
+      "void": "Void"
+    }
+  },
+  "webhooks": {
+    "title": "Webhooks",
+    "subtitle": "Signed events (Jappo-Signature HMAC-SHA256) sent to your systems",
+    "events": "Event types",
+    "eventsHint": "Comma-separated, or * for all",
+    "create": "Add",
+    "secretOnce": "Signing secret (shown once):",
+    "active": "Active",
+    "inactive": "Disabled",
+    "log": "Log",
+    "test": "Test",
+    "disable": "Disable",
+    "event": "Event",
+    "attempts": "Attempts",
+    "at": "Date"
+  },
+  "adminBilling": {
+    "title": "Billing",
+    "plans": "Plans",
+    "name": "Name",
+    "price": "Price (XOF)",
+    "reference": "Reference / reason",
+    "markPaid": "Mark paid",
+    "void": "Void"
+  },
+  "adminConsole": {
+    "title": "Admin console",
+    "settings": "Settings",
+    "key": "Key",
+    "value": "Value (JSON)",
+    "holidays": "Holidays",
+    "date": "Date",
+    "holidayName": "Name",
+    "add": "Add",
+    "remove": "Remove",
+    "webhooks": "Webhook deliveries",
+    "templates": "Contract templates",
+    "counsel": "Template text must be reviewed by counsel before production use.",
+    "variables": "Variables",
+    "body": "Template text (Handlebars)",
+    "preview": "Preview",
+    "saveVersion": "Save a new version",
+    "newVersion": "New version saved."
+  },
+  "pricing": {
+    "title": "Pricing",
+    "subtitle": "Simple plans paid by operators and lenders. Buyers, guarantors and insurers: free.",
+    "free": "Free",
+    "per": {
+      "per_ha_season": "per hectare per season",
+      "annual_seat": "per year",
+      "free": "no fee"
+    },
+    "structuring": "structuring {pct}%",
+    "seats": "{n} seats",
+    "cta": "Create an account",
+    "orgTypes": {
+      "operator": "Operators",
+      "lender": "Lenders",
+      "buyer": "Buyers",
+      "guarantor": "Guarantors",
+      "insurer": "Insurers"
+    }
   }
 }

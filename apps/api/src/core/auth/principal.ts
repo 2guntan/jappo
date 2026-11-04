@@ -16,6 +16,7 @@ export interface MembershipRow {
   orgName: string;
   roles: Role[];
   kycStatus: string;
+  billingStatus: string;
   orgStatus: string;
 }
 
@@ -27,6 +28,7 @@ export async function loadMemberships(db: Db, userId: string): Promise<Membershi
       orgType: organizations.type,
       orgName: organizations.legalName,
       kycStatus: organizations.kycStatus,
+      billingStatus: organizations.billingStatus,
       orgStatus: organizations.status,
     })
     .from(memberships)
@@ -91,5 +93,6 @@ export async function resolveActor(db: Db, req: FastifyRequest): Promise<ActorCo
     permissions: permissionsFor(roles),
     mfaEnrolmentRequired,
     orgSuspended: active?.orgStatus === 'suspended',
+    orgBillingRestricted: active?.billingStatus === 'restricted',
   };
 }

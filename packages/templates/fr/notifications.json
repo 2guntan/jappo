@@ -195,5 +195,10 @@
     "title": "Code de connexion",
     "body": "Votre code Jappo : {{code}} (10 min).",
     "sms": "Jappo : votre code de connexion est {{code}} (10 min)."
+  },
+  "billing.invoice_issued": {
+    "title": "Facture Jappo {{ref}} : {{amount}}",
+    "subject": "Jappo — facture {{ref}}",
+    "body": "Votre facture {{ref}} de {{amount}} est disponible, échéance {{dueDate}}. {{link}}"
   }
 }

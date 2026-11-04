@@ -3549,6 +3549,351 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/v1/billing/plans": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Public price list */
+        get: operations["listPlans"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v1/billing/subscription": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["getSubscription"];
+        put?: never;
+        /** Subscribe or change plan (annual seats invoiced at start) */
+        post: operations["changeSubscription"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v1/billing/invoices": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["listPlatformInvoices"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v1/billing/invoices/{id}/pdf": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["getPlatformInvoicePdf"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v1/admin/plans": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["adminListPlans"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v1/admin/plans/{id}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        /** Prices are settings, editable by the platform admin */
+        patch: operations["adminUpdatePlan"];
+        trace?: never;
+    };
+    "/v1/admin/invoices": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["adminListInvoices"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v1/admin/invoices/{id}/pdf": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["adminGetInvoicePdf"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v1/admin/invoices/{id}/actions/mark-paid": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post: operations["adminMarkInvoicePaid"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v1/admin/invoices/{id}/actions/void": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post: operations["adminVoidInvoice"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v1/webhooks": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["listWebhooks"];
+        put?: never;
+        /** The signing secret is returned once */
+        post: operations["createWebhook"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v1/webhooks/{id}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post?: never;
+        delete: operations["deleteWebhook"];
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v1/webhooks/{id}/deliveries": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["listWebhookDeliveries"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v1/webhooks/{id}/actions/test": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post: operations["testWebhook"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v1/events": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Org-scoped event feed for polling integrations */
+        get: operations["listEvents"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v1/admin/settings": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["adminListSettings"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v1/admin/settings/{key}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        /** Scoring weights, gate thresholds, RFP defaults, VAT, legal texts… */
+        put: operations["adminUpdateSetting"];
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v1/admin/holidays": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["adminListHolidays"];
+        put?: never;
+        /** Movable religious holidays (Tabaski, Korité, …) are entered here */
+        post: operations["adminAddHoliday"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v1/admin/holidays/{id}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post?: never;
+        delete: operations["adminDeleteHoliday"];
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v1/admin/contract-templates/preview": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** Render template text with sample data (HTML) */
+        post: operations["adminPreviewContractTemplate"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v1/admin/webhook-deliveries": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Delivery monitor across organisations (failed and pending first) */
+        get: operations["adminListWebhookDeliveries"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/v1/field/bootstrap": {
         parameters: {
             query?: never;
@@ -3680,6 +4025,8 @@ export interface components {
                 roles: ("platform_admin" | "platform_support" | "org_admin" | "operator_manager" | "agronomist" | "field_agent" | "finance_officer" | "credit_officer" | "credit_committee" | "buyer_rep" | "viewer")[];
                 /** @enum {string} */
                 kycStatus: "pending" | "submitted" | "verified" | "rejected";
+                /** @enum {string} */
+                billingStatus?: "ok" | "overdue" | "restricted";
             }[];
             activeOrgId: string | null;
             roles: ("platform_admin" | "platform_support" | "org_admin" | "operator_manager" | "agronomist" | "field_agent" | "finance_officer" | "credit_officer" | "credit_committee" | "buyer_rep" | "viewer")[];
@@ -5510,6 +5857,121 @@ export interface components {
             /** Format: date-time */
             createdAt: string;
         };
+        PlanInput: {
+            /** Format: uuid */
+            id: string;
+            code: string;
+            name: string;
+            orgTypes: string[];
+            /** @enum {string} */
+            priceModel: "per_ha_season" | "annual_seat" | "free";
+            unitPriceXof: number;
+            structuringFeeBps: number;
+            includedSeats: number;
+            features: string[];
+            active: boolean;
+            version: number;
+        };
+        BillingSubscriptionInput: {
+            subscription: {
+                /** Format: uuid */
+                id: string;
+                /** Format: date */
+                startDate: string;
+                endDate: string | null;
+                status: string;
+                plan: components["schemas"]["PlanInput"];
+            } | null;
+            /** @enum {string} */
+            billingStatus: "ok" | "overdue" | "restricted";
+        };
+        PlatformInvoiceInput: {
+            /** Format: uuid */
+            id: string;
+            ref: string;
+            /** Format: uuid */
+            orgId: string;
+            /** Format: date */
+            periodStart: string;
+            /** Format: date */
+            periodEnd: string;
+            lines: {
+                description: string;
+                qty: number;
+                unitPriceXof: number;
+                amountXof: number;
+            }[];
+            amountXof: number;
+            taxXof: number;
+            totalXof: number;
+            /** @enum {string} */
+            status: "draft" | "issued" | "paid" | "void";
+            issuedAt: string | null;
+            /** Format: date */
+            dueDate: string;
+            hasPdf: boolean;
+            paidAt: string | null;
+            paymentReference: string | null;
+            version: number;
+        };
+        WebhookEndpointInput: {
+            /** Format: uuid */
+            id: string;
+            url: string;
+            eventTypes: string[];
+            active: boolean;
+            /** Format: date-time */
+            createdAt: string;
+        };
+        WebhookDeliveryInput: {
+            /** Format: uuid */
+            id: string;
+            /** Format: uuid */
+            eventId: string;
+            eventType: string;
+            /** @enum {string} */
+            status: "pending" | "delivered" | "failed";
+            attempts: number;
+            lastStatusCode: number | null;
+            lastError: string | null;
+            nextAttemptAt: string | null;
+            deliveredAt: string | null;
+            /** Format: date-time */
+            createdAt: string;
+        };
+        EventEnvelopeInput: {
+            /** Format: uuid */
+            id: string;
+            type: string;
+            version: number;
+            /** Format: date-time */
+            occurredAt: string;
+            orgId: string | null;
+            aggregate: {
+                type: string;
+                id: string;
+            };
+            actor: {
+                type: string;
+                id: string | null;
+            };
+            data: {
+                [key: string]: unknown;
+            };
+        };
+        SettingInput: {
+            key: string;
+            value: unknown;
+            /** Format: date-time */
+            updatedAt: string;
+        };
+        HolidayInput: {
+            id: string;
+            /** Format: date */
+            date: string;
+            name: string;
+            movable: boolean;
+        };
         Problem: {
             type: string;
             title: string;
@@ -5603,6 +6065,8 @@ export interface components {
                 roles: ("platform_admin" | "platform_support" | "org_admin" | "operator_manager" | "agronomist" | "field_agent" | "finance_officer" | "credit_officer" | "credit_committee" | "buyer_rep" | "viewer")[];
                 /** @enum {string} */
                 kycStatus: "pending" | "submitted" | "verified" | "rejected";
+                /** @enum {string} */
+                billingStatus?: "ok" | "overdue" | "restricted";
             }[];
             activeOrgId: string | null;
             roles: ("platform_admin" | "platform_support" | "org_admin" | "operator_manager" | "agronomist" | "field_agent" | "finance_officer" | "credit_officer" | "credit_committee" | "buyer_rep" | "viewer")[];
@@ -7432,6 +7896,121 @@ export interface components {
             generatedAt: string | null;
             /** Format: date-time */
             createdAt: string;
+        };
+        Plan: {
+            /** Format: uuid */
+            id: string;
+            code: string;
+            name: string;
+            orgTypes: string[];
+            /** @enum {string} */
+            priceModel: "per_ha_season" | "annual_seat" | "free";
+            unitPriceXof: number;
+            structuringFeeBps: number;
+            includedSeats: number;
+            features: string[];
+            active: boolean;
+            version: number;
+        };
+        BillingSubscription: {
+            subscription: {
+                /** Format: uuid */
+                id: string;
+                /** Format: date */
+                startDate: string;
+                endDate: string | null;
+                status: string;
+                plan: components["schemas"]["Plan"];
+            } | null;
+            /** @enum {string} */
+            billingStatus: "ok" | "overdue" | "restricted";
+        };
+        PlatformInvoice: {
+            /** Format: uuid */
+            id: string;
+            ref: string;
+            /** Format: uuid */
+            orgId: string;
+            /** Format: date */
+            periodStart: string;
+            /** Format: date */
+            periodEnd: string;
+            lines: {
+                description: string;
+                qty: number;
+                unitPriceXof: number;
+                amountXof: number;
+            }[];
+            amountXof: number;
+            taxXof: number;
+            totalXof: number;
+            /** @enum {string} */
+            status: "draft" | "issued" | "paid" | "void";
+            issuedAt: string | null;
+            /** Format: date */
+            dueDate: string;
+            hasPdf: boolean;
+            paidAt: string | null;
+            paymentReference: string | null;
+            version: number;
+        };
+        WebhookEndpoint: {
+            /** Format: uuid */
+            id: string;
+            url: string;
+            eventTypes: string[];
+            active: boolean;
+            /** Format: date-time */
+            createdAt: string;
+        };
+        WebhookDelivery: {
+            /** Format: uuid */
+            id: string;
+            /** Format: uuid */
+            eventId: string;
+            eventType: string;
+            /** @enum {string} */
+            status: "pending" | "delivered" | "failed";
+            attempts: number;
+            lastStatusCode: number | null;
+            lastError: string | null;
+            nextAttemptAt: string | null;
+            deliveredAt: string | null;
+            /** Format: date-time */
+            createdAt: string;
+        };
+        EventEnvelope: {
+            /** Format: uuid */
+            id: string;
+            type: string;
+            version: number;
+            /** Format: date-time */
+            occurredAt: string;
+            orgId: string | null;
+            aggregate: {
+                type: string;
+                id: string;
+            };
+            actor: {
+                type: string;
+                id: string | null;
+            };
+            data: {
+                [key: string]: unknown;
+            };
+        };
+        Setting: {
+            key: string;
+            value: unknown;
+            /** Format: date-time */
+            updatedAt: string;
+        };
+        Holiday: {
+            id: string;
+            /** Format: date */
+            date: string;
+            name: string;
+            movable: boolean;
         };
     };
     responses: never;
@@ -15337,6 +15916,629 @@ export interface operations {
                         /** Format: date-time */
                         createdAt: string;
                         url: string | null;
+                    };
+                };
+            };
+        };
+    };
+    listPlans: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Default Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        data: components["schemas"]["Plan"][];
+                    };
+                };
+            };
+        };
+    };
+    getSubscription: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Default Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["BillingSubscription"];
+                };
+            };
+        };
+    };
+    changeSubscription: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": {
+                    planCode: string;
+                };
+            };
+        };
+        responses: {
+            /** @description Default Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["BillingSubscription"];
+                };
+            };
+        };
+    };
+    listPlatformInvoices: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Default Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        data: components["schemas"]["PlatformInvoice"][];
+                    };
+                };
+            };
+        };
+    };
+    getPlatformInvoicePdf: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Default Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        url: string;
+                        fileId: string;
+                    };
+                };
+            };
+        };
+    };
+    adminListPlans: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Default Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        data: components["schemas"]["Plan"][];
+                    };
+                };
+            };
+        };
+    };
+    adminUpdatePlan: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": {
+                    name?: string;
+                    unitPriceXof?: number;
+                    structuringFeeBps?: number;
+                    includedSeats?: number;
+                    features?: string[];
+                    active?: boolean;
+                };
+            };
+        };
+        responses: {
+            /** @description Default Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Plan"];
+                };
+            };
+        };
+    };
+    adminListInvoices: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Default Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        data: components["schemas"]["PlatformInvoice"][];
+                    };
+                };
+            };
+        };
+    };
+    adminGetInvoicePdf: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Default Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        url: string;
+                        fileId: string;
+                    };
+                };
+            };
+        };
+    };
+    adminMarkInvoicePaid: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": {
+                    reference?: string;
+                    reason?: string;
+                };
+            };
+        };
+        responses: {
+            /** @description Default Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["PlatformInvoice"];
+                };
+            };
+        };
+    };
+    adminVoidInvoice: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": {
+                    reference?: string;
+                    reason?: string;
+                };
+            };
+        };
+        responses: {
+            /** @description Default Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["PlatformInvoice"];
+                };
+            };
+        };
+    };
+    listWebhooks: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Default Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        data: components["schemas"]["WebhookEndpoint"][];
+                    };
+                };
+            };
+        };
+    };
+    createWebhook: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": {
+                    /** Format: uri */
+                    url: string;
+                    eventTypes: string[];
+                };
+            };
+        };
+        responses: {
+            /** @description Default Response */
+            201: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** Format: uuid */
+                        id: string;
+                        url: string;
+                        eventTypes: string[];
+                        active: boolean;
+                        /** Format: date-time */
+                        createdAt: string;
+                        secret: string;
+                    };
+                };
+            };
+        };
+    };
+    deleteWebhook: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Default Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @enum {boolean} */
+                        ok: true;
+                    };
+                };
+            };
+        };
+    };
+    listWebhookDeliveries: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Default Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        data: components["schemas"]["WebhookDelivery"][];
+                    };
+                };
+            };
+        };
+    };
+    testWebhook: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Default Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        data: components["schemas"]["WebhookDelivery"][];
+                    };
+                };
+            };
+        };
+    };
+    listEvents: {
+        parameters: {
+            query?: {
+                since?: string;
+                limit?: number;
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Default Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        data: components["schemas"]["EventEnvelope"][];
+                    };
+                };
+            };
+        };
+    };
+    adminListSettings: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Default Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        data: components["schemas"]["Setting"][];
+                    };
+                };
+            };
+        };
+    };
+    adminUpdateSetting: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                key: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": {
+                    value: unknown;
+                };
+            };
+        };
+        responses: {
+            /** @description Default Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Setting"];
+                };
+            };
+        };
+    };
+    adminListHolidays: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Default Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        data: components["schemas"]["Holiday"][];
+                    };
+                };
+            };
+        };
+    };
+    adminAddHoliday: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": {
+                    /** Format: date */
+                    date: string;
+                    name: string;
+                };
+            };
+        };
+        responses: {
+            /** @description Default Response */
+            201: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Holiday"];
+                };
+            };
+        };
+    };
+    adminDeleteHoliday: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Default Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @enum {boolean} */
+                        ok: true;
+                    };
+                };
+            };
+        };
+    };
+    adminPreviewContractTemplate: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": {
+                    bodyHbs: string;
+                    /**
+                     * @default fr
+                     * @enum {string}
+                     */
+                    locale?: "fr" | "en";
+                };
+            };
+        };
+        responses: {
+            /** @description Default Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        html: string;
+                    };
+                };
+            };
+        };
+    };
+    adminListWebhookDeliveries: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Default Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        data: {
+                            id: string;
+                            orgName: string;
+                            url: string;
+                            eventType: string;
+                            status: string;
+                            attempts: number;
+                            lastStatusCode: number | null;
+                            lastError: string | null;
+                            /** Format: date-time */
+                            createdAt: string;
+                        }[];
                     };
                 };
             };

@@ -164,7 +164,13 @@
     "adminAlertRules": "Règles d'alerte",
     "settlements": "Règlements",
     "guarantor": "Portefeuille garanti",
-    "reports": "Rapports"
+    "reports": "Rapports",
+    "billing": "Abonnement et factures",
+    "webhooks": "Webhooks",
+    "adminBilling": "Facturation",
+    "adminConsole": "Console",
+    "billingOverdue": "Des factures Jappo sont en retard de plus de 30 jours.",
+    "billingRestricted": "Lecture seule : factures en retard de plus de 60 jours (règlements et relevés restent disponibles)."
   },
   "app": {
     "welcome": "Bonjour {name}",
@@ -1550,5 +1556,94 @@
     "coverage": "Couverture",
     "overdueDays": "Jours de retard",
     "claimCandidate": "Mise en jeu possible"
+  },
+  "billing": {
+    "title": "Abonnement et factures",
+    "current": "Offre actuelle",
+    "none": "Aucun abonnement",
+    "currentBadge": "Actuelle",
+    "free": "Gratuit",
+    "per": {
+      "per_ha_season": "/ ha / campagne",
+      "annual_seat": "/ an",
+      "free": ""
+    },
+    "structuring": "frais de structuration {pct} % du montant attribué",
+    "seats": "{n} sièges inclus",
+    "choose": "Choisir cette offre",
+    "subscribed": "Abonnement mis à jour.",
+    "invoices": "Factures Jappo",
+    "description": "Désignation",
+    "total": "Total TTC",
+    "status": {
+      "draft": "Brouillon",
+      "issued": "Émise",
+      "paid": "Payée",
+      "void": "Annulée"
+    }
+  },
+  "webhooks": {
+    "title": "Webhooks",
+    "subtitle": "Événements signés (Jappo-Signature HMAC-SHA256) envoyés à vos systèmes",
+    "events": "Types d'événements",
+    "eventsHint": "Séparés par des virgules, ou * pour tout",
+    "create": "Ajouter",
+    "secretOnce": "Secret de signature (affiché une seule fois) :",
+    "active": "Actif",
+    "inactive": "Désactivé",
+    "log": "Journal",
+    "test": "Tester",
+    "disable": "Désactiver",
+    "event": "Événement",
+    "attempts": "Tentatives",
+    "at": "Date"
+  },
+  "adminBilling": {
+    "title": "Facturation",
+    "plans": "Offres",
+    "name": "Nom",
+    "price": "Prix (FCFA)",
+    "reference": "Référence / motif",
+    "markPaid": "Marquer payée",
+    "void": "Annuler"
+  },
+  "adminConsole": {
+    "title": "Console d'administration",
+    "settings": "Paramètres",
+    "key": "Clé",
+    "value": "Valeur (JSON)",
+    "holidays": "Jours fériés",
+    "date": "Date",
+    "holidayName": "Nom",
+    "add": "Ajouter",
+    "remove": "Retirer",
+    "webhooks": "Livraisons webhooks",
+    "templates": "Modèles de contrats",
+    "counsel": "Le texte des modèles doit être revu par un conseil juridique avant usage en production.",
+    "variables": "Variables",
+    "body": "Texte du modèle (Handlebars)",
+    "preview": "Aperçu",
+    "saveVersion": "Enregistrer une nouvelle version",
+    "newVersion": "Nouvelle version enregistrée."
+  },
+  "pricing": {
+    "title": "Tarifs",
+    "subtitle": "Des offres simples, payées par les opérateurs et les prêteurs. Acheteurs, garants et assureurs : gratuit.",
+    "free": "Gratuit",
+    "per": {
+      "per_ha_season": "par hectare et par campagne",
+      "annual_seat": "par an",
+      "free": "sans frais"
+    },
+    "structuring": "structuration {pct} %",
+    "seats": "{n} sièges",
+    "cta": "Créer un compte",
+    "orgTypes": {
+      "operator": "Opérateurs",
+      "lender": "Prêteurs",
+      "buyer": "Acheteurs",
+      "guarantor": "Garants",
+      "insurer": "Assureurs"
+    }
   }
 }

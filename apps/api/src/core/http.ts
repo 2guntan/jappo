@@ -11,6 +11,9 @@ import { idempotencyKeys } from './schema';
 import { sha256 } from './crypto';
 import type { Db } from '../db/client';
 
+/** Never blocked by billing read-only mode (SPEC §15): settlement, payouts, statements, billing itself. */
+const BILLING_EXEMPT = /^(settlement|payout|statement|billing|file|notification):/;
+
 declare module 'fastify' {
   interface FastifySchema {
     'x-permission'?: string;
@@ -55,6 +58,7 @@ export const authPlugin = fp(async (app: FastifyInstance) => {
     if (perm === 'authenticated') return;
     if (!a.orgId) throw forbidden('ORG_REQUIRED', 'Select an organisation (X-Org-Id header)');
     if (a.orgSuspended && req.method !== 'GET') throw forbidden('ORG_SUSPENDED');
+    if (a.orgBillingRestricted && req.method !== 'GET' && !BILLING_EXEMPT.test(perm)) throw forbidden('ORG_BILLING_RESTRICTED', 'Read-only mode: platform invoices are more than 60 days overdue. Settlement and statements remain available.');
     if (!hasPermission(a.permissions, perm)) throw forbidden('FORBIDDEN', `Missing permission ${perm}`);
   });
 });

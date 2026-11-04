@@ -430,7 +430,7 @@ export async function me(db: Db, actor: ActorContext) {
   return {
     principalType: actor.principal.type === 'api_key' ? ('api_key' as const) : ('user' as const),
     user,
-    memberships: ms.map((m) => ({ orgId: m.orgId, orgType: m.orgType, orgName: m.orgName, roles: m.roles, kycStatus: m.kycStatus as 'pending' })),
+    memberships: ms.map((m) => ({ orgId: m.orgId, orgType: m.orgType, orgName: m.orgName, roles: m.roles, kycStatus: m.kycStatus as 'pending', billingStatus: m.billingStatus as 'ok' })),
     activeOrgId: actor.orgId,
     roles: actor.roles,
     permissions: [...actor.permissions].sort(),
