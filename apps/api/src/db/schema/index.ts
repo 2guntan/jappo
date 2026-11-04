@@ -9,3 +9,4 @@ export * from '../../modules/planning/schema';
 export * from '../../modules/offtake/schema';
 export * from '../../modules/finance/schema';
 export * from '../../modules/dossier/schema';
+export * from '../../modules/marketplace/schema';

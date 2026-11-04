@@ -81,9 +81,16 @@ export class FsStorage implements Storage {
   }
 }
 
-export const signFileUrl = (key: string, fileId: string, exp: number) => hmacHex(key, `${fileId}.${exp}`);
-export function verifyFileUrl(key: string, fileId: string, exp: number, sig: string): boolean {
-  return exp >= Math.floor(Date.now() / 1000) && safeEqual(signFileUrl(key, fileId, exp), sig);
+export const signFileUrl = (key: string, fileId: string, exp: number, wm = '') => hmacHex(key, `${fileId}.${exp}${wm ? `.${wm}` : ''}`);
+export function verifyFileUrl(key: string, fileId: string, exp: number, sig: string, wm = ''): boolean {
+  return exp >= Math.floor(Date.now() / 1000) && safeEqual(signFileUrl(key, fileId, exp, wm), sig);
+}
+
+/** API-served signed URL that stamps a watermark on PDFs (used for non-owner downloads of data-room PDFs). */
+export function watermarkedUrl(signingKey: string, publicBase: string, fileId: string, text: string, ttlSeconds = 300): string {
+  const exp = Math.floor(Date.now() / 1000) + ttlSeconds;
+  const wm = Buffer.from(text, 'utf8').toString('base64url');
+  return `${publicBase}/v1/files/${fileId}/raw?exp=${exp}&wm=${wm}&sig=${signFileUrl(signingKey, fileId, exp, wm)}`;
 }
 
 export function createStorage(env: Env): Storage {

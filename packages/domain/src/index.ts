@@ -8,5 +8,6 @@ export * from './irr';
 export * from './model';
 export * from './readiness';
 export * from './sha256';
+export * from './marketplace';
 
 export const ENGINE_VERSION = '1.0.0';

@@ -36,6 +36,13 @@
       "when": 1793817663254,
       "tag": "0004_finance_dossier",
       "breakpoints": true
+    },
+    {
+      "idx": 5,
+      "version": "7",
+      "when": 1793818791644,
+      "tag": "0005_marketplace",
+      "breakpoints": true
     }
   ]
 }

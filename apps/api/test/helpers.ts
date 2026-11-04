@@ -250,3 +250,24 @@ export async function readyScenario(t: TestApp, opts: { yieldBase?: number; yiel
   expectStatus(await t.app.inject({ method: 'PUT', url: `/v1/seasons/${season.id}/model-assumptions`, headers: auth(op), payload: { seasonal: { rateBps: 1800, rateMethod: 'flat', upfrontFeeBps: 100, tenorMonths: 6, repaymentProfile: 'bullet', feesChargedTo: 'operator', borrowerType: 'farmers' }, investment: null } }), 200);
   return { op, admin, buyer, blockId: block.id, seasonId: season.id, plots, farmers, offtakeId: o.json().id };
 }
+
+/**
+ * A KYC-verified lender whose user holds org_admin + credit_officer + credit_committee (MFA enrolled).
+ * Returns the session (MFA token) and the TOTP secret.
+ */
+export async function verifiedLender(t: TestApp, name: string, kind: 'sfd' | 'bank' | 'dfi' | 'fund' = 'sfd') {
+  const email = `${name.toLowerCase().replace(/[^a-z]/g, '')}${Math.random().toString(36).slice(2, 6)}@lender.test`;
+  const s = await verifiedOrg(t, { orgType: 'lender', lenderKind: kind, legalName: name, legalForm: kind === 'bank' ? 'SA' : 'mutuelle', email });
+  const me = json<{ user: { id: string } }>(await t.app.inject({ method: 'GET', url: '/v1/me', headers: auth(s) }));
+  expectStatus(await t.app.inject({ method: 'PATCH', url: `/v1/orgs/current/members/${me.user.id}`, headers: auth(s), payload: { roles: ['org_admin', 'credit_officer', 'credit_committee'] } }), 200);
+  const enrol = json<{ secret: string }>(await t.app.inject({ method: 'POST', url: '/v1/auth/mfa/enroll', headers: auth(s) }));
+  const act = await t.app.inject({ method: 'POST', url: '/v1/auth/mfa/activate', headers: auth(s), payload: { code: generateTotp(enrol.secret) } });
+  expectStatus(act, 200);
+  return { ...s, token: act.json().accessToken as string, totpSecret: enrol.secret, email };
+}
+
+export async function lenderProfile(t: TestApp, s: Session, body: Record<string, unknown>) {
+  const r = await t.app.inject({ method: 'POST', url: '/v1/lender-profiles', headers: auth(s), payload: { name: 'Profil', minTicketXof: 500_000, maxTicketXof: 50_000_000, maxTenorMonths: 12, trancheTypes: ['seasonal'], ...body } });
+  expectStatus(r, 201);
+  return json<{ id: string }>(r);
+}

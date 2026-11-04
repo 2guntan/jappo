@@ -8,6 +8,10 @@ import { requireIfMatch } from '../../core/etag';
 import { conflict } from '../../core/errors';
 import { getVisibleFile } from '../files/service';
 import { audit } from '../../core/audit';
+import { eq } from 'drizzle-orm';
+import { organizations } from '../identity/schema';
+import { watermarkedUrl } from '../../core/files/storage';
+import { watermarkText } from '../../core/files/watermark';
 
 export async function dossierRoutes(app: FastifyInstance, ctx: ModuleContext) {
   const r = app.withTypeProvider<ZodTypeProvider>();
@@ -39,6 +43,10 @@ export async function dossierRoutes(app: FastifyInstance, ctx: ModuleContext) {
       if (!d.pdfFileId) throw conflict('PDF_PENDING', 'The dossier PDF is being generated');
       const f = await getVisibleFile(db, req.actor, d.pdfFileId);
       if (f.ownerOrgId !== req.actor.orgId) await db.transaction((tx) => audit(tx, req.actor, { action: 'dossier.pdf_downloaded', resourceType: 'dossier', resourceId: d.id }));
+      if (f.ownerOrgId !== req.actor.orgId && req.actor.orgId) {
+        const [o] = await db.select({ name: organizations.legalName }).from(organizations).where(eq(organizations.id, req.actor.orgId));
+        return { url: watermarkedUrl(ctx.env.FILE_URL_SIGNING_KEY, ctx.env.API_PUBLIC_URL, f.id, watermarkText(o?.name ?? '')), fileId: f.id };
+      }
       return { url: await ctx.storage.signedUrl(f.objectKey, f.filename, f.id, 300), fileId: f.id };
     },
   });

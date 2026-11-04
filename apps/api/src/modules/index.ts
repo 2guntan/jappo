@@ -14,6 +14,8 @@ import { offtakeRoutes } from './offtake/routes';
 import { financeRoutes } from './finance/routes';
 import { dossierRoutes } from './dossier/routes';
 import { renderDossierPdf } from './dossier/pdf';
+import { marketplaceRoutes } from './marketplace/routes';
+import { runDeadlines } from './marketplace/rfp';
 
 const ALL = ['platform', 'operator', 'lender', 'buyer', 'guarantor', 'insurer', 'supplier', 'farmer_group'] as const;
 
@@ -111,6 +113,23 @@ export const MODULES: JappoModule[] = validateModules([
     dependsOn: ['finance', 'offtake'],
     routes: dossierRoutes,
     eventHandlers: { 'dossier.frozen': async (e, ctx) => void (await renderDossierPdf(ctx, e.aggregate.id)) },
+  },
+  {
+    name: 'marketplace',
+    version: '1.0.0',
+    core: true,
+    dependsOn: ['dossier'],
+    routes: marketplaceRoutes,
+    jobs: [{ name: 'rfp.deadlines', cron: '* * * * *', handler: async (ctx) => void (await runDeadlines(ctx.db)) }],
+    ui: {
+      workspace: ['operator', 'lender'],
+      navItems: [
+        { key: 'opportunities', href: '/app/lender/opportunities', labelKey: 'nav.opportunities', permission: 'bid:draft' },
+        { key: 'awards', href: '/app/lender/awards', labelKey: 'nav.awards', permission: 'award:respond' },
+        { key: 'profiles', href: '/app/lender/profiles', labelKey: 'nav.profiles', permission: 'lender_profile:manage' },
+        { key: 'financing', href: '/app/financing', labelKey: 'nav.financing', permission: 'financing_request:manage' },
+      ],
+    },
   },
   {
     name: 'field',

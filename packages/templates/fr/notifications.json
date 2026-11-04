@@ -9,7 +9,10 @@
     "subject": "Jappo — réinitialisation de votre mot de passe",
     "body": "Bonjour {{fullName}},\n\nPour choisir un nouveau mot de passe, ouvrez ce lien :\n{{link}}\n\nCe lien expire dans 1 heure. Si vous n'êtes pas à l'origine de cette demande, ignorez ce message."
   },
-  "auth.otp": { "title": "Code de connexion", "sms": "Jappo : votre code est {{code}}. Il expire dans 5 minutes. Ne le partagez pas." },
+  "auth.otp": {
+    "title": "Code de connexion",
+    "sms": "Jappo : votre code est {{code}}. Il expire dans 5 minutes. Ne le partagez pas."
+  },
   "member.invited": {
     "title": "Invitation à rejoindre {{orgName}}",
     "subject": "Jappo — invitation à rejoindre {{orgName}}",
@@ -30,5 +33,50 @@
     "title": "Vérification KYC refusée",
     "subject": "Jappo — vérification KYC de {{orgName}} refusée",
     "body": "La vérification KYC de {{orgName}} a été refusée.\nMotif : {{comment}}\nCorrigez vos documents puis soumettez-les à nouveau : {{link}}"
+  },
+  "rfp.invited": {
+    "title": "Nouvelle opportunité : {{blockName}}",
+    "subject": "Jappo — appel d'offres {{rfpRef}} ({{blockName}})",
+    "body": "Votre profil correspond au dossier {{dossierRef}} ({{blockName}}, note {{score}}/100).\nMontant demandé : {{amount}}.\nDate limite : {{deadline}}.\nConsultez l'opportunité : {{link}}"
+  },
+  "rfp.extended": {
+    "title": "Délai prolongé : {{rfpRef}}",
+    "subject": "Jappo — {{rfpRef}} : nouvelle date limite",
+    "body": "La date limite de l'appel d'offres {{rfpRef}} est prolongée au {{deadline}}. {{link}}"
+  },
+  "rfp.question_published": {
+    "title": "Nouvelle réponse publiée : {{rfpRef}}",
+    "subject": "Jappo — {{rfpRef}} : questions-réponses",
+    "body": "Une réponse a été publiée dans les questions-réponses de {{rfpRef}}. {{link}}"
+  },
+  "rfp.closed": {
+    "title": "Appel d'offres clôturé : {{rfpRef}}",
+    "subject": "Jappo — {{rfpRef}} clôturé ({{bids}} offre(s))",
+    "body": "L'appel d'offres {{rfpRef}} est clôturé avec {{bids}} offre(s). L'évaluation est disponible : {{link}}"
+  },
+  "rfp.cancelled": {
+    "title": "Appel d'offres annulé : {{rfpRef}}",
+    "subject": "Jappo — {{rfpRef}} annulé",
+    "body": "L'appel d'offres {{rfpRef}} a été annulé. Motif : {{reason}}"
+  },
+  "award.proposed": {
+    "title": "Attribution proposée : {{rfpRef}}",
+    "subject": "Jappo — attribution de {{amount}} sur {{rfpRef}}",
+    "body": "L'opérateur vous attribue {{amount}} sur {{rfpRef}} ({{blockName}}). Acceptez ou déclinez : {{link}}"
+  },
+  "award.not_awarded": {
+    "title": "Offre non retenue : {{rfpRef}}",
+    "subject": "Jappo — {{rfpRef}} : offre non retenue",
+    "body": "Votre offre sur {{rfpRef}} n'a pas été retenue. Merci de votre participation."
+  },
+  "award.accepted": {
+    "title": "Attribution acceptée : {{lenderName}}",
+    "subject": "Jappo — {{lenderName}} accepte {{amount}}",
+    "body": "{{lenderName}} a accepté l'attribution de {{amount}} sur {{rfpRef}}. Prochaine étape : contrats. {{link}}"
+  },
+  "award.declined": {
+    "title": "Attribution déclinée : {{lenderName}}",
+    "subject": "Jappo — {{lenderName}} décline {{rfpRef}}",
+    "body": "{{lenderName}} a décliné l'attribution sur {{rfpRef}}. Motif : {{reason}}. Vous pouvez réattribuer le montant : {{link}}"
   }
 }

@@ -9,7 +9,10 @@
     "subject": "Jappo — reset your password",
     "body": "Hello {{fullName}},\n\nTo choose a new password, open this link:\n{{link}}\n\nThis link expires in 1 hour. If you did not request this, ignore this message."
   },
-  "auth.otp": { "title": "Login code", "sms": "Jappo: your code is {{code}}. It expires in 5 minutes. Do not share it." },
+  "auth.otp": {
+    "title": "Login code",
+    "sms": "Jappo: your code is {{code}}. It expires in 5 minutes. Do not share it."
+  },
   "member.invited": {
     "title": "Invitation to join {{orgName}}",
     "subject": "Jappo — invitation to join {{orgName}}",
@@ -30,5 +33,50 @@
     "title": "KYC verification rejected",
     "subject": "Jappo — KYC verification of {{orgName}} rejected",
     "body": "The KYC verification of {{orgName}} was rejected.\nReason: {{comment}}\nFix your documents and submit again: {{link}}"
+  },
+  "rfp.invited": {
+    "title": "New opportunity: {{blockName}}",
+    "subject": "Jappo — tender {{rfpRef}} ({{blockName}})",
+    "body": "Your profile matches dossier {{dossierRef}} ({{blockName}}, score {{score}}/100).\nRequested amount: {{amount}}.\nDeadline: {{deadline}}.\nView the opportunity: {{link}}"
+  },
+  "rfp.extended": {
+    "title": "Deadline extended: {{rfpRef}}",
+    "subject": "Jappo — {{rfpRef}}: new deadline",
+    "body": "The deadline of tender {{rfpRef}} is extended to {{deadline}}. {{link}}"
+  },
+  "rfp.question_published": {
+    "title": "New answer published: {{rfpRef}}",
+    "subject": "Jappo — {{rfpRef}}: Q&A",
+    "body": "An answer was published in the Q&A of {{rfpRef}}. {{link}}"
+  },
+  "rfp.closed": {
+    "title": "Tender closed: {{rfpRef}}",
+    "subject": "Jappo — {{rfpRef}} closed ({{bids}} bid(s))",
+    "body": "Tender {{rfpRef}} closed with {{bids}} bid(s). The evaluation is available: {{link}}"
+  },
+  "rfp.cancelled": {
+    "title": "Tender cancelled: {{rfpRef}}",
+    "subject": "Jappo — {{rfpRef}} cancelled",
+    "body": "Tender {{rfpRef}} was cancelled. Reason: {{reason}}"
+  },
+  "award.proposed": {
+    "title": "Award proposed: {{rfpRef}}",
+    "subject": "Jappo — award of {{amount}} on {{rfpRef}}",
+    "body": "The operator awards you {{amount}} on {{rfpRef}} ({{blockName}}). Accept or decline: {{link}}"
+  },
+  "award.not_awarded": {
+    "title": "Bid not selected: {{rfpRef}}",
+    "subject": "Jappo — {{rfpRef}}: bid not selected",
+    "body": "Your bid on {{rfpRef}} was not selected. Thank you for participating."
+  },
+  "award.accepted": {
+    "title": "Award accepted: {{lenderName}}",
+    "subject": "Jappo — {{lenderName}} accepts {{amount}}",
+    "body": "{{lenderName}} accepted the award of {{amount}} on {{rfpRef}}. Next step: contracts. {{link}}"
+  },
+  "award.declined": {
+    "title": "Award declined: {{lenderName}}",
+    "subject": "Jappo — {{lenderName}} declines {{rfpRef}}",
+    "body": "{{lenderName}} declined the award on {{rfpRef}}. Reason: {{reason}}. You can re-award the amount: {{link}}"
   }
 }

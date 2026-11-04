@@ -9,7 +9,7 @@ Source of truth for the next session. Phases from SPEC §17. Update after every 
 - [x] P2 Land & farmers
 - [x] P3 Catalogue, planning, offtake
 - [x] P4 Model, readiness, dossier
-- [ ] P5 Marketplace
+- [x] P5 Marketplace
 - [ ] P6 Agreements & facilities
 - [ ] P7 Operations & harvest
 - [ ] P8 Settlement
@@ -51,9 +51,17 @@ Web: season tabs *Model* (assumptions form, run, scenario table, Recharts revenu
 Tests: domain 29 tests; integration `dossier.test.ts` (model debts 1 308 000 / 1 090 000 / 872 000, gates, freeze, PDF bytes, supersede, stale model, preview, risk-cover scoring, authz + dossier grant) — 58 integration tests total; Playwright `p4-dossier.spec.ts` (model → gates → freeze → PDF). Reusable fixtures: `apps/api/test/helpers.readyScenario`, `apps/web/e2e/helpers.readyScenarioViaApi`.
 Known limitations: data-room PDF watermarking for lenders arrives with lender downloads in P5; farmer arrears (`inArrears`) and field visits feed readiness once P7/P8 tables exist (currently false / season-not-started).
 
+## P5 Marketplace — done
+
+Domain: BE-1 golden test (2122 bps) written first; `matchLenders` (§9.3 with reasons/failed criteria, share-based ticket rule), `bidEar`, `evaluateBids` (cost/share/speed/conditions scores, configurable weights, rank with submission tie-break, greedy suggested allocation, weighted EAR).
+API: tables `lender_profiles`, `financing_requests`, `tranches`, `rfps`, `rfp_invitations`, `rfp_questions`, `bids`, `bid_evaluations`, `awards`; lender profiles (+ preview count), financing requests (from frozen dossier, tranches default from assumptions, submit → block `in_financing`, season `financing`, cancel), matches (verified lenders only), RFP create/open (15 working days with holidays, grants to invitees, notifications)/extend (max 2)/close-early/cancel, deadline cron job, opportunities, view/decline, Q&A (publish, asker anonymised), sealed bids (draft/update/submit by credit_committee/withdraw; operator sees bids only after close), bid preview (EAR + schedule), evaluation, award (Σ ≤ tranche, partial rules), accept/decline (grants), lender awards; watermarked data-room PDFs for lenders.
+Web: season tab *Financing* (create/submit request, tranches, matched lenders with deselection, launch tender), operator RFP page (deadline/extend/close/cancel, invitations, evaluation table with editable award amounts, awards, Q&A answers), financing list; lender workspace: appetite profiles (+ preview), opportunities (deadline countdown), RFP page (structured dossier viewer with map, scenarios, offtake, data room downloads, Q&A, bid form per tranche with live EAR + schedule preview, submit/withdraw, decline), awards (accept/decline).
+Tests: domain 33 tests (99 % lines); integration `marketplace.test.ts` (full tender incl. sealed-bid authz, MFA-gated submission, min share, deadline job, evaluation 2122/2100, override award, acceptance grants; extensions/cancel; watermark) — 61 integration tests; Playwright `p5-marketplace.spec.ts`.
+Known limitations: seasonal-profile bids use the schedule's default harvest month (tenor) for EAR; the structuring-fee invoice on `award.accepted` arrives with billing (P10).
+
 ## In progress
 
-Nothing half-built. **Next concrete step:** P5 Marketplace — write golden test BE-1 (EAR 2122 bps) first; domain `matchLenders` (§9.3) and `evaluateBids` (§9.4: EAR, component scores, ranking, greedy suggested allocation); migrations `lender_profiles`, `financing_requests`, `tranches`, `rfps`, `rfp_invitations`, `rfp_questions`, `bids`, `bid_evaluations`, `awards`; RFP lifecycle with working-day deadline job (pg-boss cron), grants to invited lenders (dossier, block, data room, expiry close+30 d), sealed-bid authz tests, award/accept/decline; lender workspace UI (profiles, opportunities, RFP page, bid form with live EAR), operator financing tab.
+Nothing half-built. **Next concrete step:** P6 Agreements & facilities — tables `contract_templates`, `contracts`, `contract_parties`, `signatures`, `escrow_accounts`, `facilities`, `facility_farmer_allocations`, `schedule_lines`, `disbursements`, `repayments`; seed fr/en Handlebars templates (block_framework, plot_production, offtake, loan_seasonal, loan_investment, escrow_mandate) with the counsel notice; `POST /blocks/{id}/contracts/actions/generate-pack`, send/void, OTP e-signature (org parties) and in-person witnessed signature with photo (farmers, PWA), content hash fixed at send, signed PDF; facilities created from accepted awards (schedule via `buildSchedule`, farmer allocations from §9.1.3), confirm-CP (lender), escrow accounts, disbursement four-eyes flow (request → approve → execute → confirm by a different user), wire `seasonStartGuards.hasConfirmedDisbursement`, block `in_financing → financed` on first active facility.
 
 ## How to run
 

@@ -1856,6 +1856,493 @@ export interface paths {
         patch: operations["updateRiskCover"];
         trace?: never;
     };
+    "/v1/lender-profiles": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["listLenderProfiles"];
+        put?: never;
+        post: operations["createLenderProfile"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v1/lender-profiles/{id}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch: operations["updateLenderProfile"];
+        trace?: never;
+    };
+    "/v1/lender-profiles/{id}/preview": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** How many open financing requests this profile matches */
+        get: operations["previewLenderProfile"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v1/financing-requests": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["listFinancingRequests"];
+        put?: never;
+        /** From a frozen dossier; tranches default from the model assumptions */
+        post: operations["createFinancingRequest"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v1/financing-requests/{id}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["getFinancingRequest"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch: operations["updateFinancingRequest"];
+        trace?: never;
+    };
+    "/v1/financing-requests/{id}/actions/submit": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post: operations["submitFinancingRequest"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v1/financing-requests/{id}/actions/cancel": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post: operations["cancelFinancingRequest"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v1/financing-requests/{id}/matches": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["getFinancingRequestMatches"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v1/rfps": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** Create a draft RFP; invitees default to all matching lenders */
+        post: operations["createRfp"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v1/rfps/{id}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["getRfp"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v1/rfps/{id}/actions/open": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post: operations["openRfp"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v1/rfps/{id}/actions/extend": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post: operations["extendRfp"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v1/rfps/{id}/actions/close-early": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post: operations["closeRfpEarly"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v1/rfps/{id}/actions/cancel": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post: operations["cancelRfp"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v1/rfps/{id}/actions/view": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post: operations["viewRfp"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v1/rfps/{id}/actions/decline": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post: operations["declineRfp"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v1/lender/opportunities": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Invitations of the current lender with RFP summary */
+        get: operations["listOpportunities"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v1/rfps/{id}/questions": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["listRfpQuestions"];
+        put?: never;
+        post: operations["askRfpQuestion"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v1/rfps/{id}/questions/{qid}/answer": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post: operations["answerRfpQuestion"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v1/rfps/{id}/bids": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Lenders: own bids. Operator: all bids, only after close (sealed) */
+        get: operations["listRfpBids"];
+        put?: never;
+        post: operations["createBid"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v1/bids/preview": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** Live EAR and schedule for bid terms */
+        post: operations["previewBid"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v1/bids/{id}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["getBid"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch: operations["updateBid"];
+        trace?: never;
+    };
+    "/v1/bids/{id}/actions/submit": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post: operations["submitBid"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v1/bids/{id}/actions/withdraw": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post: operations["withdrawBid"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v1/rfps/{id}/evaluation": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Scores, ranks, suggested allocation (after close) */
+        get: operations["getRfpEvaluation"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v1/rfps/{id}/actions/award": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post: operations["awardRfp"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v1/rfps/{id}/awards": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["listRfpAwards"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v1/lender/awards": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["listLenderAwards"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v1/awards/{id}/actions/accept": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post: operations["acceptAward"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v1/awards/{id}/actions/decline": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post: operations["declineAward"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/v1/field/bootstrap": {
         parameters: {
             query?: never;
@@ -2766,6 +3253,294 @@ export interface components {
             fileId: string | null;
             version: number;
         };
+        LenderProfileInput: {
+            name: string;
+            active: boolean;
+            cropIds: string[];
+            regions: string[];
+            trancheTypes: ("seasonal" | "investment")[];
+            minTicketXof: number;
+            maxTicketXof: number;
+            minReadinessScore: number;
+            maxTenorMonths: number;
+            requiresGuarantee: boolean;
+            minGuaranteePct: number;
+            requiresInsurance: boolean;
+            maxRateBps: number | null;
+            notes: string | null;
+            /** Format: uuid */
+            id: string;
+            /** Format: uuid */
+            lenderOrgId: string;
+            version: number;
+            /** Format: date-time */
+            createdAt: string;
+        };
+        TrancheInput: {
+            /** @enum {string} */
+            type: "seasonal" | "investment";
+            amountXof: number;
+            requestedTenorMonths: number;
+            /** @default 0 */
+            requestedGraceMonths: number;
+            /** @enum {string} */
+            repaymentProfile: "bullet" | "seasonal" | "annuity" | "equal_principal";
+            /** @enum {string} */
+            borrowerType: "operator" | "farmers" | "farmer_group";
+            borrowerOrgId?: string | null;
+            purpose: string;
+            /** Format: uuid */
+            id: string;
+            /** @enum {string} */
+            status: "open" | "fully_awarded" | "partially_awarded" | "unawarded";
+            awardedXof: number;
+        };
+        FinancingRequestInput: {
+            /** Format: uuid */
+            id: string;
+            ref: string;
+            /** Format: uuid */
+            blockId: string;
+            blockName: string;
+            /** Format: uuid */
+            seasonId: string;
+            /** Format: uuid */
+            dossierId: string;
+            /** @enum {string} */
+            status: "draft" | "submitted" | "in_tender" | "awarded" | "contracted" | "cancelled";
+            submittedAt: string | null;
+            tranches: components["schemas"]["TrancheInput"][];
+            rfpId: string | null;
+            version: number;
+            /** Format: date-time */
+            createdAt: string;
+            allowedActions: string[];
+        };
+        LenderMatchInput: {
+            /** Format: uuid */
+            lenderOrgId: string;
+            lenderName: string;
+            lenderKind: string | null;
+            /** Format: uuid */
+            profileId: string;
+            profileName: string;
+            trancheIds: string[];
+            reasons: string[];
+        };
+        RfpInput: {
+            /** Format: uuid */
+            id: string;
+            ref: string;
+            /** Format: uuid */
+            financingRequestId: string;
+            financingRequestRef: string;
+            /** Format: uuid */
+            blockId: string;
+            blockName: string;
+            region: string;
+            /** Format: uuid */
+            seasonId: string;
+            /** Format: uuid */
+            dossierId: string;
+            dossierRef: string;
+            readinessScore: number;
+            grade: string;
+            operatorName: string;
+            /** @enum {string} */
+            status: "draft" | "open" | "closed" | "evaluation" | "awarded" | "cancelled";
+            openedAt: string | null;
+            deadlineAt: string | null;
+            closedAt: string | null;
+            instructions: string | null;
+            minBidSharePct: number;
+            extensions: number;
+            tranches: components["schemas"]["TrancheInput"][];
+            invitations: {
+                /** Format: uuid */
+                id: string;
+                /** Format: uuid */
+                lenderOrgId: string;
+                lenderName: string;
+                /** @enum {string} */
+                status: "invited" | "viewed" | "declined" | "bid_submitted";
+                matchReasons: string[];
+                declinedReason: string | null;
+                invitedAt: string | null;
+                viewedAt: string | null;
+            }[];
+            myInvitation: {
+                /** Format: uuid */
+                id: string;
+                /** Format: uuid */
+                lenderOrgId: string;
+                lenderName: string;
+                /** @enum {string} */
+                status: "invited" | "viewed" | "declined" | "bid_submitted";
+                matchReasons: string[];
+                declinedReason: string | null;
+                invitedAt: string | null;
+                viewedAt: string | null;
+            } | null;
+            version: number;
+            allowedActions: string[];
+        };
+        OpportunityInput: {
+            invitation: {
+                /** Format: uuid */
+                id: string;
+                /** Format: uuid */
+                lenderOrgId: string;
+                lenderName: string;
+                /** @enum {string} */
+                status: "invited" | "viewed" | "declined" | "bid_submitted";
+                matchReasons: string[];
+                declinedReason: string | null;
+                invitedAt: string | null;
+                viewedAt: string | null;
+            };
+            rfp: {
+                /** Format: uuid */
+                id: string;
+                ref: string;
+                /** Format: uuid */
+                financingRequestId: string;
+                financingRequestRef: string;
+                /** Format: uuid */
+                blockId: string;
+                blockName: string;
+                region: string;
+                /** Format: uuid */
+                seasonId: string;
+                /** Format: uuid */
+                dossierId: string;
+                dossierRef: string;
+                readinessScore: number;
+                grade: string;
+                operatorName: string;
+                /** @enum {string} */
+                status: "draft" | "open" | "closed" | "evaluation" | "awarded" | "cancelled";
+                openedAt: string | null;
+                deadlineAt: string | null;
+                closedAt: string | null;
+                instructions: string | null;
+                minBidSharePct: number;
+                extensions: number;
+                tranches: components["schemas"]["TrancheInput"][];
+                myInvitation: {
+                    /** Format: uuid */
+                    id: string;
+                    /** Format: uuid */
+                    lenderOrgId: string;
+                    lenderName: string;
+                    /** @enum {string} */
+                    status: "invited" | "viewed" | "declined" | "bid_submitted";
+                    matchReasons: string[];
+                    declinedReason: string | null;
+                    invitedAt: string | null;
+                    viewedAt: string | null;
+                } | null;
+                version: number;
+                allowedActions: string[];
+            };
+        };
+        BidInput: {
+            /** Format: uuid */
+            trancheId: string;
+            amountXof: number;
+            rateBps: number;
+            /** @enum {string} */
+            rateMethod: "flat" | "declining";
+            upfrontFeeBps: number;
+            tenorMonths: number;
+            graceMonths: number;
+            /** @enum {string} */
+            graceType: "interest_only" | "capitalised";
+            /** @enum {string} */
+            repaymentProfile: "bullet" | "seasonal" | "annuity" | "equal_principal";
+            securityRequirements: ("escrow_domiciliation" | "guarantee_fongip" | "insurance" | "equipment_pledge" | "group_guarantee" | "personal_guarantee" | "cash_collateral" | "other")[];
+            cashCollateralPct: number;
+            conditionsPrecedent: string[];
+            daysToDisbursement: number;
+            /** Format: date */
+            validUntil: string;
+            acceptsPartial: boolean;
+            comments: string | null;
+            /** Format: uuid */
+            id: string;
+            /** Format: uuid */
+            rfpId: string;
+            /** Format: uuid */
+            lenderOrgId: string;
+            lenderName: string;
+            /** @enum {string} */
+            status: "draft" | "submitted" | "withdrawn" | "opened" | "awarded" | "not_awarded" | "expired";
+            sharePct: number;
+            earBps: number;
+            submittedAt: string | null;
+            version: number;
+            allowedActions: string[];
+        };
+        BidPreviewInput: {
+            earBps: number;
+            schedule: {
+                seq: number;
+                month: number;
+                principalXof: number;
+                interestXof: number;
+                feesXof: number;
+                totalXof: number;
+            }[];
+            totalInterestXof: number;
+            upfrontFeeXof: number;
+        };
+        EvaluationInput: {
+            tranches: {
+                /** Format: uuid */
+                trancheId: string;
+                amountXof: number;
+                evaluations: {
+                    /** Format: uuid */
+                    bidId: string;
+                    lenderName: string;
+                    amountXof: number;
+                    effectiveAnnualRateBps: number;
+                    scoreCost: number;
+                    scoreShare: number;
+                    scoreSpeed: number;
+                    scoreConditions: number;
+                    totalScore: number;
+                    rank: number;
+                }[];
+                suggestedAllocation: {
+                    /** Format: uuid */
+                    bidId: string;
+                    amountXof: number;
+                }[];
+                weightedEarBps: number | null;
+            }[];
+        };
+        AwardInput: {
+            /** Format: uuid */
+            id: string;
+            /** Format: uuid */
+            rfpId: string;
+            /** Format: uuid */
+            bidId: string;
+            /** Format: uuid */
+            trancheId: string;
+            /** Format: uuid */
+            lenderOrgId: string;
+            lenderName: string;
+            amountXof: number;
+            /** @enum {string} */
+            status: "proposed" | "accepted_by_lender" | "declined_by_lender" | "cancelled";
+            decidedAt: string | null;
+            lenderResponseAt: string | null;
+            declineReason: string | null;
+            blockName: string;
+            rfpRef: string;
+            allowedActions: string[];
+        };
         Problem: {
             type: string;
             title: string;
@@ -3637,6 +4412,294 @@ export interface components {
             status: "proposed" | "committed" | "active" | "expired";
             fileId: string | null;
             version: number;
+        };
+        LenderProfile: {
+            name: string;
+            active: boolean;
+            cropIds: string[];
+            regions: string[];
+            trancheTypes: ("seasonal" | "investment")[];
+            minTicketXof: number;
+            maxTicketXof: number;
+            minReadinessScore: number;
+            maxTenorMonths: number;
+            requiresGuarantee: boolean;
+            minGuaranteePct: number;
+            requiresInsurance: boolean;
+            maxRateBps: number | null;
+            notes: string | null;
+            /** Format: uuid */
+            id: string;
+            /** Format: uuid */
+            lenderOrgId: string;
+            version: number;
+            /** Format: date-time */
+            createdAt: string;
+        };
+        Tranche: {
+            /** @enum {string} */
+            type: "seasonal" | "investment";
+            amountXof: number;
+            requestedTenorMonths: number;
+            /** @default 0 */
+            requestedGraceMonths: number;
+            /** @enum {string} */
+            repaymentProfile: "bullet" | "seasonal" | "annuity" | "equal_principal";
+            /** @enum {string} */
+            borrowerType: "operator" | "farmers" | "farmer_group";
+            borrowerOrgId?: string | null;
+            purpose: string;
+            /** Format: uuid */
+            id: string;
+            /** @enum {string} */
+            status: "open" | "fully_awarded" | "partially_awarded" | "unawarded";
+            awardedXof: number;
+        };
+        FinancingRequest: {
+            /** Format: uuid */
+            id: string;
+            ref: string;
+            /** Format: uuid */
+            blockId: string;
+            blockName: string;
+            /** Format: uuid */
+            seasonId: string;
+            /** Format: uuid */
+            dossierId: string;
+            /** @enum {string} */
+            status: "draft" | "submitted" | "in_tender" | "awarded" | "contracted" | "cancelled";
+            submittedAt: string | null;
+            tranches: components["schemas"]["Tranche"][];
+            rfpId: string | null;
+            version: number;
+            /** Format: date-time */
+            createdAt: string;
+            allowedActions: string[];
+        };
+        LenderMatch: {
+            /** Format: uuid */
+            lenderOrgId: string;
+            lenderName: string;
+            lenderKind: string | null;
+            /** Format: uuid */
+            profileId: string;
+            profileName: string;
+            trancheIds: string[];
+            reasons: string[];
+        };
+        Rfp: {
+            /** Format: uuid */
+            id: string;
+            ref: string;
+            /** Format: uuid */
+            financingRequestId: string;
+            financingRequestRef: string;
+            /** Format: uuid */
+            blockId: string;
+            blockName: string;
+            region: string;
+            /** Format: uuid */
+            seasonId: string;
+            /** Format: uuid */
+            dossierId: string;
+            dossierRef: string;
+            readinessScore: number;
+            grade: string;
+            operatorName: string;
+            /** @enum {string} */
+            status: "draft" | "open" | "closed" | "evaluation" | "awarded" | "cancelled";
+            openedAt: string | null;
+            deadlineAt: string | null;
+            closedAt: string | null;
+            instructions: string | null;
+            minBidSharePct: number;
+            extensions: number;
+            tranches: components["schemas"]["Tranche"][];
+            invitations: {
+                /** Format: uuid */
+                id: string;
+                /** Format: uuid */
+                lenderOrgId: string;
+                lenderName: string;
+                /** @enum {string} */
+                status: "invited" | "viewed" | "declined" | "bid_submitted";
+                matchReasons: string[];
+                declinedReason: string | null;
+                invitedAt: string | null;
+                viewedAt: string | null;
+            }[];
+            myInvitation: {
+                /** Format: uuid */
+                id: string;
+                /** Format: uuid */
+                lenderOrgId: string;
+                lenderName: string;
+                /** @enum {string} */
+                status: "invited" | "viewed" | "declined" | "bid_submitted";
+                matchReasons: string[];
+                declinedReason: string | null;
+                invitedAt: string | null;
+                viewedAt: string | null;
+            } | null;
+            version: number;
+            allowedActions: string[];
+        };
+        Opportunity: {
+            invitation: {
+                /** Format: uuid */
+                id: string;
+                /** Format: uuid */
+                lenderOrgId: string;
+                lenderName: string;
+                /** @enum {string} */
+                status: "invited" | "viewed" | "declined" | "bid_submitted";
+                matchReasons: string[];
+                declinedReason: string | null;
+                invitedAt: string | null;
+                viewedAt: string | null;
+            };
+            rfp: {
+                /** Format: uuid */
+                id: string;
+                ref: string;
+                /** Format: uuid */
+                financingRequestId: string;
+                financingRequestRef: string;
+                /** Format: uuid */
+                blockId: string;
+                blockName: string;
+                region: string;
+                /** Format: uuid */
+                seasonId: string;
+                /** Format: uuid */
+                dossierId: string;
+                dossierRef: string;
+                readinessScore: number;
+                grade: string;
+                operatorName: string;
+                /** @enum {string} */
+                status: "draft" | "open" | "closed" | "evaluation" | "awarded" | "cancelled";
+                openedAt: string | null;
+                deadlineAt: string | null;
+                closedAt: string | null;
+                instructions: string | null;
+                minBidSharePct: number;
+                extensions: number;
+                tranches: components["schemas"]["Tranche"][];
+                myInvitation: {
+                    /** Format: uuid */
+                    id: string;
+                    /** Format: uuid */
+                    lenderOrgId: string;
+                    lenderName: string;
+                    /** @enum {string} */
+                    status: "invited" | "viewed" | "declined" | "bid_submitted";
+                    matchReasons: string[];
+                    declinedReason: string | null;
+                    invitedAt: string | null;
+                    viewedAt: string | null;
+                } | null;
+                version: number;
+                allowedActions: string[];
+            };
+        };
+        Bid: {
+            /** Format: uuid */
+            trancheId: string;
+            amountXof: number;
+            rateBps: number;
+            /** @enum {string} */
+            rateMethod: "flat" | "declining";
+            upfrontFeeBps: number;
+            tenorMonths: number;
+            graceMonths: number;
+            /** @enum {string} */
+            graceType: "interest_only" | "capitalised";
+            /** @enum {string} */
+            repaymentProfile: "bullet" | "seasonal" | "annuity" | "equal_principal";
+            securityRequirements: ("escrow_domiciliation" | "guarantee_fongip" | "insurance" | "equipment_pledge" | "group_guarantee" | "personal_guarantee" | "cash_collateral" | "other")[];
+            cashCollateralPct: number;
+            conditionsPrecedent: string[];
+            daysToDisbursement: number;
+            /** Format: date */
+            validUntil: string;
+            acceptsPartial: boolean;
+            comments: string | null;
+            /** Format: uuid */
+            id: string;
+            /** Format: uuid */
+            rfpId: string;
+            /** Format: uuid */
+            lenderOrgId: string;
+            lenderName: string;
+            /** @enum {string} */
+            status: "draft" | "submitted" | "withdrawn" | "opened" | "awarded" | "not_awarded" | "expired";
+            sharePct: number;
+            earBps: number;
+            submittedAt: string | null;
+            version: number;
+            allowedActions: string[];
+        };
+        BidPreview: {
+            earBps: number;
+            schedule: {
+                seq: number;
+                month: number;
+                principalXof: number;
+                interestXof: number;
+                feesXof: number;
+                totalXof: number;
+            }[];
+            totalInterestXof: number;
+            upfrontFeeXof: number;
+        };
+        Evaluation: {
+            tranches: {
+                /** Format: uuid */
+                trancheId: string;
+                amountXof: number;
+                evaluations: {
+                    /** Format: uuid */
+                    bidId: string;
+                    lenderName: string;
+                    amountXof: number;
+                    effectiveAnnualRateBps: number;
+                    scoreCost: number;
+                    scoreShare: number;
+                    scoreSpeed: number;
+                    scoreConditions: number;
+                    totalScore: number;
+                    rank: number;
+                }[];
+                suggestedAllocation: {
+                    /** Format: uuid */
+                    bidId: string;
+                    amountXof: number;
+                }[];
+                weightedEarBps: number | null;
+            }[];
+        };
+        Award: {
+            /** Format: uuid */
+            id: string;
+            /** Format: uuid */
+            rfpId: string;
+            /** Format: uuid */
+            bidId: string;
+            /** Format: uuid */
+            trancheId: string;
+            /** Format: uuid */
+            lenderOrgId: string;
+            lenderName: string;
+            amountXof: number;
+            /** @enum {string} */
+            status: "proposed" | "accepted_by_lender" | "declined_by_lender" | "cancelled";
+            decidedAt: string | null;
+            lenderResponseAt: string | null;
+            declineReason: string | null;
+            blockName: string;
+            rfpRef: string;
+            allowedActions: string[];
         };
     };
     responses: never;
@@ -8123,6 +9186,1094 @@ export interface operations {
                 };
                 content: {
                     "application/json": components["schemas"]["RiskCover"];
+                };
+            };
+        };
+    };
+    listLenderProfiles: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Default Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        data: components["schemas"]["LenderProfile"][];
+                    };
+                };
+            };
+        };
+    };
+    createLenderProfile: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": {
+                    name: string;
+                    active?: boolean;
+                    cropIds?: string[];
+                    regions?: string[];
+                    trancheTypes: ("seasonal" | "investment")[];
+                    minTicketXof: number;
+                    maxTicketXof: number;
+                    minReadinessScore?: number;
+                    maxTenorMonths: number;
+                    requiresGuarantee?: boolean;
+                    minGuaranteePct?: number;
+                    requiresInsurance?: boolean;
+                    maxRateBps?: number | null;
+                    notes?: string | null;
+                };
+            };
+        };
+        responses: {
+            /** @description Default Response */
+            201: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["LenderProfile"];
+                };
+            };
+        };
+    };
+    updateLenderProfile: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": {
+                    name?: string;
+                    active?: boolean;
+                    cropIds?: string[];
+                    regions?: string[];
+                    trancheTypes?: ("seasonal" | "investment")[];
+                    minTicketXof?: number;
+                    maxTicketXof?: number;
+                    minReadinessScore?: number;
+                    maxTenorMonths?: number;
+                    requiresGuarantee?: boolean;
+                    minGuaranteePct?: number;
+                    requiresInsurance?: boolean;
+                    maxRateBps?: number | null;
+                    notes?: string | null;
+                };
+            };
+        };
+        responses: {
+            /** @description Default Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["LenderProfile"];
+                };
+            };
+        };
+    };
+    previewLenderProfile: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Default Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        matchingRequests: number;
+                        openRequests: number;
+                    };
+                };
+            };
+        };
+    };
+    listFinancingRequests: {
+        parameters: {
+            query?: {
+                seasonId?: string;
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Default Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        data: components["schemas"]["FinancingRequest"][];
+                    };
+                };
+            };
+        };
+    };
+    createFinancingRequest: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": {
+                    /** Format: uuid */
+                    dossierId: string;
+                    tranches?: {
+                        /** @enum {string} */
+                        type: "seasonal" | "investment";
+                        amountXof: number;
+                        requestedTenorMonths: number;
+                        /** @default 0 */
+                        requestedGraceMonths?: number;
+                        /** @enum {string} */
+                        repaymentProfile: "bullet" | "seasonal" | "annuity" | "equal_principal";
+                        /** @enum {string} */
+                        borrowerType: "operator" | "farmers" | "farmer_group";
+                        borrowerOrgId?: string | null;
+                        purpose: string;
+                    }[];
+                };
+            };
+        };
+        responses: {
+            /** @description Default Response */
+            201: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["FinancingRequest"];
+                };
+            };
+        };
+    };
+    getFinancingRequest: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Default Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["FinancingRequest"];
+                };
+            };
+        };
+    };
+    updateFinancingRequest: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": {
+                    tranches: {
+                        /** @enum {string} */
+                        type: "seasonal" | "investment";
+                        amountXof: number;
+                        requestedTenorMonths: number;
+                        /** @default 0 */
+                        requestedGraceMonths?: number;
+                        /** @enum {string} */
+                        repaymentProfile: "bullet" | "seasonal" | "annuity" | "equal_principal";
+                        /** @enum {string} */
+                        borrowerType: "operator" | "farmers" | "farmer_group";
+                        borrowerOrgId?: string | null;
+                        purpose: string;
+                    }[];
+                };
+            };
+        };
+        responses: {
+            /** @description Default Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["FinancingRequest"];
+                };
+            };
+        };
+    };
+    submitFinancingRequest: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Default Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["FinancingRequest"];
+                };
+            };
+        };
+    };
+    cancelFinancingRequest: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": {
+                    reason?: string;
+                    workingDays?: number;
+                };
+            };
+        };
+        responses: {
+            /** @description Default Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["FinancingRequest"];
+                };
+            };
+        };
+    };
+    getFinancingRequestMatches: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Default Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        data: components["schemas"]["LenderMatch"][];
+                    };
+                };
+            };
+        };
+    };
+    createRfp: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": {
+                    /** Format: uuid */
+                    financingRequestId: string;
+                    lenderOrgIds?: string[];
+                    instructions?: string | null;
+                    minBidSharePct?: number;
+                };
+            };
+        };
+        responses: {
+            /** @description Default Response */
+            201: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Rfp"];
+                };
+            };
+        };
+    };
+    getRfp: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Default Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Rfp"];
+                };
+            };
+        };
+    };
+    openRfp: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": {
+                    reason?: string;
+                    workingDays?: number;
+                };
+            };
+        };
+        responses: {
+            /** @description Default Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Rfp"];
+                };
+            };
+        };
+    };
+    extendRfp: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": {
+                    reason?: string;
+                    workingDays?: number;
+                };
+            };
+        };
+        responses: {
+            /** @description Default Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Rfp"];
+                };
+            };
+        };
+    };
+    closeRfpEarly: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": {
+                    reason?: string;
+                    workingDays?: number;
+                };
+            };
+        };
+        responses: {
+            /** @description Default Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Rfp"];
+                };
+            };
+        };
+    };
+    cancelRfp: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": {
+                    reason?: string;
+                    workingDays?: number;
+                };
+            };
+        };
+        responses: {
+            /** @description Default Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Rfp"];
+                };
+            };
+        };
+    };
+    viewRfp: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": {
+                    reason?: string;
+                    workingDays?: number;
+                };
+            };
+        };
+        responses: {
+            /** @description Default Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Rfp"];
+                };
+            };
+        };
+    };
+    declineRfp: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": {
+                    reason?: string;
+                    workingDays?: number;
+                };
+            };
+        };
+        responses: {
+            /** @description Default Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Rfp"];
+                };
+            };
+        };
+    };
+    listOpportunities: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Default Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        data: components["schemas"]["Opportunity"][];
+                    };
+                };
+            };
+        };
+    };
+    listRfpQuestions: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Default Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        data: {
+                            /** Format: uuid */
+                            id: string;
+                            /** Format: uuid */
+                            rfpId: string;
+                            askedByMe: boolean;
+                            askedByOrgName: string | null;
+                            question: string;
+                            answer: string | null;
+                            answeredAt: string | null;
+                            published: boolean;
+                            /** Format: date-time */
+                            createdAt: string;
+                        }[];
+                    };
+                };
+            };
+        };
+    };
+    askRfpQuestion: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": {
+                    question: string;
+                };
+            };
+        };
+        responses: {
+            /** @description Default Response */
+            201: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        data: {
+                            /** Format: uuid */
+                            id: string;
+                            /** Format: uuid */
+                            rfpId: string;
+                            askedByMe: boolean;
+                            askedByOrgName: string | null;
+                            question: string;
+                            answer: string | null;
+                            answeredAt: string | null;
+                            published: boolean;
+                            /** Format: date-time */
+                            createdAt: string;
+                        }[];
+                    };
+                };
+            };
+        };
+    };
+    answerRfpQuestion: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+                qid: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": {
+                    answer: string;
+                    /** @default true */
+                    publish?: boolean;
+                };
+            };
+        };
+        responses: {
+            /** @description Default Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        data: {
+                            /** Format: uuid */
+                            id: string;
+                            /** Format: uuid */
+                            rfpId: string;
+                            askedByMe: boolean;
+                            askedByOrgName: string | null;
+                            question: string;
+                            answer: string | null;
+                            answeredAt: string | null;
+                            published: boolean;
+                            /** Format: date-time */
+                            createdAt: string;
+                        }[];
+                    };
+                };
+            };
+        };
+    };
+    listRfpBids: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Default Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        data: components["schemas"]["Bid"][];
+                    };
+                };
+            };
+        };
+    };
+    createBid: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": {
+                    /** Format: uuid */
+                    trancheId: string;
+                    amountXof: number;
+                    rateBps: number;
+                    /** @enum {string} */
+                    rateMethod: "flat" | "declining";
+                    upfrontFeeBps?: number;
+                    tenorMonths: number;
+                    graceMonths?: number;
+                    /** @enum {string} */
+                    graceType?: "interest_only" | "capitalised";
+                    /** @enum {string} */
+                    repaymentProfile: "bullet" | "seasonal" | "annuity" | "equal_principal";
+                    securityRequirements?: ("escrow_domiciliation" | "guarantee_fongip" | "insurance" | "equipment_pledge" | "group_guarantee" | "personal_guarantee" | "cash_collateral" | "other")[];
+                    cashCollateralPct?: number;
+                    conditionsPrecedent?: string[];
+                    daysToDisbursement: number;
+                    /** Format: date */
+                    validUntil: string;
+                    acceptsPartial?: boolean;
+                    comments?: string | null;
+                };
+            };
+        };
+        responses: {
+            /** @description Default Response */
+            201: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Bid"];
+                };
+            };
+        };
+    };
+    previewBid: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": {
+                    amountXof: number;
+                    rateBps: number;
+                    /** @enum {string} */
+                    rateMethod: "flat" | "declining";
+                    upfrontFeeBps: number;
+                    tenorMonths: number;
+                    graceMonths: number;
+                    /** @enum {string} */
+                    graceType: "interest_only" | "capitalised";
+                    /** @enum {string} */
+                    repaymentProfile: "bullet" | "seasonal" | "annuity" | "equal_principal";
+                    /** Format: uuid */
+                    trancheId?: string;
+                };
+            };
+        };
+        responses: {
+            /** @description Default Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["BidPreview"];
+                };
+            };
+        };
+    };
+    getBid: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Default Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Bid"];
+                };
+            };
+        };
+    };
+    updateBid: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": {
+                    amountXof?: number;
+                    rateBps?: number;
+                    /** @enum {string} */
+                    rateMethod?: "flat" | "declining";
+                    upfrontFeeBps?: number;
+                    tenorMonths?: number;
+                    graceMonths?: number;
+                    /** @enum {string} */
+                    graceType?: "interest_only" | "capitalised";
+                    /** @enum {string} */
+                    repaymentProfile?: "bullet" | "seasonal" | "annuity" | "equal_principal";
+                    securityRequirements?: ("escrow_domiciliation" | "guarantee_fongip" | "insurance" | "equipment_pledge" | "group_guarantee" | "personal_guarantee" | "cash_collateral" | "other")[];
+                    cashCollateralPct?: number;
+                    conditionsPrecedent?: string[];
+                    daysToDisbursement?: number;
+                    /** Format: date */
+                    validUntil?: string;
+                    acceptsPartial?: boolean;
+                    comments?: string | null;
+                };
+            };
+        };
+        responses: {
+            /** @description Default Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Bid"];
+                };
+            };
+        };
+    };
+    submitBid: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Default Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Bid"];
+                };
+            };
+        };
+    };
+    withdrawBid: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Default Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Bid"];
+                };
+            };
+        };
+    };
+    getRfpEvaluation: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Default Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Evaluation"];
+                };
+            };
+        };
+    };
+    awardRfp: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": {
+                    awards: {
+                        /** Format: uuid */
+                        bidId: string;
+                        amountXof: number;
+                    }[];
+                };
+            };
+        };
+        responses: {
+            /** @description Default Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Rfp"];
+                };
+            };
+        };
+    };
+    listRfpAwards: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Default Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        data: components["schemas"]["Award"][];
+                    };
+                };
+            };
+        };
+    };
+    listLenderAwards: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Default Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        data: components["schemas"]["Award"][];
+                    };
+                };
+            };
+        };
+    };
+    acceptAward: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": {
+                    reason?: string;
+                };
+            };
+        };
+        responses: {
+            /** @description Default Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @enum {boolean} */
+                        ok: true;
+                    };
+                };
+            };
+        };
+    };
+    declineAward: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": {
+                    reason?: string;
+                };
+            };
+        };
+        responses: {
+            /** @description Default Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @enum {boolean} */
+                        ok: true;
+                    };
                 };
             };
         };

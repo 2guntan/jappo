@@ -170,3 +170,16 @@ export async function readyScenarioViaApi(request: APIRequestContext, stamp = Da
   await op.call('POST', `/v1/offtake-contracts/${o.id}/actions/mark-signed`, {}, { 'if-match': '"1"' });
   return { op, opEmail, buyer, admin, blockId: block.id, seasonId: season.id, plots, farmers, offtakeId: o.id };
 }
+
+/** Verified lender whose user is org_admin + credit_officer + credit_committee with TOTP enrolled. */
+export async function lenderViaApi(request: APIRequestContext, legalName: string, lenderKind: string, profile: Record<string, unknown>, stamp = Date.now()) {
+  const email = `${legalName.toLowerCase().replace(/[^a-z]/g, '')}.${stamp}@lender.test`;
+  const a = await verifiedOrgViaApi(request, { orgType: 'lender', lenderKind, legalName, legalForm: lenderKind === 'bank' ? 'SA' : 'mutuelle', email });
+  const me = await a.call<{ user: { id: string } }>('GET', '/v1/me');
+  await a.call('PATCH', `/v1/orgs/current/members/${me.user.id}`, { roles: ['org_admin', 'credit_officer', 'credit_committee'] });
+  const { secret } = await a.call<{ secret: string }>('POST', '/v1/auth/mfa/enroll');
+  const act = await a.call<{ accessToken: string }>('POST', '/v1/auth/mfa/activate', { code: totp(secret) });
+  a.token = act.accessToken;
+  await a.call('POST', '/v1/lender-profiles', { name: 'Profil', minTicketXof: 500_000, maxTicketXof: 50_000_000, maxTenorMonths: 12, trancheTypes: ['seasonal'], ...profile });
+  return { api: a, email, totpSecret: secret };
+}
