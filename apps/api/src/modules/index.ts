@@ -8,6 +8,9 @@ import { systemRoutes } from './system/routes';
 import { farmerRoutes } from './farmers/routes';
 import { landRoutes } from './land/routes';
 import { fieldRoutes } from './field/routes';
+import { catalogueRoutes } from './catalogue/routes';
+import { planningRoutes } from './planning/routes';
+import { offtakeRoutes } from './offtake/routes';
 
 const ALL = ['platform', 'operator', 'lender', 'buyer', 'guarantor', 'insurer', 'supplier', 'farmer_group'] as const;
 
@@ -66,6 +69,36 @@ export const MODULES: JappoModule[] = validateModules([
     core: true,
     dependsOn: ['land'],
     ui: { workspace: ['platform'], navItems: [{ key: 'admin-land', href: '/app/admin/land-documents', labelKey: 'nav.adminLand', permission: 'admin:read' }] },
+  },
+  {
+    name: 'catalogue',
+    version: '1.0.0',
+    core: true,
+    dependsOn: ['identity'],
+    routes: catalogueRoutes,
+    ui: { workspace: ['operator', 'platform'], navItems: [{ key: 'catalogue', href: '/app/catalogue', labelKey: 'nav.catalogue', permission: 'catalogue:read' }] },
+  },
+  {
+    name: 'planning',
+    version: '1.0.0',
+    core: true,
+    dependsOn: ['land', 'catalogue'],
+    routes: planningRoutes,
+    ui: { workspace: ['operator'], navItems: [{ key: 'quotes', href: '/app/quotes', labelKey: 'nav.quotes', permission: 'quote:read' }] },
+  },
+  {
+    name: 'offtake',
+    version: '1.0.0',
+    core: true,
+    dependsOn: ['land', 'catalogue'],
+    routes: offtakeRoutes,
+    ui: {
+      workspace: ['operator', 'buyer'],
+      navItems: [
+        { key: 'offtake', href: '/app/offtake', labelKey: 'nav.offtake', permission: 'offtake:manage' },
+        { key: 'buyer-contracts', href: '/app/buyer/contracts', labelKey: 'nav.buyerContracts', permission: 'dispatch:accept' },
+      ],
+    },
   },
   {
     name: 'field',

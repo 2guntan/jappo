@@ -109,3 +109,20 @@ describe('authz: land & farmers (P2)', () => {
     expect((await t.app.inject({ method: 'PATCH', url: `/v1/blocks/${b.id}`, headers: auth(lender, { 'if-match': '"1"' }), payload: { name: 'Bloc X' } })).statusCode).toBe(403);
   });
 });
+
+describe('authz: planning & offtake (P3)', () => {
+  it('stranger gets 404 on seasons, plantings, budget, capex, opex, fee policy, quotes are org-scoped', async () => {
+    const { createBlock, setBoundary } = await import('../helpers');
+    const b = await createBlock(t, owner);
+    await setBoundary(t, owner, b.id);
+    const s = json<{ id: string }>(await t.app.inject({ method: 'POST', url: `/v1/blocks/${b.id}/seasons`, headers: auth(owner), payload: { name: 'S1', kind: 'rainy', startDate: '2026-06-01', endDate: '2026-11-30' } }));
+    await t.app.inject({ method: 'PUT', url: `/v1/blocks/${b.id}/fee-policy`, headers: auth(owner), payload: { operatorServiceFeeXofPerFarmerSeason: 1, landFeeXofPerHaSeason: 1, investmentRecoveryFeeXofPerHaSeason: 1 } });
+    const svc = json<{ data: { id: string }[] }>(await t.app.inject({ method: 'GET', url: '/v1/services', headers: auth(owner) })).data[0]!;
+    await t.app.inject({ method: 'POST', url: '/v1/supplier-quotes', headers: auth(owner), payload: { supplierName: 'X', serviceId: svc.id, unit: 'kg', unitPriceXof: 1, validUntil: '2027-01-01' } });
+    for (const url of [`/v1/blocks/${b.id}/seasons`, `/v1/seasons/${s.id}`, `/v1/seasons/${s.id}/plantings`, `/v1/seasons/${s.id}/budget-lines`, `/v1/seasons/${s.id}/budget-summary`, `/v1/blocks/${b.id}/capex-items`, `/v1/blocks/${b.id}/operator-opex`, `/v1/blocks/${b.id}/fee-policy`]) {
+      expect((await t.app.inject({ method: 'GET', url, headers: auth(stranger) })).statusCode, url).toBe(404);
+    }
+    expect(json<{ data: unknown[] }>(await t.app.inject({ method: 'GET', url: '/v1/supplier-quotes', headers: auth(stranger) })).data).toHaveLength(0);
+    expect((await t.app.inject({ method: 'POST', url: `/v1/seasons/${s.id}/budget-lines`, headers: auth(stranger), payload: { scope: 'block', serviceId: svc.id, qty: 1, payer: 'operator' } })).statusCode).toBe(404);
+  });
+});

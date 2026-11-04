@@ -7,6 +7,7 @@ import { memberships, organizations, users } from '../modules/identity/schema';
 import { hashPassword } from '../core/auth/passwords';
 import { encryptPii } from '../core/crypto';
 import type { Db } from '../db/client';
+import { seedCatalogue } from './catalogue';
 
 const ROLE_DESCRIPTIONS: Record<string, string> = {
   platform_admin: 'Everything; KYC review; catalogues; templates; plans; support',
@@ -84,5 +85,6 @@ export async function seedPlatform(ctx: ModuleContext): Promise<{ orgId: string;
 
 export async function runSeed(ctx: ModuleContext): Promise<void> {
   await seedReference(ctx.db);
+  await seedCatalogue(ctx.db);
   await seedPlatform(ctx);
 }

@@ -77,3 +77,58 @@ export function farmersCsv(n: number, phonePrefix = '+22177100') {
   });
   return { name: 'farmers.csv', mimeType: 'text/csv', buffer: Buffer.from([header, ...rows].join('\n')) };
 }
+
+export const API = 'http://localhost:4100';
+import type { APIRequestContext } from '@playwright/test';
+
+/** Thin API client for e2e setup steps (the UI under test is exercised separately). */
+export class E2eApi {
+  constructor(
+    private request: APIRequestContext,
+    public token = '',
+    public orgId = '',
+  ) {}
+  private headers(extra: Record<string, string> = {}) {
+    return { ...(this.token ? { authorization: `Bearer ${this.token}` } : {}), ...(this.orgId ? { 'x-org-id': this.orgId } : {}), ...extra };
+  }
+  async call<T = Record<string, unknown>>(method: 'GET' | 'POST' | 'PATCH' | 'PUT' | 'DELETE', path: string, data?: unknown, extra: Record<string, string> = {}): Promise<T> {
+    const r = await this.request.fetch(`${API}${path}`, { method, data: data as never, headers: this.headers(extra) });
+    if (!r.ok()) throw new Error(`${method} ${path} → ${r.status()} ${await r.text()}`);
+    return (await r.json()) as T;
+  }
+  async upload(path: string, fields: Record<string, string>, file: { name: string; mimeType: string; buffer: Buffer }) {
+    const r = await this.request.fetch(`${API}${path}`, { method: 'POST', headers: this.headers(), multipart: { ...fields, file } });
+    if (!r.ok()) throw new Error(`upload ${path} → ${r.status()} ${await r.text()}`);
+    return (await r.json()) as { id: string };
+  }
+  async me() {
+    const m = await this.call<{ activeOrgId: string }>('GET', '/v1/me');
+    this.orgId = m.activeOrgId;
+    return m;
+  }
+  static async signup(request: APIRequestContext, body: Record<string, unknown>) {
+    const a = new E2eApi(request);
+    const r = await a.call<{ accessToken: string }>('POST', '/v1/auth/signup', { legalForm: 'SARL', fullName: 'Demo User', password: PASSWORD, locale: 'fr', ...body });
+    a.token = r.accessToken;
+    await a.me();
+    return a;
+  }
+  static async login(request: APIRequestContext, email: string, password: string, totpSecret?: string) {
+    const a = new E2eApi(request);
+    const r = await a.call<{ accessToken: string }>('POST', '/v1/auth/login', { email, password, ...(totpSecret ? { totp: totp(totpSecret) } : {}) });
+    a.token = r.accessToken;
+    await a.me();
+    return a;
+  }
+}
+
+/** Sign up an org through the API and get it KYC-verified by the platform admin. */
+export async function verifiedOrgViaApi(request: APIRequestContext, body: Record<string, unknown>) {
+  const a = await E2eApi.signup(request, body);
+  const docs = body.orgType === 'lender' ? ['ninea', 'rccm', 'approval_bceao'] : ['ninea', 'rccm'];
+  for (const d of docs) await a.upload('/v1/orgs/current/kyc-documents', { docType: d }, pdf(`${d}.pdf`));
+  await a.call('POST', '/v1/orgs/current/actions/submit-kyc');
+  const admin = await E2eApi.login(request, ADMIN.email, ADMIN.password, ADMIN.totp);
+  await admin.call('POST', `/v1/admin/orgs/${a.orgId}/kyc/actions/verify`, {});
+  return a;
+}

@@ -7,7 +7,7 @@ Source of truth for the next session. Phases from SPEC §17. Update after every 
 - [x] P0 Scaffold
 - [x] P1 Identity & core
 - [x] P2 Land & farmers
-- [ ] P3 Catalogue, planning, offtake
+- [x] P3 Catalogue, planning, offtake
 - [ ] P4 Model, readiness, dossier
 - [ ] P5 Marketplace
 - [ ] P6 Agreements & facilities
@@ -35,9 +35,17 @@ Web: blocks list + map view, new block, block page tabs (overview with next acti
 Tests: integration `farmers.test.ts`, `land.test.ts`, `field-sync.test.ts`, P2 cases in `authz.spec.test.ts` (stranger 404 on 10 GET routes + 5 writes; block grant read propagation with masked PII) — 47 integration tests total; Playwright `p2-land-farmers.spec.ts` (20 plots, 20 farmers via UI, PWA offline enrol + allocate, sync).
 Known limitations: plot split/merge editing is not provided beyond auto-grid + draw (SPEC lists "split" in the plots editor — next candidate); photo capture uses file upload + `photo.attach` op.
 
+## P3 Catalogue, planning, offtake — done
+
+Domain: `allocateBudget` (§9.1.3 scopes, per-farmer half-even rounding with residual to the largest allocation, tie by farmer code, unallocated + warnings) with a hand-computed fixture test.
+API: catalogue (crops, zones, effective crop templates with operator overrides, services platform/own, market prices, admin create), seasons (create/update/start self-financed/cancel, plan version), plantings (create, bulk-assign, update, delete; area ≤ plot; effective yields/prices with `priceSource`), budget lines (CRUD, generate from templates with cheapest valid quote), budget summary (totals by payer, per ha, quoted share, per farmer), supplier quotes, capex, operator opex, fee policy (versioned), offtake contracts (ref OFT-…, lifecycle, buyer grant) and `/buyer/contracts`. Seed: 4 zones, 10 crops, 32 services, irrigated/rainfed templates per zone, market prices.
+Web: block tabs *Seasons*, *Offtake*, *Investment* (capex, opex, fee policy); season page with *Plan* (bulk assign, inline yield/price overrides, price source) and *Budget* (generate/regenerate, add/remove lines, totals by payer, per ha, quoted share, per-farmer credit, CSV); catalogue (templates per zone/irrigation with customise, services + create); supplier quotes (with file); offtake contracts (all blocks) with LOI/sign/terminate; buyer portal *Mes contrats*.
+Tests: domain 14 tests (100 % lines); 54 integration tests (adds `planning.test.ts`: overrides, plantings defaults & offtake price, budget generation + per-farmer manual totals, season start guard/lock, capex/opex/fees, offtake lifecycle & buyer access; P3 authz negatives); Playwright `p3-planning.spec.ts`.
+Known limitations: `/buyer/dispatches` arrives with dispatches in P7; contract expiry (`expired`) is set by a job added with alert rules in P7.
+
 ## In progress
 
-Nothing half-built. **Next concrete step:** P3 — catalogue tables (`crops`, `crop_varieties`, `crop_templates`, `service_catalog`, `zones`, `market_prices`), planning (`seasons`, `plantings`, `supplier_quotes`, `budget_lines`, `capex_items`, `operator_opex`, `fee_policies`), offtake (`offtake_contracts`), seed catalogue (10 crops, zone templates, 30 services), budget generation from templates, per-farmer budget totals fixture test, buyer portal contracts view.
+Nothing half-built. **Next concrete step:** P4 — write golden tests FM-1, FM-2, RS-1 first in `packages/domain/test/` (exact SPEC §9 numbers), then `buildSchedule` (§9.5), `computeBlockModel` (§9.1), `computeReadiness` (§9.2); API: `model_runs`, `dossiers`, `risk_covers` tables; `POST /seasons/{id}/model-runs`, `/preview`, `GET …/current`, `GET /seasons/{id}/readiness`, `POST /seasons/{id}/dossiers` (freeze + PDF via Playwright in worker), data room; UI Model / Readiness / Dossier tabs.
 
 ## How to run
 

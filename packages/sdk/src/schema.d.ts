@@ -1123,6 +1123,524 @@ export interface paths {
         patch: operations["updateGrievance"];
         trace?: never;
     };
+    "/v1/crops": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["listCrops"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v1/admin/crops": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post: operations["adminCreateCrop"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v1/zones": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["listZones"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v1/crop-templates": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Effective crop templates (operator overrides replace platform defaults) */
+        get: operations["listCropTemplates"];
+        put?: never;
+        /** Operator override (or platform default when called by a platform admin) */
+        post: operations["createCropTemplate"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v1/crop-templates/{id}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch: operations["updateCropTemplate"];
+        trace?: never;
+    };
+    "/v1/services": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["listServices"];
+        put?: never;
+        post: operations["createService"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v1/services/{id}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch: operations["updateService"];
+        trace?: never;
+    };
+    "/v1/market-prices": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["listMarketPrices"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v1/admin/market-prices": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post: operations["adminCreateMarketPrice"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v1/blocks/{id}/seasons": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["listSeasons"];
+        put?: never;
+        post: operations["createSeason"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v1/seasons/{id}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["getSeason"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch: operations["updateSeason"];
+        trace?: never;
+    };
+    "/v1/seasons/{id}/actions/start": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** Start the season (confirmed disbursement or self-financed) */
+        post: operations["startSeason"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v1/seasons/{id}/actions/cancel": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post: operations["cancelSeason"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v1/seasons/{id}/plantings": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["listPlantings"];
+        put?: never;
+        post: operations["createPlanting"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v1/seasons/{id}/plantings/actions/bulk-assign": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** Plant one crop on many plots (full plot area); plots already planted are skipped */
+        post: operations["bulkAssignPlantings"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v1/plantings/{id}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post?: never;
+        delete: operations["deletePlanting"];
+        options?: never;
+        head?: never;
+        patch: operations["updatePlanting"];
+        trace?: never;
+    };
+    "/v1/seasons/{id}/budget-lines": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["listBudgetLines"];
+        put?: never;
+        post: operations["createBudgetLine"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v1/seasons/{id}/budget-lines/actions/generate-from-templates": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post: operations["generateBudgetFromTemplates"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v1/seasons/{id}/budget-summary": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Budget totals by payer, per ha and per farmer (SPEC §9.1.3 allocation) */
+        get: operations["getBudgetSummary"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v1/budget-lines/{id}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post?: never;
+        delete: operations["deleteBudgetLine"];
+        options?: never;
+        head?: never;
+        patch: operations["updateBudgetLine"];
+        trace?: never;
+    };
+    "/v1/supplier-quotes": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["listSupplierQuotes"];
+        put?: never;
+        post: operations["createSupplierQuote"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v1/blocks/{id}/capex-items": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["listCapexItems"];
+        put?: never;
+        post: operations["createCapexItem"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v1/capex-items/{id}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post?: never;
+        delete: operations["deleteCapexItem"];
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v1/blocks/{id}/operator-opex": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["listOperatorOpex"];
+        put?: never;
+        post: operations["createOperatorOpex"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v1/operator-opex/{id}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post?: never;
+        delete: operations["deleteOperatorOpex"];
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v1/blocks/{id}/fee-policy": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["getFeePolicy"];
+        put: operations["putFeePolicy"];
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v1/offtake-contracts": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["listOfftakeContracts"];
+        put?: never;
+        post: operations["createOfftakeContract"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v1/offtake-contracts/{id}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["getOfftakeContract"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch: operations["updateOfftakeContract"];
+        trace?: never;
+    };
+    "/v1/offtake-contracts/{id}/actions/mark-loi": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post: operations["markOfftakeLoi"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v1/offtake-contracts/{id}/actions/mark-signed": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post: operations["markOfftakeSigned"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v1/offtake-contracts/{id}/actions/terminate": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post: operations["terminateOfftake"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v1/buyer/contracts": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Offtake contracts where the current organisation is the buyer */
+        get: operations["listBuyerContracts"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/v1/field/bootstrap": {
         parameters: {
             query?: never;
@@ -1464,6 +1982,244 @@ export interface components {
             status: "active" | "ended";
             contractId: string | null;
         };
+        CropInput: {
+            /** Format: uuid */
+            id: string;
+            code: string;
+            nameFr: string;
+            nameEn: string;
+            /** @enum {string} */
+            category: "cereal" | "vegetable" | "legume" | "root" | "fruit" | "oilseed" | "other";
+            perishable: boolean;
+            varieties: {
+                /** Format: uuid */
+                id: string;
+                name: string;
+                cycleDays: number | null;
+            }[];
+        };
+        CropTemplateInput: {
+            /** Format: uuid */
+            id: string;
+            ownerOrgId: string | null;
+            isOverride: boolean;
+            baseTemplateId: string | null;
+            /** Format: uuid */
+            cropId: string;
+            cropCode: string;
+            varietyId: string | null;
+            zone: string;
+            irrigated: boolean;
+            cycleDays: number;
+            yieldBaseTHa: number;
+            yieldStressTHa: number;
+            postHarvestLossPct: number;
+            deliveryRatePct: number;
+            waterM3Ha: number | null;
+            labourDaysHa: number | null;
+            inputs: {
+                /** Format: uuid */
+                serviceId: string;
+                qtyPerHa: number;
+                /** @enum {string} */
+                unit: "kg" | "l" | "ha" | "hour" | "day" | "unit" | "season" | "bag";
+            }[];
+            notes: string | null;
+            version: number;
+        };
+        ServiceInput: {
+            /** Format: uuid */
+            id: string;
+            ownerOrgId: string | null;
+            code: string;
+            nameFr: string;
+            nameEn: string;
+            /** @enum {string} */
+            kind: "seed" | "fertiliser" | "crop_protection" | "mechanisation" | "irrigation_opex" | "labour" | "training" | "transport" | "storage" | "insurance_premium" | "land_fee" | "operator_service_fee" | "investment_recovery_fee" | "platform_fee" | "other";
+            /** @enum {string} */
+            unit: "kg" | "l" | "ha" | "hour" | "day" | "unit" | "season" | "bag";
+            defaultUnitPriceXof: number;
+            active: boolean;
+            version: number;
+        };
+        SeasonInput: {
+            /** Format: uuid */
+            id: string;
+            /** Format: uuid */
+            blockId: string;
+            name: string;
+            /** @enum {string} */
+            kind: "rainy" | "cold_dry" | "hot_dry";
+            /** Format: date */
+            startDate: string;
+            /** Format: date */
+            endDate: string;
+            /** @enum {string} */
+            status: "planning" | "financing" | "in_progress" | "harvest" | "settlement" | "closed" | "cancelled";
+            planVersion: number;
+            selfFinanced: boolean;
+            stats: {
+                plantings: number;
+                plantedHa: number;
+                budgetXof: number;
+            };
+            version: number;
+            /** Format: date-time */
+            createdAt: string;
+            allowedActions: string[];
+        };
+        PlantingInput: {
+            /** Format: uuid */
+            id: string;
+            /** Format: uuid */
+            seasonId: string;
+            /** Format: uuid */
+            plotId: string;
+            plotCode: string;
+            /** Format: uuid */
+            cropId: string;
+            cropCode: string;
+            varietyId: string | null;
+            templateId: string | null;
+            areaHa: number;
+            plannedSowingDate: string | null;
+            plannedHarvestDate: string | null;
+            yieldBaseTHa: number | null;
+            yieldStressTHa: number | null;
+            postHarvestLossPct: number | null;
+            deliveryRatePct: number | null;
+            priceXofPerKgBase: number | null;
+            priceXofPerKgStress: number | null;
+            /** @enum {string} */
+            priceSource: "manual" | "offtake" | "market" | "none";
+            version: number;
+        };
+        BudgetLineInput: {
+            /** Format: uuid */
+            id: string;
+            /** Format: uuid */
+            seasonId: string;
+            /** @enum {string} */
+            scope: "block" | "plot" | "per_ha_all" | "per_ha_crop";
+            plotId: string | null;
+            cropId: string | null;
+            /** Format: uuid */
+            serviceId: string;
+            serviceName: string;
+            /** @enum {string} */
+            serviceKind: "seed" | "fertiliser" | "crop_protection" | "mechanisation" | "irrigation_opex" | "labour" | "training" | "transport" | "storage" | "insurance_premium" | "land_fee" | "operator_service_fee" | "investment_recovery_fee" | "platform_fee" | "other";
+            qty: number;
+            /** @enum {string} */
+            unit: "kg" | "l" | "ha" | "hour" | "day" | "unit" | "season" | "bag";
+            unitPriceXof: number;
+            totalXof: number;
+            quoteId: string | null;
+            /** @enum {string} */
+            payer: "farmer_credit" | "farmer_cash" | "operator" | "grant";
+            /** @enum {string} */
+            tranche: "seasonal" | "none";
+            plannedDate: string | null;
+            notes: string | null;
+            source: string;
+            version: number;
+        };
+        BudgetSummaryInput: {
+            totals: {
+                farmer_credit: number;
+                farmer_cash: number;
+                operator: number;
+                grant: number;
+            };
+            plantedHa: number;
+            perHaXof: number;
+            quotedSharePct: number;
+            unallocated: {
+                farmerCreditXof: number;
+                farmerCashXof: number;
+            };
+            farmers: {
+                /** Format: uuid */
+                farmerId: string;
+                farmerCode: string;
+                name: string;
+                ha: number;
+                farmerCreditXof: number;
+                farmerCashXof: number;
+            }[];
+            warnings: {
+                code: string;
+                plotId?: string;
+                message: string;
+            }[];
+        };
+        SupplierQuoteInput: {
+            /** Format: uuid */
+            id: string;
+            supplierOrgId: string | null;
+            supplierName: string;
+            /** Format: uuid */
+            serviceId: string;
+            /** @enum {string} */
+            unit: "kg" | "l" | "ha" | "hour" | "day" | "unit" | "season" | "bag";
+            unitPriceXof: number;
+            minQty: number | null;
+            /** Format: date */
+            validUntil: string;
+            fileId: string | null;
+            private: boolean;
+            /** Format: date-time */
+            createdAt: string;
+        };
+        FeePolicyInput: {
+            /** Format: uuid */
+            id: string;
+            /** Format: uuid */
+            blockId: string;
+            operatorServiceFeeXofPerFarmerSeason: number;
+            landFeeXofPerHaSeason: number;
+            investmentRecoveryFeeXofPerHaSeason: number;
+            /** Format: date */
+            effectiveFrom: string;
+            version: number;
+        };
+        OfftakeContractInput: {
+            /** Format: uuid */
+            id: string;
+            ref: string;
+            /** Format: uuid */
+            blockId: string;
+            blockName: string;
+            /** Format: uuid */
+            ownerOrgId: string;
+            seasonId: string | null;
+            /** Format: uuid */
+            buyerOrgId: string;
+            buyerName: string;
+            /** Format: uuid */
+            cropId: string;
+            cropCode: string;
+            minVolumeKg: number;
+            maxVolumeKg: number;
+            /** @enum {string} */
+            priceType: "fixed" | "floor_plus_market" | "formula";
+            priceXofPerKg: number;
+            floorXofPerKg: number | null;
+            formulaText: string | null;
+            qualitySpec: {
+                grade: string;
+                adjustmentPct: number;
+            }[];
+            paymentTermsDays: number;
+            paysIntoEscrow: boolean;
+            /** @enum {string} */
+            status: "draft" | "loi" | "signed" | "terminated" | "expired";
+            fileId: string | null;
+            signedAt: string | null;
+            version: number;
+            /** Format: date-time */
+            createdAt: string;
+            allowedActions: string[];
+        };
         Problem: {
             type: string;
             title: string;
@@ -1766,6 +2522,244 @@ export interface components {
             /** @enum {string} */
             status: "active" | "ended";
             contractId: string | null;
+        };
+        Crop: {
+            /** Format: uuid */
+            id: string;
+            code: string;
+            nameFr: string;
+            nameEn: string;
+            /** @enum {string} */
+            category: "cereal" | "vegetable" | "legume" | "root" | "fruit" | "oilseed" | "other";
+            perishable: boolean;
+            varieties: {
+                /** Format: uuid */
+                id: string;
+                name: string;
+                cycleDays: number | null;
+            }[];
+        };
+        CropTemplate: {
+            /** Format: uuid */
+            id: string;
+            ownerOrgId: string | null;
+            isOverride: boolean;
+            baseTemplateId: string | null;
+            /** Format: uuid */
+            cropId: string;
+            cropCode: string;
+            varietyId: string | null;
+            zone: string;
+            irrigated: boolean;
+            cycleDays: number;
+            yieldBaseTHa: number;
+            yieldStressTHa: number;
+            postHarvestLossPct: number;
+            deliveryRatePct: number;
+            waterM3Ha: number | null;
+            labourDaysHa: number | null;
+            inputs: {
+                /** Format: uuid */
+                serviceId: string;
+                qtyPerHa: number;
+                /** @enum {string} */
+                unit: "kg" | "l" | "ha" | "hour" | "day" | "unit" | "season" | "bag";
+            }[];
+            notes: string | null;
+            version: number;
+        };
+        Service: {
+            /** Format: uuid */
+            id: string;
+            ownerOrgId: string | null;
+            code: string;
+            nameFr: string;
+            nameEn: string;
+            /** @enum {string} */
+            kind: "seed" | "fertiliser" | "crop_protection" | "mechanisation" | "irrigation_opex" | "labour" | "training" | "transport" | "storage" | "insurance_premium" | "land_fee" | "operator_service_fee" | "investment_recovery_fee" | "platform_fee" | "other";
+            /** @enum {string} */
+            unit: "kg" | "l" | "ha" | "hour" | "day" | "unit" | "season" | "bag";
+            defaultUnitPriceXof: number;
+            active: boolean;
+            version: number;
+        };
+        Season: {
+            /** Format: uuid */
+            id: string;
+            /** Format: uuid */
+            blockId: string;
+            name: string;
+            /** @enum {string} */
+            kind: "rainy" | "cold_dry" | "hot_dry";
+            /** Format: date */
+            startDate: string;
+            /** Format: date */
+            endDate: string;
+            /** @enum {string} */
+            status: "planning" | "financing" | "in_progress" | "harvest" | "settlement" | "closed" | "cancelled";
+            planVersion: number;
+            selfFinanced: boolean;
+            stats: {
+                plantings: number;
+                plantedHa: number;
+                budgetXof: number;
+            };
+            version: number;
+            /** Format: date-time */
+            createdAt: string;
+            allowedActions: string[];
+        };
+        Planting: {
+            /** Format: uuid */
+            id: string;
+            /** Format: uuid */
+            seasonId: string;
+            /** Format: uuid */
+            plotId: string;
+            plotCode: string;
+            /** Format: uuid */
+            cropId: string;
+            cropCode: string;
+            varietyId: string | null;
+            templateId: string | null;
+            areaHa: number;
+            plannedSowingDate: string | null;
+            plannedHarvestDate: string | null;
+            yieldBaseTHa: number | null;
+            yieldStressTHa: number | null;
+            postHarvestLossPct: number | null;
+            deliveryRatePct: number | null;
+            priceXofPerKgBase: number | null;
+            priceXofPerKgStress: number | null;
+            /** @enum {string} */
+            priceSource: "manual" | "offtake" | "market" | "none";
+            version: number;
+        };
+        BudgetLine: {
+            /** Format: uuid */
+            id: string;
+            /** Format: uuid */
+            seasonId: string;
+            /** @enum {string} */
+            scope: "block" | "plot" | "per_ha_all" | "per_ha_crop";
+            plotId: string | null;
+            cropId: string | null;
+            /** Format: uuid */
+            serviceId: string;
+            serviceName: string;
+            /** @enum {string} */
+            serviceKind: "seed" | "fertiliser" | "crop_protection" | "mechanisation" | "irrigation_opex" | "labour" | "training" | "transport" | "storage" | "insurance_premium" | "land_fee" | "operator_service_fee" | "investment_recovery_fee" | "platform_fee" | "other";
+            qty: number;
+            /** @enum {string} */
+            unit: "kg" | "l" | "ha" | "hour" | "day" | "unit" | "season" | "bag";
+            unitPriceXof: number;
+            totalXof: number;
+            quoteId: string | null;
+            /** @enum {string} */
+            payer: "farmer_credit" | "farmer_cash" | "operator" | "grant";
+            /** @enum {string} */
+            tranche: "seasonal" | "none";
+            plannedDate: string | null;
+            notes: string | null;
+            source: string;
+            version: number;
+        };
+        BudgetSummary: {
+            totals: {
+                farmer_credit: number;
+                farmer_cash: number;
+                operator: number;
+                grant: number;
+            };
+            plantedHa: number;
+            perHaXof: number;
+            quotedSharePct: number;
+            unallocated: {
+                farmerCreditXof: number;
+                farmerCashXof: number;
+            };
+            farmers: {
+                /** Format: uuid */
+                farmerId: string;
+                farmerCode: string;
+                name: string;
+                ha: number;
+                farmerCreditXof: number;
+                farmerCashXof: number;
+            }[];
+            warnings: {
+                code: string;
+                plotId?: string;
+                message: string;
+            }[];
+        };
+        SupplierQuote: {
+            /** Format: uuid */
+            id: string;
+            supplierOrgId: string | null;
+            supplierName: string;
+            /** Format: uuid */
+            serviceId: string;
+            /** @enum {string} */
+            unit: "kg" | "l" | "ha" | "hour" | "day" | "unit" | "season" | "bag";
+            unitPriceXof: number;
+            minQty: number | null;
+            /** Format: date */
+            validUntil: string;
+            fileId: string | null;
+            private: boolean;
+            /** Format: date-time */
+            createdAt: string;
+        };
+        FeePolicy: {
+            /** Format: uuid */
+            id: string;
+            /** Format: uuid */
+            blockId: string;
+            operatorServiceFeeXofPerFarmerSeason: number;
+            landFeeXofPerHaSeason: number;
+            investmentRecoveryFeeXofPerHaSeason: number;
+            /** Format: date */
+            effectiveFrom: string;
+            version: number;
+        };
+        OfftakeContract: {
+            /** Format: uuid */
+            id: string;
+            ref: string;
+            /** Format: uuid */
+            blockId: string;
+            blockName: string;
+            /** Format: uuid */
+            ownerOrgId: string;
+            seasonId: string | null;
+            /** Format: uuid */
+            buyerOrgId: string;
+            buyerName: string;
+            /** Format: uuid */
+            cropId: string;
+            cropCode: string;
+            minVolumeKg: number;
+            maxVolumeKg: number;
+            /** @enum {string} */
+            priceType: "fixed" | "floor_plus_market" | "formula";
+            priceXofPerKg: number;
+            floorXofPerKg: number | null;
+            formulaText: string | null;
+            qualitySpec: {
+                grade: string;
+                adjustmentPct: number;
+            }[];
+            paymentTermsDays: number;
+            paysIntoEscrow: boolean;
+            /** @enum {string} */
+            status: "draft" | "loi" | "signed" | "terminated" | "expired";
+            fileId: string | null;
+            signedAt: string | null;
+            version: number;
+            /** Format: date-time */
+            createdAt: string;
+            allowedActions: string[];
         };
     };
     responses: never;
@@ -4304,6 +5298,1494 @@ export interface operations {
                         resolution: string | null;
                         resolvedAt: string | null;
                         version: number;
+                    };
+                };
+            };
+        };
+    };
+    listCrops: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Default Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        data: components["schemas"]["Crop"][];
+                    };
+                };
+            };
+        };
+    };
+    adminCreateCrop: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": {
+                    code: string;
+                    nameFr: string;
+                    nameEn: string;
+                    /** @enum {string} */
+                    category: "cereal" | "vegetable" | "legume" | "root" | "fruit" | "oilseed" | "other";
+                    /** @default false */
+                    perishable?: boolean;
+                };
+            };
+        };
+        responses: {
+            /** @description Default Response */
+            201: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Crop"];
+                };
+            };
+        };
+    };
+    listZones: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Default Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        data: {
+                            /** Format: uuid */
+                            id: string;
+                            code: string;
+                            name: string;
+                            regionList: string[];
+                        }[];
+                    };
+                };
+            };
+        };
+    };
+    listCropTemplates: {
+        parameters: {
+            query?: {
+                crop?: string;
+                zone?: string;
+                irrigated?: "true" | "false";
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Default Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        data: components["schemas"]["CropTemplate"][];
+                    };
+                };
+            };
+        };
+    };
+    createCropTemplate: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": {
+                    /** Format: uuid */
+                    cropId: string;
+                    varietyId?: string | null;
+                    zone: string;
+                    irrigated: boolean;
+                    cycleDays: number;
+                    yieldBaseTHa: number;
+                    yieldStressTHa: number;
+                    postHarvestLossPct: number;
+                    deliveryRatePct?: number;
+                    waterM3Ha?: number | null;
+                    labourDaysHa?: number | null;
+                    inputs?: {
+                        /** Format: uuid */
+                        serviceId: string;
+                        qtyPerHa: number;
+                        /** @enum {string} */
+                        unit: "kg" | "l" | "ha" | "hour" | "day" | "unit" | "season" | "bag";
+                    }[];
+                    notes?: string | null;
+                };
+            };
+        };
+        responses: {
+            /** @description Default Response */
+            201: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["CropTemplate"];
+                };
+            };
+        };
+    };
+    updateCropTemplate: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": {
+                    varietyId?: string | null;
+                    cycleDays?: number;
+                    yieldBaseTHa?: number;
+                    yieldStressTHa?: number;
+                    postHarvestLossPct?: number;
+                    deliveryRatePct?: number;
+                    waterM3Ha?: number | null;
+                    labourDaysHa?: number | null;
+                    inputs?: {
+                        /** Format: uuid */
+                        serviceId: string;
+                        qtyPerHa: number;
+                        /** @enum {string} */
+                        unit: "kg" | "l" | "ha" | "hour" | "day" | "unit" | "season" | "bag";
+                    }[];
+                    notes?: string | null;
+                };
+            };
+        };
+        responses: {
+            /** @description Default Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["CropTemplate"];
+                };
+            };
+        };
+    };
+    listServices: {
+        parameters: {
+            query?: {
+                kind?: "seed" | "fertiliser" | "crop_protection" | "mechanisation" | "irrigation_opex" | "labour" | "training" | "transport" | "storage" | "insurance_premium" | "land_fee" | "operator_service_fee" | "investment_recovery_fee" | "platform_fee" | "other";
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Default Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        data: components["schemas"]["Service"][];
+                    };
+                };
+            };
+        };
+    };
+    createService: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": {
+                    code: string;
+                    nameFr: string;
+                    nameEn: string;
+                    /** @enum {string} */
+                    kind: "seed" | "fertiliser" | "crop_protection" | "mechanisation" | "irrigation_opex" | "labour" | "training" | "transport" | "storage" | "insurance_premium" | "land_fee" | "operator_service_fee" | "investment_recovery_fee" | "platform_fee" | "other";
+                    /** @enum {string} */
+                    unit: "kg" | "l" | "ha" | "hour" | "day" | "unit" | "season" | "bag";
+                    defaultUnitPriceXof: number;
+                };
+            };
+        };
+        responses: {
+            /** @description Default Response */
+            201: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Service"];
+                };
+            };
+        };
+    };
+    updateService: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": {
+                    nameFr?: string;
+                    nameEn?: string;
+                    /** @enum {string} */
+                    kind?: "seed" | "fertiliser" | "crop_protection" | "mechanisation" | "irrigation_opex" | "labour" | "training" | "transport" | "storage" | "insurance_premium" | "land_fee" | "operator_service_fee" | "investment_recovery_fee" | "platform_fee" | "other";
+                    /** @enum {string} */
+                    unit?: "kg" | "l" | "ha" | "hour" | "day" | "unit" | "season" | "bag";
+                    defaultUnitPriceXof?: number;
+                    active?: boolean;
+                };
+            };
+        };
+        responses: {
+            /** @description Default Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Service"];
+                };
+            };
+        };
+    };
+    listMarketPrices: {
+        parameters: {
+            query?: {
+                cropId?: string;
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Default Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        data: {
+                            /** Format: uuid */
+                            id: string;
+                            /** Format: uuid */
+                            cropId: string;
+                            market: string;
+                            /** Format: date */
+                            date: string;
+                            priceXofPerKg: number;
+                            source: string;
+                        }[];
+                    };
+                };
+            };
+        };
+    };
+    adminCreateMarketPrice: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": {
+                    /** Format: uuid */
+                    cropId: string;
+                    market: string;
+                    /** Format: date */
+                    date: string;
+                    priceXofPerKg: number;
+                    source: string;
+                };
+            };
+        };
+        responses: {
+            /** @description Default Response */
+            201: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** Format: uuid */
+                        id: string;
+                        /** Format: uuid */
+                        cropId: string;
+                        market: string;
+                        /** Format: date */
+                        date: string;
+                        priceXofPerKg: number;
+                        source: string;
+                    };
+                };
+            };
+        };
+    };
+    listSeasons: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Default Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        data: components["schemas"]["Season"][];
+                    };
+                };
+            };
+        };
+    };
+    createSeason: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": {
+                    name: string;
+                    /** @enum {string} */
+                    kind: "rainy" | "cold_dry" | "hot_dry";
+                    /** Format: date */
+                    startDate: string;
+                    /** Format: date */
+                    endDate: string;
+                };
+            };
+        };
+        responses: {
+            /** @description Default Response */
+            201: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Season"];
+                };
+            };
+        };
+    };
+    getSeason: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Default Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Season"];
+                };
+            };
+        };
+    };
+    updateSeason: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": {
+                    name?: string;
+                    /** @enum {string} */
+                    kind?: "rainy" | "cold_dry" | "hot_dry";
+                    /** Format: date */
+                    startDate?: string;
+                    /** Format: date */
+                    endDate?: string;
+                };
+            };
+        };
+        responses: {
+            /** @description Default Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Season"];
+                };
+            };
+        };
+    };
+    startSeason: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": {
+                    /** @default false */
+                    selfFinanced?: boolean;
+                };
+            };
+        };
+        responses: {
+            /** @description Default Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Season"];
+                };
+            };
+        };
+    };
+    cancelSeason: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": {
+                    reason: string;
+                };
+            };
+        };
+        responses: {
+            /** @description Default Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Season"];
+                };
+            };
+        };
+    };
+    listPlantings: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Default Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        data: components["schemas"]["Planting"][];
+                    };
+                };
+            };
+        };
+    };
+    createPlanting: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": {
+                    /** Format: uuid */
+                    plotId: string;
+                    /** Format: uuid */
+                    cropId: string;
+                    varietyId?: string | null;
+                    templateId?: string | null;
+                    areaHa?: number;
+                    plannedSowingDate?: string | null;
+                    plannedHarvestDate?: string | null;
+                    yieldBaseTHa?: number | null;
+                    yieldStressTHa?: number | null;
+                    postHarvestLossPct?: number | null;
+                    deliveryRatePct?: number | null;
+                    priceXofPerKgBase?: number | null;
+                    priceXofPerKgStress?: number | null;
+                };
+            };
+        };
+        responses: {
+            /** @description Default Response */
+            201: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Planting"];
+                };
+            };
+        };
+    };
+    bulkAssignPlantings: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": {
+                    /** Format: uuid */
+                    cropId: string;
+                    plotIds: string[];
+                    templateId?: string | null;
+                    plannedSowingDate?: string | null;
+                    plannedHarvestDate?: string | null;
+                    priceXofPerKgBase?: number | null;
+                };
+            };
+        };
+        responses: {
+            /** @description Default Response */
+            201: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        data: components["schemas"]["Planting"][];
+                        created: number;
+                    };
+                };
+            };
+        };
+    };
+    deletePlanting: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Default Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @enum {boolean} */
+                        ok: true;
+                    };
+                };
+            };
+        };
+    };
+    updatePlanting: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": {
+                    /** Format: uuid */
+                    cropId?: string;
+                    varietyId?: string | null;
+                    templateId?: string | null;
+                    areaHa?: number;
+                    plannedSowingDate?: string | null;
+                    plannedHarvestDate?: string | null;
+                    yieldBaseTHa?: number | null;
+                    yieldStressTHa?: number | null;
+                    postHarvestLossPct?: number | null;
+                    deliveryRatePct?: number | null;
+                    priceXofPerKgBase?: number | null;
+                    priceXofPerKgStress?: number | null;
+                };
+            };
+        };
+        responses: {
+            /** @description Default Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Planting"];
+                };
+            };
+        };
+    };
+    listBudgetLines: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Default Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        data: components["schemas"]["BudgetLine"][];
+                    };
+                };
+            };
+        };
+    };
+    createBudgetLine: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": {
+                    /** @enum {string} */
+                    scope: "block" | "plot" | "per_ha_all" | "per_ha_crop";
+                    plotId?: string | null;
+                    cropId?: string | null;
+                    /** Format: uuid */
+                    serviceId: string;
+                    qty: number;
+                    /** @enum {string} */
+                    unit?: "kg" | "l" | "ha" | "hour" | "day" | "unit" | "season" | "bag";
+                    unitPriceXof?: number;
+                    quoteId?: string | null;
+                    /** @enum {string} */
+                    payer: "farmer_credit" | "farmer_cash" | "operator" | "grant";
+                    /** @enum {string} */
+                    tranche?: "seasonal" | "none";
+                    plannedDate?: string | null;
+                    notes?: string | null;
+                };
+            };
+        };
+        responses: {
+            /** @description Default Response */
+            201: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["BudgetLine"];
+                };
+            };
+        };
+    };
+    generateBudgetFromTemplates: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": {
+                    /** @default false */
+                    replace?: boolean;
+                    /**
+                     * @default farmer_credit
+                     * @enum {string}
+                     */
+                    payer?: "farmer_credit" | "farmer_cash" | "operator" | "grant";
+                };
+            };
+        };
+        responses: {
+            /** @description Default Response */
+            201: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        data: components["schemas"]["BudgetLine"][];
+                        created: number;
+                    };
+                };
+            };
+        };
+    };
+    getBudgetSummary: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Default Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["BudgetSummary"];
+                };
+            };
+        };
+    };
+    deleteBudgetLine: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Default Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @enum {boolean} */
+                        ok: true;
+                    };
+                };
+            };
+        };
+    };
+    updateBudgetLine: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": {
+                    /** @enum {string} */
+                    scope?: "block" | "plot" | "per_ha_all" | "per_ha_crop";
+                    plotId?: string | null;
+                    cropId?: string | null;
+                    /** Format: uuid */
+                    serviceId?: string;
+                    qty?: number;
+                    /** @enum {string} */
+                    unit?: "kg" | "l" | "ha" | "hour" | "day" | "unit" | "season" | "bag";
+                    unitPriceXof?: number;
+                    quoteId?: string | null;
+                    /** @enum {string} */
+                    payer?: "farmer_credit" | "farmer_cash" | "operator" | "grant";
+                    /** @enum {string} */
+                    tranche?: "seasonal" | "none";
+                    plannedDate?: string | null;
+                    notes?: string | null;
+                };
+            };
+        };
+        responses: {
+            /** @description Default Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["BudgetLine"];
+                };
+            };
+        };
+    };
+    listSupplierQuotes: {
+        parameters: {
+            query?: {
+                serviceId?: string;
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Default Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        data: components["schemas"]["SupplierQuote"][];
+                    };
+                };
+            };
+        };
+    };
+    createSupplierQuote: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": {
+                    supplierOrgId?: string | null;
+                    supplierName: string;
+                    /** Format: uuid */
+                    serviceId: string;
+                    /** @enum {string} */
+                    unit: "kg" | "l" | "ha" | "hour" | "day" | "unit" | "season" | "bag";
+                    unitPriceXof: number;
+                    minQty?: number | null;
+                    /** Format: date */
+                    validUntil: string;
+                    fileId?: string | null;
+                    /** @default false */
+                    private?: boolean;
+                };
+            };
+        };
+        responses: {
+            /** @description Default Response */
+            201: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["SupplierQuote"];
+                };
+            };
+        };
+    };
+    listCapexItems: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Default Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        data: {
+                            /** Format: uuid */
+                            id: string;
+                            /** Format: uuid */
+                            blockId: string;
+                            description: string;
+                            assetType: string;
+                            amountXof: number;
+                            usefulLifeYears: number;
+                            quoteId: string | null;
+                            /** @enum {string} */
+                            tranche: "investment" | "equity" | "grant";
+                            /** Format: date */
+                            plannedDate: string;
+                            version: number;
+                        }[];
+                    };
+                };
+            };
+        };
+    };
+    createCapexItem: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": {
+                    description: string;
+                    assetType: string;
+                    amountXof: number;
+                    usefulLifeYears: number;
+                    quoteId?: string | null;
+                    /** @enum {string} */
+                    tranche: "investment" | "equity" | "grant";
+                    /** Format: date */
+                    plannedDate: string;
+                };
+            };
+        };
+        responses: {
+            /** @description Default Response */
+            201: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** Format: uuid */
+                        id: string;
+                        /** Format: uuid */
+                        blockId: string;
+                        description: string;
+                        assetType: string;
+                        amountXof: number;
+                        usefulLifeYears: number;
+                        quoteId: string | null;
+                        /** @enum {string} */
+                        tranche: "investment" | "equity" | "grant";
+                        /** Format: date */
+                        plannedDate: string;
+                        version: number;
+                    };
+                };
+            };
+        };
+    };
+    deleteCapexItem: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Default Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @enum {boolean} */
+                        ok: true;
+                    };
+                };
+            };
+        };
+    };
+    listOperatorOpex: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Default Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        data: {
+                            /** Format: uuid */
+                            id: string;
+                            /** Format: uuid */
+                            blockId: string;
+                            description: string;
+                            /** @enum {string} */
+                            kind: "staff" | "fuel" | "maintenance" | "security" | "insurance" | "admin" | "other";
+                            amountXofPerMonth: number;
+                            /** Format: date */
+                            startDate: string;
+                            endDate: string | null;
+                            version: number;
+                        }[];
+                    };
+                };
+            };
+        };
+    };
+    createOperatorOpex: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": {
+                    description: string;
+                    /** @enum {string} */
+                    kind: "staff" | "fuel" | "maintenance" | "security" | "insurance" | "admin" | "other";
+                    amountXofPerMonth: number;
+                    /** Format: date */
+                    startDate: string;
+                    endDate?: string | null;
+                };
+            };
+        };
+        responses: {
+            /** @description Default Response */
+            201: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** Format: uuid */
+                        id: string;
+                        /** Format: uuid */
+                        blockId: string;
+                        description: string;
+                        /** @enum {string} */
+                        kind: "staff" | "fuel" | "maintenance" | "security" | "insurance" | "admin" | "other";
+                        amountXofPerMonth: number;
+                        /** Format: date */
+                        startDate: string;
+                        endDate: string | null;
+                        version: number;
+                    };
+                };
+            };
+        };
+    };
+    deleteOperatorOpex: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Default Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @enum {boolean} */
+                        ok: true;
+                    };
+                };
+            };
+        };
+    };
+    getFeePolicy: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Default Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["FeePolicy"];
+                };
+            };
+        };
+    };
+    putFeePolicy: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": {
+                    operatorServiceFeeXofPerFarmerSeason: number;
+                    landFeeXofPerHaSeason: number;
+                    investmentRecoveryFeeXofPerHaSeason: number;
+                    /** Format: date */
+                    effectiveFrom?: string;
+                };
+            };
+        };
+        responses: {
+            /** @description Default Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["FeePolicy"];
+                };
+            };
+        };
+    };
+    listOfftakeContracts: {
+        parameters: {
+            query?: {
+                blockId?: string;
+                "filter[status]"?: "draft" | "loi" | "signed" | "terminated" | "expired";
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Default Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        data: components["schemas"]["OfftakeContract"][];
+                    };
+                };
+            };
+        };
+    };
+    createOfftakeContract: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": {
+                    /** Format: uuid */
+                    blockId: string;
+                    seasonId?: string | null;
+                    /** Format: uuid */
+                    buyerOrgId: string;
+                    /** Format: uuid */
+                    cropId: string;
+                    minVolumeKg: number;
+                    maxVolumeKg: number;
+                    /** @enum {string} */
+                    priceType: "fixed" | "floor_plus_market" | "formula";
+                    priceXofPerKg: number;
+                    floorXofPerKg?: number | null;
+                    formulaText?: string | null;
+                    qualitySpec?: {
+                        grade: string;
+                        adjustmentPct: number;
+                    }[];
+                    paymentTermsDays: number;
+                    paysIntoEscrow?: boolean;
+                    fileId?: string | null;
+                };
+            };
+        };
+        responses: {
+            /** @description Default Response */
+            201: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["OfftakeContract"];
+                };
+            };
+        };
+    };
+    getOfftakeContract: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Default Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["OfftakeContract"];
+                };
+            };
+        };
+    };
+    updateOfftakeContract: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": {
+                    seasonId?: string | null;
+                    /** Format: uuid */
+                    cropId?: string;
+                    minVolumeKg?: number;
+                    maxVolumeKg?: number;
+                    /** @enum {string} */
+                    priceType?: "fixed" | "floor_plus_market" | "formula";
+                    priceXofPerKg?: number;
+                    floorXofPerKg?: number | null;
+                    formulaText?: string | null;
+                    qualitySpec?: {
+                        grade: string;
+                        adjustmentPct: number;
+                    }[];
+                    paymentTermsDays?: number;
+                    paysIntoEscrow?: boolean;
+                    fileId?: string | null;
+                };
+            };
+        };
+        responses: {
+            /** @description Default Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["OfftakeContract"];
+                };
+            };
+        };
+    };
+    markOfftakeLoi: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": {
+                    /** Format: uuid */
+                    fileId?: string;
+                    reason?: string;
+                };
+            };
+        };
+        responses: {
+            /** @description Default Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["OfftakeContract"];
+                };
+            };
+        };
+    };
+    markOfftakeSigned: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": {
+                    /** Format: uuid */
+                    fileId?: string;
+                    reason?: string;
+                };
+            };
+        };
+        responses: {
+            /** @description Default Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["OfftakeContract"];
+                };
+            };
+        };
+    };
+    terminateOfftake: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": {
+                    /** Format: uuid */
+                    fileId?: string;
+                    reason?: string;
+                };
+            };
+        };
+        responses: {
+            /** @description Default Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["OfftakeContract"];
+                };
+            };
+        };
+    };
+    listBuyerContracts: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Default Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        data: components["schemas"]["OfftakeContract"][];
                     };
                 };
             };

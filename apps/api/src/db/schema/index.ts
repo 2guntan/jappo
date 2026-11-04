@@ -4,3 +4,6 @@ export * from '../../modules/notifications/schema';
 export * from '../../modules/farmers/schema';
 export * from '../../modules/land/schema';
 export * from '../../modules/field/schema';
+export * from '../../modules/catalogue/schema';
+export * from '../../modules/planning/schema';
+export * from '../../modules/offtake/schema';
