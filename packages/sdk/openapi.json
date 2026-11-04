@@ -1395,6 +1395,55 @@
         }
       }
     },
+    "/v1/legal/{doc}": {
+      "get": {
+        "operationId": "getLegalText",
+        "summary": "Terms of use / privacy text managed by the platform admin",
+        "tags": [
+          "system"
+        ],
+        "parameters": [
+          {
+            "schema": {
+              "type": "string",
+              "enum": [
+                "terms",
+                "privacy"
+              ]
+            },
+            "in": "path",
+            "name": "doc",
+            "required": true
+          }
+        ],
+        "x-permission": "public",
+        "responses": {
+          "200": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "doc": {
+                      "type": "string"
+                    },
+                    "text": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "doc",
+                    "text"
+                  ],
+                  "additionalProperties": false
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/v1/modules": {
       "get": {
         "operationId": "listModules",
@@ -1547,6 +1596,53 @@
         "responses": {
           "302": {
             "description": "Default Response"
+          }
+        }
+      }
+    },
+    "/v1/files/{id}/signed-url": {
+      "get": {
+        "operationId": "getFileSignedUrl",
+        "summary": "Signed download URL (5 minutes) for browser clients that cannot follow an authenticated redirect",
+        "tags": [
+          "files"
+        ],
+        "parameters": [
+          {
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+            },
+            "in": "path",
+            "name": "id",
+            "required": true
+          }
+        ],
+        "x-permission": "file:read",
+        "responses": {
+          "200": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "url": {
+                      "type": "string"
+                    },
+                    "expiresAt": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "url",
+                    "expiresAt"
+                  ],
+                  "additionalProperties": false
+                }
+              }
+            }
           }
         }
       }

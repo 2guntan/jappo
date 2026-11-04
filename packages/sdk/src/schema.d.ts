@@ -36,6 +36,23 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/v1/legal/{doc}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Terms of use / privacy text managed by the platform admin */
+        get: operations["getLegalText"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/v1/modules": {
         parameters: {
             query?: never;
@@ -95,6 +112,23 @@ export interface paths {
         };
         /** 302 redirect to a 5-minute signed URL */
         get: operations["downloadFile"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v1/files/{id}/signed-url": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Signed download URL (5 minutes) for browser clients that cannot follow an authenticated redirect */
+        get: operations["getFileSignedUrl"];
         put?: never;
         post?: never;
         delete?: never;
@@ -974,6 +1008,31 @@ export interface operations {
             };
         };
     };
+    getLegalText: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                doc: "terms" | "privacy";
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Default Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        doc: string;
+                        text: string;
+                    };
+                };
+            };
+        };
+    };
     listModules: {
         parameters: {
             query?: never;
@@ -1064,6 +1123,31 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content?: never;
+            };
+        };
+    };
+    getFileSignedUrl: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Default Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        url: string;
+                        expiresAt: string;
+                    };
+                };
             };
         };
     };

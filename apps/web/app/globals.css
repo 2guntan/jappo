@@ -1,0 +1,22 @@
+@import 'tailwindcss';
+
+@theme {
+  --color-brand-50: #effaf3;
+  --color-brand-100: #d8f3e1;
+  --color-brand-500: #2f9e5b;
+  --color-brand-600: #23804a;
+  --color-brand-700: #1d653c;
+  --color-brand-900: #133f27;
+  --font-sans: ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+}
+
+@layer base {
+  html {
+    color: var(--color-neutral-900);
+    background: var(--color-neutral-50);
+  }
+  :focus-visible {
+    outline: 2px solid var(--color-brand-600);
+    outline-offset: 2px;
+  }
+}

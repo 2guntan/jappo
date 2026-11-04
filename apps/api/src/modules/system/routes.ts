@@ -1,7 +1,8 @@
 import type { FastifyInstance } from 'fastify';
 import type { ZodTypeProvider } from 'fastify-type-provider-zod';
 import { z } from 'zod';
-import { sql } from 'drizzle-orm';
+import { eq, sql } from 'drizzle-orm';
+import { settings } from '../../core/schema';
 import { ModuleNav } from '@jappo/contracts';
 import type { JappoModule, ModuleContext } from '../../core/module';
 import { hasPermission } from '../../core/authz/permissions';
@@ -34,6 +35,20 @@ export function systemRoutes(modules: () => JappoModule[]) {
         const checks = await readinessChecks(ctx);
         const ok = Object.values(checks).every(Boolean);
         return reply.status(ok ? 200 : 503).send({ status: ok ? ('ready' as const) : ('not_ready' as const), checks });
+      },
+    });
+    r.get('/legal/:doc', {
+      schema: {
+        operationId: 'getLegalText',
+        tags: ['system'],
+        summary: 'Terms of use / privacy text managed by the platform admin',
+        'x-permission': 'public',
+        params: z.object({ doc: z.enum(['terms', 'privacy']) }),
+        response: { 200: z.object({ doc: z.string(), text: z.string() }) },
+      },
+      handler: async (req) => {
+        const [row] = await ctx.db.select().from(settings).where(eq(settings.key, `legal.${req.params.doc}_text`));
+        return { doc: req.params.doc, text: typeof row?.value === 'string' ? row.value : '' };
       },
     });
     r.get('/modules', {

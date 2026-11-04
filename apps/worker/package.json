@@ -1,0 +1,15 @@
+{
+  "name": "@jappo/worker",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "tsx watch --env-file-if-exists=../../.env src/main.ts",
+    "build": "tsup",
+    "start": "node dist/main.js",
+    "typecheck": "tsc -p tsconfig.json",
+    "test": "echo 'worker: covered by @jappo/api job tests'"
+  },
+  "dependencies": { "@jappo/api": "workspace:*", "pino": "^9.9.0" },
+  "devDependencies": { "@jappo/config": "workspace:*", "@types/node": "^22.18.0", "tsup": "^8.5.0", "tsx": "^4.20.0" }
+}

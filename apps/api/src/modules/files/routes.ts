@@ -48,6 +48,24 @@ export async function fileRoutes(app: FastifyInstance, ctx: ModuleContext) {
     },
   });
 
+  r.get('/files/:id/signed-url', {
+    schema: {
+      operationId: 'getFileSignedUrl',
+      tags: ['files'],
+      summary: 'Signed download URL (5 minutes) for browser clients that cannot follow an authenticated redirect',
+      'x-permission': 'file:read',
+      params: IdParam,
+      response: { 200: z.object({ url: z.string(), expiresAt: z.string() }) },
+    },
+    handler: async (req) => {
+      const f = await getVisibleFile(db, req.actor, req.params.id);
+      if (f.ownerOrgId !== req.actor.orgId) {
+        await db.transaction((tx) => audit(tx, req.actor, { action: 'file.downloaded', resourceType: 'file', resourceId: f.id }));
+      }
+      return { url: await ctx.storage.signedUrl(f.objectKey, f.filename, f.id, 300), expiresAt: new Date(Date.now() + 300_000).toISOString() };
+    },
+  });
+
   r.get('/files/:id/raw', {
     schema: {
       operationId: 'rawFile',
