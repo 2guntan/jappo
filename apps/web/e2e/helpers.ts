@@ -226,3 +226,32 @@ export async function awardedViaApi(request: APIRequestContext, stamp = Date.now
   const fac = (await alpha.api.call<{ data: { id: string; ref: string }[] }>('GET', `/v1/facilities?blockId=${s.blockId}`)).data[0]!;
   return { ...s, alpha, lenderName, buyerEmail: `ready.buyer.${stamp}@zeta.test`, frId: fr.id, facilityId: fac.id, facilityRef: fac.ref };
 }
+
+/** awardedViaApi + escrow + full pack signed + CPs + confirmed disbursement + season started. */
+export async function activeSeasonViaApi(request: APIRequestContext, stamp = Date.now()) {
+  const s = await awardedViaApi(request, stamp);
+  const esc = await s.alpha.api.call<{ id: string }>('POST', '/v1/escrow-accounts', { blockId: s.blockId, bankName: 'Mutuelle Alpha SFD', accountLabel: 'Séquestre bloc', accountNumber: 'SN012 01001 000123456789' });
+  const pack = await s.op.call<{ data: ContractView[] }>('POST', `/v1/blocks/${s.blockId}/contracts/actions/generate-pack`, { seasonId: s.seasonId, send: true });
+  const photo = await s.op.upload('/v1/files', {}, png('sig.png'));
+  for (const c of pack.data) {
+    if (c.type === 'plot_production') {
+      const fp = c.parties.find((p) => p.partyType === 'farmer')!;
+      await s.op.call('POST', `/v1/contracts/${c.id}/signatures`, { partyId: fp.id, method: 'in_person_witnessed', evidenceFileId: photo.id });
+      await signAsOrg(s.op, c.id, s.opEmail);
+    } else {
+      await signAsOrg(s.op, c.id, s.opEmail);
+      if (c.type === 'escrow_mandate') await signAsOrg(s.buyer, c.id, s.buyerEmail);
+      await signAsOrg(s.alpha.api, c.id, s.alpha.email);
+      if (c.type === 'block_framework') await signAsOrg(s.buyer, c.id, s.buyerEmail);
+    }
+  }
+  const f = await s.alpha.api.call<{ version: number }>('GET', `/v1/facilities/${s.facilityId}`);
+  await s.alpha.api.call('POST', `/v1/facilities/${s.facilityId}/actions/confirm-cp`, undefined, { 'if-match': `"${f.version}"` });
+  const d = await s.op.call<{ id: string }>('POST', `/v1/facilities/${s.facilityId}/disbursements`, { amountXof: 3_000_000, purpose: 'Intrants campagne', beneficiaryType: 'supplier', beneficiaryName: 'Intrants Delta SARL' });
+  await s.alpha.api.call('POST', `/v1/disbursements/${d.id}/actions/approve`, {}, { 'if-match': '"1"' });
+  await s.alpha.api.call('POST', `/v1/disbursements/${d.id}/actions/execute`, { bankReference: 'VIR-2026-1101' }, { 'if-match': '"2"' });
+  await s.alpha.api.call('POST', `/v1/disbursements/${d.id}/actions/confirm`, {}, { 'if-match': '"3"' });
+  const season = await s.op.call<{ version: number }>('GET', `/v1/seasons/${s.seasonId}`);
+  await s.op.call('POST', `/v1/seasons/${s.seasonId}/actions/start`, { selfFinanced: false }, { 'if-match': `"${season.version}"` });
+  return { ...s, escrowAccountId: esc.id };
+}

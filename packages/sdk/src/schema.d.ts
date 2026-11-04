@@ -2601,6 +2601,7 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
+        /** Masked accounts: lender (own), operator (its blocks), buyer (blocks it buys from) */
         get: operations["listEscrowAccounts"];
         put?: never;
         /** Lender: block escrow account; linked to the lender's facilities and the block's offtake contracts */
@@ -2719,6 +2720,336 @@ export interface paths {
         get: operations["listRepayments"];
         put?: never;
         post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v1/seasons/{id}/service-deliveries": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["listServiceDeliveries"];
+        put?: never;
+        /** Idempotent by offlineClientId; farmer acknowledgement by SMS code or signature photo */
+        post: operations["recordServiceDelivery"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v1/farmers/{id}/actions/request-ack-code": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** SMS code for the farmer to acknowledge a service or harvest delivery */
+        post: operations["requestFarmerAckCode"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v1/plots/{id}/visits": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["listPlotVisits"];
+        put?: never;
+        /** Field visit; alert rules re-evaluated for the block */
+        post: operations["recordPlotVisit"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v1/blocks/{id}/alerts": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["listBlockAlerts"];
+        put?: never;
+        post: operations["createManualAlert"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v1/blocks/{id}/alerts/actions/evaluate": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** Run the alert rules for the block now */
+        post: operations["evaluateBlockAlerts"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v1/alerts/{id}/actions/acknowledge": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post: operations["acknowledgeAlert"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v1/alerts/{id}/actions/resolve": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post: operations["resolveAlert"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v1/alert-rules": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["listAlertRules"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v1/alert-rules/{code}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        /** Platform admin: enable/disable and tune parameters */
+        patch: operations["updateAlertRule"];
+        trace?: never;
+    };
+    "/v1/seasons/{id}/harvest-deliveries": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["listHarvestDeliveries"];
+        put?: never;
+        /** Weighing ticket (net = gross − tare); grade from the offtake quality spec; idempotent by offlineClientId */
+        post: operations["recordHarvestDelivery"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v1/harvest-deliveries/{id}/actions/void": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post: operations["voidHarvestDelivery"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v1/dispatches": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Operator: by season. Buyer: its own dispatches */
+        get: operations["listDispatches"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v1/seasons/{id}/dispatches": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["listSeasonDispatches"];
+        put?: never;
+        post: operations["createDispatch"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v1/dispatches/{id}/actions/accept": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** Buyer: accepted and rejected kg */
+        post: operations["acceptDispatch"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v1/buyer-invoices": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["listBuyerInvoices"];
+        put?: never;
+        /** From accepted dispatches of one offtake contract; Σ accepted kg × price × grade adjustment */
+        post: operations["createBuyerInvoice"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v1/buyer-invoices/{id}/pdf": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["getBuyerInvoicePdf"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v1/buyer-invoices/{id}/actions/dispute": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post: operations["disputeBuyerInvoice"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v1/escrow-receipts": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["listEscrowReceipts"];
+        put?: never;
+        /** Lender (confirmed at once) or buyer (pending lender confirmation) */
+        post: operations["recordEscrowReceipt"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v1/escrow-receipts/{id}/actions/confirm": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post: operations["confirmEscrowReceipt"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v1/escrow-receipts/{id}/actions/reject": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post: operations["rejectEscrowReceipt"];
         delete?: never;
         options?: never;
         head?: never;
@@ -4151,6 +4482,215 @@ export interface components {
             /** Format: date-time */
             createdAt: string;
         };
+        ServiceDeliveryInput: {
+            /** Format: uuid */
+            id: string;
+            /** Format: uuid */
+            seasonId: string;
+            /** Format: uuid */
+            budgetLineId: string;
+            serviceLabel: string;
+            plotId: string | null;
+            farmerId: string | null;
+            qty: number;
+            unit: string;
+            /** Format: date-time */
+            deliveredAt: string;
+            supplierName: string | null;
+            deliveredByUserId: string | null;
+            photoFileId: string | null;
+            /** @enum {string} */
+            farmerAckMethod: "otp" | "signature_photo" | "none";
+            farmerAckAt: string | null;
+            /** Format: date-time */
+            createdAt: string;
+        };
+        FieldVisitInput: {
+            /** Format: uuid */
+            id: string;
+            /** Format: uuid */
+            plotId: string;
+            plantingId: string | null;
+            agentUserId: string | null;
+            /** Format: date-time */
+            visitedAt: string;
+            geo: components["schemas"]["GeoPointInput"] | null;
+            /** @enum {string} */
+            cropStage: "land_prep" | "sowing" | "emergence" | "vegetative" | "flowering" | "fruiting" | "maturity" | "harvested" | "failed";
+            healthScore: number;
+            estimatedYieldTHa: number | null;
+            issues: string[];
+            notes: string | null;
+            photoFileIds: string[];
+            /** Format: date-time */
+            createdAt: string;
+        };
+        AlertInput: {
+            /** Format: uuid */
+            id: string;
+            /** Format: uuid */
+            blockId: string;
+            seasonId: string | null;
+            type: string;
+            /** @enum {string} */
+            severity: "info" | "warning" | "critical";
+            /** @enum {string} */
+            source: "rule" | "manual";
+            ruleCode: string | null;
+            message: string;
+            data: {
+                [key: string]: unknown;
+            };
+            /** @enum {string} */
+            status: "open" | "acknowledged" | "resolved";
+            acknowledgedBy: string | null;
+            acknowledgedAt: string | null;
+            resolvedAt: string | null;
+            resolutionNote: string | null;
+            /** Format: date-time */
+            createdAt: string;
+            version: number;
+        };
+        AlertRuleInput: {
+            code: string;
+            enabled: boolean;
+            params: {
+                [key: string]: number;
+            };
+            description: string;
+            version: number;
+        };
+        HarvestDeliveryInput: {
+            /** Format: uuid */
+            id: string;
+            ticketNo: string;
+            /** Format: uuid */
+            seasonId: string;
+            /** Format: uuid */
+            plotId: string;
+            plotCode: string;
+            /** Format: uuid */
+            farmerId: string;
+            farmerCode: string;
+            /** Format: uuid */
+            plantingId: string;
+            /** Format: uuid */
+            cropId: string;
+            /** Format: date-time */
+            deliveredAt: string;
+            grossKg: number;
+            tareKg: number;
+            netKg: number;
+            moisturePct: number | null;
+            grade: string;
+            photoFileId: string | null;
+            /** @enum {string} */
+            farmerAckMethod: "otp" | "signature_photo" | "none";
+            farmerAckAt: string | null;
+            /** @enum {string} */
+            status: "recorded" | "dispatched" | "rejected" | "void";
+            dispatchId: string | null;
+            voidReason: string | null;
+            version: number;
+        };
+        DispatchInput: {
+            /** Format: uuid */
+            id: string;
+            ref: string;
+            /** Format: uuid */
+            seasonId: string;
+            /** Format: uuid */
+            blockId: string;
+            blockRef: string;
+            /** Format: uuid */
+            offtakeContractId: string;
+            offtakeRef: string;
+            /** Format: uuid */
+            buyerOrgId: string;
+            buyerName: string;
+            /** Format: date-time */
+            dispatchedAt: string;
+            vehicle: string | null;
+            deliveryIds: string[];
+            netKgTotal: number;
+            buyerAcceptedKg: number | null;
+            buyerRejectedKg: number | null;
+            buyerAcceptedAt: string | null;
+            buyerComment: string | null;
+            /** @enum {string} */
+            status: "in_transit" | "accepted" | "partially_accepted" | "rejected";
+            invoiceId: string | null;
+            version: number;
+            allowedActions: string[];
+        };
+        BuyerInvoiceInput: {
+            /** Format: uuid */
+            id: string;
+            ref: string;
+            /** Format: uuid */
+            blockId: string;
+            blockRef: string;
+            /** Format: uuid */
+            seasonId: string;
+            /** Format: uuid */
+            offtakeContractId: string;
+            offtakeRef: string;
+            /** Format: uuid */
+            buyerOrgId: string;
+            buyerName: string;
+            dispatchIds: string[];
+            acceptedKg: number;
+            amountXof: number;
+            paidXof: number;
+            outstandingXof: number;
+            lines: {
+                grade: string;
+                acceptedKg: number;
+                adjustmentPct: number;
+                unitPriceXof: number;
+                amountXof: number;
+            }[];
+            /** Format: date-time */
+            issuedAt: string;
+            /** Format: date */
+            dueDate: string;
+            /** @enum {string} */
+            status: "issued" | "partially_paid" | "paid" | "overdue" | "disputed";
+            hasPdf: boolean;
+            version: number;
+            allowedActions: string[];
+        };
+        EscrowReceiptInput: {
+            /** Format: uuid */
+            id: string;
+            /** Format: uuid */
+            escrowAccountId: string;
+            /** Format: uuid */
+            lenderOrgId: string;
+            /** Format: uuid */
+            blockId: string;
+            seasonId: string | null;
+            amountXof: number;
+            /** Format: date */
+            valueDate: string;
+            /** Format: uuid */
+            payerOrgId: string;
+            payerName: string;
+            bankReference: string;
+            buyerInvoiceId: string | null;
+            invoiceRef: string | null;
+            /** Format: uuid */
+            recordedByOrgId: string;
+            confirmedByLenderAt: string | null;
+            proofFileId: string | null;
+            /** @enum {string} */
+            status: "recorded" | "confirmed" | "rejected";
+            rejectReason: string | null;
+            /** Format: date-time */
+            createdAt: string;
+            version: number;
+            allowedActions: string[];
+        };
         Problem: {
             type: string;
             title: string;
@@ -5538,6 +6078,215 @@ export interface components {
             reference: string | null;
             /** Format: date-time */
             createdAt: string;
+        };
+        ServiceDelivery: {
+            /** Format: uuid */
+            id: string;
+            /** Format: uuid */
+            seasonId: string;
+            /** Format: uuid */
+            budgetLineId: string;
+            serviceLabel: string;
+            plotId: string | null;
+            farmerId: string | null;
+            qty: number;
+            unit: string;
+            /** Format: date-time */
+            deliveredAt: string;
+            supplierName: string | null;
+            deliveredByUserId: string | null;
+            photoFileId: string | null;
+            /** @enum {string} */
+            farmerAckMethod: "otp" | "signature_photo" | "none";
+            farmerAckAt: string | null;
+            /** Format: date-time */
+            createdAt: string;
+        };
+        FieldVisit: {
+            /** Format: uuid */
+            id: string;
+            /** Format: uuid */
+            plotId: string;
+            plantingId: string | null;
+            agentUserId: string | null;
+            /** Format: date-time */
+            visitedAt: string;
+            geo: components["schemas"]["GeoPoint"] | null;
+            /** @enum {string} */
+            cropStage: "land_prep" | "sowing" | "emergence" | "vegetative" | "flowering" | "fruiting" | "maturity" | "harvested" | "failed";
+            healthScore: number;
+            estimatedYieldTHa: number | null;
+            issues: string[];
+            notes: string | null;
+            photoFileIds: string[];
+            /** Format: date-time */
+            createdAt: string;
+        };
+        Alert: {
+            /** Format: uuid */
+            id: string;
+            /** Format: uuid */
+            blockId: string;
+            seasonId: string | null;
+            type: string;
+            /** @enum {string} */
+            severity: "info" | "warning" | "critical";
+            /** @enum {string} */
+            source: "rule" | "manual";
+            ruleCode: string | null;
+            message: string;
+            data: {
+                [key: string]: unknown;
+            };
+            /** @enum {string} */
+            status: "open" | "acknowledged" | "resolved";
+            acknowledgedBy: string | null;
+            acknowledgedAt: string | null;
+            resolvedAt: string | null;
+            resolutionNote: string | null;
+            /** Format: date-time */
+            createdAt: string;
+            version: number;
+        };
+        AlertRule: {
+            code: string;
+            enabled: boolean;
+            params: {
+                [key: string]: number;
+            };
+            description: string;
+            version: number;
+        };
+        HarvestDelivery: {
+            /** Format: uuid */
+            id: string;
+            ticketNo: string;
+            /** Format: uuid */
+            seasonId: string;
+            /** Format: uuid */
+            plotId: string;
+            plotCode: string;
+            /** Format: uuid */
+            farmerId: string;
+            farmerCode: string;
+            /** Format: uuid */
+            plantingId: string;
+            /** Format: uuid */
+            cropId: string;
+            /** Format: date-time */
+            deliveredAt: string;
+            grossKg: number;
+            tareKg: number;
+            netKg: number;
+            moisturePct: number | null;
+            grade: string;
+            photoFileId: string | null;
+            /** @enum {string} */
+            farmerAckMethod: "otp" | "signature_photo" | "none";
+            farmerAckAt: string | null;
+            /** @enum {string} */
+            status: "recorded" | "dispatched" | "rejected" | "void";
+            dispatchId: string | null;
+            voidReason: string | null;
+            version: number;
+        };
+        Dispatch: {
+            /** Format: uuid */
+            id: string;
+            ref: string;
+            /** Format: uuid */
+            seasonId: string;
+            /** Format: uuid */
+            blockId: string;
+            blockRef: string;
+            /** Format: uuid */
+            offtakeContractId: string;
+            offtakeRef: string;
+            /** Format: uuid */
+            buyerOrgId: string;
+            buyerName: string;
+            /** Format: date-time */
+            dispatchedAt: string;
+            vehicle: string | null;
+            deliveryIds: string[];
+            netKgTotal: number;
+            buyerAcceptedKg: number | null;
+            buyerRejectedKg: number | null;
+            buyerAcceptedAt: string | null;
+            buyerComment: string | null;
+            /** @enum {string} */
+            status: "in_transit" | "accepted" | "partially_accepted" | "rejected";
+            invoiceId: string | null;
+            version: number;
+            allowedActions: string[];
+        };
+        BuyerInvoice: {
+            /** Format: uuid */
+            id: string;
+            ref: string;
+            /** Format: uuid */
+            blockId: string;
+            blockRef: string;
+            /** Format: uuid */
+            seasonId: string;
+            /** Format: uuid */
+            offtakeContractId: string;
+            offtakeRef: string;
+            /** Format: uuid */
+            buyerOrgId: string;
+            buyerName: string;
+            dispatchIds: string[];
+            acceptedKg: number;
+            amountXof: number;
+            paidXof: number;
+            outstandingXof: number;
+            lines: {
+                grade: string;
+                acceptedKg: number;
+                adjustmentPct: number;
+                unitPriceXof: number;
+                amountXof: number;
+            }[];
+            /** Format: date-time */
+            issuedAt: string;
+            /** Format: date */
+            dueDate: string;
+            /** @enum {string} */
+            status: "issued" | "partially_paid" | "paid" | "overdue" | "disputed";
+            hasPdf: boolean;
+            version: number;
+            allowedActions: string[];
+        };
+        EscrowReceipt: {
+            /** Format: uuid */
+            id: string;
+            /** Format: uuid */
+            escrowAccountId: string;
+            /** Format: uuid */
+            lenderOrgId: string;
+            /** Format: uuid */
+            blockId: string;
+            seasonId: string | null;
+            amountXof: number;
+            /** Format: date */
+            valueDate: string;
+            /** Format: uuid */
+            payerOrgId: string;
+            payerName: string;
+            bankReference: string;
+            buyerInvoiceId: string | null;
+            invoiceRef: string | null;
+            /** Format: uuid */
+            recordedByOrgId: string;
+            confirmedByLenderAt: string | null;
+            proofFileId: string | null;
+            /** @enum {string} */
+            status: "recorded" | "confirmed" | "rejected";
+            rejectReason: string | null;
+            /** Format: date-time */
+            createdAt: string;
+            version: number;
+            allowedActions: string[];
         };
     };
     responses: never;
@@ -11909,6 +12658,776 @@ export interface operations {
             };
         };
     };
+    listServiceDeliveries: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Default Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        data: components["schemas"]["ServiceDelivery"][];
+                    };
+                };
+            };
+        };
+    };
+    recordServiceDelivery: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": {
+                    /** Format: uuid */
+                    budgetLineId: string;
+                    plotId?: string | null;
+                    farmerId?: string | null;
+                    qty: number;
+                    /** Format: date-time */
+                    deliveredAt?: string;
+                    supplierName?: string | null;
+                    photoFileId?: string | null;
+                    /** @enum {string} */
+                    farmerAckMethod?: "otp" | "signature_photo" | "none";
+                    ackCode?: string;
+                    geo?: components["schemas"]["GeoPointInput"] | null;
+                    offlineClientId?: string | null;
+                };
+            };
+        };
+        responses: {
+            /** @description Default Response */
+            201: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ServiceDelivery"];
+                };
+            };
+        };
+    };
+    requestFarmerAckCode: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Default Response */
+            202: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        destination: string;
+                    };
+                };
+            };
+        };
+    };
+    listPlotVisits: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Default Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        data: components["schemas"]["FieldVisit"][];
+                    };
+                };
+            };
+        };
+    };
+    recordPlotVisit: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": {
+                    /** Format: date-time */
+                    visitedAt?: string;
+                    geo?: components["schemas"]["GeoPointInput"] | null;
+                    /** @enum {string} */
+                    cropStage: "land_prep" | "sowing" | "emergence" | "vegetative" | "flowering" | "fruiting" | "maturity" | "harvested" | "failed";
+                    healthScore: number;
+                    estimatedYieldTHa?: number | null;
+                    issues?: ("pest" | "disease" | "water_stress" | "flood" | "weeds" | "theft" | "livestock_damage" | "labour_shortage" | "input_missing" | "other")[];
+                    notes?: string | null;
+                    photoFileIds?: string[];
+                    offlineClientId?: string | null;
+                };
+            };
+        };
+        responses: {
+            /** @description Default Response */
+            201: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["FieldVisit"];
+                };
+            };
+        };
+    };
+    listBlockAlerts: {
+        parameters: {
+            query?: {
+                status?: "open" | "acknowledged" | "resolved";
+            };
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Default Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        data: components["schemas"]["Alert"][];
+                    };
+                };
+            };
+        };
+    };
+    createManualAlert: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": {
+                    /** @enum {string} */
+                    severity: "info" | "warning" | "critical";
+                    type: string;
+                    message: string;
+                    seasonId?: string | null;
+                };
+            };
+        };
+        responses: {
+            /** @description Default Response */
+            201: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Alert"];
+                };
+            };
+        };
+    };
+    evaluateBlockAlerts: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Default Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        raised: number;
+                        resolved: number;
+                    };
+                };
+            };
+        };
+    };
+    acknowledgeAlert: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": {
+                    note?: string;
+                };
+            };
+        };
+        responses: {
+            /** @description Default Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Alert"];
+                };
+            };
+        };
+    };
+    resolveAlert: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": {
+                    note?: string;
+                };
+            };
+        };
+        responses: {
+            /** @description Default Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Alert"];
+                };
+            };
+        };
+    };
+    listAlertRules: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Default Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        data: components["schemas"]["AlertRule"][];
+                    };
+                };
+            };
+        };
+    };
+    updateAlertRule: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                code: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": {
+                    enabled?: boolean;
+                    params?: {
+                        [key: string]: number;
+                    };
+                };
+            };
+        };
+        responses: {
+            /** @description Default Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["AlertRule"];
+                };
+            };
+        };
+    };
+    listHarvestDeliveries: {
+        parameters: {
+            query?: {
+                farmerId?: string;
+            };
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Default Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        data: components["schemas"]["HarvestDelivery"][];
+                    };
+                };
+            };
+        };
+    };
+    recordHarvestDelivery: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": {
+                    /** Format: uuid */
+                    plotId: string;
+                    /** Format: uuid */
+                    farmerId: string;
+                    /** Format: date-time */
+                    deliveredAt?: string;
+                    grossKg: number;
+                    tareKg?: number;
+                    moisturePct?: number | null;
+                    grade: string;
+                    photoFileId?: string | null;
+                    /** @enum {string} */
+                    farmerAckMethod?: "otp" | "signature_photo" | "none";
+                    ackCode?: string;
+                    offlineClientId?: string | null;
+                };
+            };
+        };
+        responses: {
+            /** @description Default Response */
+            201: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HarvestDelivery"];
+                };
+            };
+        };
+    };
+    voidHarvestDelivery: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": {
+                    reason: string;
+                };
+            };
+        };
+        responses: {
+            /** @description Default Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HarvestDelivery"];
+                };
+            };
+        };
+    };
+    listDispatches: {
+        parameters: {
+            query?: {
+                seasonId?: string;
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Default Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        data: components["schemas"]["Dispatch"][];
+                    };
+                };
+            };
+        };
+    };
+    listSeasonDispatches: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Default Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        data: components["schemas"]["Dispatch"][];
+                    };
+                };
+            };
+        };
+    };
+    createDispatch: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": {
+                    /** Format: uuid */
+                    offtakeContractId: string;
+                    deliveryIds: string[];
+                    vehicle?: string | null;
+                    /** Format: date-time */
+                    dispatchedAt?: string;
+                };
+            };
+        };
+        responses: {
+            /** @description Default Response */
+            201: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Dispatch"];
+                };
+            };
+        };
+    };
+    acceptDispatch: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": {
+                    acceptedKg: number;
+                    rejectedKg: number;
+                    comment?: string | null;
+                };
+            };
+        };
+        responses: {
+            /** @description Default Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Dispatch"];
+                };
+            };
+        };
+    };
+    listBuyerInvoices: {
+        parameters: {
+            query?: {
+                seasonId?: string;
+                blockId?: string;
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Default Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        data: components["schemas"]["BuyerInvoice"][];
+                    };
+                };
+            };
+        };
+    };
+    createBuyerInvoice: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": {
+                    dispatchIds: string[];
+                };
+            };
+        };
+        responses: {
+            /** @description Default Response */
+            201: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["BuyerInvoice"];
+                };
+            };
+        };
+    };
+    getBuyerInvoicePdf: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Default Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        url: string;
+                        fileId: string;
+                    };
+                };
+            };
+        };
+    };
+    disputeBuyerInvoice: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": {
+                    reason: string;
+                };
+            };
+        };
+        responses: {
+            /** @description Default Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["BuyerInvoice"];
+                };
+            };
+        };
+    };
+    listEscrowReceipts: {
+        parameters: {
+            query?: {
+                blockId?: string;
+                seasonId?: string;
+                status?: "recorded" | "confirmed" | "rejected";
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Default Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        data: components["schemas"]["EscrowReceipt"][];
+                    };
+                };
+            };
+        };
+    };
+    recordEscrowReceipt: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": {
+                    /** Format: uuid */
+                    escrowAccountId: string;
+                    amountXof: number;
+                    /** Format: date */
+                    valueDate: string;
+                    bankReference: string;
+                    buyerInvoiceId?: string | null;
+                    payerOrgId?: string | null;
+                    proofFileId?: string | null;
+                };
+            };
+        };
+        responses: {
+            /** @description Default Response */
+            201: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["EscrowReceipt"];
+                };
+            };
+        };
+    };
+    confirmEscrowReceipt: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": {
+                    reason?: string;
+                };
+            };
+        };
+        responses: {
+            /** @description Default Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["EscrowReceipt"];
+                };
+            };
+        };
+    };
+    rejectEscrowReceipt: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": {
+                    reason?: string;
+                };
+            };
+        };
+        responses: {
+            /** @description Default Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["EscrowReceipt"];
+                };
+            };
+        };
+    };
     fieldBootstrap: {
         parameters: {
             query?: {
@@ -11940,10 +13459,16 @@ export interface operations {
                         allocations: {
                             [key: string]: unknown;
                         }[];
+                        seasons: {
+                            [key: string]: unknown;
+                        }[];
                         plantings: {
                             [key: string]: unknown;
                         }[];
                         budgetLines: {
+                            [key: string]: unknown;
+                        }[];
+                        grades: {
                             [key: string]: unknown;
                         }[];
                         templates: {

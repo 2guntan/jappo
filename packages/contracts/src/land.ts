@@ -125,7 +125,7 @@ export const GrievanceUpdateBody = z.object({ status: z.enum(GRIEVANCE_STATUSES)
 export const LandDocReviewBody = z.object({ comment: z.string().max(2000).optional() });
 
 // ---- Field PWA sync (SPEC §10.13)
-export const SYNC_OP_TYPES = ['farmer.create', 'farmer.update', 'plot.create', 'plot.updateGeometry', 'allocation.create', 'photo.attach'] as const;
+export const SYNC_OP_TYPES = ['farmer.create', 'farmer.update', 'plot.create', 'plot.updateGeometry', 'allocation.create', 'photo.attach', 'visit.create', 'serviceDelivery.create', 'harvestDelivery.create'] as const;
 export const SyncOp = z.object({ clientId: z.string().min(8).max(100), type: z.string(), payload: z.record(z.string(), z.unknown()), createdAt: IsoDateTime });
 export const SyncBody = z.object({ syncToken: z.string().optional(), blockIds: z.array(Uuid).max(50).default([]), ops: z.array(SyncOp).max(500) });
 export const SyncResult = z.object({
@@ -139,8 +139,10 @@ export const FieldBootstrap = z.object({
   plots: z.array(z.record(z.string(), z.unknown())),
   farmers: z.array(z.record(z.string(), z.unknown())),
   allocations: z.array(z.record(z.string(), z.unknown())),
+  seasons: z.array(z.record(z.string(), z.unknown())),
   plantings: z.array(z.record(z.string(), z.unknown())),
   budgetLines: z.array(z.record(z.string(), z.unknown())),
+  grades: z.array(z.record(z.string(), z.unknown())),
   templates: z.array(z.record(z.string(), z.unknown())),
   lastVisits: z.array(z.record(z.string(), z.unknown())),
 });

@@ -1,5 +1,7 @@
 import { CONTRACT_TEMPLATE_SEEDS } from '@jappo/templates';
 import { contractTemplates } from '../modules/agreements/schema';
+import { alertRules } from '../modules/operations/schema';
+import { DEFAULT_ALERT_RULES } from '@jappo/domain';
 import { eq } from 'drizzle-orm';
 import { ROLES, ROLE_ORG_TYPES, ORG_TYPES } from '@jappo/contracts';
 import { senegalFixedHolidays } from '@jappo/domain';
@@ -52,6 +54,20 @@ export async function seedReference(db: Db): Promise<void> {
   for (const y of [2026, 2027, 2028]) {
     for (const h of senegalFixedHolidays(y)) await db.insert(holidays).values({ date: h.date, name: h.name }).onConflictDoNothing();
   }
+  // Alert rules (SPEC §9.8), editable by the platform admin.
+  const RULE_TEXT: Record<string, string> = {
+    VISIT_GAP: 'No field visit on a planted plot for `days` days while the season is in progress (warning)',
+    HEALTH_LOW: 'Last visit health score ≤ `warningMax` (warning), ≤ `criticalMax` (critical)',
+    YIELD_FORECAST_DROP: 'Average estimated yield of the last `lastVisits` visits < `pctOfBase` % of base for a crop (critical)',
+    INPUT_LATE: 'Budget line planned date + `days` days passed without delivery (warning)',
+    DISBURSEMENT_LATE: 'Disbursement approved more than `days` days without execution (warning)',
+    DELIVERY_SHORTFALL: 'At season end + `daysAfterSeasonEnd` days, delivered kg < `pctOfExpected` % of expected by farmer (critical, side-selling suspicion)',
+    BUYER_PAYMENT_OVERDUE: 'Buyer invoice past due date (critical)',
+    SCHEDULE_OVERDUE: 'Facility schedule line unpaid after due date (critical)',
+    LAND_DOC_EXPIRING: 'Land document expires within `days` days (warning)',
+    GRIEVANCE_OPEN: 'Community grievance open for more than `days` days (warning)',
+  };
+  for (const r of DEFAULT_ALERT_RULES) await db.insert(alertRules).values({ code: r.code, enabled: r.enabled, params: r.params, description: RULE_TEXT[r.code] ?? r.code }).onConflictDoNothing();
   // Contract templates v1, fr + en (SPEC §14.2) — structured drafts to be reviewed by counsel.
   for (const t of CONTRACT_TEMPLATE_SEEDS) {
     await db.insert(contractTemplates).values({ code: t.code, locale: t.locale, templateVersion: 1, title: t.title, bodyHbs: t.bodyHbs, variablesSchema: t.variablesSchema, active: true }).onConflictDoNothing();

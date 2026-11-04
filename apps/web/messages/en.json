@@ -158,7 +158,10 @@
     "profiles": "Appetite profiles",
     "financing": "Financing",
     "contracts": "Contracts",
-    "facilities": "Facilities"
+    "facilities": "Facilities",
+    "buyerDispatches": "Receipts",
+    "buyerInvoices": "Invoices and payments",
+    "adminAlertRules": "Alert rules"
   },
   "app": {
     "welcome": "Hello {name}",
@@ -389,7 +392,8 @@
       "seasons": "Seasons",
       "offtake": "Offtake",
       "investment": "Investment",
-      "risk": "Risk covers"
+      "risk": "Risk covers",
+      "alerts": "Alerts"
     },
     "boundary": "Block boundary",
     "noBoundary": "No boundary yet. Draw it on the map or import a GeoJSON/KML file.",
@@ -600,7 +604,9 @@
     "back": "Back to web workspace",
     "signContracts": "Farmer signatures",
     "noContractsToSign": "No contract awaiting a farmer signature.",
-    "signOnline": "Signing requires a connection."
+    "signOnline": "Signing requires a connection.",
+    "visit": "Plot visit",
+    "weigh": "Harvest weighing"
   },
   "seasons": {
     "title": "Seasons",
@@ -620,7 +626,9 @@
       "model": "Model",
       "readiness": "Readiness",
       "dossier": "Dossier",
-      "financing": "Financing"
+      "financing": "Financing",
+      "operations": "Operations",
+      "harvest": "Harvest"
     },
     "kinds": {
       "rainy": "Rainy season",
@@ -797,7 +805,19 @@
   "buyer": {
     "title": "My offtake contracts",
     "empty": "No contracts. Operators link you to their offtake contracts.",
-    "operator": "Operator"
+    "operator": "Operator",
+    "dispatches": "Receipts",
+    "dispatchesHint": "Record accepted and rejected quantities on receipt.",
+    "noDispatches": "No dispatches.",
+    "comment": "Comment",
+    "confirmReceipt": "Confirm receipt",
+    "invoices": "Invoices and payments",
+    "invoicesHint": "Payment exclusively into the block escrow account.",
+    "noInvoices": "No invoices.",
+    "declarePayment": "Declare a payment",
+    "dispute": "Dispute",
+    "submitPayment": "Declare transfer",
+    "paymentDeclared": "Payment declared: the lender must confirm it."
   },
   "model": {
     "assumptions": "Financing assumptions",
@@ -1246,5 +1266,144 @@
     "bankReference": "Bank reference",
     "proof": "Proof",
     "fourEyes": "To be executed by another credit officer (four-eyes)"
+  },
+  "ops": {
+    "services": "Delivered services",
+    "service": "Service",
+    "qty": "Quantity",
+    "supplier": "Supplier",
+    "ack": "Farmer acknowledgement",
+    "deliveredAt": "Date",
+    "budgetLine": "Budget line",
+    "farmer": "Farmer",
+    "photo": "Signed photo",
+    "ackCode": "Farmer code",
+    "sendCode": "Send code",
+    "codeSent": "Code sent to the farmer by SMS.",
+    "recordDelivery": "Record delivery",
+    "visits": "Field visits",
+    "plot": "Plot",
+    "stage": "Stage",
+    "health": "Health (1-5)",
+    "estimate": "Estimated yield (t/ha)",
+    "issues": "Issues",
+    "notes": "Notes",
+    "recordVisit": "Record visit",
+    "visitedAt": "Visited",
+    "visit": "Visit",
+    "ackMethods": {
+      "none": "None",
+      "signature_photo": "Signature photo",
+      "otp": "SMS code"
+    },
+    "stages": {
+      "land_prep": "Land preparation",
+      "sowing": "Sowing",
+      "emergence": "Emergence",
+      "vegetative": "Vegetative",
+      "flowering": "Flowering",
+      "fruiting": "Fruiting",
+      "maturity": "Maturity",
+      "harvested": "Harvested",
+      "failed": "Failed"
+    },
+    "issueTypes": {
+      "pest": "Pests",
+      "disease": "Disease",
+      "water_stress": "Water stress",
+      "flood": "Flood",
+      "weeds": "Weeds",
+      "theft": "Theft",
+      "livestock_damage": "Livestock damage",
+      "labour_shortage": "Labour shortage",
+      "input_missing": "Missing input",
+      "other": "Other"
+    }
+  },
+  "harvest": {
+    "tickets": "Weighing tickets",
+    "gross": "Gross weight (kg)",
+    "tare": "Tare (kg)",
+    "moisture": "Moisture (%)",
+    "grade": "Grade",
+    "net": "Net weight",
+    "weigh": "Record weighing",
+    "recorded": "Weighing recorded.",
+    "ticket": "Ticket",
+    "select": "Select",
+    "void": "Void",
+    "offtake": "Offtake contract",
+    "vehicle": "Vehicle",
+    "dispatch": "Dispatch {count} ticket(s)",
+    "dispatches": "Dispatches",
+    "buyer": "Buyer",
+    "accepted": "Accepted",
+    "rejected": "Rejected",
+    "invoice": "Invoice {count} dispatch(es)",
+    "invoices": "Buyer invoices",
+    "paid": "Paid",
+    "receipts": "Escrow receipts",
+    "valueDate": "Value date",
+    "payer": "Payer",
+    "invoiceRef": "Invoice",
+    "noReceipts": "No receipts.",
+    "dispatchedAt": "Dispatched",
+    "noActiveSeason": "No season in progress on this block.",
+    "ticketStatus": {
+      "recorded": "Recorded",
+      "dispatched": "Dispatched",
+      "rejected": "Rejected",
+      "void": "Void"
+    },
+    "dispatchStatus": {
+      "in_transit": "In transit",
+      "accepted": "Accepted",
+      "partially_accepted": "Partially accepted",
+      "rejected": "Rejected"
+    },
+    "invoiceStatus": {
+      "issued": "Issued",
+      "partially_paid": "Partially paid",
+      "paid": "Paid",
+      "overdue": "Overdue",
+      "disputed": "Disputed"
+    },
+    "receiptStatus": {
+      "recorded": "To confirm",
+      "confirmed": "Confirmed",
+      "rejected": "Rejected"
+    }
+  },
+  "alerts": {
+    "title": "Alerts",
+    "empty": "No alerts.",
+    "allStatuses": "All statuses",
+    "evaluate": "Evaluate rules",
+    "evaluated": "Rules evaluated.",
+    "severity": "Severity",
+    "message": "Message",
+    "rule": "Rule",
+    "raisedAt": "Raised",
+    "manual": "Manual",
+    "acknowledge": "Acknowledge",
+    "note": "Resolution note",
+    "resolve": "Resolve",
+    "manualTitle": "Raise a manual alert",
+    "raise": "Raise",
+    "rulesTitle": "Alert rules",
+    "rulesHint": "Evaluated nightly and on relevant events (visits, weighings).",
+    "description": "Description",
+    "params": "Parameters",
+    "enabled": "Enabled",
+    "status": {
+      "open": "Open",
+      "acknowledged": "Acknowledged",
+      "resolved": "Resolved"
+    },
+    "severities": {
+      "info": "Info",
+      "warning": "Warning",
+      "critical": "Critical"
+    }
   }
 }

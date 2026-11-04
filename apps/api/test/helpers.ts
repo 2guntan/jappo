@@ -326,3 +326,50 @@ export async function awardedScenario(t: TestApp) {
   const facs = json<{ data: { id: string }[] }>(await t.app.inject({ method: 'GET', url: `/v1/facilities?blockId=${s.blockId}`, headers: auth(alpha) }));
   return { ...s, alpha, frId: fr.id, rfpId: rfp.id, facilityId: facs.data[0]!.id };
 }
+
+async function signOrgParty(t: TestApp, s: Session, contractId: string, email: string) {
+  expectStatus(await t.app.inject({ method: 'POST', url: `/v1/contracts/${contractId}/signatures/actions/request-otp`, headers: auth(s), payload: {} }), 202);
+  const code = await lastCode(t, email);
+  expectStatus(await t.app.inject({ method: 'POST', url: `/v1/contracts/${contractId}/signatures`, headers: auth(s), payload: { method: 'otp', code } }), 200);
+}
+
+/**
+ * awardedScenario + escrow account + full contract pack signed + CPs confirmed + 3 000 000 disbursement
+ * confirmed + season started (in_progress, block active).
+ */
+export async function activeSeasonScenario(t: TestApp) {
+  const s = await awardedScenario(t);
+  const email = async (x: Session) => json<{ user: { email: string } }>(await t.app.inject({ method: 'GET', url: '/v1/me', headers: auth(x) })).user.email;
+  const [opEmail, buyerEmail] = [await email(s.op), await email(s.buyer)];
+  const esc = json<{ id: string }>(await t.app.inject({ method: 'POST', url: '/v1/escrow-accounts', headers: auth(s.alpha), payload: { blockId: s.blockId, bankName: 'Mutuelle Alpha SFD', accountLabel: 'Séquestre bloc', accountNumber: 'SN012 01001 000123456789' } }));
+  const pack = json<{ data: { id: string; type: string; parties: { id: string; partyType: string }[] }[] }>(await t.app.inject({ method: 'POST', url: `/v1/blocks/${s.blockId}/contracts/actions/generate-pack`, headers: auth(s.op), payload: { seasonId: s.seasonId, send: true } }));
+  const mp = multipartBody({}, { name: 'sig.png', content: PNG_BYTES, type: 'image/png' });
+  const photo = json<{ id: string }>(await t.app.inject({ method: 'POST', url: '/v1/files', headers: { ...auth(s.op), ...mp.headers }, payload: mp.payload })).id;
+  for (const c of pack.data) {
+    if (c.type === 'plot_production') {
+      const fp = c.parties.find((p) => p.partyType === 'farmer')!;
+      expectStatus(await t.app.inject({ method: 'POST', url: `/v1/contracts/${c.id}/signatures`, headers: auth(s.op), payload: { partyId: fp.id, method: 'in_person_witnessed', evidenceFileId: photo } }), 200);
+      await signOrgParty(t, s.op, c.id, opEmail);
+    } else if (c.type === 'block_framework') {
+      await signOrgParty(t, s.op, c.id, opEmail);
+      await signOrgParty(t, s.alpha, c.id, s.alpha.email);
+      await signOrgParty(t, s.buyer, c.id, buyerEmail);
+    } else if (c.type === 'escrow_mandate') {
+      await signOrgParty(t, s.op, c.id, opEmail);
+      await signOrgParty(t, s.buyer, c.id, buyerEmail);
+      await signOrgParty(t, s.alpha, c.id, s.alpha.email);
+    } else {
+      await signOrgParty(t, s.op, c.id, opEmail);
+      await signOrgParty(t, s.alpha, c.id, s.alpha.email);
+    }
+  }
+  const f = json<{ version: number }>(await t.app.inject({ method: 'GET', url: `/v1/facilities/${s.facilityId}`, headers: auth(s.alpha) }));
+  expectStatus(await t.app.inject({ method: 'POST', url: `/v1/facilities/${s.facilityId}/actions/confirm-cp`, headers: auth(s.alpha, { 'if-match': `"${f.version}"` }) }), 200);
+  const d = json<{ id: string }>(await t.app.inject({ method: 'POST', url: `/v1/facilities/${s.facilityId}/disbursements`, headers: auth(s.op), payload: { amountXof: 3_000_000, purpose: 'Intrants campagne', beneficiaryType: 'supplier', beneficiaryName: 'Intrants Delta SARL' } }));
+  expectStatus(await t.app.inject({ method: 'POST', url: `/v1/disbursements/${d.id}/actions/approve`, headers: auth(s.alpha, { 'if-match': '"1"' }), payload: {} }), 200);
+  expectStatus(await t.app.inject({ method: 'POST', url: `/v1/disbursements/${d.id}/actions/execute`, headers: auth(s.alpha, { 'if-match': '"2"' }), payload: { bankReference: 'VIR-2026-1101' } }), 200);
+  expectStatus(await t.app.inject({ method: 'POST', url: `/v1/disbursements/${d.id}/actions/confirm`, headers: auth(s.alpha, { 'if-match': '"3"' }), payload: {} }), 200);
+  const season = json<{ version: number }>(await t.app.inject({ method: 'GET', url: `/v1/seasons/${s.seasonId}`, headers: auth(s.op) }));
+  expectStatus(await t.app.inject({ method: 'POST', url: `/v1/seasons/${s.seasonId}/actions/start`, headers: auth(s.op, { 'if-match': `"${season.version}"` }), payload: { selfFinanced: false } }), 200);
+  return { ...s, opEmail, buyerEmail, escrowAccountId: esc.id };
+}

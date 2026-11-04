@@ -10,6 +10,7 @@ import { ifMatch, useAction } from '@/lib/hooks';
 import { facilityTone, formatDate, formatXof } from '@/lib/utils';
 import { Alert, Badge, Button, Card, CardBody, CardHeader, CardTitle, Field, Input, PageHeader, Select, Spinner, Table, Td, Th } from '@/components/ui';
 import { Disbursements } from '@/components/facilities/disbursements';
+import { EscrowReceipts } from '@/components/facilities/escrow-receipts';
 
 export default function FacilityPage({ params }: { params: Promise<{ id: string }> }) {
   const { id } = use(params);
@@ -80,6 +81,7 @@ export default function FacilityPage({ params }: { params: Promise<{ id: string 
             </CardBody>
           </Card>
           <Disbursements facility={f} />
+          <EscrowReceipts blockId={f.blockId} />
           {f.farmerAllocations.length > 0 && (
             <Card>
               <CardHeader><CardTitle>{t('facility.allocations')}</CardTitle></CardHeader>

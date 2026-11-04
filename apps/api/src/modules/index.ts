@@ -20,6 +20,9 @@ import { agreementRoutes } from './agreements/routes';
 import { facilityRoutes } from './facilities/routes';
 import { hasConfirmedDisbursement, runArrears } from './facilities/service';
 import { seasonStartGuards } from './planning/routes';
+import { operationsRoutes } from './operations/routes';
+import { runAlerts } from './operations/service';
+import { harvestRoutes } from './harvest/routes';
 
 // Season start guard (SPEC §8.2) is provided by the facilities module.
 seasonStartGuards.hasConfirmedDisbursement = (tx, seasonId) => hasConfirmedDisbursement(tx, seasonId);
@@ -56,6 +59,7 @@ export const MODULES: JappoModule[] = validateModules([
       navItems: [
         { key: 'admin-kyc', href: '/app/admin/kyc', labelKey: 'nav.adminKyc', permission: 'admin:read' },
         { key: 'admin-audit', href: '/app/admin/audit', labelKey: 'nav.adminAudit', permission: 'admin:read' },
+        { key: 'admin-alert-rules', href: '/app/admin/alert-rules', labelKey: 'nav.adminAlertRules', permission: 'alert_rule:manage' },
       ],
     },
   },
@@ -159,6 +163,29 @@ export const MODULES: JappoModule[] = validateModules([
     ui: {
       workspace: ['operator', 'lender'],
       navItems: [{ key: 'facilities', href: '/app/facilities', labelKey: 'nav.facilities', permission: 'facility:read' }],
+    },
+  },
+  {
+    name: 'operations',
+    version: '1.0.0',
+    core: true,
+    dependsOn: ['facilities'],
+    routes: operationsRoutes,
+    jobs: [{ name: 'alerts.evaluate', cron: '30 1 * * *', handler: async (ctx) => void (await runAlerts(ctx.db)) }],
+    ui: { workspace: ['operator', 'lender'], navItems: [] },
+  },
+  {
+    name: 'harvest',
+    version: '1.0.0',
+    core: true,
+    dependsOn: ['operations'],
+    routes: harvestRoutes,
+    ui: {
+      workspace: ['buyer'],
+      navItems: [
+        { key: 'buyer-dispatches', href: '/app/buyer/dispatches', labelKey: 'nav.buyerDispatches', permission: 'dispatch:accept' },
+        { key: 'buyer-invoices', href: '/app/buyer/invoices', labelKey: 'nav.buyerInvoices', permission: 'dispatch:accept' },
+      ],
     },
   },
   {

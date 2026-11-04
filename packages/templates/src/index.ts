@@ -55,3 +55,4 @@ export { renderDossierHtml, type DossierRenderInput } from './dossier';
 export { svgMap, svgBars, svgLine } from './svg';
 export { renderContractBody, renderContractHtml, type ContractSignatureView } from './contract';
 export { CONTRACT_CODES, CONTRACT_TEMPLATE_SEEDS, type ContractCode, type ContractTemplateSeed } from './contract-seeds';
+export { renderBuyerInvoiceHtml, type BuyerInvoiceRenderInput } from './invoice';

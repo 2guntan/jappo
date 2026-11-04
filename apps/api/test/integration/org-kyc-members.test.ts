@@ -180,7 +180,7 @@ describe('files', () => {
     const raw = await t.app.inject({ method: 'GET', url: url.pathname + url.search });
     expectStatus(raw, 200);
     expect(raw.rawPayload.equals(PDF_BYTES)).toBe(true);
-    const tampered = await t.app.inject({ method: 'GET', url: url.pathname + url.search.replace(/sig=./, 'sig=0') });
+    const tampered = await t.app.inject({ method: 'GET', url: url.pathname + url.search.replace(/sig=(.)/, (_m, c: string) => `sig=${c === '0' ? '1' : '0'}`) });
     expect(tampered.statusCode).toBe(404);
     const noFile = multipartBody({ a: 'b' }, { name: 'x.exe', content: Buffer.from([0x4d, 0x5a, 0, 0]) });
     expect((await t.app.inject({ method: 'POST', url: '/v1/files', headers: { ...auth(s), ...noFile.headers }, payload: noFile.payload })).statusCode).toBe(422);

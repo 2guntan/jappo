@@ -50,6 +50,13 @@
       "when": 1793820754288,
       "tag": "0006_agreements_facilities",
       "breakpoints": true
+    },
+    {
+      "idx": 7,
+      "version": "7",
+      "when": 1793822445049,
+      "tag": "0007_operations_harvest",
+      "breakpoints": true
     }
   ]
 }

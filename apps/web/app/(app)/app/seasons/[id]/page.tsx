@@ -16,8 +16,10 @@ import { ModelTab } from '@/components/seasons/model-tab';
 import { ReadinessTab } from '@/components/seasons/readiness-tab';
 import { DossierTab } from '@/components/seasons/dossier-tab';
 import { FinancingTab } from '@/components/seasons/financing-tab';
+import { OperationsTab } from '@/components/seasons/operations-tab';
+import { HarvestTab } from '@/components/seasons/harvest-tab';
 
-const TABS = ['plan', 'budget', 'model', 'readiness', 'dossier', 'financing'] as const;
+const TABS = ['plan', 'budget', 'model', 'readiness', 'dossier', 'financing', 'operations', 'harvest'] as const;
 
 function SeasonInner({ id }: { id: string }) {
   const t = useTranslations();
@@ -70,6 +72,8 @@ function SeasonInner({ id }: { id: string }) {
       {tab === 'readiness' && <ReadinessTab season={s} />}
       {tab === 'dossier' && <DossierTab season={s} />}
       {tab === 'financing' && <FinancingTab season={s} />}
+      {tab === 'operations' && <OperationsTab season={s} />}
+      {tab === 'harvest' && <HarvestTab season={s} />}
     </>
   );
 }

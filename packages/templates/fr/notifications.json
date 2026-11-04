@@ -134,5 +134,41 @@
     "title": "Décaissement refusé : {{ref}}",
     "subject": "Jappo — décaissement {{ref}} refusé",
     "body": "Le décaissement {{ref}} de {{amount}} a été refusé : {{reason}}. {{link}}"
+  },
+  "alert.raised": {
+    "title": "Alerte {{severity}} : {{blockRef}}",
+    "subject": "Jappo — alerte {{severity}} sur {{blockName}}",
+    "body": "{{message}} ({{blockRef}} · {{blockName}}). {{link}}",
+    "sms": "Jappo alerte {{severity}} {{blockRef}} : {{message}}"
+  },
+  "dispatch.created": {
+    "title": "Expédition {{ref}} en route",
+    "subject": "Jappo — expédition {{ref}}",
+    "body": "L'expédition {{ref}} ({{kg}} kg, bloc {{blockRef}}) est en route. Merci de saisir les quantités acceptées à réception. {{link}}"
+  },
+  "dispatch.accepted": {
+    "title": "Réception {{ref}}",
+    "subject": "Jappo — réception de {{ref}}",
+    "body": "L'acheteur a accepté {{acceptedKg}} kg et refusé {{rejectedKg}} kg de l'expédition {{ref}}. {{link}}"
+  },
+  "buyer_invoice.issued": {
+    "title": "Facture {{ref}} : {{amount}}",
+    "subject": "Jappo — facture {{ref}}",
+    "body": "La facture {{ref}} de {{amount}} est émise, échéance {{dueDate}}. Paiement exclusivement sur le compte séquestre. {{link}}"
+  },
+  "buyer_invoice.disputed": {
+    "title": "Facture contestée : {{ref}}",
+    "subject": "Jappo — facture {{ref}} contestée",
+    "body": "L'acheteur conteste la facture {{ref}} : {{reason}}. {{link}}"
+  },
+  "escrow_receipt.recorded": {
+    "title": "Paiement déclaré : {{amount}}",
+    "subject": "Jappo — paiement à confirmer",
+    "body": "Un paiement de {{amount}} (référence {{bankReference}}) a été déclaré sur le compte séquestre et attend votre confirmation. {{link}}"
+  },
+  "escrow_receipt.confirmed": {
+    "title": "Encaissement confirmé : {{amount}}",
+    "subject": "Jappo — encaissement confirmé",
+    "body": "Le prêteur a confirmé l'encaissement de {{amount}} (référence {{bankReference}}) sur le compte séquestre. {{link}}"
   }
 }

@@ -12,3 +12,5 @@ export * from '../../modules/dossier/schema';
 export * from '../../modules/marketplace/schema';
 export * from '../../modules/agreements/schema';
 export * from '../../modules/facilities/schema';
+export * from '../../modules/operations/schema';
+export * from '../../modules/harvest/schema';

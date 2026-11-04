@@ -11,8 +11,9 @@ import { formatDateTime } from '@/lib/utils';
 import { Alert, Badge, Button, Field, Input, Select } from '@/components/ui';
 import { LocaleSwitcher } from '@/components/layout/locale-switcher';
 import { SignContractsScreen } from '@/components/field/sign-contracts';
+import { VisitScreen, WeighScreen } from '@/components/field/ops-screens';
 
-type Screen = 'home' | 'enrol' | 'map' | 'allocate' | 'queue' | 'sign';
+type Screen = 'home' | 'enrol' | 'map' | 'allocate' | 'queue' | 'sign' | 'visit' | 'weigh';
 
 function useOnline() {
   const [online, setOnline] = useState(true);
@@ -46,6 +47,7 @@ export default function FieldApp() {
   const blocks = useLiveQuery(() => fieldDb().blocks.toArray(), []) ?? [];
   const plots = useLiveQuery(() => fieldDb().plots.toArray(), []) ?? [];
   const farmers = useLiveQuery(() => fieldDb().farmers.toArray(), []) ?? [];
+  const allocations = useLiveQuery(() => fieldDb().allocations.toArray(), []) ?? [];
   const queue = useLiveQuery(() => fieldDb().queue.orderBy('createdAt').toArray(), []) ?? [];
   const pending = queue.filter((q) => q.status === 'pending');
   const [serverBlocks, setServerBlocks] = useState<{ id: string; name: string; ref: string }[]>([]);
@@ -91,6 +93,7 @@ export default function FieldApp() {
       await kvSet('blockIds', chosen);
       await kvSet('syncToken', boot.syncToken);
       await applyServerRows(boot);
+      await kvSet('ops', { seasons: boot.seasons, plantings: boot.plantings, grades: boot.grades });
       await kvSet('lastSync', new Date().toISOString());
       setLastSync(new Date().toISOString());
       setMsg({ tone: 'success', text: t('saved') });
@@ -168,9 +171,9 @@ export default function FieldApp() {
               <p className="text-sm text-neutral-600">{t('noBlocks')}</p>
             ) : (
               <div className="grid grid-cols-2 gap-3">
-                {(['enrol', 'map', 'allocate', 'queue'] as const).map((s) => (
+                {(['enrol', 'map', 'allocate', 'visit', 'weigh', 'queue'] as const).map((s) => (
                   <button key={s} onClick={() => setScreen(s)} className="rounded-lg border border-brand-100 bg-brand-50 p-4 text-left text-sm font-medium text-brand-900">
-                    {s === 'enrol' ? t('enrol') : s === 'map' ? t('mapPlot') : s === 'allocate' ? t('allocate') : t('queue')}
+                    {s === 'enrol' ? t('enrol') : s === 'map' ? t('mapPlot') : s === 'allocate' ? t('allocate') : s === 'visit' ? t('visit') : s === 'weigh' ? t('weigh') : t('queue')}
                   </button>
                 ))}
               </div>
@@ -183,6 +186,8 @@ export default function FieldApp() {
         {screen === 'enrol' && <EnrolScreen onDone={(text) => { setMsg({ tone: 'success', text }); setScreen('home'); }} />}
         {screen === 'map' && <MapPlotScreen blocks={blocks} onDone={(text) => { setMsg({ tone: 'success', text }); setScreen('home'); }} />}
         {screen === 'allocate' && <AllocateScreen plots={plots} farmers={farmers} onDone={(text) => { setMsg({ tone: 'success', text }); setScreen('home'); }} />}
+        {screen === 'visit' && <VisitScreen plots={plots} onDone={(text) => { setMsg({ tone: 'success', text }); setScreen('home'); }} />}
+        {screen === 'weigh' && <WeighScreen plots={plots} farmers={farmers} allocations={allocations} onDone={(text) => { setMsg({ tone: 'success', text }); setScreen('home'); }} />}
         {screen === 'sign' && (canSync ? <SignContractsScreen /> : <Alert tone="info">{t('signOnline')}</Alert>)}
         {screen === 'queue' && (
           <ul className="divide-y divide-neutral-100 rounded-lg border border-neutral-200 text-sm" data-testid="sync-queue">

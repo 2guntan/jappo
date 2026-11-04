@@ -12,6 +12,37 @@ import { asGeoJson } from '../../core/geo';
 import { hasPermission } from '../../core/authz/permissions';
 import * as farmerSvc from '../farmers/service';
 import * as landSvc from '../land/service';
+import * as opsSvc from '../operations/service';
+import * as harvestSvc from '../harvest/service';
+import { FieldVisitCreateBody, HarvestDeliveryCreateBody, ServiceDeliveryCreateBody } from '@jappo/contracts';
+import { budgetLines, plantings, seasons } from '../planning/schema';
+import { offtakeContracts } from '../offtake/schema';
+import { crops, serviceCatalog } from '../catalogue/schema';
+import { fieldVisits } from '../operations/schema';
+import { desc, notInArray } from 'drizzle-orm';
+
+const VisitOp = FieldVisitCreateBody.extend({ plotId: z.uuid() });
+const ServiceDeliveryOp = ServiceDeliveryCreateBody.extend({ seasonId: z.uuid() });
+const HarvestOp = HarvestDeliveryCreateBody.extend({ seasonId: z.uuid() });
+
+/** Operations whose services are idempotent by offlineClientId and run their own transactions. */
+async function applyOperationOp(db: Db, actor: ActorContext, op: Op): Promise<string | null> {
+  const payload = { ...op.payload, offlineClientId: op.clientId };
+  if (op.type === 'visit.create') {
+    const p = VisitOp.parse(payload);
+    return (await opsSvc.createVisit(db, actor, p.plotId, p)).id;
+  }
+  if (op.type === 'serviceDelivery.create') {
+    const p = ServiceDeliveryOp.parse(payload);
+    return (await opsSvc.createServiceDelivery(db, actor, p.seasonId, p)).id;
+  }
+  if (op.type === 'harvestDelivery.create') {
+    const p = HarvestOp.parse(payload);
+    return (await harvestSvc.recordHarvest(db, actor, p.seasonId, p)).id;
+  }
+  return null;
+}
+const OPERATION_OPS = new Set(['visit.create', 'serviceDelivery.create', 'harvestDelivery.create']);
 
 type Op = { clientId: string; type: string; payload: Record<string, unknown>; createdAt: string };
 type Result = { clientId: string; status: 'applied' | 'duplicate' | 'rejected'; entityId: string | null; error: { code: string; message: string } | null };
@@ -23,6 +54,9 @@ const OP_PERMISSIONS: Record<(typeof SYNC_OP_TYPES)[number], string> = {
   'plot.updateGeometry': 'plot:update',
   'allocation.create': 'allocation:manage',
   'photo.attach': 'farmer:update',
+  'visit.create': 'visit:record',
+  'serviceDelivery.create': 'service_delivery:record',
+  'harvestDelivery.create': 'harvest:record',
 };
 
 const FarmerCreateOp = FarmerCreateBody.extend({ clientRef: z.string().optional() });
@@ -74,7 +108,26 @@ async function snapshot(db: Db, actor: ActorContext, blockIds: string[], since?:
 export async function bootstrap(db: Db, actor: ActorContext, blockIds: string[]) {
   const syncToken = new Date().toISOString();
   const s = await snapshot(db, actor, blockIds);
-  return { syncToken, ...s, plantings: [], budgetLines: [], templates: [], lastVisits: [] };
+  const orgId = requireOrg(actor);
+  const ids = s.blocks.map((b) => b.id);
+  const ss = ids.length ? await db.select().from(seasons).where(and(inArray(seasons.blockId, ids), eq(seasons.ownerOrgId, orgId), notInArray(seasons.status, ['cancelled', 'closed']))) : [];
+  const sIds = ss.map((x) => x.id);
+  const pls = sIds.length ? await db.select({ p: plantings, fr: crops.nameFr }).from(plantings).innerJoin(crops, eq(crops.id, plantings.cropId)).where(inArray(plantings.seasonId, sIds)) : [];
+  const bls = sIds.length ? await db.select({ b: budgetLines, fr: serviceCatalog.nameFr }).from(budgetLines).innerJoin(serviceCatalog, eq(serviceCatalog.id, budgetLines.serviceId)).where(inArray(budgetLines.seasonId, sIds)) : [];
+  const ocs = ids.length ? await db.select().from(offtakeContracts).where(and(inArray(offtakeContracts.blockId, ids), notInArray(offtakeContracts.status, ['terminated', 'expired']))) : [];
+  const vs = ids.length ? await db.select().from(fieldVisits).where(inArray(fieldVisits.blockId, ids)).orderBy(desc(fieldVisits.visitedAt)).limit(2000) : [];
+  const last = new Map<string, (typeof vs)[number]>();
+  for (const v of vs) if (!last.has(v.plotId)) last.set(v.plotId, v);
+  return {
+    syncToken,
+    ...s,
+    seasons: ss.map((x) => ({ id: x.id, blockId: x.blockId, name: x.name, status: x.status, startDate: x.startDate, endDate: x.endDate })),
+    plantings: pls.map(({ p, fr }) => ({ id: p.id, seasonId: p.seasonId, plotId: p.plotId, cropId: p.cropId, cropName: fr, areaHa: Number(p.areaHa) })),
+    budgetLines: bls.map(({ b, fr }) => ({ id: b.id, seasonId: b.seasonId, plotId: b.plotId, label: fr, qty: Number(b.qty), unit: b.unit, plannedDate: b.plannedDate })),
+    grades: ocs.map((o) => ({ blockId: o.blockId, cropId: o.cropId, grades: o.qualitySpec.map((g) => g.grade) })),
+    templates: [],
+    lastVisits: [...last.values()].map((v) => ({ plotId: v.plotId, visitedAt: v.visitedAt.toISOString(), healthScore: v.healthScore, cropStage: v.cropStage })),
+  };
 }
 
 function rejected(clientId: string, code: string, message: string): Result {
@@ -100,7 +153,7 @@ export async function sync(db: Db, actor: ActorContext, body: { syncToken?: stri
     else if (!hasPermission(actor.permissions, perm)) res = rejected(op.clientId, 'FORBIDDEN', `Missing permission ${perm}`);
     else {
       try {
-        const entityId = await db.transaction(async (tx) => {
+        const entityId = OPERATION_OPS.has(op.type) ? await applyOperationOp(db, actor, op) : await db.transaction(async (tx) => {
           const resolveFarmer = (p: { farmerId?: string; farmerClientId?: string }) => {
             const id = p.farmerId ?? (p.farmerClientId ? createdByClientId.get(p.farmerClientId) : undefined);
             if (!id) throw new AppError(422, 'DEPENDENCY_MISSING', 'Unprocessable', 'Referenced farmer was not created');

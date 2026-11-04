@@ -134,5 +134,41 @@
     "title": "Disbursement rejected: {{ref}}",
     "subject": "Jappo — disbursement {{ref}} rejected",
     "body": "Disbursement {{ref}} of {{amount}} was rejected: {{reason}}. {{link}}"
+  },
+  "alert.raised": {
+    "title": "{{severity}} alert: {{blockRef}}",
+    "subject": "Jappo — {{severity}} alert on {{blockName}}",
+    "body": "{{message}} ({{blockRef}} · {{blockName}}). {{link}}",
+    "sms": "Jappo {{severity}} alert {{blockRef}}: {{message}}"
+  },
+  "dispatch.created": {
+    "title": "Dispatch {{ref}} on the way",
+    "subject": "Jappo — dispatch {{ref}}",
+    "body": "Dispatch {{ref}} ({{kg}} kg, block {{blockRef}}) is on the way. Please record accepted quantities on receipt. {{link}}"
+  },
+  "dispatch.accepted": {
+    "title": "Receipt of {{ref}}",
+    "subject": "Jappo — receipt of {{ref}}",
+    "body": "The buyer accepted {{acceptedKg}} kg and rejected {{rejectedKg}} kg of dispatch {{ref}}. {{link}}"
+  },
+  "buyer_invoice.issued": {
+    "title": "Invoice {{ref}}: {{amount}}",
+    "subject": "Jappo — invoice {{ref}}",
+    "body": "Invoice {{ref}} of {{amount}} is issued, due {{dueDate}}. Payment exclusively into the escrow account. {{link}}"
+  },
+  "buyer_invoice.disputed": {
+    "title": "Invoice disputed: {{ref}}",
+    "subject": "Jappo — invoice {{ref}} disputed",
+    "body": "The buyer disputes invoice {{ref}}: {{reason}}. {{link}}"
+  },
+  "escrow_receipt.recorded": {
+    "title": "Payment declared: {{amount}}",
+    "subject": "Jappo — payment to confirm",
+    "body": "A payment of {{amount}} (reference {{bankReference}}) was declared on the escrow account and awaits your confirmation. {{link}}"
+  },
+  "escrow_receipt.confirmed": {
+    "title": "Receipt confirmed: {{amount}}",
+    "subject": "Jappo — receipt confirmed",
+    "body": "The lender confirmed the receipt of {{amount}} (reference {{bankReference}}) on the escrow account. {{link}}"
   }
 }

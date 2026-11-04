@@ -59,7 +59,7 @@ export async function facilityRoutes(app: FastifyInstance, ctx: ModuleContext) {
   });
 
   r.get('/escrow-accounts', {
-    schema: { operationId: 'listEscrowAccounts', tags: ['facilities'], 'x-permission': 'facility:read', querystring: z.object({ blockId: Uuid.optional() }), response: { 200: z.object({ data: z.array(EscrowAccount) }) } },
+    schema: { operationId: 'listEscrowAccounts', tags: ['facilities'], summary: 'Masked accounts: lender (own), operator (its blocks), buyer (blocks it buys from)', 'x-permission': 'escrow_receipt:read', querystring: z.object({ blockId: Uuid.optional() }), response: { 200: z.object({ data: z.array(EscrowAccount) }) } },
     handler: async (q) => ({ data: await svc.listEscrowAccounts(db, q.actor, q.query.blockId) }),
   });
   r.post('/escrow-accounts', {

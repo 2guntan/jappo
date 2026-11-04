@@ -374,7 +374,8 @@ export async function listEscrowAccounts(db: DbOrTx, actor: ActorContext, blockI
   const orgId = requireOrg(actor);
   const conds = [];
   if (blockId) conds.push(eq(escrowAccounts.blockId, blockId));
-  if (!isPlatformStaff(actor)) conds.push(sql`(${escrowAccounts.lenderOrgId} = ${orgId} or exists (select 1 from blocks b where b.id = ${escrowAccounts.blockId} and b.owner_org_id = ${orgId}))`);
+  // Lender (own), operator (its blocks), buyer (blocks where it has an offtake contract: it must pay into escrow).
+  if (!isPlatformStaff(actor)) conds.push(sql`(${escrowAccounts.lenderOrgId} = ${orgId} or exists (select 1 from blocks b where b.id = ${escrowAccounts.blockId} and b.owner_org_id = ${orgId}) or exists (select 1 from offtake_contracts o where o.block_id = ${escrowAccounts.blockId} and o.buyer_org_id = ${orgId}))`);
   const rows = await db.select({ e: escrowAccounts, lenderName: organizations.legalName }).from(escrowAccounts).innerJoin(organizations, eq(organizations.id, escrowAccounts.lenderOrgId)).where(and(...conds)).orderBy(desc(escrowAccounts.createdAt));
   return rows.map((r) => escrowDto(r.e, r.lenderName));
 }

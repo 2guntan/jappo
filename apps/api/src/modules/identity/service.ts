@@ -296,7 +296,7 @@ const OTP_MAX_PER_WINDOW = 3;
 export async function createOtp(
   tx: DbOrTx,
   phone: string,
-  purpose: 'login' | 'farmer_login' | 'signature' | 'wallet_verify',
+  purpose: 'login' | 'farmer_login' | 'signature' | 'wallet_verify' | 'delivery_ack',
   locale: string,
   recipient: { type: 'user' | 'farmer' | 'address'; id: string; orgId?: string | null },
   subjectId: string | null = null,
@@ -312,7 +312,7 @@ export async function createOtp(
 }
 
 /** Verify the latest unconsumed OTP; max 5 attempts each. */
-export async function consumeOtp(db: Db, phone: string, purpose: 'login' | 'farmer_login' | 'signature' | 'wallet_verify', code: string, subjectId: string | null = null): Promise<void> {
+export async function consumeOtp(db: Db, phone: string, purpose: 'login' | 'farmer_login' | 'signature' | 'wallet_verify' | 'delivery_ack', code: string, subjectId: string | null = null): Promise<void> {
   const ok = await db.transaction(async (tx) => {
     const conds = [eq(otpCodes.phone, phone), eq(otpCodes.purpose, purpose), isNull(otpCodes.consumedAt), gt(otpCodes.expiresAt, new Date())];
     if (subjectId) conds.push(eq(otpCodes.subjectId, subjectId));

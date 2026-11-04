@@ -10,7 +10,7 @@ export const lenderKind = pgEnum('lender_kind', LENDER_KINDS);
 export const kycDocType = pgEnum('kyc_doc_type', KYC_DOC_TYPES);
 export const docReviewStatus = pgEnum('doc_review_status', DOC_REVIEW_STATUSES);
 export const userStatus = pgEnum('user_status', USER_STATUSES);
-export const otpPurpose = pgEnum('otp_purpose', ['login', 'farmer_login', 'signature', 'wallet_verify']);
+export const otpPurpose = pgEnum('otp_purpose', ['login', 'farmer_login', 'signature', 'wallet_verify', 'delivery_ack']);
 
 export const organizations = pgTable(
   'organizations',

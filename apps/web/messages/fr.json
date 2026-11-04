@@ -158,7 +158,10 @@
     "profiles": "Profils d'appétit",
     "financing": "Financements",
     "contracts": "Contrats",
-    "facilities": "Facilités"
+    "facilities": "Facilités",
+    "buyerDispatches": "Réceptions",
+    "buyerInvoices": "Factures et paiements",
+    "adminAlertRules": "Règles d'alerte"
   },
   "app": {
     "welcome": "Bonjour {name}",
@@ -389,7 +392,8 @@
       "seasons": "Saisons",
       "offtake": "Débouchés",
       "investment": "Investissement",
-      "risk": "Couvertures"
+      "risk": "Couvertures",
+      "alerts": "Alertes"
     },
     "boundary": "Limite du bloc",
     "noBoundary": "Aucune limite définie. Dessinez-la sur la carte ou importez un fichier GeoJSON/KML.",
@@ -600,7 +604,9 @@
     "back": "Retour à l'espace web",
     "signContracts": "Signatures des producteurs",
     "noContractsToSign": "Aucun contrat en attente de signature d'un producteur.",
-    "signOnline": "La signature nécessite une connexion."
+    "signOnline": "La signature nécessite une connexion.",
+    "visit": "Visite de parcelle",
+    "weigh": "Pesée récolte"
   },
   "seasons": {
     "title": "Saisons",
@@ -620,7 +626,9 @@
       "model": "Modèle",
       "readiness": "Préparation",
       "dossier": "Dossier",
-      "financing": "Financement"
+      "financing": "Financement",
+      "operations": "Opérations",
+      "harvest": "Récolte"
     },
     "kinds": {
       "rainy": "Hivernage",
@@ -797,7 +805,19 @@
   "buyer": {
     "title": "Mes contrats d'achat",
     "empty": "Aucun contrat. Les opérateurs vous associent à leurs contrats d'achat.",
-    "operator": "Opérateur"
+    "operator": "Opérateur",
+    "dispatches": "Réceptions",
+    "dispatchesHint": "Saisissez les quantités acceptées et refusées à la réception.",
+    "noDispatches": "Aucune expédition.",
+    "comment": "Commentaire",
+    "confirmReceipt": "Confirmer la réception",
+    "invoices": "Factures et paiements",
+    "invoicesHint": "Paiement exclusivement sur le compte séquestre du bloc.",
+    "noInvoices": "Aucune facture.",
+    "declarePayment": "Déclarer un paiement",
+    "dispute": "Contester",
+    "submitPayment": "Déclarer le virement",
+    "paymentDeclared": "Paiement déclaré : le prêteur doit le confirmer."
   },
   "model": {
     "assumptions": "Hypothèses de financement",
@@ -1246,5 +1266,144 @@
     "bankReference": "Référence bancaire",
     "proof": "Justificatif",
     "fourEyes": "Exécution par un autre chargé de crédit (quatre yeux)"
+  },
+  "ops": {
+    "services": "Services livrés",
+    "service": "Service",
+    "qty": "Quantité",
+    "supplier": "Fournisseur",
+    "ack": "Accusé du producteur",
+    "deliveredAt": "Date",
+    "budgetLine": "Ligne budgétaire",
+    "farmer": "Producteur",
+    "photo": "Photo signée",
+    "ackCode": "Code du producteur",
+    "sendCode": "Envoyer le code",
+    "codeSent": "Code envoyé par SMS au producteur.",
+    "recordDelivery": "Enregistrer la livraison",
+    "visits": "Visites de terrain",
+    "plot": "Parcelle",
+    "stage": "Stade",
+    "health": "Santé (1-5)",
+    "estimate": "Rendement estimé (t/ha)",
+    "issues": "Problèmes",
+    "notes": "Notes",
+    "recordVisit": "Enregistrer la visite",
+    "visitedAt": "Visitée le",
+    "visit": "Visite",
+    "ackMethods": {
+      "none": "Aucun",
+      "signature_photo": "Photo de signature",
+      "otp": "Code SMS"
+    },
+    "stages": {
+      "land_prep": "Préparation du sol",
+      "sowing": "Semis",
+      "emergence": "Levée",
+      "vegetative": "Végétatif",
+      "flowering": "Floraison",
+      "fruiting": "Fructification",
+      "maturity": "Maturité",
+      "harvested": "Récolté",
+      "failed": "Échec"
+    },
+    "issueTypes": {
+      "pest": "Ravageurs",
+      "disease": "Maladie",
+      "water_stress": "Stress hydrique",
+      "flood": "Inondation",
+      "weeds": "Adventices",
+      "theft": "Vol",
+      "livestock_damage": "Dégâts du bétail",
+      "labour_shortage": "Manque de main-d’œuvre",
+      "input_missing": "Intrant manquant",
+      "other": "Autre"
+    }
+  },
+  "harvest": {
+    "tickets": "Bons de pesée",
+    "gross": "Poids brut (kg)",
+    "tare": "Tare (kg)",
+    "moisture": "Humidité (%)",
+    "grade": "Grade",
+    "net": "Poids net",
+    "weigh": "Enregistrer la pesée",
+    "recorded": "Pesée enregistrée.",
+    "ticket": "Bon",
+    "select": "Sélectionner",
+    "void": "Annuler",
+    "offtake": "Contrat d'enlèvement",
+    "vehicle": "Véhicule",
+    "dispatch": "Expédier {count} bon(s)",
+    "dispatches": "Expéditions",
+    "buyer": "Acheteur",
+    "accepted": "Accepté",
+    "rejected": "Refusé",
+    "invoice": "Facturer {count} expédition(s)",
+    "invoices": "Factures acheteur",
+    "paid": "Payé",
+    "receipts": "Encaissements séquestre",
+    "valueDate": "Date de valeur",
+    "payer": "Payeur",
+    "invoiceRef": "Facture",
+    "noReceipts": "Aucun encaissement.",
+    "dispatchedAt": "Expédiée le",
+    "noActiveSeason": "Aucune campagne en cours sur ce bloc.",
+    "ticketStatus": {
+      "recorded": "Enregistré",
+      "dispatched": "Expédié",
+      "rejected": "Refusé",
+      "void": "Annulé"
+    },
+    "dispatchStatus": {
+      "in_transit": "En route",
+      "accepted": "Acceptée",
+      "partially_accepted": "Partiellement acceptée",
+      "rejected": "Refusée"
+    },
+    "invoiceStatus": {
+      "issued": "Émise",
+      "partially_paid": "Partiellement payée",
+      "paid": "Payée",
+      "overdue": "En retard",
+      "disputed": "Contestée"
+    },
+    "receiptStatus": {
+      "recorded": "À confirmer",
+      "confirmed": "Confirmé",
+      "rejected": "Rejeté"
+    }
+  },
+  "alerts": {
+    "title": "Alertes",
+    "empty": "Aucune alerte.",
+    "allStatuses": "Tous les statuts",
+    "evaluate": "Évaluer les règles",
+    "evaluated": "Règles évaluées.",
+    "severity": "Gravité",
+    "message": "Message",
+    "rule": "Règle",
+    "raisedAt": "Levée le",
+    "manual": "Manuelle",
+    "acknowledge": "Prendre en charge",
+    "note": "Note de résolution",
+    "resolve": "Résoudre",
+    "manualTitle": "Lever une alerte manuelle",
+    "raise": "Lever",
+    "rulesTitle": "Règles d'alerte",
+    "rulesHint": "Évaluées chaque nuit et à chaque événement pertinent (visites, pesées).",
+    "description": "Description",
+    "params": "Paramètres",
+    "enabled": "Active",
+    "status": {
+      "open": "Ouverte",
+      "acknowledged": "Prise en charge",
+      "resolved": "Résolue"
+    },
+    "severities": {
+      "info": "Info",
+      "warning": "Attention",
+      "critical": "Critique"
+    }
   }
 }
