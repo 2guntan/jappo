@@ -21,7 +21,6 @@
     "schemas": {
       "ProblemInput": {
         "$schema": "https://json-schema.org/draft/2020-12/schema",
-        "$id": "#/components/schemas/ProblemInput",
         "type": "object",
         "properties": {
           "type": {
@@ -75,7 +74,6 @@
       },
       "TokenResponseInput": {
         "$schema": "https://json-schema.org/draft/2020-12/schema",
-        "$id": "#/components/schemas/TokenResponseInput",
         "type": "object",
         "properties": {
           "accessToken": {
@@ -107,7 +105,6 @@
       },
       "OrganizationInput": {
         "$schema": "https://json-schema.org/draft/2020-12/schema",
-        "$id": "#/components/schemas/OrganizationInput",
         "type": "object",
         "properties": {
           "id": {
@@ -312,7 +309,6 @@
       },
       "KycDocumentInput": {
         "$schema": "https://json-schema.org/draft/2020-12/schema",
-        "$id": "#/components/schemas/KycDocumentInput",
         "type": "object",
         "properties": {
           "id": {
@@ -390,7 +386,6 @@
       },
       "MeInput": {
         "$schema": "https://json-schema.org/draft/2020-12/schema",
-        "$id": "#/components/schemas/MeInput",
         "type": "object",
         "properties": {
           "principalType": {
@@ -579,7 +574,6 @@
       },
       "FileMetaInput": {
         "$schema": "https://json-schema.org/draft/2020-12/schema",
-        "$id": "#/components/schemas/FileMetaInput",
         "type": "object",
         "properties": {
           "id": {
@@ -652,7 +646,6 @@
       },
       "GeoPointInput": {
         "$schema": "https://json-schema.org/draft/2020-12/schema",
-        "$id": "#/components/schemas/GeoPointInput",
         "type": "object",
         "properties": {
           "type": {
@@ -686,7 +679,6 @@
       },
       "GeoPolygonInput": {
         "$schema": "https://json-schema.org/draft/2020-12/schema",
-        "$id": "#/components/schemas/GeoPolygonInput",
         "type": "object",
         "properties": {
           "type": {
@@ -728,7 +720,6 @@
       },
       "GeoMultiPolygonInput": {
         "$schema": "https://json-schema.org/draft/2020-12/schema",
-        "$id": "#/components/schemas/GeoMultiPolygonInput",
         "type": "object",
         "properties": {
           "type": {
@@ -774,7 +765,6 @@
       },
       "FeatureCollectionInput": {
         "$schema": "https://json-schema.org/draft/2020-12/schema",
-        "$id": "#/components/schemas/FeatureCollectionInput",
         "type": "object",
         "properties": {
           "type": {
@@ -836,7 +826,6 @@
       },
       "FarmerInput": {
         "$schema": "https://json-schema.org/draft/2020-12/schema",
-        "$id": "#/components/schemas/FarmerInput",
         "type": "object",
         "properties": {
           "id": {
@@ -1135,7 +1124,6 @@
       },
       "BlockInput": {
         "$schema": "https://json-schema.org/draft/2020-12/schema",
-        "$id": "#/components/schemas/BlockInput",
         "type": "object",
         "properties": {
           "id": {
@@ -1350,7 +1338,6 @@
       },
       "LandDocumentInput": {
         "$schema": "https://json-schema.org/draft/2020-12/schema",
-        "$id": "#/components/schemas/LandDocumentInput",
         "type": "object",
         "properties": {
           "id": {
@@ -1476,7 +1463,6 @@
       },
       "PlotInput": {
         "$schema": "https://json-schema.org/draft/2020-12/schema",
-        "$id": "#/components/schemas/PlotInput",
         "type": "object",
         "properties": {
           "id": {
@@ -1577,7 +1563,6 @@
       },
       "AllocationInput": {
         "$schema": "https://json-schema.org/draft/2020-12/schema",
-        "$id": "#/components/schemas/AllocationInput",
         "type": "object",
         "properties": {
           "id": {
@@ -1656,7 +1641,6 @@
       },
       "CropInput": {
         "$schema": "https://json-schema.org/draft/2020-12/schema",
-        "$id": "#/components/schemas/CropInput",
         "type": "object",
         "properties": {
           "id": {
@@ -1734,7 +1718,6 @@
       },
       "CropTemplateInput": {
         "$schema": "https://json-schema.org/draft/2020-12/schema",
-        "$id": "#/components/schemas/CropTemplateInput",
         "type": "object",
         "properties": {
           "id": {
@@ -1895,7 +1878,6 @@
       },
       "ServiceInput": {
         "$schema": "https://json-schema.org/draft/2020-12/schema",
-        "$id": "#/components/schemas/ServiceInput",
         "type": "object",
         "properties": {
           "id": {
@@ -1986,7 +1968,6 @@
       },
       "SeasonInput": {
         "$schema": "https://json-schema.org/draft/2020-12/schema",
-        "$id": "#/components/schemas/SeasonInput",
         "type": "object",
         "properties": {
           "id": {
@@ -2098,7 +2079,6 @@
       },
       "PlantingInput": {
         "$schema": "https://json-schema.org/draft/2020-12/schema",
-        "$id": "#/components/schemas/PlantingInput",
         "type": "object",
         "properties": {
           "id": {
@@ -2265,7 +2245,6 @@
       },
       "BudgetLineInput": {
         "$schema": "https://json-schema.org/draft/2020-12/schema",
-        "$id": "#/components/schemas/BudgetLineInput",
         "type": "object",
         "properties": {
           "id": {
@@ -2444,7 +2423,6 @@
       },
       "BudgetSummaryInput": {
         "$schema": "https://json-schema.org/draft/2020-12/schema",
-        "$id": "#/components/schemas/BudgetSummaryInput",
         "type": "object",
         "properties": {
           "totals": {
@@ -2582,7 +2560,6 @@
       },
       "SupplierQuoteInput": {
         "$schema": "https://json-schema.org/draft/2020-12/schema",
-        "$id": "#/components/schemas/SupplierQuoteInput",
         "type": "object",
         "properties": {
           "id": {
@@ -2676,7 +2653,6 @@
       },
       "FeePolicyInput": {
         "$schema": "https://json-schema.org/draft/2020-12/schema",
-        "$id": "#/components/schemas/FeePolicyInput",
         "type": "object",
         "properties": {
           "id": {
@@ -2727,7 +2703,6 @@
       },
       "OfftakeContractInput": {
         "$schema": "https://json-schema.org/draft/2020-12/schema",
-        "$id": "#/components/schemas/OfftakeContractInput",
         "type": "object",
         "properties": {
           "id": {
@@ -2927,7 +2902,6 @@
       },
       "ModelAssumptionsInput": {
         "$schema": "https://json-schema.org/draft/2020-12/schema",
-        "$id": "#/components/schemas/ModelAssumptionsInput",
         "type": "object",
         "properties": {
           "seasonId": {
@@ -3103,7 +3077,6 @@
       },
       "ModelOutputInput": {
         "$schema": "https://json-schema.org/draft/2020-12/schema",
-        "$id": "#/components/schemas/ModelOutputInput",
         "type": "object",
         "properties": {
           "engineVersion": {
@@ -4259,7 +4232,6 @@
       },
       "ModelRunInput": {
         "$schema": "https://json-schema.org/draft/2020-12/schema",
-        "$id": "#/components/schemas/ModelRunInput",
         "type": "object",
         "properties": {
           "id": {
@@ -4308,7 +4280,6 @@
       },
       "ReadinessInput": {
         "$schema": "https://json-schema.org/draft/2020-12/schema",
-        "$id": "#/components/schemas/ReadinessInput",
         "type": "object",
         "properties": {
           "engineVersion": {
@@ -4422,7 +4393,6 @@
       },
       "DossierInput": {
         "$schema": "https://json-schema.org/draft/2020-12/schema",
-        "$id": "#/components/schemas/DossierInput",
         "type": "object",
         "properties": {
           "id": {
@@ -4621,7 +4591,6 @@
       },
       "RiskCoverInput": {
         "$schema": "https://json-schema.org/draft/2020-12/schema",
-        "$id": "#/components/schemas/RiskCoverInput",
         "type": "object",
         "properties": {
           "id": {
@@ -4741,7 +4710,6 @@
       },
       "LenderProfileInput": {
         "$schema": "https://json-schema.org/draft/2020-12/schema",
-        "$id": "#/components/schemas/LenderProfileInput",
         "type": "object",
         "properties": {
           "name": {
@@ -4876,7 +4844,6 @@
       },
       "TrancheInput": {
         "$schema": "https://json-schema.org/draft/2020-12/schema",
-        "$id": "#/components/schemas/TrancheInput",
         "type": "object",
         "properties": {
           "type": {
@@ -4970,7 +4937,6 @@
       },
       "FinancingRequestInput": {
         "$schema": "https://json-schema.org/draft/2020-12/schema",
-        "$id": "#/components/schemas/FinancingRequestInput",
         "type": "object",
         "properties": {
           "id": {
@@ -5075,7 +5041,6 @@
       },
       "LenderMatchInput": {
         "$schema": "https://json-schema.org/draft/2020-12/schema",
-        "$id": "#/components/schemas/LenderMatchInput",
         "type": "object",
         "properties": {
           "lenderOrgId": {
@@ -5127,7 +5092,6 @@
       },
       "RfpInput": {
         "$schema": "https://json-schema.org/draft/2020-12/schema",
-        "$id": "#/components/schemas/RfpInput",
         "type": "object",
         "properties": {
           "id": {
@@ -5446,7 +5410,6 @@
       },
       "OpportunityInput": {
         "$schema": "https://json-schema.org/draft/2020-12/schema",
-        "$id": "#/components/schemas/OpportunityInput",
         "type": "object",
         "properties": {
           "invitation": {
@@ -5770,7 +5733,6 @@
       },
       "BidInput": {
         "$schema": "https://json-schema.org/draft/2020-12/schema",
-        "$id": "#/components/schemas/BidInput",
         "type": "object",
         "properties": {
           "trancheId": {
@@ -5973,7 +5935,6 @@
       },
       "BidPreviewInput": {
         "$schema": "https://json-schema.org/draft/2020-12/schema",
-        "$id": "#/components/schemas/BidPreviewInput",
         "type": "object",
         "properties": {
           "earBps": {
@@ -6047,7 +6008,6 @@
       },
       "EvaluationInput": {
         "$schema": "https://json-schema.org/draft/2020-12/schema",
-        "$id": "#/components/schemas/EvaluationInput",
         "type": "object",
         "properties": {
           "tranches": {
@@ -6174,7 +6134,6 @@
       },
       "AwardInput": {
         "$schema": "https://json-schema.org/draft/2020-12/schema",
-        "$id": "#/components/schemas/AwardInput",
         "type": "object",
         "properties": {
           "id": {
@@ -6281,7 +6240,6 @@
       },
       "ContractTemplateInput": {
         "$schema": "https://json-schema.org/draft/2020-12/schema",
-        "$id": "#/components/schemas/ContractTemplateInput",
         "type": "object",
         "properties": {
           "id": {
@@ -6363,7 +6321,6 @@
       },
       "ContractPartyInput": {
         "$schema": "https://json-schema.org/draft/2020-12/schema",
-        "$id": "#/components/schemas/ContractPartyInput",
         "type": "object",
         "properties": {
           "id": {
@@ -6466,7 +6423,6 @@
       },
       "ContractInput": {
         "$schema": "https://json-schema.org/draft/2020-12/schema",
-        "$id": "#/components/schemas/ContractInput",
         "type": "object",
         "properties": {
           "id": {
@@ -6678,7 +6634,6 @@
       },
       "SignatureOtpResultInput": {
         "$schema": "https://json-schema.org/draft/2020-12/schema",
-        "$id": "#/components/schemas/SignatureOtpResultInput",
         "type": "object",
         "properties": {
           "partyId": {
@@ -6705,7 +6660,6 @@
       },
       "FacilityScheduleLineInput": {
         "$schema": "https://json-schema.org/draft/2020-12/schema",
-        "$id": "#/components/schemas/FacilityScheduleLineInput",
         "type": "object",
         "properties": {
           "seq": {
@@ -6766,7 +6720,6 @@
       },
       "FacilityFarmerAllocationInput": {
         "$schema": "https://json-schema.org/draft/2020-12/schema",
-        "$id": "#/components/schemas/FacilityFarmerAllocationInput",
         "type": "object",
         "properties": {
           "farmerId": {
@@ -6809,7 +6762,6 @@
       },
       "FacilityInput": {
         "$schema": "https://json-schema.org/draft/2020-12/schema",
-        "$id": "#/components/schemas/FacilityInput",
         "type": "object",
         "properties": {
           "id": {
@@ -7118,7 +7070,6 @@
       },
       "EscrowAccountInput": {
         "$schema": "https://json-schema.org/draft/2020-12/schema",
-        "$id": "#/components/schemas/EscrowAccountInput",
         "type": "object",
         "properties": {
           "id": {
@@ -7175,7 +7126,6 @@
       },
       "DisbursementInput": {
         "$schema": "https://json-schema.org/draft/2020-12/schema",
-        "$id": "#/components/schemas/DisbursementInput",
         "type": "object",
         "properties": {
           "id": {
@@ -7419,7 +7369,6 @@
       },
       "RepaymentInput": {
         "$schema": "https://json-schema.org/draft/2020-12/schema",
-        "$id": "#/components/schemas/RepaymentInput",
         "type": "object",
         "properties": {
           "id": {
@@ -7506,7 +7455,6 @@
       },
       "ServiceDeliveryInput": {
         "$schema": "https://json-schema.org/draft/2020-12/schema",
-        "$id": "#/components/schemas/ServiceDeliveryInput",
         "type": "object",
         "properties": {
           "id": {
@@ -7638,7 +7586,6 @@
       },
       "FieldVisitInput": {
         "$schema": "https://json-schema.org/draft/2020-12/schema",
-        "$id": "#/components/schemas/FieldVisitInput",
         "type": "object",
         "properties": {
           "id": {
@@ -7759,7 +7706,6 @@
       },
       "AlertInput": {
         "$schema": "https://json-schema.org/draft/2020-12/schema",
-        "$id": "#/components/schemas/AlertInput",
         "type": "object",
         "properties": {
           "id": {
@@ -7900,7 +7846,6 @@
       },
       "AlertRuleInput": {
         "$schema": "https://json-schema.org/draft/2020-12/schema",
-        "$id": "#/components/schemas/AlertRuleInput",
         "type": "object",
         "properties": {
           "code": {
@@ -7937,7 +7882,6 @@
       },
       "HarvestDeliveryInput": {
         "$schema": "https://json-schema.org/draft/2020-12/schema",
-        "$id": "#/components/schemas/HarvestDeliveryInput",
         "type": "object",
         "properties": {
           "id": {
@@ -8094,7 +8038,6 @@
       },
       "DispatchInput": {
         "$schema": "https://json-schema.org/draft/2020-12/schema",
-        "$id": "#/components/schemas/DispatchInput",
         "type": "object",
         "properties": {
           "id": {
@@ -8245,7 +8188,6 @@
       },
       "BuyerInvoiceInput": {
         "$schema": "https://json-schema.org/draft/2020-12/schema",
-        "$id": "#/components/schemas/BuyerInvoiceInput",
         "type": "object",
         "properties": {
           "id": {
@@ -8404,7 +8346,6 @@
       },
       "EscrowReceiptInput": {
         "$schema": "https://json-schema.org/draft/2020-12/schema",
-        "$id": "#/components/schemas/EscrowReceiptInput",
         "type": "object",
         "properties": {
           "id": {
@@ -8563,7 +8504,6 @@
       },
       "SettlementRunInput": {
         "$schema": "https://json-schema.org/draft/2020-12/schema",
-        "$id": "#/components/schemas/SettlementRunInput",
         "type": "object",
         "properties": {
           "id": {
@@ -8907,7 +8847,6 @@
       },
       "PayoutInstructionInput": {
         "$schema": "https://json-schema.org/draft/2020-12/schema",
-        "$id": "#/components/schemas/PayoutInstructionInput",
         "type": "object",
         "properties": {
           "id": {
@@ -9029,7 +8968,6 @@
       },
       "ImportConfirmationsResultInput": {
         "$schema": "https://json-schema.org/draft/2020-12/schema",
-        "$id": "#/components/schemas/ImportConfirmationsResultInput",
         "type": "object",
         "properties": {
           "results": {
@@ -9069,7 +9007,6 @@
       },
       "FarmerStatementInput": {
         "$schema": "https://json-schema.org/draft/2020-12/schema",
-        "$id": "#/components/schemas/FarmerStatementInput",
         "type": "object",
         "properties": {
           "id": {
@@ -9119,7 +9056,6 @@
       },
       "FarmerArrearInput": {
         "$schema": "https://json-schema.org/draft/2020-12/schema",
-        "$id": "#/components/schemas/FarmerArrearInput",
         "type": "object",
         "properties": {
           "id": {
@@ -9196,7 +9132,6 @@
       },
       "FarmerTokenInput": {
         "$schema": "https://json-schema.org/draft/2020-12/schema",
-        "$id": "#/components/schemas/FarmerTokenInput",
         "type": "object",
         "properties": {
           "accessToken": {
@@ -9215,7 +9150,6 @@
       },
       "MeFarmerInput": {
         "$schema": "https://json-schema.org/draft/2020-12/schema",
-        "$id": "#/components/schemas/MeFarmerInput",
         "type": "object",
         "properties": {
           "id": {
@@ -9275,7 +9209,6 @@
       },
       "MeFarmerPlotInput": {
         "$schema": "https://json-schema.org/draft/2020-12/schema",
-        "$id": "#/components/schemas/MeFarmerPlotInput",
         "type": "object",
         "properties": {
           "plotId": {
@@ -9314,7 +9247,6 @@
       },
       "MeFarmerStatementInput": {
         "$schema": "https://json-schema.org/draft/2020-12/schema",
-        "$id": "#/components/schemas/MeFarmerStatementInput",
         "type": "object",
         "properties": {
           "id": {
@@ -9365,7 +9297,6 @@
       },
       "KpisInput": {
         "$schema": "https://json-schema.org/draft/2020-12/schema",
-        "$id": "#/components/schemas/KpisInput",
         "type": "object",
         "properties": {
           "areaFinancedHa": {
@@ -9582,7 +9513,6 @@
       },
       "KpiSeriesInput": {
         "$schema": "https://json-schema.org/draft/2020-12/schema",
-        "$id": "#/components/schemas/KpiSeriesInput",
         "type": "object",
         "properties": {
           "data": {
@@ -9612,7 +9542,6 @@
       },
       "OperatorDashboardInput": {
         "$schema": "https://json-schema.org/draft/2020-12/schema",
-        "$id": "#/components/schemas/OperatorDashboardInput",
         "type": "object",
         "properties": {
           "blocksByStatus": {
@@ -9738,7 +9667,6 @@
       },
       "LenderDashboardInput": {
         "$schema": "https://json-schema.org/draft/2020-12/schema",
-        "$id": "#/components/schemas/LenderDashboardInput",
         "type": "object",
         "properties": {
           "kpis": {
@@ -9832,7 +9760,6 @@
       },
       "BlockDashboardInput": {
         "$schema": "https://json-schema.org/draft/2020-12/schema",
-        "$id": "#/components/schemas/BlockDashboardInput",
         "type": "object",
         "properties": {
           "block": {
@@ -9990,7 +9917,6 @@
       },
       "GuarantorDashboardInput": {
         "$schema": "https://json-schema.org/draft/2020-12/schema",
-        "$id": "#/components/schemas/GuarantorDashboardInput",
         "type": "object",
         "properties": {
           "kpis": {
@@ -10088,7 +10014,6 @@
       },
       "ReportInput": {
         "$schema": "https://json-schema.org/draft/2020-12/schema",
-        "$id": "#/components/schemas/ReportInput",
         "type": "object",
         "properties": {
           "id": {
@@ -10156,7 +10081,6 @@
       },
       "PlanInput": {
         "$schema": "https://json-schema.org/draft/2020-12/schema",
-        "$id": "#/components/schemas/PlanInput",
         "type": "object",
         "properties": {
           "id": {
@@ -10230,7 +10154,6 @@
       },
       "BillingSubscriptionInput": {
         "$schema": "https://json-schema.org/draft/2020-12/schema",
-        "$id": "#/components/schemas/BillingSubscriptionInput",
         "type": "object",
         "properties": {
           "subscription": {
@@ -10296,7 +10219,6 @@
       },
       "PlatformInvoiceInput": {
         "$schema": "https://json-schema.org/draft/2020-12/schema",
-        "$id": "#/components/schemas/PlatformInvoiceInput",
         "type": "object",
         "properties": {
           "id": {
@@ -10439,7 +10361,6 @@
       },
       "WebhookEndpointInput": {
         "$schema": "https://json-schema.org/draft/2020-12/schema",
-        "$id": "#/components/schemas/WebhookEndpointInput",
         "type": "object",
         "properties": {
           "id": {
@@ -10475,7 +10396,6 @@
       },
       "WebhookDeliveryInput": {
         "$schema": "https://json-schema.org/draft/2020-12/schema",
-        "$id": "#/components/schemas/WebhookDeliveryInput",
         "type": "object",
         "properties": {
           "id": {
@@ -10567,7 +10487,6 @@
       },
       "EventEnvelopeInput": {
         "$schema": "https://json-schema.org/draft/2020-12/schema",
-        "$id": "#/components/schemas/EventEnvelopeInput",
         "type": "object",
         "properties": {
           "id": {
@@ -10654,7 +10573,6 @@
       },
       "SettingInput": {
         "$schema": "https://json-schema.org/draft/2020-12/schema",
-        "$id": "#/components/schemas/SettingInput",
         "type": "object",
         "properties": {
           "key": {
@@ -10675,7 +10593,6 @@
       },
       "HolidayInput": {
         "$schema": "https://json-schema.org/draft/2020-12/schema",
-        "$id": "#/components/schemas/HolidayInput",
         "type": "object",
         "properties": {
           "id": {
@@ -10702,7 +10619,6 @@
       },
       "Problem": {
         "$schema": "https://json-schema.org/draft/2020-12/schema",
-        "$id": "#/components/schemas/Problem",
         "type": "object",
         "properties": {
           "type": {
@@ -10758,7 +10674,6 @@
       },
       "TokenResponse": {
         "$schema": "https://json-schema.org/draft/2020-12/schema",
-        "$id": "#/components/schemas/TokenResponse",
         "type": "object",
         "properties": {
           "accessToken": {
@@ -10791,7 +10706,6 @@
       },
       "Organization": {
         "$schema": "https://json-schema.org/draft/2020-12/schema",
-        "$id": "#/components/schemas/Organization",
         "type": "object",
         "properties": {
           "id": {
@@ -10997,7 +10911,6 @@
       },
       "KycDocument": {
         "$schema": "https://json-schema.org/draft/2020-12/schema",
-        "$id": "#/components/schemas/KycDocument",
         "type": "object",
         "properties": {
           "id": {
@@ -11076,7 +10989,6 @@
       },
       "Me": {
         "$schema": "https://json-schema.org/draft/2020-12/schema",
-        "$id": "#/components/schemas/Me",
         "type": "object",
         "properties": {
           "principalType": {
@@ -11268,7 +11180,6 @@
       },
       "FileMeta": {
         "$schema": "https://json-schema.org/draft/2020-12/schema",
-        "$id": "#/components/schemas/FileMeta",
         "type": "object",
         "properties": {
           "id": {
@@ -11342,7 +11253,6 @@
       },
       "GeoPoint": {
         "$schema": "https://json-schema.org/draft/2020-12/schema",
-        "$id": "#/components/schemas/GeoPoint",
         "type": "object",
         "properties": {
           "type": {
@@ -11377,7 +11287,6 @@
       },
       "GeoPolygon": {
         "$schema": "https://json-schema.org/draft/2020-12/schema",
-        "$id": "#/components/schemas/GeoPolygon",
         "type": "object",
         "properties": {
           "type": {
@@ -11420,7 +11329,6 @@
       },
       "GeoMultiPolygon": {
         "$schema": "https://json-schema.org/draft/2020-12/schema",
-        "$id": "#/components/schemas/GeoMultiPolygon",
         "type": "object",
         "properties": {
           "type": {
@@ -11467,7 +11375,6 @@
       },
       "FeatureCollection": {
         "$schema": "https://json-schema.org/draft/2020-12/schema",
-        "$id": "#/components/schemas/FeatureCollection",
         "type": "object",
         "properties": {
           "type": {
@@ -11531,7 +11438,6 @@
       },
       "Farmer": {
         "$schema": "https://json-schema.org/draft/2020-12/schema",
-        "$id": "#/components/schemas/Farmer",
         "type": "object",
         "properties": {
           "id": {
@@ -11832,7 +11738,6 @@
       },
       "Block": {
         "$schema": "https://json-schema.org/draft/2020-12/schema",
-        "$id": "#/components/schemas/Block",
         "type": "object",
         "properties": {
           "id": {
@@ -12049,7 +11954,6 @@
       },
       "LandDocument": {
         "$schema": "https://json-schema.org/draft/2020-12/schema",
-        "$id": "#/components/schemas/LandDocument",
         "type": "object",
         "properties": {
           "id": {
@@ -12176,7 +12080,6 @@
       },
       "Plot": {
         "$schema": "https://json-schema.org/draft/2020-12/schema",
-        "$id": "#/components/schemas/Plot",
         "type": "object",
         "properties": {
           "id": {
@@ -12279,7 +12182,6 @@
       },
       "Allocation": {
         "$schema": "https://json-schema.org/draft/2020-12/schema",
-        "$id": "#/components/schemas/Allocation",
         "type": "object",
         "properties": {
           "id": {
@@ -12359,7 +12261,6 @@
       },
       "Crop": {
         "$schema": "https://json-schema.org/draft/2020-12/schema",
-        "$id": "#/components/schemas/Crop",
         "type": "object",
         "properties": {
           "id": {
@@ -12439,7 +12340,6 @@
       },
       "CropTemplate": {
         "$schema": "https://json-schema.org/draft/2020-12/schema",
-        "$id": "#/components/schemas/CropTemplate",
         "type": "object",
         "properties": {
           "id": {
@@ -12602,7 +12502,6 @@
       },
       "Service": {
         "$schema": "https://json-schema.org/draft/2020-12/schema",
-        "$id": "#/components/schemas/Service",
         "type": "object",
         "properties": {
           "id": {
@@ -12694,7 +12593,6 @@
       },
       "Season": {
         "$schema": "https://json-schema.org/draft/2020-12/schema",
-        "$id": "#/components/schemas/Season",
         "type": "object",
         "properties": {
           "id": {
@@ -12808,7 +12706,6 @@
       },
       "Planting": {
         "$schema": "https://json-schema.org/draft/2020-12/schema",
-        "$id": "#/components/schemas/Planting",
         "type": "object",
         "properties": {
           "id": {
@@ -12976,7 +12873,6 @@
       },
       "BudgetLine": {
         "$schema": "https://json-schema.org/draft/2020-12/schema",
-        "$id": "#/components/schemas/BudgetLine",
         "type": "object",
         "properties": {
           "id": {
@@ -13156,7 +13052,6 @@
       },
       "BudgetSummary": {
         "$schema": "https://json-schema.org/draft/2020-12/schema",
-        "$id": "#/components/schemas/BudgetSummary",
         "type": "object",
         "properties": {
           "totals": {
@@ -13299,7 +13194,6 @@
       },
       "SupplierQuote": {
         "$schema": "https://json-schema.org/draft/2020-12/schema",
-        "$id": "#/components/schemas/SupplierQuote",
         "type": "object",
         "properties": {
           "id": {
@@ -13394,7 +13288,6 @@
       },
       "FeePolicy": {
         "$schema": "https://json-schema.org/draft/2020-12/schema",
-        "$id": "#/components/schemas/FeePolicy",
         "type": "object",
         "properties": {
           "id": {
@@ -13446,7 +13339,6 @@
       },
       "OfftakeContract": {
         "$schema": "https://json-schema.org/draft/2020-12/schema",
-        "$id": "#/components/schemas/OfftakeContract",
         "type": "object",
         "properties": {
           "id": {
@@ -13648,7 +13540,6 @@
       },
       "ModelAssumptions": {
         "$schema": "https://json-schema.org/draft/2020-12/schema",
-        "$id": "#/components/schemas/ModelAssumptions",
         "type": "object",
         "properties": {
           "seasonId": {
@@ -13827,7 +13718,6 @@
       },
       "ModelOutput": {
         "$schema": "https://json-schema.org/draft/2020-12/schema",
-        "$id": "#/components/schemas/ModelOutput",
         "type": "object",
         "properties": {
           "engineVersion": {
@@ -15008,7 +14898,6 @@
       },
       "ModelRun": {
         "$schema": "https://json-schema.org/draft/2020-12/schema",
-        "$id": "#/components/schemas/ModelRun",
         "type": "object",
         "properties": {
           "id": {
@@ -15058,7 +14947,6 @@
       },
       "Readiness": {
         "$schema": "https://json-schema.org/draft/2020-12/schema",
-        "$id": "#/components/schemas/Readiness",
         "type": "object",
         "properties": {
           "engineVersion": {
@@ -15176,7 +15064,6 @@
       },
       "Dossier": {
         "$schema": "https://json-schema.org/draft/2020-12/schema",
-        "$id": "#/components/schemas/Dossier",
         "type": "object",
         "properties": {
           "id": {
@@ -15379,7 +15266,6 @@
       },
       "RiskCover": {
         "$schema": "https://json-schema.org/draft/2020-12/schema",
-        "$id": "#/components/schemas/RiskCover",
         "type": "object",
         "properties": {
           "id": {
@@ -15500,7 +15386,6 @@
       },
       "LenderProfile": {
         "$schema": "https://json-schema.org/draft/2020-12/schema",
-        "$id": "#/components/schemas/LenderProfile",
         "type": "object",
         "properties": {
           "name": {
@@ -15636,7 +15521,6 @@
       },
       "Tranche": {
         "$schema": "https://json-schema.org/draft/2020-12/schema",
-        "$id": "#/components/schemas/Tranche",
         "type": "object",
         "properties": {
           "type": {
@@ -15732,7 +15616,6 @@
       },
       "FinancingRequest": {
         "$schema": "https://json-schema.org/draft/2020-12/schema",
-        "$id": "#/components/schemas/FinancingRequest",
         "type": "object",
         "properties": {
           "id": {
@@ -15838,7 +15721,6 @@
       },
       "LenderMatch": {
         "$schema": "https://json-schema.org/draft/2020-12/schema",
-        "$id": "#/components/schemas/LenderMatch",
         "type": "object",
         "properties": {
           "lenderOrgId": {
@@ -15891,7 +15773,6 @@
       },
       "Rfp": {
         "$schema": "https://json-schema.org/draft/2020-12/schema",
-        "$id": "#/components/schemas/Rfp",
         "type": "object",
         "properties": {
           "id": {
@@ -16213,7 +16094,6 @@
       },
       "Opportunity": {
         "$schema": "https://json-schema.org/draft/2020-12/schema",
-        "$id": "#/components/schemas/Opportunity",
         "type": "object",
         "properties": {
           "invitation": {
@@ -16541,7 +16421,6 @@
       },
       "Bid": {
         "$schema": "https://json-schema.org/draft/2020-12/schema",
-        "$id": "#/components/schemas/Bid",
         "type": "object",
         "properties": {
           "trancheId": {
@@ -16745,7 +16624,6 @@
       },
       "BidPreview": {
         "$schema": "https://json-schema.org/draft/2020-12/schema",
-        "$id": "#/components/schemas/BidPreview",
         "type": "object",
         "properties": {
           "earBps": {
@@ -16821,7 +16699,6 @@
       },
       "Evaluation": {
         "$schema": "https://json-schema.org/draft/2020-12/schema",
-        "$id": "#/components/schemas/Evaluation",
         "type": "object",
         "properties": {
           "tranches": {
@@ -16952,7 +16829,6 @@
       },
       "Award": {
         "$schema": "https://json-schema.org/draft/2020-12/schema",
-        "$id": "#/components/schemas/Award",
         "type": "object",
         "properties": {
           "id": {
@@ -17060,7 +16936,6 @@
       },
       "ContractTemplate": {
         "$schema": "https://json-schema.org/draft/2020-12/schema",
-        "$id": "#/components/schemas/ContractTemplate",
         "type": "object",
         "properties": {
           "id": {
@@ -17144,7 +17019,6 @@
       },
       "ContractParty": {
         "$schema": "https://json-schema.org/draft/2020-12/schema",
-        "$id": "#/components/schemas/ContractParty",
         "type": "object",
         "properties": {
           "id": {
@@ -17248,7 +17122,6 @@
       },
       "Contract": {
         "$schema": "https://json-schema.org/draft/2020-12/schema",
-        "$id": "#/components/schemas/Contract",
         "type": "object",
         "properties": {
           "id": {
@@ -17462,7 +17335,6 @@
       },
       "SignatureOtpResult": {
         "$schema": "https://json-schema.org/draft/2020-12/schema",
-        "$id": "#/components/schemas/SignatureOtpResult",
         "type": "object",
         "properties": {
           "partyId": {
@@ -17490,7 +17362,6 @@
       },
       "FacilityScheduleLine": {
         "$schema": "https://json-schema.org/draft/2020-12/schema",
-        "$id": "#/components/schemas/FacilityScheduleLine",
         "type": "object",
         "properties": {
           "seq": {
@@ -17552,7 +17423,6 @@
       },
       "FacilityFarmerAllocation": {
         "$schema": "https://json-schema.org/draft/2020-12/schema",
-        "$id": "#/components/schemas/FacilityFarmerAllocation",
         "type": "object",
         "properties": {
           "farmerId": {
@@ -17596,7 +17466,6 @@
       },
       "Facility": {
         "$schema": "https://json-schema.org/draft/2020-12/schema",
-        "$id": "#/components/schemas/Facility",
         "type": "object",
         "properties": {
           "id": {
@@ -17907,7 +17776,6 @@
       },
       "EscrowAccount": {
         "$schema": "https://json-schema.org/draft/2020-12/schema",
-        "$id": "#/components/schemas/EscrowAccount",
         "type": "object",
         "properties": {
           "id": {
@@ -17965,7 +17833,6 @@
       },
       "Disbursement": {
         "$schema": "https://json-schema.org/draft/2020-12/schema",
-        "$id": "#/components/schemas/Disbursement",
         "type": "object",
         "properties": {
           "id": {
@@ -18210,7 +18077,6 @@
       },
       "Repayment": {
         "$schema": "https://json-schema.org/draft/2020-12/schema",
-        "$id": "#/components/schemas/Repayment",
         "type": "object",
         "properties": {
           "id": {
@@ -18298,7 +18164,6 @@
       },
       "ServiceDelivery": {
         "$schema": "https://json-schema.org/draft/2020-12/schema",
-        "$id": "#/components/schemas/ServiceDelivery",
         "type": "object",
         "properties": {
           "id": {
@@ -18431,7 +18296,6 @@
       },
       "FieldVisit": {
         "$schema": "https://json-schema.org/draft/2020-12/schema",
-        "$id": "#/components/schemas/FieldVisit",
         "type": "object",
         "properties": {
           "id": {
@@ -18553,7 +18417,6 @@
       },
       "Alert": {
         "$schema": "https://json-schema.org/draft/2020-12/schema",
-        "$id": "#/components/schemas/Alert",
         "type": "object",
         "properties": {
           "id": {
@@ -18695,7 +18558,6 @@
       },
       "AlertRule": {
         "$schema": "https://json-schema.org/draft/2020-12/schema",
-        "$id": "#/components/schemas/AlertRule",
         "type": "object",
         "properties": {
           "code": {
@@ -18733,7 +18595,6 @@
       },
       "HarvestDelivery": {
         "$schema": "https://json-schema.org/draft/2020-12/schema",
-        "$id": "#/components/schemas/HarvestDelivery",
         "type": "object",
         "properties": {
           "id": {
@@ -18891,7 +18752,6 @@
       },
       "Dispatch": {
         "$schema": "https://json-schema.org/draft/2020-12/schema",
-        "$id": "#/components/schemas/Dispatch",
         "type": "object",
         "properties": {
           "id": {
@@ -19043,7 +18903,6 @@
       },
       "BuyerInvoice": {
         "$schema": "https://json-schema.org/draft/2020-12/schema",
-        "$id": "#/components/schemas/BuyerInvoice",
         "type": "object",
         "properties": {
           "id": {
@@ -19204,7 +19063,6 @@
       },
       "EscrowReceipt": {
         "$schema": "https://json-schema.org/draft/2020-12/schema",
-        "$id": "#/components/schemas/EscrowReceipt",
         "type": "object",
         "properties": {
           "id": {
@@ -19364,7 +19222,6 @@
       },
       "SettlementRun": {
         "$schema": "https://json-schema.org/draft/2020-12/schema",
-        "$id": "#/components/schemas/SettlementRun",
         "type": "object",
         "properties": {
           "id": {
@@ -19714,7 +19571,6 @@
       },
       "PayoutInstruction": {
         "$schema": "https://json-schema.org/draft/2020-12/schema",
-        "$id": "#/components/schemas/PayoutInstruction",
         "type": "object",
         "properties": {
           "id": {
@@ -19837,7 +19693,6 @@
       },
       "ImportConfirmationsResult": {
         "$schema": "https://json-schema.org/draft/2020-12/schema",
-        "$id": "#/components/schemas/ImportConfirmationsResult",
         "type": "object",
         "properties": {
           "results": {
@@ -19879,7 +19734,6 @@
       },
       "FarmerStatement": {
         "$schema": "https://json-schema.org/draft/2020-12/schema",
-        "$id": "#/components/schemas/FarmerStatement",
         "type": "object",
         "properties": {
           "id": {
@@ -19930,7 +19784,6 @@
       },
       "FarmerArrear": {
         "$schema": "https://json-schema.org/draft/2020-12/schema",
-        "$id": "#/components/schemas/FarmerArrear",
         "type": "object",
         "properties": {
           "id": {
@@ -20008,7 +19861,6 @@
       },
       "FarmerToken": {
         "$schema": "https://json-schema.org/draft/2020-12/schema",
-        "$id": "#/components/schemas/FarmerToken",
         "type": "object",
         "properties": {
           "accessToken": {
@@ -20028,7 +19880,6 @@
       },
       "MeFarmer": {
         "$schema": "https://json-schema.org/draft/2020-12/schema",
-        "$id": "#/components/schemas/MeFarmer",
         "type": "object",
         "properties": {
           "id": {
@@ -20089,7 +19940,6 @@
       },
       "MeFarmerPlot": {
         "$schema": "https://json-schema.org/draft/2020-12/schema",
-        "$id": "#/components/schemas/MeFarmerPlot",
         "type": "object",
         "properties": {
           "plotId": {
@@ -20129,7 +19979,6 @@
       },
       "MeFarmerStatement": {
         "$schema": "https://json-schema.org/draft/2020-12/schema",
-        "$id": "#/components/schemas/MeFarmerStatement",
         "type": "object",
         "properties": {
           "id": {
@@ -20181,7 +20030,6 @@
       },
       "Kpis": {
         "$schema": "https://json-schema.org/draft/2020-12/schema",
-        "$id": "#/components/schemas/Kpis",
         "type": "object",
         "properties": {
           "areaFinancedHa": {
@@ -20402,7 +20250,6 @@
       },
       "KpiSeries": {
         "$schema": "https://json-schema.org/draft/2020-12/schema",
-        "$id": "#/components/schemas/KpiSeries",
         "type": "object",
         "properties": {
           "data": {
@@ -20434,7 +20281,6 @@
       },
       "OperatorDashboard": {
         "$schema": "https://json-schema.org/draft/2020-12/schema",
-        "$id": "#/components/schemas/OperatorDashboard",
         "type": "object",
         "properties": {
           "blocksByStatus": {
@@ -20564,7 +20410,6 @@
       },
       "LenderDashboard": {
         "$schema": "https://json-schema.org/draft/2020-12/schema",
-        "$id": "#/components/schemas/LenderDashboard",
         "type": "object",
         "properties": {
           "kpis": {
@@ -20661,7 +20506,6 @@
       },
       "BlockDashboard": {
         "$schema": "https://json-schema.org/draft/2020-12/schema",
-        "$id": "#/components/schemas/BlockDashboard",
         "type": "object",
         "properties": {
           "block": {
@@ -20824,7 +20668,6 @@
       },
       "GuarantorDashboard": {
         "$schema": "https://json-schema.org/draft/2020-12/schema",
-        "$id": "#/components/schemas/GuarantorDashboard",
         "type": "object",
         "properties": {
           "kpis": {
@@ -20924,7 +20767,6 @@
       },
       "Report": {
         "$schema": "https://json-schema.org/draft/2020-12/schema",
-        "$id": "#/components/schemas/Report",
         "type": "object",
         "properties": {
           "id": {
@@ -20993,7 +20835,6 @@
       },
       "Plan": {
         "$schema": "https://json-schema.org/draft/2020-12/schema",
-        "$id": "#/components/schemas/Plan",
         "type": "object",
         "properties": {
           "id": {
@@ -21068,7 +20909,6 @@
       },
       "BillingSubscription": {
         "$schema": "https://json-schema.org/draft/2020-12/schema",
-        "$id": "#/components/schemas/BillingSubscription",
         "type": "object",
         "properties": {
           "subscription": {
@@ -21136,7 +20976,6 @@
       },
       "PlatformInvoice": {
         "$schema": "https://json-schema.org/draft/2020-12/schema",
-        "$id": "#/components/schemas/PlatformInvoice",
         "type": "object",
         "properties": {
           "id": {
@@ -21281,7 +21120,6 @@
       },
       "WebhookEndpoint": {
         "$schema": "https://json-schema.org/draft/2020-12/schema",
-        "$id": "#/components/schemas/WebhookEndpoint",
         "type": "object",
         "properties": {
           "id": {
@@ -21318,7 +21156,6 @@
       },
       "WebhookDelivery": {
         "$schema": "https://json-schema.org/draft/2020-12/schema",
-        "$id": "#/components/schemas/WebhookDelivery",
         "type": "object",
         "properties": {
           "id": {
@@ -21411,7 +21248,6 @@
       },
       "EventEnvelope": {
         "$schema": "https://json-schema.org/draft/2020-12/schema",
-        "$id": "#/components/schemas/EventEnvelope",
         "type": "object",
         "properties": {
           "id": {
@@ -21501,7 +21337,6 @@
       },
       "Setting": {
         "$schema": "https://json-schema.org/draft/2020-12/schema",
-        "$id": "#/components/schemas/Setting",
         "type": "object",
         "properties": {
           "key": {
@@ -21523,7 +21358,6 @@
       },
       "Holiday": {
         "$schema": "https://json-schema.org/draft/2020-12/schema",
-        "$id": "#/components/schemas/Holiday",
         "type": "object",
         "properties": {
           "id": {
@@ -41645,6 +41479,89 @@
     },
     {
       "apiKey": []
+    }
+  ],
+  "tags": [
+    {
+      "name": "admin"
+    },
+    {
+      "name": "agreements"
+    },
+    {
+      "name": "api-keys"
+    },
+    {
+      "name": "auth"
+    },
+    {
+      "name": "billing"
+    },
+    {
+      "name": "buyer"
+    },
+    {
+      "name": "catalogue"
+    },
+    {
+      "name": "dossier"
+    },
+    {
+      "name": "facilities"
+    },
+    {
+      "name": "farmer-portal"
+    },
+    {
+      "name": "farmers"
+    },
+    {
+      "name": "field"
+    },
+    {
+      "name": "files"
+    },
+    {
+      "name": "finance"
+    },
+    {
+      "name": "harvest"
+    },
+    {
+      "name": "land"
+    },
+    {
+      "name": "marketplace"
+    },
+    {
+      "name": "members"
+    },
+    {
+      "name": "monitoring"
+    },
+    {
+      "name": "notifications"
+    },
+    {
+      "name": "offtake"
+    },
+    {
+      "name": "operations"
+    },
+    {
+      "name": "orgs"
+    },
+    {
+      "name": "planning"
+    },
+    {
+      "name": "settlement"
+    },
+    {
+      "name": "system"
+    },
+    {
+      "name": "webhooks"
     }
   ]
 }

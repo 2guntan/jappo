@@ -88,7 +88,7 @@ export class E2eApi {
     public token = '',
     public orgId = '',
   ) {}
-  private headers(extra: Record<string, string> = {}) {
+  headers(extra: Record<string, string> = {}) {
     return { ...(this.token ? { authorization: `Bearer ${this.token}` } : {}), ...(this.orgId ? { 'x-org-id': this.orgId } : {}), ...extra };
   }
   async call<T = Record<string, unknown>>(method: 'GET' | 'POST' | 'PATCH' | 'PUT' | 'DELETE', path: string, data?: unknown, extra: Record<string, string> = {}): Promise<T> {

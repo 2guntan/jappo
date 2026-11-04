@@ -1,0 +1,28 @@
+# Production reverse proxy (SPEC §18.4). Set JAPPO_DOMAIN and ACME_EMAIL in the environment.
+{
+	email {$ACME_EMAIL}
+}
+
+{$JAPPO_DOMAIN} {
+	encode zstd gzip
+	header {
+		Strict-Transport-Security "max-age=31536000; includeSubDomains"
+		X-Content-Type-Options nosniff
+		Referrer-Policy strict-origin-when-cross-origin
+		-Server
+	}
+	# Public API (the web app also proxies /v1 to the API on the internal network).
+	handle /v1/* {
+		reverse_proxy api:4000
+	}
+	handle /health {
+		reverse_proxy api:4000
+	}
+	# /metrics stays on the internal network only.
+	handle /metrics {
+		respond 404
+	}
+	handle {
+		reverse_proxy web:3000
+	}
+}

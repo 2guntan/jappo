@@ -11,7 +11,8 @@ export interface KpiInput {
     trancheType: 'seasonal' | 'investment';
     disbursedXof: number;
     outstandingPrincipalXof: number;
-    lines: { dueDate: string; totalXof: number; paidXof: number }[];
+    /** `matured`: settled at harvest before the contractual due date (counts in the repayment rate). */
+    lines: { dueDate: string; totalXof: number; paidXof: number; matured?: boolean }[];
   }[];
   expectedKg: number;
   deliveredKg: number;
@@ -70,7 +71,7 @@ export function computeKpis(i: KpiInput): Kpis {
   const outstanding = sum()((f) => f.outstandingPrincipalXof);
   const overdueDays = (f: KpiInput['facilities'][number]) => f.lines.reduce((m, l) => (l.paidXof < l.totalXof && days(l.dueDate, i.asOf) > 0 ? Math.max(m, days(l.dueDate, i.asOf)) : m), 0);
   const parAt = (threshold: number) => pct(i.facilities.filter((f) => overdueDays(f) > threshold).reduce((s, f) => s + f.outstandingPrincipalXof, 0), outstanding);
-  const dueLines = i.facilities.flatMap((f) => f.lines.filter((l) => days(l.dueDate, i.asOf) >= 0));
+  const dueLines = i.facilities.flatMap((f) => f.lines.filter((l) => l.matured || days(l.dueDate, i.asOf) >= 0));
   const delays = i.invoices.filter((v) => v.paidAt).map((v) => days(v.issuedAt, v.paidAt!));
   const net = i.settlement.map((s) => s.payoutXof);
   const created = i.settlement.filter((s) => s.baselineIncomeXof !== null).map((s) => s.payoutXof - (s.baselineIncomeXof as number));

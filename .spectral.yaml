@@ -1,0 +1,10 @@
+# OpenAPI lint (SPEC §18.6): no errors allowed. Run: pnpm lint:openapi
+extends: ["spectral:oas"]
+rules:
+  # Every operation is documented by operationId + x-permission (enforced at boot); summaries are optional.
+  operation-description: off
+  operation-tags: error
+  operation-operationId: error
+  operation-operationId-unique: error
+  info-contact: off
+  oas3-api-servers: off

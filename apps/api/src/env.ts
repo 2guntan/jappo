@@ -19,6 +19,8 @@ const EnvSchema = z.object({
   MFA_ENFORCE: bool.default(true),
   COOKIE_SECURE: bool.default(false),
   RATE_LIMIT_ENABLED: bool.default(true),
+  /** Remove one-time codes from stored notifications once delivered (SPEC §18.1). E2E sets false to read codes. */
+  OTP_REDACT_AFTER_DELIVERY: bool.default(true),
   STORAGE_DRIVER: z.enum(['s3', 'fs']).default('s3'),
   S3_ENDPOINT: z.string().optional(),
   S3_REGION: z.string().default('us-east-1'),

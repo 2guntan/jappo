@@ -70,7 +70,7 @@ async function kpiInput(db: DbOrTx, blockIds: string[], facilityFilter: (f: type
     facilities: facs.map((f) => {
       const disbursed = dsb.filter((d) => d.facilityId === f.id).reduce((s, d) => s + d.amountXof, 0);
       const repaid = Number(repaidPrincipal.find((r) => r.id === f.id)?.p ?? 0);
-      return { trancheType: f.trancheType as 'seasonal' | 'investment', disbursedXof: disbursed, outstandingPrincipalXof: Math.max(disbursed - repaid, 0), lines: lines.filter((l) => l.facilityId === f.id).map((l) => ({ dueDate: l.dueDate, totalXof: l.totalXof, paidXof: l.paidXof })) };
+      return { trancheType: f.trancheType as 'seasonal' | 'investment', disbursedXof: disbursed, outstandingPrincipalXof: Math.max(disbursed - repaid, 0), lines: lines.filter((l) => l.facilityId === f.id).map((l) => ({ dueDate: l.dueDate, totalXof: l.totalXof, paidXof: l.paidXof, matured: l.status === 'paid' || l.status === 'overdue' })) };
     }),
     expectedKg: [...expected.values()].reduce((s, x) => s + x, 0),
     deliveredKg: tickets.reduce((s, t) => s + Number(t.kg), 0),

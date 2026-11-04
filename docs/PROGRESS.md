@@ -15,7 +15,7 @@ Source of truth for the next session. Phases from SPEC §17. Update after every 
 - [x] P8 Settlement
 - [x] P9 Monitoring
 - [x] P10 Commercial
-- [ ] P11 Hardening & acceptance
+- [x] P11 Hardening & acceptance
 
 ## P0 Scaffold — done
 
@@ -100,9 +100,18 @@ Web: public pricing page, billing settings (plans, subscribe, invoices with PDF)
 Tests: domain 58; integration `billing-webhooks.test.ts` (self-signup → subscribe → 14 160 XOF invoice at season start, idempotent; restricted mode and recovery; structuring fee 35 400; lender licence 1 416 000; signed webhook verified with HMAC, retries to failed, test delivery, isolation, event feed) and `admin-console.test.ts`; Playwright `p10-commercial.spec.ts`.
 Known limitations: invoices are paid manually (admin marks paid); the platform issuer identity on invoices is generic "Jappo" until legal details are entered.
 
+## P11 Hardening & acceptance — done
+
+Security: integration `security.test.ts` — auth rate limit 10/min/IP (11th → 429, other IPs unaffected), 300/min per token, OTP requests 3/10 min per phone, code locked after 5 wrong attempts, delivered codes redacted from `notifications` (D-092); IDOR sweep of 24 GET routes plus writes for an unrelated operator, lender and buyer (found and fixed `GET /seasons/{id}/settlement-runs` answering 200 to strangers).
+Behaviour: seasonal facility goes `in_arrears` at settlement reconciliation when unpaid (D-093); repayment-rate KPI counts matured lines (D-094).
+Operations: `infra/docker-compose.prod.yml` (Caddy, web, api ×2, worker, PostGIS tuned, MinIO, nightly backup service), `infra/caddy/Caddyfile`, `infra/backup/backup.sh` / `restore.sh` — **tested**: dump of the e2e database (25 orgs, 923 audit rows, 151 files) restored into `jappo_restore_test` with identical counts and an intact audit hash chain (923 checked); API image now ships Chromium for PDFs; `docs/RUNBOOK.md`; `docs/API.md` generated (294 operations, `pnpm docs:api`).
+Quality gates: OpenAPI lint with Spectral — 0 errors (component `$id`s stripped, global tags declared; 74 warnings = unused input variants); domain coverage ≥ 90 % enforced; API integration coverage 93.5 % lines; performance tests: model run for 500 farmers/plots and settlement for 2 000 farmers both well under budget (< 0.4 s together).
+Acceptance: `pnpm e2e:full` (`apps/web/e2e/full-lifecycle.spec.ts`) passes all 14 steps of SPEC §17.1: signup + KYC, block with GeoJSON boundary and verified land documents, auto-grid 1 ha plots, farmers enrolled through the PWA sync protocol with verified wallets, budget 1 200 000 / 1 000 000 / 800 000, fees, signed escrow offtake, 80 % guarantee, model + all gates + frozen dossier PDF, request 3 000 000, RFP to Alpha and Gamma, bids, deadline job close, EAR 2122 / 2100, award Alpha in the UI, acceptance, escrow, 6 contracts signed (OTP + in person), CPs, four-eyes disbursement by two Alpha users, service deliveries and 2 visits per plot, season start, harvest 12 000 / 8 000 / 3 000 kg, invoice 5 750 000, buyer receipt confirmed by Alpha, settlement = WF-1 (1 542 000 / 760 000 / 0; seasonal 3 148 000; farmers 2 302 000) approved in the UI by operator and Alpha, Wave CSV, confirmations imported, reconciled, facility `in_arrears` with repaid 3 148 000 and F3 arrears 122 000, 3 statement SMS, F1 portal login and statement PDF, lender KPI repayment rate 96,27 %, platform invoices 15 000 (3 ha × 5 000) and 30 000 (1 % structuring).
+Known limitations (V1): payouts via CSV/manual confirmation (no live Wave/Orange API); invoices paid manually; `PII_ENCRYPTION_KEY` rotation needs an offline re-encryption script; dashboards without time-series charts.
+
 ## In progress
 
-Nothing half-built. **Next concrete step:** P11 Hardening & acceptance — security tests (rate limits on auth/OTP, OTP brute force lockout, IDOR suite across every resource id route), redact OTP codes from `notifications.data` after delivery, backup/restore scripts (`infra/scripts/backup.sh`, `restore.sh`, tested), prod compose with Caddy, `docs/RUNBOOK.md`, `docs/API.md`, performance check, then `pnpm e2e:full` (SPEC §17.1 full lifecycle: two lenders bid, operator awards, contracts, disbursement, season, harvest, escrow, settlement approved by both sides, statements; every figure = golden values — read §17.1 first, including D-046 and the investment-tranche note in P8).
+**V1 is complete**: every phase P0–P11 is checked and `pnpm e2e:full` passes. Nothing half-built. Suggested next steps (post-V1): live mobile-money payout adapters behind the existing adapter interface, time-series charts on the KPI series endpoint, key-rotation tooling, data processing register page (SPEC §18.2) review with counsel.
 
 ## How to run
 
@@ -113,4 +122,4 @@ docker compose -f infra/docker-compose.yml up -d postgres   # or: docker run -d 
 pnpm seed && pnpm dev
 pnpm verify                                # all gates; integration tests start their own PostGIS container (or set TEST_DATABASE_URL)
 ```
-E2E uses database `jappo_e2e` on `E2E_PG_URL` (default `postgres://jappo:jappo@localhost:5432`), API on :4100, web on :3100; `pnpm e2e` rebuilds the web app with `API_INTERNAL_URL=http://localhost:4100`.
+E2E uses database `jappo_e2e` on `E2E_PG_URL` (default `postgres://jappo:jappo@localhost:5432`), API on :4100, web on :3100; `pnpm e2e` rebuilds the web app with `API_INTERNAL_URL=http://localhost:4100` and runs the phase specs P1–P10; `pnpm e2e:full` runs the SPEC §17.1 lifecycle (≈ 1.5 min). Production: `docs/RUNBOOK.md`.

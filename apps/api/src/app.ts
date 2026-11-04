@@ -83,7 +83,15 @@ export async function buildApp({ ctx, logger }: BuildOptions): Promise<FastifyIn
       security: [{ bearer: [] }, { apiKey: [] }],
     },
     transform: jsonSchemaTransform,
-    transformObject: jsonSchemaTransformObject,
+    // Component `$id`s from Zod (`#/components/schemas/X`) are not valid JSON-Schema ids for OAS 3.1 linters (Spectral).
+    transformObject: (doc) => {
+      const out = jsonSchemaTransformObject(doc) as { components?: { schemas?: Record<string, Record<string, unknown>> }; paths?: Record<string, Record<string, { tags?: string[] }>>; tags?: { name: string }[] };
+      for (const s of Object.values(out.components?.schemas ?? {})) delete s.$id;
+      const tags = new Set<string>();
+      for (const ops of Object.values(out.paths ?? {})) for (const op of Object.values(ops)) for (const t of op.tags ?? []) tags.add(t);
+      out.tags = [...tags].sort().map((name) => ({ name }));
+      return out as ReturnType<typeof jsonSchemaTransformObject>;
+    },
   });
   await app.register(swaggerUi, { routePrefix: '/v1/docs' });
 

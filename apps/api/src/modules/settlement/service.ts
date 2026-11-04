@@ -1,5 +1,5 @@
 import { and, asc, eq, inArray, isNull, ne, notInArray, or, sql } from 'drizzle-orm';
-import { blockMachine, computeSettlement, dec, formatXof, roundXof, seasonMachine, settlementMachine, transition, type SettlementInput, type SettlementOutput } from '@jappo/domain';
+import { blockMachine, computeSettlement, dec, facilityMachine, formatXof, roundXof, seasonMachine, settlementMachine, transition, type SettlementInput, type SettlementOutput } from '@jappo/domain';
 import { renderFarmerStatementHtml, renderNotification } from '@jappo/templates';
 import type { Db, DbOrTx } from '../../db/client';
 import { farmerArrears, farmerStatements, payoutInstructions, settlementLenderApprovals, settlementLines, settlementRuns } from './schema';
@@ -191,6 +191,9 @@ export async function runDto(db: DbOrTx, actor: ActorContext, run: RunRow, role:
 }
 
 export async function listRuns(db: DbOrTx, actor: ActorContext, seasonId: string) {
+  const [season] = await db.select({ blockId: seasons.blockId }).from(seasons).where(eq(seasons.id, seasonId));
+  if (!season) throw notFound('Season');
+  await loadBlock(db, actor, season.blockId); // 404 for organisations that cannot see the block
   const rows = await db.select().from(settlementRuns).where(eq(settlementRuns.seasonId, seasonId));
   const out = [];
   for (const r of rows) {
@@ -565,6 +568,16 @@ export async function reconcile(db: Db, actor: ActorContext, id: string, expecte
     if (s?.status === 'settlement') await tx.update(seasons).set({ status: transition(seasonMachine, s.status, 'close'), version: s.version + 1 }).where(eq(seasons.id, s.id));
     const [b] = await tx.select().from(blocks).where(eq(blocks.id, run.blockId)).for('update');
     if (b?.status === 'active') await tx.update(blocks).set({ status: transition(blockMachine, b.status, 'season_settled'), version: b.version + 1 }).where(eq(blocks.id, b.id));
+    // The harvest settlement is the maturity of seasonal facilities: what remains unpaid is overdue now and the
+    // facility stays in arrears until the farmer arrears are settled (SPEC §17.1 step 11).
+    const seasonal = await tx.select().from(facilities).where(and(eq(facilities.seasonId, run.seasonId), eq(facilities.trancheType, 'seasonal')));
+    for (const f of seasonal) {
+      const open = await tx.update(scheduleLines).set({ status: 'overdue' }).where(and(eq(scheduleLines.facilityId, f.id), ne(scheduleLines.status, 'paid'))).returning({ id: scheduleLines.id });
+      if (open.length && f.status === 'active') {
+        await tx.update(facilities).set({ status: transition(facilityMachine, f.status, 'mark_overdue'), version: f.version + 1 }).where(eq(facilities.id, f.id));
+        await emit(tx, actor, 'facility.in_arrears', { type: 'facility', id: f.id }, { ref: f.ref, reason: 'settlement_shortfall' }, f.operatorOrgId);
+      }
+    }
     await audit(tx, actor, { action: 'settlement.reconciled', resourceType: 'settlement_run', resourceId: id, after: { confirmedXof: Number(total) } });
     await emit(tx, actor, 'settlement.reconciled', { type: 'settlement_run', id }, { seasonId: run.seasonId, receiptsTotalXof: run.receiptsTotalXof }, run.ownerOrgId);
   });

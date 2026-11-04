@@ -63,6 +63,15 @@ export async function notifyOrgRoles(
 }
 
 /** Deliver pending email/SMS notifications (worker job; callable in tests). */
+/** One-time codes must not stay readable in the database after delivery (SPEC §18.1). */
+function redacted(ctx: ModuleContext, n: typeof notifications.$inferSelect) {
+  const data = (n.data ?? {}) as Record<string, unknown>;
+  if (!ctx.env.OTP_REDACT_AFTER_DELIVERY || typeof data.code !== 'string') return {};
+  const mask = (v: string | null) => (v ? v.split(data.code as string).join('••••••') : v);
+  const { code: _code, ...rest } = data;
+  return { data: { ...rest, codeRedacted: true }, body: mask(n.body), subject: mask(n.subject) };
+}
+
 export async function deliverPendingNotifications(ctx: ModuleContext, limit = 100): Promise<number> {
   return ctx.db.transaction(async (tx) => {
     const pending = await tx
@@ -81,7 +90,7 @@ export async function deliverPendingNotifications(ctx: ModuleContext, limit = 10
             : await ctx.sms.send(n.destination!, n.body ?? '');
         await tx
           .update(notifications)
-          .set({ status: 'sent', sentAt: new Date(), provider: n.channel === 'email' ? ctx.email.code : ctx.sms.code, providerRef: ref.providerRef, attempts: n.attempts + 1 })
+          .set({ status: 'sent', sentAt: new Date(), provider: n.channel === 'email' ? ctx.email.code : ctx.sms.code, providerRef: ref.providerRef, attempts: n.attempts + 1, ...redacted(ctx, n) })
           .where(eq(notifications.id, n.id));
         sent += 1;
       } catch (e) {

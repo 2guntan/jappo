@@ -21,7 +21,10 @@ COPY --from=build /repo/apps/api/assets ./assets
 COPY --from=build /repo/apps/api/package.json ./package.json
 RUN npm install --omit=dev --no-audit --no-fund @node-rs/argon2@2 pg@8 pg-boss@10 pino@9 @aws-sdk/client-s3@3 @aws-sdk/s3-request-presigner@3 nodemailer@7 handlebars@4 \
   fastify@5 @fastify/cookie@11 @fastify/cors@11 @fastify/helmet@13 @fastify/multipart@9 @fastify/rate-limit@10 @fastify/swagger@9 @fastify/swagger-ui@5 \
-  fastify-plugin@5 fastify-type-provider-zod@6 zod@4 drizzle-orm@0.44 jose@6 otpauth@9 prom-client@15 uuid@11 decimal.js@10
+  fastify-plugin@5 fastify-type-provider-zod@6 zod@4 drizzle-orm@0.44 jose@6 otpauth@9 prom-client@15 uuid@11 decimal.js@10 \
+  pdf-lib@1 playwright@1.63.0
+# Chromium for PDF rendering (dossier, contracts, invoices, statements, reports).
+RUN if [ "$APP" = "api" ] || [ "$APP" = "worker" ]; then npx playwright install --with-deps chromium; fi
 USER node
 EXPOSE 4000
 CMD ["node", "dist/main.js"]
