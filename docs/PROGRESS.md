@@ -6,7 +6,7 @@ Source of truth for the next session. Phases from SPEC §17. Update after every 
 
 - [x] P0 Scaffold
 - [x] P1 Identity & core
-- [ ] P2 Land & farmers
+- [x] P2 Land & farmers
 - [ ] P3 Catalogue, planning, offtake
 - [ ] P4 Model, readiness, dossier
 - [ ] P5 Marketplace
@@ -28,9 +28,16 @@ Web: landing, signup, login (TOTP + SMS), forgot/reset password, verify email, i
 Tests: domain unit (100 % lines), API unit (permissions, crypto, sniffing, module graph), 30 integration tests (auth, MFA, OTP, KYC, members, API keys, files, idempotency, ETag, audit tampering, outbox, refs, OpenAPI) incl. `authz.spec.test.ts` negative suite, Playwright `p1-identity.spec.ts` (signup → KYC → admin verify → invite → accept → login). `pnpm verify` green.
 Known limitations: farmer OTP routes arrive with the farmer portal (D-017); rate-limit counters are per API replica (D-014).
 
+## P2 Land & farmers — done
+
+API: farmers CRUD with AES-GCM encrypted national id / wallet (+ HMAC hash, last-4 for masking), per-operator uniqueness (phone, national id), cross-operator duplicate flags, KYC verification, wallet verification by OTP, audited PII reveal, CSV import (template, `,`/`;`, row errors, idempotent upsert), history; blocks (ref BLK-YYYY-NNNN, auto `draft→documenting`), boundary from GeoJSON or uploaded GeoJSON/KML (ST_MakeValid, area on geography, point-on-surface centroid), map FeatureCollection, land documents + admin verification queue, plots (within 1 m buffer, overlap ≤ 1 %), equal-area auto-grid, allocations (Σ share ≤ 100 %, end), assets, grievances (+ resolution), archive guard; field PWA bootstrap + idempotent sync (`farmer.create|update`, `plot.create|updateGeometry`, `allocation.create`, `photo.attach`).
+Web: blocks list + map view, new block, block page tabs (overview with next actions, land: boundary draw/import + documents, plots: map, auto-grid, draw plot, allocations, CSV export; farmers; assets; community), farmers list (search, KYC filter, CSV import/template/export), new/edit farmer, farmer page (KYC, wallet OTP, PII reveal with reason, history), admin land-document queue, `/field` offline PWA (Dexie store, service worker, block download, enrol, GPS/coordinate plot mapping, allocate, queue, sync).
+Tests: integration `farmers.test.ts`, `land.test.ts`, `field-sync.test.ts`, P2 cases in `authz.spec.test.ts` (stranger 404 on 10 GET routes + 5 writes; block grant read propagation with masked PII) — 47 integration tests total; Playwright `p2-land-farmers.spec.ts` (20 plots, 20 farmers via UI, PWA offline enrol + allocate, sync).
+Known limitations: plot split/merge editing is not provided beyond auto-grid + draw (SPEC lists "split" in the plots editor — next candidate); photo capture uses file upload + `photo.attach` op.
+
 ## In progress
 
-Nothing half-built. **Next concrete step:** P2 — migrations for `farmers`, `farmer_group_members`, `farmer_flags`, `blocks`, `land_documents`, `plots`, `plot_allocations`, `block_assets`, `community_grievances`; then services/routes (SPEC §10.3, §10.4, §10.13), admin land-document verification queue, field PWA.
+Nothing half-built. **Next concrete step:** P3 — catalogue tables (`crops`, `crop_varieties`, `crop_templates`, `service_catalog`, `zones`, `market_prices`), planning (`seasons`, `plantings`, `supplier_quotes`, `budget_lines`, `capex_items`, `operator_opex`, `fee_policies`), offtake (`offtake_contracts`), seed catalogue (10 crops, zone templates, 30 services), budget generation from templates, per-farmer budget totals fixture test, buyer portal contracts view.
 
 ## How to run
 

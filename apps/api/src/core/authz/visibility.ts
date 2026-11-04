@@ -4,6 +4,7 @@ import { accessGrants } from '../schema';
 import type { ActorContext } from '../context';
 import { isPlatformStaff } from '../context';
 import { notFound } from '../errors';
+import { qcol } from '../geo';
 
 export type Scope = 'read' | 'comment' | 'act';
 const SCOPE_RANK: Record<Scope, number> = { read: 1, comment: 2, act: 3 };
@@ -23,10 +24,10 @@ export function visibleTo(
 ): SQL {
   if (isPlatformStaff(actor) && minScope === 'read') return sql`true`;
   if (!actor.orgId) return sql`false`;
-  const parts: SQL[] = [eq(ownerCol, actor.orgId)];
+  const parts: SQL[] = [sql`${qcol(ownerCol)} = ${actor.orgId}`];
   for (const g of grantTargets) {
     parts.push(sql`exists (select 1 from ${accessGrants} where ${accessGrants.resourceType} = ${g.type}
-      and ${accessGrants.resourceId} = ${g.idCol} and ${accessGrants.granteeOrgId} = ${actor.orgId}
+      and ${accessGrants.resourceId} = ${qcol(g.idCol)} and ${accessGrants.granteeOrgId} = ${actor.orgId}
       and ${accessGrants.scope} in (${sql.join(scopesAtLeast(minScope).map((s) => sql`${s}`), sql`, `)})
       and (${accessGrants.expiresAt} is null or ${accessGrants.expiresAt} > now()))`);
   }

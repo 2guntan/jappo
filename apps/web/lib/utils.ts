@@ -36,3 +36,6 @@ export function downloadCsv(filename: string, rows: Record<string, unknown>[]) {
 }
 
 export const kycTone = (s: string) => (s === 'verified' ? 'green' : s === 'rejected' ? 'red' : s === 'submitted' ? 'blue' : 'amber') as 'green' | 'red' | 'blue' | 'amber';
+
+export const statusTone = (s: string) =>
+  (({ draft: 'neutral', documenting: 'blue', ready: 'green', in_financing: 'amber', financed: 'green', active: 'green', archived: 'neutral', available: 'neutral', allocated: 'green', fallow: 'amber', excluded: 'red', submitted: 'blue', verified: 'green', rejected: 'red', expired: 'red', pending: 'amber', open: 'amber', in_progress: 'blue', resolved: 'green', closed: 'neutral' }) as Record<string, 'neutral' | 'blue' | 'green' | 'amber' | 'red'>)[s] ?? 'neutral';

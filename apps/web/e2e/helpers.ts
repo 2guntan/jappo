@@ -48,3 +48,32 @@ export async function logout(page: Page) {
 }
 
 export const pdf = (name: string) => ({ name, mimeType: 'application/pdf', buffer: Buffer.from('%PDF-1.4\n1 0 obj<<>>endobj\ntrailer<<>>\n%%EOF\n') });
+
+export async function signupOperator(page: Page, email: string, legalName = 'Ferme Commune Kawral SARL') {
+  await page.goto('/signup?type=operator');
+  await page.locator('#legalName').fill(legalName);
+  await page.locator('#fullName').fill('Awa Diallo');
+  await page.locator('#email').fill(email);
+  await page.locator('#password').fill(PASSWORD);
+  await page.locator('form button[type=submit]').click();
+  await page.waitForURL('**/app');
+}
+
+/** ~10 ha rectangle near Ziguinchor (500 m × 200 m) as a GeoJSON FeatureCollection file. */
+export function boundaryFile(lon = -16.27, lat = 12.58, widthM = 500, heightM = 200) {
+  const dLon = widthM / (111_320 * Math.cos((lat * Math.PI) / 180));
+  const dLat = heightM / 110_600;
+  const geometry = { type: 'Polygon', coordinates: [[[lon, lat], [lon + dLon, lat], [lon + dLon, lat + dLat], [lon, lat + dLat], [lon, lat]]] };
+  return { name: 'bloc.geojson', mimeType: 'application/geo+json', buffer: Buffer.from(JSON.stringify({ type: 'FeatureCollection', features: [{ type: 'Feature', properties: {}, geometry }] })) };
+}
+
+export function farmersCsv(n: number, phonePrefix = '+22177100') {
+  const header = 'first_name,last_name,sex,birth_year,phone,village,national_id_number,mobile_wallet_provider,mobile_wallet_number,consent_data,consent_credit_bureau';
+  const first = ['Awa', 'Fatou', 'Mariama', 'Aminata', 'Khady', 'Ndeye', 'Aïssatou', 'Seynabou', 'Coumba', 'Binta'];
+  const last = ['Diatta', 'Sané', 'Badji', 'Coly', 'Sagna', 'Manga', 'Bassène', 'Diédhiou', 'Goudiaby', 'Tendeng'];
+  const rows = Array.from({ length: n }, (_, i) => {
+    const phone = `${phonePrefix}${String(i + 1).padStart(4, '0')}`;
+    return `${first[i % 10]},${last[Math.floor(i / 2) % 10]},F,${1975 + i},${phone},Niaguis,17511990${String(i + 1).padStart(5, '0')},wave,${phone},oui,oui`;
+  });
+  return { name: 'farmers.csv', mimeType: 'text/csv', buffer: Buffer.from([header, ...rows].join('\n')) };
+}

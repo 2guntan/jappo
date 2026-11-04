@@ -15,7 +15,7 @@ test('P1: operator signs up, uploads KYC, admin verifies, operator invites a fie
   await page.locator('#password').fill(PASSWORD);
   await page.locator('form button[type=submit]').click();
   await page.waitForURL('**/app');
-  await expect(page.getByText('Bonjour Awa Diallo')).toBeVisible();
+  await expect(page.getByRole('heading', { name: 'Bonjour Awa Diallo' })).toBeVisible();
   await expect(page.getByText(/pas encore vérifiée/)).toBeVisible();
 
   // 2. KYC upload + submit
@@ -65,7 +65,7 @@ test('P1: operator signs up, uploads KYC, admin verifies, operator invites a fie
   await page.locator('#password').fill(PASSWORD);
   await page.getByRole('button', { name: "Accepter l'invitation" }).click();
   await page.waitForURL('**/app');
-  await expect(page.getByText('Bonjour Moussa Sané')).toBeVisible();
+  await expect(page.getByRole('heading', { name: 'Bonjour Moussa Sané' })).toBeVisible();
   await logout(page);
   await login(page, 'moussa.agent@kawral.test', PASSWORD);
   await expect(page.getByRole('link', { name: 'Membres' })).toHaveCount(0);

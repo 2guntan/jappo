@@ -5,6 +5,9 @@ import { adminRoutes } from './admin/routes';
 import { fileRoutes } from './files/routes';
 import { notificationRoutes } from './notifications/routes';
 import { systemRoutes } from './system/routes';
+import { farmerRoutes } from './farmers/routes';
+import { landRoutes } from './land/routes';
+import { fieldRoutes } from './field/routes';
 
 const ALL = ['platform', 'operator', 'lender', 'buyer', 'guarantor', 'insurer', 'supplier', 'farmer_group'] as const;
 
@@ -40,5 +43,36 @@ export const MODULES: JappoModule[] = validateModules([
         { key: 'admin-audit', href: '/app/admin/audit', labelKey: 'nav.adminAudit', permission: 'admin:read' },
       ],
     },
+  },
+  {
+    name: 'farmers',
+    version: '1.0.0',
+    core: true,
+    dependsOn: ['identity'],
+    routes: farmerRoutes,
+    ui: { workspace: ['operator'], navItems: [{ key: 'farmers', href: '/app/farmers', labelKey: 'nav.farmers', permission: 'farmer:read' }] },
+  },
+  {
+    name: 'land',
+    version: '1.0.0',
+    core: true,
+    dependsOn: ['farmers', 'files'],
+    routes: landRoutes,
+    ui: { workspace: ['operator', 'lender', 'guarantor', 'insurer', 'platform'], navItems: [{ key: 'blocks', href: '/app/blocks', labelKey: 'nav.blocks', permission: 'block:read' }] },
+  },
+  {
+    name: 'admin-land',
+    version: '1.0.0',
+    core: true,
+    dependsOn: ['land'],
+    ui: { workspace: ['platform'], navItems: [{ key: 'admin-land', href: '/app/admin/land-documents', labelKey: 'nav.adminLand', permission: 'admin:read' }] },
+  },
+  {
+    name: 'field',
+    version: '1.0.0',
+    core: true,
+    dependsOn: ['land'],
+    routes: fieldRoutes,
+    ui: { workspace: ['operator'], navItems: [{ key: 'field', href: '/field', labelKey: 'nav.field', permission: 'field:sync' }] },
   },
 ]);

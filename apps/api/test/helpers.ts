@@ -153,3 +153,37 @@ export async function verifiedOrg(t: TestApp, overrides: Record<string, unknown>
 
 export const flushNotifications = (t: TestApp) => deliverPendingNotifications(t.ctx);
 export { generateTotp };
+
+/** ~10 ha rectangle near Ziguinchor (500 m × 200 m). */
+export function rectangle(lon = -16.27, lat = 12.58, widthM = 500, heightM = 200) {
+  const dLon = widthM / (111_320 * Math.cos((lat * Math.PI) / 180));
+  const dLat = heightM / 110_600;
+  return {
+    type: 'Polygon' as const,
+    coordinates: [[[lon, lat], [lon + dLon, lat], [lon + dLon, lat + dLat], [lon, lat + dLat], [lon, lat]]],
+  };
+}
+
+export async function createBlock(t: TestApp, s: Session, overrides: Record<string, unknown> = {}) {
+  const res = await t.app.inject({ method: 'POST', url: '/v1/blocks', headers: auth(s), payload: { name: 'Bloc de Niaguis', region: 'Ziguinchor', commune: 'Niaguis', tenureType: 'deliberation', ...overrides } });
+  expectStatus(res, 201);
+  return json<{ id: string; ref: string; version: number; status: string }>(res);
+}
+
+export async function setBoundary(t: TestApp, s: Session, blockId: string, geometry = rectangle()) {
+  const cur = await t.app.inject({ method: 'GET', url: `/v1/blocks/${blockId}`, headers: auth(s) });
+  const res = await t.app.inject({ method: 'PUT', url: `/v1/blocks/${blockId}/boundary`, headers: auth(s, { 'if-match': cur.headers.etag as string }), payload: { geometry } });
+  expectStatus(res, 200);
+  return json<{ areaHa: number; version: number }>(res);
+}
+
+export async function createFarmer(t: TestApp, s: Session, overrides: Record<string, unknown> = {}) {
+  const res = await t.app.inject({
+    method: 'POST',
+    url: '/v1/farmers',
+    headers: auth(s),
+    payload: { firstName: 'Awa', lastName: 'Diatta', sex: 'F', consentData: true, consentCreditBureau: true, ...overrides },
+  });
+  expectStatus(res, 201);
+  return json<{ id: string; code: string; version: number }>(res);
+}

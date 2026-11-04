@@ -15,6 +15,13 @@
       "when": 1793812596852,
       "tag": "0001_identity_core",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1793814089740,
+      "tag": "0002_land_farmers",
+      "breakpoints": true
     }
   ]
 }

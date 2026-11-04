@@ -699,6 +699,464 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/v1/farmers": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["listFarmers"];
+        put?: never;
+        post: operations["createFarmer"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v1/farmers/import-template": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** CSV template for bulk import */
+        get: operations["farmerImportTemplate"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v1/farmers/import": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** Bulk import farmers from CSV (multipart `file`), idempotent by phone / national id */
+        post: operations["importFarmers"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v1/farmers/{id}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["getFarmer"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch: operations["updateFarmer"];
+        trace?: never;
+    };
+    "/v1/farmers/{id}/actions/verify-kyc": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post: operations["verifyFarmerKyc"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v1/farmers/{id}/actions/verify-wallet": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** Send an OTP to the wallet phone number */
+        post: operations["startFarmerWalletVerification"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v1/farmers/{id}/actions/confirm-wallet": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post: operations["confirmFarmerWallet"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v1/farmers/{id}/pii": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Full national id and wallet number (audited with reason) */
+        get: operations["revealFarmerPii"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v1/farmers/{id}/history": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["getFarmerHistory"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v1/blocks": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["listBlocks"];
+        put?: never;
+        post: operations["createBlock"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v1/blocks/{id}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["getBlock"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch: operations["updateBlock"];
+        trace?: never;
+    };
+    "/v1/blocks/{id}/boundary": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        /** Set boundary from GeoJSON (Polygon/MultiPolygon) or an uploaded GeoJSON/KML file */
+        put: operations["setBlockBoundary"];
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v1/blocks/{id}/map": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["getBlockMap"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v1/blocks/{id}/actions/archive": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post: operations["archiveBlock"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v1/blocks/{id}/land-documents": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["listLandDocuments"];
+        put?: never;
+        /** Register a land document (file uploaded via POST /files) */
+        post: operations["createLandDocument"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v1/admin/land-documents": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["adminListLandDocuments"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v1/admin/land-documents/{id}/actions/verify": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post: operations["adminVerifyLandDocument"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v1/admin/land-documents/{id}/actions/reject": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post: operations["adminRejectLandDocument"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v1/blocks/{id}/plots": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["listPlots"];
+        put?: never;
+        post: operations["createPlot"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v1/blocks/{id}/plots/actions/auto-grid": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** Split the boundary into N equal-area plots along the longest axis */
+        post: operations["autoGridPlots"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v1/plots/{id}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["getPlot"];
+        put?: never;
+        post?: never;
+        /** Archive a plot (soft delete) */
+        delete: operations["archivePlot"];
+        options?: never;
+        head?: never;
+        patch: operations["updatePlot"];
+        trace?: never;
+    };
+    "/v1/plots/{id}/allocations": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["listAllocations"];
+        put?: never;
+        post: operations["createAllocation"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v1/allocations/{id}/actions/end": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post: operations["endAllocation"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v1/blocks/{id}/assets": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["listBlockAssets"];
+        put?: never;
+        post: operations["createBlockAsset"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v1/blocks/{id}/grievances": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["listGrievances"];
+        put?: never;
+        post: operations["createGrievance"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v1/grievances/{id}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch: operations["updateGrievance"];
+        trace?: never;
+    };
+    "/v1/field/bootstrap": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Offline dataset for the field PWA (masked PII) with a sync token */
+        get: operations["fieldBootstrap"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v1/field/sync": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** Apply offline operations (idempotent by clientId) and return server changes */
+        post: operations["fieldSync"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
 }
 export type webhooks = Record<string, never>;
 export interface components {
@@ -818,6 +1276,194 @@ export interface components {
             /** Format: date-time */
             createdAt: string;
         };
+        GeoPointInput: {
+            /** @constant */
+            type: "Point";
+            coordinates: [
+                number,
+                number
+            ];
+        };
+        GeoPolygonInput: {
+            /** @constant */
+            type: "Polygon";
+            coordinates: [
+                number,
+                number
+            ][][];
+        };
+        GeoMultiPolygonInput: {
+            /** @constant */
+            type: "MultiPolygon";
+            coordinates: [
+                number,
+                number
+            ][][][];
+        };
+        FeatureCollectionInput: {
+            /** @constant */
+            type: "FeatureCollection";
+            features: {
+                /** @constant */
+                type: "Feature";
+                id?: string;
+                geometry: (components["schemas"]["GeoPointInput"] | components["schemas"]["GeoPolygonInput"] | components["schemas"]["GeoMultiPolygonInput"]) | null;
+                properties: {
+                    [key: string]: unknown;
+                };
+            }[];
+        };
+        FarmerInput: {
+            /** Format: uuid */
+            id: string;
+            /** Format: uuid */
+            ownerOrgId: string;
+            code: string;
+            firstName: string;
+            lastName: string;
+            /** @enum {string} */
+            sex: "F" | "M";
+            birthYear: number | null;
+            phone: string | null;
+            locale: string;
+            /** @enum {string} */
+            nationalIdType: "cni" | "passport" | "other" | "none";
+            nationalIdNumberMasked: string | null;
+            photoFileId: string | null;
+            idPhotoFileId: string | null;
+            village: string | null;
+            commune: string | null;
+            homeLocation: components["schemas"]["GeoPointInput"] | null;
+            householdSize: number | null;
+            baselineIncomeXof: number | null;
+            /** @enum {string} */
+            mobileWalletProvider: "wave" | "orange_money" | "free_money" | "other" | "none";
+            mobileWalletNumberMasked: string | null;
+            walletVerifiedAt: string | null;
+            consentDataAt: string | null;
+            consentCreditBureauAt: string | null;
+            /** @enum {string} */
+            kycStatus: "pending" | "verified" | "rejected";
+            kycVerifiedAt: string | null;
+            /** @enum {string} */
+            status: "active" | "inactive";
+            flags: {
+                /** Format: uuid */
+                id: string;
+                type: string;
+                detail: string | null;
+            }[];
+            version: number;
+            /** Format: date-time */
+            createdAt: string;
+            /** Format: date-time */
+            updatedAt: string;
+            allowedActions: string[];
+        };
+        BlockInput: {
+            /** Format: uuid */
+            id: string;
+            ref: string;
+            /** Format: uuid */
+            ownerOrgId: string;
+            name: string;
+            region: string;
+            department: string | null;
+            commune: string | null;
+            village: string | null;
+            boundary: components["schemas"]["GeoMultiPolygonInput"] | null;
+            areaHa: number | null;
+            centroid: components["schemas"]["GeoPointInput"] | null;
+            /** @enum {string} */
+            waterSource: "borehole" | "river" | "canal" | "rainfed" | "other";
+            /** @enum {string} */
+            irrigationType: "none" | "drip" | "sprinkler" | "furrow" | "pivot";
+            /** @enum {string} */
+            tenureType: "title_foncier" | "bail" | "deliberation" | "customary_agreement";
+            farmerGroupOrgId: string | null;
+            /** @enum {string} */
+            solidarityMode: "none" | "group";
+            solidarityCapPct: number;
+            /** @enum {string} */
+            status: "draft" | "documenting" | "ready" | "in_financing" | "financed" | "active" | "archived";
+            description: string | null;
+            stats: {
+                plots: number;
+                plotsAreaHa: number;
+                farmers: number;
+                womenFarmers: number;
+                landDocsVerified: number;
+            };
+            version: number;
+            /** Format: date-time */
+            createdAt: string;
+            allowedActions: string[];
+        };
+        LandDocumentInput: {
+            /** Format: uuid */
+            id: string;
+            /** Format: uuid */
+            blockId: string;
+            blockName?: string;
+            /** Format: uuid */
+            ownerOrgId: string;
+            /** @enum {string} */
+            docType: "title_foncier" | "bail" | "deliberation" | "approval_prefect" | "community_agreement" | "cahier_des_charges" | "survey_plan" | "other";
+            number: string | null;
+            issuedBy: string | null;
+            issueDate: string | null;
+            expiryDate: string | null;
+            /** Format: uuid */
+            fileId: string;
+            /** @enum {string} */
+            status: "submitted" | "verified" | "rejected" | "expired";
+            verifiedAt: string | null;
+            comment: string | null;
+            /** Format: date-time */
+            createdAt: string;
+        };
+        PlotInput: {
+            /** Format: uuid */
+            id: string;
+            /** Format: uuid */
+            blockId: string;
+            code: string;
+            geometry: components["schemas"]["GeoPolygonInput"];
+            areaHa: number;
+            soilType: string | null;
+            irrigated: boolean;
+            /** @enum {string} */
+            status: "available" | "allocated" | "fallow" | "excluded";
+            allocatedPct: number;
+            farmers: {
+                /** Format: uuid */
+                farmerId: string;
+                name: string;
+                sharePct: number;
+                /** Format: uuid */
+                allocationId: string;
+            }[];
+            version: number;
+            /** Format: date-time */
+            createdAt: string;
+        };
+        AllocationInput: {
+            /** Format: uuid */
+            id: string;
+            /** Format: uuid */
+            plotId: string;
+            /** Format: uuid */
+            farmerId: string;
+            farmerName: string;
+            farmerCode: string;
+            /** Format: date */
+            startDate: string;
+            endDate: string | null;
+            sharePct: number;
+            /** @enum {string} */
+            status: "active" | "ended";
+            contractId: string | null;
+        };
         Problem: {
             type: string;
             title: string;
@@ -932,6 +1578,194 @@ export interface components {
             linkedId: string | null;
             /** Format: date-time */
             createdAt: string;
+        };
+        GeoPoint: {
+            /** @constant */
+            type: "Point";
+            coordinates: [
+                number,
+                number
+            ];
+        };
+        GeoPolygon: {
+            /** @constant */
+            type: "Polygon";
+            coordinates: [
+                number,
+                number
+            ][][];
+        };
+        GeoMultiPolygon: {
+            /** @constant */
+            type: "MultiPolygon";
+            coordinates: [
+                number,
+                number
+            ][][][];
+        };
+        FeatureCollection: {
+            /** @constant */
+            type: "FeatureCollection";
+            features: {
+                /** @constant */
+                type: "Feature";
+                id?: string;
+                geometry: (components["schemas"]["GeoPoint"] | components["schemas"]["GeoPolygon"] | components["schemas"]["GeoMultiPolygon"]) | null;
+                properties: {
+                    [key: string]: unknown;
+                };
+            }[];
+        };
+        Farmer: {
+            /** Format: uuid */
+            id: string;
+            /** Format: uuid */
+            ownerOrgId: string;
+            code: string;
+            firstName: string;
+            lastName: string;
+            /** @enum {string} */
+            sex: "F" | "M";
+            birthYear: number | null;
+            phone: string | null;
+            locale: string;
+            /** @enum {string} */
+            nationalIdType: "cni" | "passport" | "other" | "none";
+            nationalIdNumberMasked: string | null;
+            photoFileId: string | null;
+            idPhotoFileId: string | null;
+            village: string | null;
+            commune: string | null;
+            homeLocation: components["schemas"]["GeoPoint"] | null;
+            householdSize: number | null;
+            baselineIncomeXof: number | null;
+            /** @enum {string} */
+            mobileWalletProvider: "wave" | "orange_money" | "free_money" | "other" | "none";
+            mobileWalletNumberMasked: string | null;
+            walletVerifiedAt: string | null;
+            consentDataAt: string | null;
+            consentCreditBureauAt: string | null;
+            /** @enum {string} */
+            kycStatus: "pending" | "verified" | "rejected";
+            kycVerifiedAt: string | null;
+            /** @enum {string} */
+            status: "active" | "inactive";
+            flags: {
+                /** Format: uuid */
+                id: string;
+                type: string;
+                detail: string | null;
+            }[];
+            version: number;
+            /** Format: date-time */
+            createdAt: string;
+            /** Format: date-time */
+            updatedAt: string;
+            allowedActions: string[];
+        };
+        Block: {
+            /** Format: uuid */
+            id: string;
+            ref: string;
+            /** Format: uuid */
+            ownerOrgId: string;
+            name: string;
+            region: string;
+            department: string | null;
+            commune: string | null;
+            village: string | null;
+            boundary: components["schemas"]["GeoMultiPolygon"] | null;
+            areaHa: number | null;
+            centroid: components["schemas"]["GeoPoint"] | null;
+            /** @enum {string} */
+            waterSource: "borehole" | "river" | "canal" | "rainfed" | "other";
+            /** @enum {string} */
+            irrigationType: "none" | "drip" | "sprinkler" | "furrow" | "pivot";
+            /** @enum {string} */
+            tenureType: "title_foncier" | "bail" | "deliberation" | "customary_agreement";
+            farmerGroupOrgId: string | null;
+            /** @enum {string} */
+            solidarityMode: "none" | "group";
+            solidarityCapPct: number;
+            /** @enum {string} */
+            status: "draft" | "documenting" | "ready" | "in_financing" | "financed" | "active" | "archived";
+            description: string | null;
+            stats: {
+                plots: number;
+                plotsAreaHa: number;
+                farmers: number;
+                womenFarmers: number;
+                landDocsVerified: number;
+            };
+            version: number;
+            /** Format: date-time */
+            createdAt: string;
+            allowedActions: string[];
+        };
+        LandDocument: {
+            /** Format: uuid */
+            id: string;
+            /** Format: uuid */
+            blockId: string;
+            blockName?: string;
+            /** Format: uuid */
+            ownerOrgId: string;
+            /** @enum {string} */
+            docType: "title_foncier" | "bail" | "deliberation" | "approval_prefect" | "community_agreement" | "cahier_des_charges" | "survey_plan" | "other";
+            number: string | null;
+            issuedBy: string | null;
+            issueDate: string | null;
+            expiryDate: string | null;
+            /** Format: uuid */
+            fileId: string;
+            /** @enum {string} */
+            status: "submitted" | "verified" | "rejected" | "expired";
+            verifiedAt: string | null;
+            comment: string | null;
+            /** Format: date-time */
+            createdAt: string;
+        };
+        Plot: {
+            /** Format: uuid */
+            id: string;
+            /** Format: uuid */
+            blockId: string;
+            code: string;
+            geometry: components["schemas"]["GeoPolygon"];
+            areaHa: number;
+            soilType: string | null;
+            irrigated: boolean;
+            /** @enum {string} */
+            status: "available" | "allocated" | "fallow" | "excluded";
+            allocatedPct: number;
+            farmers: {
+                /** Format: uuid */
+                farmerId: string;
+                name: string;
+                sharePct: number;
+                /** Format: uuid */
+                allocationId: string;
+            }[];
+            version: number;
+            /** Format: date-time */
+            createdAt: string;
+        };
+        Allocation: {
+            /** Format: uuid */
+            id: string;
+            /** Format: uuid */
+            plotId: string;
+            /** Format: uuid */
+            farmerId: string;
+            farmerName: string;
+            farmerCode: string;
+            /** Format: date */
+            startDate: string;
+            endDate: string | null;
+            sharePct: number;
+            /** @enum {string} */
+            status: "active" | "ended";
+            contractId: string | null;
         };
     };
     responses: never;
@@ -2292,6 +3126,1292 @@ export interface operations {
                         ok: boolean;
                         checked: number;
                         brokenAtSeq: number | null;
+                    };
+                };
+            };
+        };
+    };
+    listFarmers: {
+        parameters: {
+            query?: {
+                limit?: number;
+                cursor?: string;
+                sort?: string;
+                q?: string;
+                blockId?: string;
+                "filter[kycStatus]"?: "pending" | "verified" | "rejected";
+                "filter[status]"?: "active" | "inactive";
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Default Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        data: components["schemas"]["Farmer"][];
+                        nextCursor: string | null;
+                    };
+                };
+            };
+        };
+    };
+    createFarmer: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": {
+                    firstName: string;
+                    lastName: string;
+                    /** @enum {string} */
+                    sex: "F" | "M";
+                    birthYear?: number | null;
+                    phone?: string | null;
+                    /** @enum {string} */
+                    locale?: "fr" | "en" | "wo";
+                    /** @enum {string} */
+                    nationalIdType?: "cni" | "passport" | "other" | "none";
+                    nationalIdNumber?: string | null;
+                    photoFileId?: string | null;
+                    idPhotoFileId?: string | null;
+                    village?: string | null;
+                    commune?: string | null;
+                    homeLocation?: components["schemas"]["GeoPointInput"] | null;
+                    householdSize?: number | null;
+                    baselineIncomeXof?: number | null;
+                    /** @enum {string} */
+                    mobileWalletProvider?: "wave" | "orange_money" | "free_money" | "other" | "none";
+                    mobileWalletNumber?: string | null;
+                    consentData: boolean;
+                    /** @default false */
+                    consentCreditBureau?: boolean;
+                };
+            };
+        };
+        responses: {
+            /** @description Default Response */
+            201: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Farmer"];
+                };
+            };
+        };
+    };
+    farmerImportTemplate: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Default Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+        };
+    };
+    importFarmers: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Default Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        created: number;
+                        updated: number;
+                        failed: number;
+                        rows: {
+                            row: number;
+                            /** @enum {string} */
+                            status: "created" | "updated" | "error";
+                            farmerId: string | null;
+                            code: string | null;
+                            errors: {
+                                field: string;
+                                message: string;
+                            }[];
+                        }[];
+                    };
+                };
+            };
+        };
+    };
+    getFarmer: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Default Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Farmer"];
+                };
+            };
+        };
+    };
+    updateFarmer: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": {
+                    firstName?: string;
+                    lastName?: string;
+                    /** @enum {string} */
+                    sex?: "F" | "M";
+                    birthYear?: number | null;
+                    phone?: string | null;
+                    /** @enum {string} */
+                    locale?: "fr" | "en" | "wo";
+                    /** @enum {string} */
+                    nationalIdType?: "cni" | "passport" | "other" | "none";
+                    nationalIdNumber?: string | null;
+                    photoFileId?: string | null;
+                    idPhotoFileId?: string | null;
+                    village?: string | null;
+                    commune?: string | null;
+                    homeLocation?: components["schemas"]["GeoPointInput"] | null;
+                    householdSize?: number | null;
+                    baselineIncomeXof?: number | null;
+                    /** @enum {string} */
+                    mobileWalletProvider?: "wave" | "orange_money" | "free_money" | "other" | "none";
+                    mobileWalletNumber?: string | null;
+                    consentData?: boolean;
+                    consentCreditBureau?: boolean;
+                };
+            };
+        };
+        responses: {
+            /** @description Default Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Farmer"];
+                };
+            };
+        };
+    };
+    verifyFarmerKyc: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Default Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Farmer"];
+                };
+            };
+        };
+    };
+    startFarmerWalletVerification: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Default Response */
+            202: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @enum {boolean} */
+                        ok: true;
+                    };
+                };
+            };
+        };
+    };
+    confirmFarmerWallet: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": {
+                    code: string;
+                };
+            };
+        };
+        responses: {
+            /** @description Default Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Farmer"];
+                };
+            };
+        };
+    };
+    revealFarmerPii: {
+        parameters: {
+            query: {
+                reason: string;
+            };
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Default Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        nationalIdNumber: string | null;
+                        mobileWalletNumber: string | null;
+                    };
+                };
+            };
+        };
+    };
+    getFarmerHistory: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Default Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        allocations: {
+                            /** Format: uuid */
+                            id: string;
+                            /** Format: uuid */
+                            plotId: string;
+                            plotCode: string;
+                            /** Format: uuid */
+                            blockId: string;
+                            blockName: string;
+                            sharePct: number;
+                            /** Format: date */
+                            startDate: string;
+                            endDate: string | null;
+                            status: string;
+                        }[];
+                        deliveries: {
+                            [key: string]: unknown;
+                        }[];
+                        statements: {
+                            [key: string]: unknown;
+                        }[];
+                        arrears: {
+                            [key: string]: unknown;
+                        }[];
+                    };
+                };
+            };
+        };
+    };
+    listBlocks: {
+        parameters: {
+            query?: {
+                limit?: number;
+                cursor?: string;
+                sort?: string;
+                q?: string;
+                "filter[status]"?: "draft" | "documenting" | "ready" | "in_financing" | "financed" | "active" | "archived";
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Default Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        data: components["schemas"]["Block"][];
+                        nextCursor: string | null;
+                    };
+                };
+            };
+        };
+    };
+    createBlock: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": {
+                    name: string;
+                    region: string;
+                    department?: string | null;
+                    commune?: string | null;
+                    village?: string | null;
+                    /** @enum {string} */
+                    waterSource?: "borehole" | "river" | "canal" | "rainfed" | "other";
+                    /** @enum {string} */
+                    irrigationType?: "none" | "drip" | "sprinkler" | "furrow" | "pivot";
+                    /** @enum {string} */
+                    tenureType: "title_foncier" | "bail" | "deliberation" | "customary_agreement";
+                    farmerGroupOrgId?: string | null;
+                    /** @enum {string} */
+                    solidarityMode?: "none" | "group";
+                    solidarityCapPct?: number;
+                    description?: string | null;
+                };
+            };
+        };
+        responses: {
+            /** @description Default Response */
+            201: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Block"];
+                };
+            };
+        };
+    };
+    getBlock: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Default Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Block"];
+                };
+            };
+        };
+    };
+    updateBlock: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": {
+                    name?: string;
+                    region?: string;
+                    department?: string | null;
+                    commune?: string | null;
+                    village?: string | null;
+                    /** @enum {string} */
+                    waterSource?: "borehole" | "river" | "canal" | "rainfed" | "other";
+                    /** @enum {string} */
+                    irrigationType?: "none" | "drip" | "sprinkler" | "furrow" | "pivot";
+                    /** @enum {string} */
+                    tenureType?: "title_foncier" | "bail" | "deliberation" | "customary_agreement";
+                    farmerGroupOrgId?: string | null;
+                    /** @enum {string} */
+                    solidarityMode?: "none" | "group";
+                    solidarityCapPct?: number;
+                    description?: string | null;
+                };
+            };
+        };
+        responses: {
+            /** @description Default Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Block"];
+                };
+            };
+        };
+    };
+    setBlockBoundary: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": {
+                    geometry: components["schemas"]["GeoPolygonInput"] | components["schemas"]["GeoMultiPolygonInput"];
+                } | {
+                    /** Format: uuid */
+                    fileId: string;
+                };
+            };
+        };
+        responses: {
+            /** @description Default Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Block"];
+                };
+            };
+        };
+    };
+    getBlockMap: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Default Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["FeatureCollection"];
+                };
+            };
+        };
+    };
+    archiveBlock: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Default Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Block"];
+                };
+            };
+        };
+    };
+    listLandDocuments: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Default Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        data: components["schemas"]["LandDocument"][];
+                    };
+                };
+            };
+        };
+    };
+    createLandDocument: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": {
+                    /** @enum {string} */
+                    docType: "title_foncier" | "bail" | "deliberation" | "approval_prefect" | "community_agreement" | "cahier_des_charges" | "survey_plan" | "other";
+                    /** Format: uuid */
+                    fileId: string;
+                    number?: string | null;
+                    issuedBy?: string | null;
+                    issueDate?: string | null;
+                    expiryDate?: string | null;
+                };
+            };
+        };
+        responses: {
+            /** @description Default Response */
+            201: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["LandDocument"];
+                };
+            };
+        };
+    };
+    adminListLandDocuments: {
+        parameters: {
+            query?: {
+                limit?: number;
+                cursor?: string;
+                sort?: string;
+                q?: string;
+                "filter[status]"?: "submitted" | "verified" | "rejected" | "expired";
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Default Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        data: components["schemas"]["LandDocument"][];
+                        nextCursor: string | null;
+                    };
+                };
+            };
+        };
+    };
+    adminVerifyLandDocument: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": {
+                    comment?: string;
+                };
+            };
+        };
+        responses: {
+            /** @description Default Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["LandDocument"];
+                };
+            };
+        };
+    };
+    adminRejectLandDocument: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": {
+                    comment?: string;
+                };
+            };
+        };
+        responses: {
+            /** @description Default Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["LandDocument"];
+                };
+            };
+        };
+    };
+    listPlots: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Default Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        data: components["schemas"]["Plot"][];
+                    };
+                };
+            };
+        };
+    };
+    createPlot: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": {
+                    code?: string;
+                    geometry: components["schemas"]["GeoPolygonInput"];
+                    soilType?: string | null;
+                    irrigated?: boolean;
+                };
+            };
+        };
+        responses: {
+            /** @description Default Response */
+            201: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Plot"];
+                };
+            };
+        };
+    };
+    autoGridPlots: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": {
+                    count?: number;
+                    targetAreaHa?: number;
+                    /** @default P- */
+                    codePrefix?: string;
+                    irrigated?: boolean;
+                    soilType?: string | null;
+                };
+            };
+        };
+        responses: {
+            /** @description Default Response */
+            201: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        data: components["schemas"]["Plot"][];
+                    };
+                };
+            };
+        };
+    };
+    getPlot: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Default Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Plot"];
+                };
+            };
+        };
+    };
+    archivePlot: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Default Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @enum {boolean} */
+                        ok: true;
+                    };
+                };
+            };
+        };
+    };
+    updatePlot: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": {
+                    code?: string;
+                    geometry?: components["schemas"]["GeoPolygonInput"];
+                    soilType?: string | null;
+                    irrigated?: boolean;
+                    /** @enum {string} */
+                    status?: "available" | "fallow" | "excluded";
+                };
+            };
+        };
+        responses: {
+            /** @description Default Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Plot"];
+                };
+            };
+        };
+    };
+    listAllocations: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Default Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        data: components["schemas"]["Allocation"][];
+                    };
+                };
+            };
+        };
+    };
+    createAllocation: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": {
+                    /** Format: uuid */
+                    farmerId: string;
+                    /** @default 100 */
+                    sharePct?: number;
+                    /** Format: date */
+                    startDate?: string;
+                };
+            };
+        };
+        responses: {
+            /** @description Default Response */
+            201: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Allocation"];
+                };
+            };
+        };
+    };
+    endAllocation: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": {
+                    /** Format: date */
+                    endDate?: string;
+                };
+            };
+        };
+        responses: {
+            /** @description Default Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Allocation"];
+                };
+            };
+        };
+    };
+    listBlockAssets: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Default Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        data: {
+                            /** Format: uuid */
+                            id: string;
+                            /** Format: uuid */
+                            blockId: string;
+                            /** @enum {string} */
+                            type: "borehole" | "solar_pump" | "irrigation_network" | "fence" | "storage" | "equipment" | "building" | "other";
+                            description: string;
+                            capexItemId: string | null;
+                            location: components["schemas"]["GeoPoint"] | null;
+                            commissionedAt: string | null;
+                            /** Format: date-time */
+                            createdAt: string;
+                        }[];
+                    };
+                };
+            };
+        };
+    };
+    createBlockAsset: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": {
+                    /** @enum {string} */
+                    type: "borehole" | "solar_pump" | "irrigation_network" | "fence" | "storage" | "equipment" | "building" | "other";
+                    description: string;
+                    capexItemId?: string | null;
+                    location?: components["schemas"]["GeoPointInput"] | null;
+                    commissionedAt?: string | null;
+                };
+            };
+        };
+        responses: {
+            /** @description Default Response */
+            201: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** Format: uuid */
+                        id: string;
+                        /** Format: uuid */
+                        blockId: string;
+                        /** @enum {string} */
+                        type: "borehole" | "solar_pump" | "irrigation_network" | "fence" | "storage" | "equipment" | "building" | "other";
+                        description: string;
+                        capexItemId: string | null;
+                        location: components["schemas"]["GeoPoint"] | null;
+                        commissionedAt: string | null;
+                        /** Format: date-time */
+                        createdAt: string;
+                    };
+                };
+            };
+        };
+    };
+    listGrievances: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Default Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        data: {
+                            /** Format: uuid */
+                            id: string;
+                            /** Format: uuid */
+                            blockId: string;
+                            /** Format: date-time */
+                            reportedAt: string;
+                            reporter: string;
+                            category: string;
+                            description: string;
+                            /** @enum {string} */
+                            status: "open" | "in_progress" | "resolved" | "closed";
+                            resolution: string | null;
+                            resolvedAt: string | null;
+                            version: number;
+                        }[];
+                    };
+                };
+            };
+        };
+    };
+    createGrievance: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": {
+                    reporter: string;
+                    category: string;
+                    description: string;
+                    /** Format: date-time */
+                    reportedAt?: string;
+                };
+            };
+        };
+        responses: {
+            /** @description Default Response */
+            201: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** Format: uuid */
+                        id: string;
+                        /** Format: uuid */
+                        blockId: string;
+                        /** Format: date-time */
+                        reportedAt: string;
+                        reporter: string;
+                        category: string;
+                        description: string;
+                        /** @enum {string} */
+                        status: "open" | "in_progress" | "resolved" | "closed";
+                        resolution: string | null;
+                        resolvedAt: string | null;
+                        version: number;
+                    };
+                };
+            };
+        };
+    };
+    updateGrievance: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": {
+                    /** @enum {string} */
+                    status?: "open" | "in_progress" | "resolved" | "closed";
+                    resolution?: string | null;
+                };
+            };
+        };
+        responses: {
+            /** @description Default Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** Format: uuid */
+                        id: string;
+                        /** Format: uuid */
+                        blockId: string;
+                        /** Format: date-time */
+                        reportedAt: string;
+                        reporter: string;
+                        category: string;
+                        description: string;
+                        /** @enum {string} */
+                        status: "open" | "in_progress" | "resolved" | "closed";
+                        resolution: string | null;
+                        resolvedAt: string | null;
+                        version: number;
+                    };
+                };
+            };
+        };
+    };
+    fieldBootstrap: {
+        parameters: {
+            query?: {
+                blockIds?: string;
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Default Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        syncToken: string;
+                        blocks: {
+                            [key: string]: unknown;
+                        }[];
+                        plots: {
+                            [key: string]: unknown;
+                        }[];
+                        farmers: {
+                            [key: string]: unknown;
+                        }[];
+                        allocations: {
+                            [key: string]: unknown;
+                        }[];
+                        plantings: {
+                            [key: string]: unknown;
+                        }[];
+                        budgetLines: {
+                            [key: string]: unknown;
+                        }[];
+                        templates: {
+                            [key: string]: unknown;
+                        }[];
+                        lastVisits: {
+                            [key: string]: unknown;
+                        }[];
+                    };
+                };
+            };
+        };
+    };
+    fieldSync: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": {
+                    syncToken?: string;
+                    /** @default [] */
+                    blockIds?: string[];
+                    ops: {
+                        clientId: string;
+                        type: string;
+                        payload: {
+                            [key: string]: unknown;
+                        };
+                        /** Format: date-time */
+                        createdAt: string;
+                    }[];
+                };
+            };
+        };
+        responses: {
+            /** @description Default Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        results: {
+                            clientId: string;
+                            /** @enum {string} */
+                            status: "applied" | "duplicate" | "rejected";
+                            entityId: string | null;
+                            error: {
+                                code: string;
+                                message: string;
+                            } | null;
+                        }[];
+                        syncToken: string;
+                        changes: {
+                            farmers: {
+                                [key: string]: unknown;
+                            }[];
+                            plots: {
+                                [key: string]: unknown;
+                            }[];
+                            allocations: {
+                                [key: string]: unknown;
+                            }[];
+                        };
                     };
                 };
             };
