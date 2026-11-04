@@ -1641,6 +1641,221 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/v1/seasons/{id}/model-assumptions": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["getModelAssumptions"];
+        /** Tranche terms assumed for modelling (seasonal / investment) */
+        put: operations["putModelAssumptions"];
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v1/seasons/{id}/model-runs": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** Compute and store the block financial model (SPEC §9.1) */
+        post: operations["runModel"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v1/seasons/{id}/model-runs/preview": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** Unsaved what-if with yield/price shocks and rate */
+        post: operations["previewModel"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v1/seasons/{id}/model-runs/current": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["getCurrentModelRun"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v1/model-runs/{id}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["getModelRun"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v1/seasons/{id}/readiness": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Hard gates and readiness score (SPEC §9.2) */
+        get: operations["getReadiness"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v1/blocks/{id}/actions/check-readiness": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** Move the block documenting ↔ ready from a season readiness */
+        post: operations["checkBlockReadiness"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v1/seasons/{id}/dossiers": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["listDossiers"];
+        put?: never;
+        /** Freeze a dossier version (all gates must pass); PDF rendered asynchronously */
+        post: operations["freezeDossier"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v1/dossiers/{id}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["getDossier"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v1/dossiers/{id}/pdf": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Signed URL of the dossier PDF (409 while rendering) */
+        get: operations["getDossierPdf"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v1/dossiers/{id}/data-room": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["getDossierDataRoom"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v1/blocks/{id}/risk-covers": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["listRiskCovers"];
+        put?: never;
+        post: operations["createRiskCover"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v1/risk-covers/{id}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch: operations["updateRiskCover"];
+        trace?: never;
+    };
     "/v1/field/bootstrap": {
         parameters: {
             query?: never;
@@ -2220,6 +2435,337 @@ export interface components {
             createdAt: string;
             allowedActions: string[];
         };
+        ModelAssumptionsInput: {
+            /** Format: uuid */
+            seasonId: string;
+            seasonal: {
+                amountXof?: number;
+                rateBps: number;
+                /** @enum {string} */
+                rateMethod: "flat" | "declining";
+                upfrontFeeBps: number;
+                tenorMonths: number;
+                /** @enum {string} */
+                repaymentProfile: "bullet" | "seasonal" | "annuity" | "equal_principal";
+                /** @enum {string} */
+                feesChargedTo: "operator" | "farmers";
+                /** @enum {string} */
+                borrowerType: "operator" | "farmers" | "farmer_group";
+            } | null;
+            investment: {
+                amountXof?: number;
+                rateBps: number;
+                /** @enum {string} */
+                rateMethod: "flat" | "declining";
+                upfrontFeeBps: number;
+                tenorMonths: number;
+                graceMonths: number;
+                /** @enum {string} */
+                graceType: "interest_only" | "capitalised";
+                /** @enum {string} */
+                repaymentProfile: "bullet" | "seasonal" | "annuity" | "equal_principal";
+            } | null;
+            seasonsPerYear: number;
+            discountRateBps: number;
+            version: number;
+        };
+        ModelOutputInput: {
+            engineVersion: string;
+            inputsHash: string;
+            scenarios: {
+                base: {
+                    farmers: {
+                        /** Format: uuid */
+                        farmerId: string;
+                        ha: number;
+                        grossRevenueXof: number;
+                        seasonalDebtDueXof: number;
+                        investmentFeeXof: number;
+                        landFeeXof: number;
+                        operatorServiceFeeXof: number;
+                        farmerCashCostsXof: number;
+                        netIncomeXof: number;
+                        valueCreatedXof: number | null;
+                        hcr: number | null;
+                    }[];
+                    block: {
+                        grossRevenueXof: number;
+                        seasonalDebtDueXof: number;
+                        hcr: number | null;
+                        breakevenYieldMultiplier: number | null;
+                        breakevenPriceMultiplier: number | null;
+                        minDscr: number | null;
+                        avgDscr: number | null;
+                        operatorNpvXof: number;
+                        operatorIrr: number | null;
+                        paybackMonth: number | null;
+                    };
+                    monthlyCashflow: {
+                        month: number;
+                        inflowXof: number;
+                        outflowXof: number;
+                        netXof: number;
+                        cumulativeXof: number;
+                    }[];
+                };
+                yield_minus_20: {
+                    farmers: {
+                        /** Format: uuid */
+                        farmerId: string;
+                        ha: number;
+                        grossRevenueXof: number;
+                        seasonalDebtDueXof: number;
+                        investmentFeeXof: number;
+                        landFeeXof: number;
+                        operatorServiceFeeXof: number;
+                        farmerCashCostsXof: number;
+                        netIncomeXof: number;
+                        valueCreatedXof: number | null;
+                        hcr: number | null;
+                    }[];
+                    block: {
+                        grossRevenueXof: number;
+                        seasonalDebtDueXof: number;
+                        hcr: number | null;
+                        breakevenYieldMultiplier: number | null;
+                        breakevenPriceMultiplier: number | null;
+                        minDscr: number | null;
+                        avgDscr: number | null;
+                        operatorNpvXof: number;
+                        operatorIrr: number | null;
+                        paybackMonth: number | null;
+                    };
+                    monthlyCashflow: {
+                        month: number;
+                        inflowXof: number;
+                        outflowXof: number;
+                        netXof: number;
+                        cumulativeXof: number;
+                    }[];
+                };
+                price_minus_15: {
+                    farmers: {
+                        /** Format: uuid */
+                        farmerId: string;
+                        ha: number;
+                        grossRevenueXof: number;
+                        seasonalDebtDueXof: number;
+                        investmentFeeXof: number;
+                        landFeeXof: number;
+                        operatorServiceFeeXof: number;
+                        farmerCashCostsXof: number;
+                        netIncomeXof: number;
+                        valueCreatedXof: number | null;
+                        hcr: number | null;
+                    }[];
+                    block: {
+                        grossRevenueXof: number;
+                        seasonalDebtDueXof: number;
+                        hcr: number | null;
+                        breakevenYieldMultiplier: number | null;
+                        breakevenPriceMultiplier: number | null;
+                        minDscr: number | null;
+                        avgDscr: number | null;
+                        operatorNpvXof: number;
+                        operatorIrr: number | null;
+                        paybackMonth: number | null;
+                    };
+                    monthlyCashflow: {
+                        month: number;
+                        inflowXof: number;
+                        outflowXof: number;
+                        netXof: number;
+                        cumulativeXof: number;
+                    }[];
+                };
+                combined: {
+                    farmers: {
+                        /** Format: uuid */
+                        farmerId: string;
+                        ha: number;
+                        grossRevenueXof: number;
+                        seasonalDebtDueXof: number;
+                        investmentFeeXof: number;
+                        landFeeXof: number;
+                        operatorServiceFeeXof: number;
+                        farmerCashCostsXof: number;
+                        netIncomeXof: number;
+                        valueCreatedXof: number | null;
+                        hcr: number | null;
+                    }[];
+                    block: {
+                        grossRevenueXof: number;
+                        seasonalDebtDueXof: number;
+                        hcr: number | null;
+                        breakevenYieldMultiplier: number | null;
+                        breakevenPriceMultiplier: number | null;
+                        minDscr: number | null;
+                        avgDscr: number | null;
+                        operatorNpvXof: number;
+                        operatorIrr: number | null;
+                        paybackMonth: number | null;
+                    };
+                    monthlyCashflow: {
+                        month: number;
+                        inflowXof: number;
+                        outflowXof: number;
+                        netXof: number;
+                        cumulativeXof: number;
+                    }[];
+                };
+                delay_2m: {
+                    farmers: {
+                        /** Format: uuid */
+                        farmerId: string;
+                        ha: number;
+                        grossRevenueXof: number;
+                        seasonalDebtDueXof: number;
+                        investmentFeeXof: number;
+                        landFeeXof: number;
+                        operatorServiceFeeXof: number;
+                        farmerCashCostsXof: number;
+                        netIncomeXof: number;
+                        valueCreatedXof: number | null;
+                        hcr: number | null;
+                    }[];
+                    block: {
+                        grossRevenueXof: number;
+                        seasonalDebtDueXof: number;
+                        hcr: number | null;
+                        breakevenYieldMultiplier: number | null;
+                        breakevenPriceMultiplier: number | null;
+                        minDscr: number | null;
+                        avgDscr: number | null;
+                        operatorNpvXof: number;
+                        operatorIrr: number | null;
+                        paybackMonth: number | null;
+                    };
+                    monthlyCashflow: {
+                        month: number;
+                        inflowXof: number;
+                        outflowXof: number;
+                        netXof: number;
+                        cumulativeXof: number;
+                    }[];
+                };
+            };
+            details: {
+                [key: string]: unknown;
+            };
+            breakevenYieldByCrop: {
+                cropId: string;
+                yieldTHa: number;
+            }[];
+            tranches: {
+                seasonalAmountXof: number;
+                investmentAmountXof: number;
+            };
+            warnings: {
+                code: string;
+                message: string;
+            }[];
+        };
+        ModelRunInput: {
+            /** Format: uuid */
+            id: string;
+            /** Format: uuid */
+            blockId: string;
+            /** Format: uuid */
+            seasonId: string;
+            engineVersion: string;
+            inputsHash: string;
+            current: boolean;
+            /** Format: date-time */
+            computedAt: string;
+            outputs: components["schemas"]["ModelOutputInput"];
+        };
+        ReadinessInput: {
+            engineVersion: string;
+            gates: {
+                code: string;
+                pass: boolean;
+                reasons: {
+                    code: string;
+                    entityIds: string[];
+                }[];
+            }[];
+            allGatesPass: boolean;
+            breakdown: {
+                landSecurity: number;
+                offtakeStrength: number;
+                financialRobustness: number;
+                farmerQuality: number;
+                riskCover: number;
+                operatorCapacity: number;
+                dataCompleteness: number;
+            };
+            rawScore: number;
+            score: number;
+            /** @enum {string} */
+            grade: "A" | "B" | "C" | "D";
+        };
+        DossierInput: {
+            /** Format: uuid */
+            id: string;
+            ref: string;
+            /** Format: uuid */
+            blockId: string;
+            /** Format: uuid */
+            seasonId: string;
+            version: number;
+            /** @enum {string} */
+            status: "draft" | "frozen" | "superseded";
+            readinessScore: number;
+            /** @enum {string} */
+            grade: "A" | "B" | "C" | "D";
+            gates: {
+                code: string;
+                pass: boolean;
+                reasons: {
+                    code: string;
+                    entityIds: string[];
+                }[];
+            }[];
+            scoreBreakdown: {
+                [key: string]: number;
+            };
+            /** Format: uuid */
+            modelRunId: string;
+            snapshot: {
+                [key: string]: unknown;
+            };
+            contentSha256: string;
+            pdfFileId: string | null;
+            pdfStatus: string;
+            dataRoom: {
+                /** Format: uuid */
+                fileId: string;
+                label: string;
+                category: string;
+                filename?: string;
+                mime?: string;
+            }[];
+            frozenAt: string | null;
+            allowedActions: string[];
+        };
+        RiskCoverInput: {
+            /** Format: uuid */
+            id: string;
+            /** Format: uuid */
+            blockId: string;
+            trancheId: string | null;
+            /** @enum {string} */
+            type: "guarantee" | "index_insurance" | "indemnity_insurance" | "first_loss";
+            providerOrgId: string | null;
+            providerName: string;
+            coveragePct: number;
+            capXof: number | null;
+            premiumXof: number | null;
+            /** @enum {string} */
+            status: "proposed" | "committed" | "active" | "expired";
+            fileId: string | null;
+            version: number;
+        };
         Problem: {
             type: string;
             title: string;
@@ -2760,6 +3306,337 @@ export interface components {
             /** Format: date-time */
             createdAt: string;
             allowedActions: string[];
+        };
+        ModelAssumptions: {
+            /** Format: uuid */
+            seasonId: string;
+            seasonal: {
+                amountXof?: number;
+                rateBps: number;
+                /** @enum {string} */
+                rateMethod: "flat" | "declining";
+                upfrontFeeBps: number;
+                tenorMonths: number;
+                /** @enum {string} */
+                repaymentProfile: "bullet" | "seasonal" | "annuity" | "equal_principal";
+                /** @enum {string} */
+                feesChargedTo: "operator" | "farmers";
+                /** @enum {string} */
+                borrowerType: "operator" | "farmers" | "farmer_group";
+            } | null;
+            investment: {
+                amountXof?: number;
+                rateBps: number;
+                /** @enum {string} */
+                rateMethod: "flat" | "declining";
+                upfrontFeeBps: number;
+                tenorMonths: number;
+                graceMonths: number;
+                /** @enum {string} */
+                graceType: "interest_only" | "capitalised";
+                /** @enum {string} */
+                repaymentProfile: "bullet" | "seasonal" | "annuity" | "equal_principal";
+            } | null;
+            seasonsPerYear: number;
+            discountRateBps: number;
+            version: number;
+        };
+        ModelOutput: {
+            engineVersion: string;
+            inputsHash: string;
+            scenarios: {
+                base: {
+                    farmers: {
+                        /** Format: uuid */
+                        farmerId: string;
+                        ha: number;
+                        grossRevenueXof: number;
+                        seasonalDebtDueXof: number;
+                        investmentFeeXof: number;
+                        landFeeXof: number;
+                        operatorServiceFeeXof: number;
+                        farmerCashCostsXof: number;
+                        netIncomeXof: number;
+                        valueCreatedXof: number | null;
+                        hcr: number | null;
+                    }[];
+                    block: {
+                        grossRevenueXof: number;
+                        seasonalDebtDueXof: number;
+                        hcr: number | null;
+                        breakevenYieldMultiplier: number | null;
+                        breakevenPriceMultiplier: number | null;
+                        minDscr: number | null;
+                        avgDscr: number | null;
+                        operatorNpvXof: number;
+                        operatorIrr: number | null;
+                        paybackMonth: number | null;
+                    };
+                    monthlyCashflow: {
+                        month: number;
+                        inflowXof: number;
+                        outflowXof: number;
+                        netXof: number;
+                        cumulativeXof: number;
+                    }[];
+                };
+                yield_minus_20: {
+                    farmers: {
+                        /** Format: uuid */
+                        farmerId: string;
+                        ha: number;
+                        grossRevenueXof: number;
+                        seasonalDebtDueXof: number;
+                        investmentFeeXof: number;
+                        landFeeXof: number;
+                        operatorServiceFeeXof: number;
+                        farmerCashCostsXof: number;
+                        netIncomeXof: number;
+                        valueCreatedXof: number | null;
+                        hcr: number | null;
+                    }[];
+                    block: {
+                        grossRevenueXof: number;
+                        seasonalDebtDueXof: number;
+                        hcr: number | null;
+                        breakevenYieldMultiplier: number | null;
+                        breakevenPriceMultiplier: number | null;
+                        minDscr: number | null;
+                        avgDscr: number | null;
+                        operatorNpvXof: number;
+                        operatorIrr: number | null;
+                        paybackMonth: number | null;
+                    };
+                    monthlyCashflow: {
+                        month: number;
+                        inflowXof: number;
+                        outflowXof: number;
+                        netXof: number;
+                        cumulativeXof: number;
+                    }[];
+                };
+                price_minus_15: {
+                    farmers: {
+                        /** Format: uuid */
+                        farmerId: string;
+                        ha: number;
+                        grossRevenueXof: number;
+                        seasonalDebtDueXof: number;
+                        investmentFeeXof: number;
+                        landFeeXof: number;
+                        operatorServiceFeeXof: number;
+                        farmerCashCostsXof: number;
+                        netIncomeXof: number;
+                        valueCreatedXof: number | null;
+                        hcr: number | null;
+                    }[];
+                    block: {
+                        grossRevenueXof: number;
+                        seasonalDebtDueXof: number;
+                        hcr: number | null;
+                        breakevenYieldMultiplier: number | null;
+                        breakevenPriceMultiplier: number | null;
+                        minDscr: number | null;
+                        avgDscr: number | null;
+                        operatorNpvXof: number;
+                        operatorIrr: number | null;
+                        paybackMonth: number | null;
+                    };
+                    monthlyCashflow: {
+                        month: number;
+                        inflowXof: number;
+                        outflowXof: number;
+                        netXof: number;
+                        cumulativeXof: number;
+                    }[];
+                };
+                combined: {
+                    farmers: {
+                        /** Format: uuid */
+                        farmerId: string;
+                        ha: number;
+                        grossRevenueXof: number;
+                        seasonalDebtDueXof: number;
+                        investmentFeeXof: number;
+                        landFeeXof: number;
+                        operatorServiceFeeXof: number;
+                        farmerCashCostsXof: number;
+                        netIncomeXof: number;
+                        valueCreatedXof: number | null;
+                        hcr: number | null;
+                    }[];
+                    block: {
+                        grossRevenueXof: number;
+                        seasonalDebtDueXof: number;
+                        hcr: number | null;
+                        breakevenYieldMultiplier: number | null;
+                        breakevenPriceMultiplier: number | null;
+                        minDscr: number | null;
+                        avgDscr: number | null;
+                        operatorNpvXof: number;
+                        operatorIrr: number | null;
+                        paybackMonth: number | null;
+                    };
+                    monthlyCashflow: {
+                        month: number;
+                        inflowXof: number;
+                        outflowXof: number;
+                        netXof: number;
+                        cumulativeXof: number;
+                    }[];
+                };
+                delay_2m: {
+                    farmers: {
+                        /** Format: uuid */
+                        farmerId: string;
+                        ha: number;
+                        grossRevenueXof: number;
+                        seasonalDebtDueXof: number;
+                        investmentFeeXof: number;
+                        landFeeXof: number;
+                        operatorServiceFeeXof: number;
+                        farmerCashCostsXof: number;
+                        netIncomeXof: number;
+                        valueCreatedXof: number | null;
+                        hcr: number | null;
+                    }[];
+                    block: {
+                        grossRevenueXof: number;
+                        seasonalDebtDueXof: number;
+                        hcr: number | null;
+                        breakevenYieldMultiplier: number | null;
+                        breakevenPriceMultiplier: number | null;
+                        minDscr: number | null;
+                        avgDscr: number | null;
+                        operatorNpvXof: number;
+                        operatorIrr: number | null;
+                        paybackMonth: number | null;
+                    };
+                    monthlyCashflow: {
+                        month: number;
+                        inflowXof: number;
+                        outflowXof: number;
+                        netXof: number;
+                        cumulativeXof: number;
+                    }[];
+                };
+            };
+            details: {
+                [key: string]: unknown;
+            };
+            breakevenYieldByCrop: {
+                cropId: string;
+                yieldTHa: number;
+            }[];
+            tranches: {
+                seasonalAmountXof: number;
+                investmentAmountXof: number;
+            };
+            warnings: {
+                code: string;
+                message: string;
+            }[];
+        };
+        ModelRun: {
+            /** Format: uuid */
+            id: string;
+            /** Format: uuid */
+            blockId: string;
+            /** Format: uuid */
+            seasonId: string;
+            engineVersion: string;
+            inputsHash: string;
+            current: boolean;
+            /** Format: date-time */
+            computedAt: string;
+            outputs: components["schemas"]["ModelOutput"];
+        };
+        Readiness: {
+            engineVersion: string;
+            gates: {
+                code: string;
+                pass: boolean;
+                reasons: {
+                    code: string;
+                    entityIds: string[];
+                }[];
+            }[];
+            allGatesPass: boolean;
+            breakdown: {
+                landSecurity: number;
+                offtakeStrength: number;
+                financialRobustness: number;
+                farmerQuality: number;
+                riskCover: number;
+                operatorCapacity: number;
+                dataCompleteness: number;
+            };
+            rawScore: number;
+            score: number;
+            /** @enum {string} */
+            grade: "A" | "B" | "C" | "D";
+        };
+        Dossier: {
+            /** Format: uuid */
+            id: string;
+            ref: string;
+            /** Format: uuid */
+            blockId: string;
+            /** Format: uuid */
+            seasonId: string;
+            version: number;
+            /** @enum {string} */
+            status: "draft" | "frozen" | "superseded";
+            readinessScore: number;
+            /** @enum {string} */
+            grade: "A" | "B" | "C" | "D";
+            gates: {
+                code: string;
+                pass: boolean;
+                reasons: {
+                    code: string;
+                    entityIds: string[];
+                }[];
+            }[];
+            scoreBreakdown: {
+                [key: string]: number;
+            };
+            /** Format: uuid */
+            modelRunId: string;
+            snapshot: {
+                [key: string]: unknown;
+            };
+            contentSha256: string;
+            pdfFileId: string | null;
+            pdfStatus: string;
+            dataRoom: {
+                /** Format: uuid */
+                fileId: string;
+                label: string;
+                category: string;
+                filename?: string;
+                mime?: string;
+            }[];
+            frozenAt: string | null;
+            allowedActions: string[];
+        };
+        RiskCover: {
+            /** Format: uuid */
+            id: string;
+            /** Format: uuid */
+            blockId: string;
+            trancheId: string | null;
+            /** @enum {string} */
+            type: "guarantee" | "index_insurance" | "indemnity_insurance" | "first_loss";
+            providerOrgId: string | null;
+            providerName: string;
+            coveragePct: number;
+            capXof: number | null;
+            premiumXof: number | null;
+            /** @enum {string} */
+            status: "proposed" | "committed" | "active" | "expired";
+            fileId: string | null;
+            version: number;
         };
     };
     responses: never;
@@ -6787,6 +7664,465 @@ export interface operations {
                     "application/json": {
                         data: components["schemas"]["OfftakeContract"][];
                     };
+                };
+            };
+        };
+    };
+    getModelAssumptions: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Default Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ModelAssumptions"];
+                };
+            };
+        };
+    };
+    putModelAssumptions: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": {
+                    seasonal: {
+                        amountXof?: number;
+                        rateBps: number;
+                        /** @enum {string} */
+                        rateMethod: "flat" | "declining";
+                        upfrontFeeBps: number;
+                        tenorMonths: number;
+                        /** @enum {string} */
+                        repaymentProfile: "bullet" | "seasonal" | "annuity" | "equal_principal";
+                        /** @enum {string} */
+                        feesChargedTo: "operator" | "farmers";
+                        /** @enum {string} */
+                        borrowerType: "operator" | "farmers" | "farmer_group";
+                    } | null;
+                    investment: {
+                        amountXof?: number;
+                        rateBps: number;
+                        /** @enum {string} */
+                        rateMethod: "flat" | "declining";
+                        upfrontFeeBps: number;
+                        tenorMonths: number;
+                        graceMonths: number;
+                        /** @enum {string} */
+                        graceType: "interest_only" | "capitalised";
+                        /** @enum {string} */
+                        repaymentProfile: "bullet" | "seasonal" | "annuity" | "equal_principal";
+                    } | null;
+                    /** @default 1 */
+                    seasonsPerYear?: number;
+                    /** @default 1200 */
+                    discountRateBps?: number;
+                };
+            };
+        };
+        responses: {
+            /** @description Default Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ModelAssumptions"];
+                };
+            };
+        };
+    };
+    runModel: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Default Response */
+            201: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ModelRun"];
+                };
+            };
+        };
+    };
+    previewModel: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": {
+                    /** @default 0 */
+                    yieldShockPct?: number;
+                    /** @default 0 */
+                    priceShockPct?: number;
+                    seasonalRateBps?: number;
+                };
+            };
+        };
+        responses: {
+            /** @description Default Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ModelRun"];
+                };
+            };
+        };
+    };
+    getCurrentModelRun: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Default Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ModelRun"];
+                };
+            };
+        };
+    };
+    getModelRun: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Default Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ModelRun"];
+                };
+            };
+        };
+    };
+    getReadiness: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Default Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Readiness"];
+                };
+            };
+        };
+    };
+    checkBlockReadiness: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": {
+                    /** Format: uuid */
+                    seasonId: string;
+                };
+            };
+        };
+        responses: {
+            /** @description Default Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Readiness"];
+                };
+            };
+        };
+    };
+    listDossiers: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Default Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        data: components["schemas"]["Dossier"][];
+                    };
+                };
+            };
+        };
+    };
+    freezeDossier: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Default Response */
+            201: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Dossier"];
+                };
+            };
+        };
+    };
+    getDossier: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Default Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Dossier"];
+                };
+            };
+        };
+    };
+    getDossierPdf: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Default Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        url: string;
+                        fileId: string;
+                    };
+                };
+            };
+        };
+    };
+    getDossierDataRoom: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Default Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        data: {
+                            /** Format: uuid */
+                            fileId: string;
+                            label: string;
+                            category: string;
+                            filename?: string;
+                            mime?: string;
+                        }[];
+                    };
+                };
+            };
+        };
+    };
+    listRiskCovers: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Default Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        data: components["schemas"]["RiskCover"][];
+                    };
+                };
+            };
+        };
+    };
+    createRiskCover: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": {
+                    /** @enum {string} */
+                    type: "guarantee" | "index_insurance" | "indemnity_insurance" | "first_loss";
+                    providerOrgId?: string | null;
+                    providerName: string;
+                    coveragePct: number;
+                    capXof?: number | null;
+                    premiumXof?: number | null;
+                    /**
+                     * @default proposed
+                     * @enum {string}
+                     */
+                    status?: "proposed" | "committed" | "active" | "expired";
+                    fileId?: string | null;
+                    trancheId?: string | null;
+                };
+            };
+        };
+        responses: {
+            /** @description Default Response */
+            201: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["RiskCover"];
+                };
+            };
+        };
+    };
+    updateRiskCover: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": {
+                    /** @enum {string} */
+                    type?: "guarantee" | "index_insurance" | "indemnity_insurance" | "first_loss";
+                    providerOrgId?: string | null;
+                    providerName?: string;
+                    coveragePct?: number;
+                    capXof?: number | null;
+                    premiumXof?: number | null;
+                    /**
+                     * @default proposed
+                     * @enum {string}
+                     */
+                    status?: "proposed" | "committed" | "active" | "expired";
+                    fileId?: string | null;
+                    trancheId?: string | null;
+                };
+            };
+        };
+        responses: {
+            /** @description Default Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["RiskCover"];
                 };
             };
         };

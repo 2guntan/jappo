@@ -334,7 +334,10 @@
     "OFFTAKE_LOCKED": "A signed contract can no longer be edited.",
     "END_BEFORE_START": "End date is before start date.",
     "QUOTE_SERVICE_MISMATCH": "The quote is for another service.",
-    "SERVICE_CODE_TAKEN": "This service code already exists."
+    "SERVICE_CODE_TAKEN": "This service code already exists.",
+    "GATES_FAILING": "All hard gates must pass.",
+    "MODEL_NOT_CURRENT": "Re-run the model before freezing.",
+    "PDF_PENDING": "The PDF is being generated."
   },
   "blocks": {
     "title": "Blocks",
@@ -365,7 +368,8 @@
       "community": "Community",
       "seasons": "Seasons",
       "offtake": "Offtake",
-      "investment": "Investment"
+      "investment": "Investment",
+      "risk": "Risk covers"
     },
     "boundary": "Block boundary",
     "noBoundary": "No boundary yet. Draw it on the map or import a GeoJSON/KML file.",
@@ -589,7 +593,10 @@
     "budget": "Budget",
     "tabs": {
       "plan": "Crop plan",
-      "budget": "Budget"
+      "budget": "Budget",
+      "model": "Model",
+      "readiness": "Readiness",
+      "dossier": "Dossier"
     },
     "kinds": {
       "rainy": "Rainy season",
@@ -767,5 +774,156 @@
     "title": "My offtake contracts",
     "empty": "No contracts. Operators link you to their offtake contracts.",
     "operator": "Operator"
+  },
+  "model": {
+    "assumptions": "Financing assumptions",
+    "seasonal": "Seasonal tranche",
+    "investment": "Investment tranche",
+    "enable": "Include",
+    "rate": "Annual rate (bps)",
+    "method": "Method",
+    "fee": "Upfront fee (bps)",
+    "tenor": "Tenor (months)",
+    "grace": "Grace (months)",
+    "graceType": "Grace type",
+    "profile": "Profile",
+    "feesTo": "Fees charged to",
+    "borrower": "Borrower",
+    "seasonsPerYear": "Seasons per year",
+    "discount": "Discount rate (bps)",
+    "saveAssumptions": "Save assumptions",
+    "run": "Run model",
+    "rerun": "Re-run",
+    "current": "Up to date",
+    "stale": "Data changed since the last run",
+    "none": "No run yet. Save the assumptions then run the model.",
+    "computedAt": "Computed",
+    "scenario": "Scenario",
+    "revenue": "Gross revenue",
+    "debt": "Seasonal debt",
+    "hcr": "HCR",
+    "minDscr": "Min DSCR",
+    "npv": "Operator NPV",
+    "irr": "Operator IRR",
+    "payback": "Payback (months)",
+    "breakeven": "Breakeven (multiplier)",
+    "farmers": "Farmer P&L (base)",
+    "net": "Net income",
+    "valueCreated": "Value created",
+    "fees": "Fees",
+    "cashflow": "Operator cash flow",
+    "cumulative": "Cumulative",
+    "net2": "Net",
+    "whatIf": "What-if",
+    "yieldShock": "Yield shock (%)",
+    "priceShock": "Price shock (%)",
+    "rateOverride": "Rate (bps)",
+    "simulate": "Simulate",
+    "warnings": "Warnings",
+    "tranches": "Requested amounts",
+    "scenarios": {
+      "base": "Base",
+      "yield_minus_20": "Stress yield",
+      "price_minus_15": "Stress price",
+      "combined": "Combined",
+      "delay_2m": "2-month delay"
+    },
+    "methods": {
+      "flat": "Flat",
+      "declining": "Declining"
+    },
+    "profiles": {
+      "bullet": "Bullet",
+      "seasonal": "Seasonal",
+      "annuity": "Annuity",
+      "equal_principal": "Equal principal"
+    },
+    "graceTypes": {
+      "interest_only": "Interest only",
+      "capitalised": "Capitalised"
+    },
+    "borrowers": {
+      "operator": "Operator",
+      "farmers": "Farmers",
+      "farmer_group": "Farmer group"
+    },
+    "feesToOptions": {
+      "operator": "Operator",
+      "farmers": "Farmers"
+    }
+  },
+  "readiness": {
+    "title": "Dossier readiness",
+    "score": "Score",
+    "grade": "Grade",
+    "gates": "Hard gates",
+    "pass": "OK",
+    "fail": "To fix",
+    "breakdown": "Score breakdown",
+    "check": "Update block status",
+    "fix": "Fix",
+    "gateNames": {
+      "G1_BOUNDARY": "Boundary and plots",
+      "G2_LAND_TITLE": "Land title or equivalent",
+      "G3_COMMUNITY": "Community agreement",
+      "G4_FARMERS": "Farmers (allocation, KYC, consents)",
+      "G5_PLAN": "Complete crop plan",
+      "G6_OFFTAKE": "Offtake ≥ 60 % of volume",
+      "G7_MODEL": "Model up to date",
+      "G8_HCR": "Harvest coverage (HCR)",
+      "G9_OPERATOR_KYC": "Operator KYC",
+      "G10_ESCROW": "Escrow payment ≥ 60 %"
+    },
+    "components": {
+      "landSecurity": "Land security",
+      "offtakeStrength": "Offtake strength",
+      "financialRobustness": "Financial robustness",
+      "farmerQuality": "Farmer quality",
+      "riskCover": "Risk cover",
+      "operatorCapacity": "Operator capacity",
+      "dataCompleteness": "Data completeness"
+    },
+    "max": "of {max}"
+  },
+  "dossier": {
+    "title": "Dossiers",
+    "freeze": "Freeze dossier",
+    "freezeHelp": "The frozen dossier is the version shared with lenders. All gates must pass.",
+    "version": "Version",
+    "frozenAt": "Frozen",
+    "pdf": "PDF",
+    "pdfPending": "PDF being generated…",
+    "download": "Download PDF",
+    "dataRoom": "Data room",
+    "none": "No frozen dossier.",
+    "status": {
+      "draft": "Draft",
+      "frozen": "Frozen",
+      "superseded": "Superseded"
+    }
+  },
+  "risk": {
+    "title": "Risk covers",
+    "type": "Type",
+    "provider": "Provider",
+    "coverage": "Coverage (%)",
+    "cap": "Cap",
+    "premium": "Premium",
+    "add": "Add",
+    "commit": "Commit",
+    "activate": "Activate",
+    "types": {
+      "guarantee": "Guarantee",
+      "index_insurance": "Index insurance",
+      "indemnity_insurance": "Indemnity insurance",
+      "first_loss": "First loss"
+    },
+    "statuses": {
+      "proposed": "Proposed",
+      "committed": "Committed",
+      "active": "Active",
+      "expired": "Expired"
+    },
+    "empty": "No covers. A committed guarantee improves the dossier score."
   }
 }

@@ -187,3 +187,66 @@ export async function createFarmer(t: TestApp, s: Session, overrides: Record<str
   expectStatus(res, 201);
   return json<{ id: string; code: string; version: number }>(res);
 }
+
+export interface ReadyScenario {
+  op: Session;
+  admin: Session;
+  buyer: Session;
+  blockId: string;
+  seasonId: string;
+  plots: { id: string; code: string; areaHa: number }[];
+  farmers: { id: string; code: string }[];
+  offtakeId: string;
+}
+
+/**
+ * A block whose season passes every readiness gate (P4+): verified operator & buyer, verified
+ * deliberation + prefect approval + community agreement, 3 plots / 3 KYC-verified farmers,
+ * maize with credits 1 200 000 / 1 000 000 / 800 000, fees 100 000/ha + 50 000/farmer,
+ * signed escrow offtake at 250 XOF/kg, seasonal tranche assumption 18 % flat 6 months bullet.
+ */
+export async function readyScenario(t: TestApp, opts: { yieldBase?: number; yieldStress?: number } = {}): Promise<ReadyScenario> {
+  const op = await verifiedOrg(t, { email: `op${Math.random().toString(36).slice(2, 7)}@kawral.test` });
+  const buyer = await verifiedOrg(t, { orgType: 'buyer', legalName: 'Agro-Négoce Zeta SA', legalForm: 'SA', email: `buyer${Math.random().toString(36).slice(2, 7)}@zeta.test` });
+  const admin = await adminSession(t);
+  const block = await createBlock(t, op, { irrigationType: 'drip', waterSource: 'borehole' });
+  await setBoundary(t, op, block.id);
+  for (const docType of ['deliberation', 'approval_prefect', 'community_agreement']) {
+    const mp = multipartBody({}, { name: `${docType}.pdf`, content: PDF_BYTES });
+    const f = json<{ id: string }>(await t.app.inject({ method: 'POST', url: '/v1/files', headers: { ...auth(op), ...mp.headers }, payload: mp.payload }));
+    const d = await t.app.inject({ method: 'POST', url: `/v1/blocks/${block.id}/land-documents`, headers: auth(op), payload: { docType, fileId: f.id, number: `${docType}-1` } });
+    expectStatus(d, 201);
+    expectStatus(await t.app.inject({ method: 'POST', url: `/v1/admin/land-documents/${d.json().id}/actions/verify`, headers: auth(admin), payload: {} }), 200);
+  }
+  const plots: ReadyScenario['plots'] = [];
+  for (let i = 0; i < 3; i++) {
+    const p = await t.app.inject({ method: 'POST', url: `/v1/blocks/${block.id}/plots`, headers: auth(op), payload: { geometry: rectangle(-16.2699 + i * 0.001, 12.5801, 100, 100), soilType: 'sablo-argileux' } });
+    expectStatus(p, 201);
+    plots.push(p.json());
+  }
+  const farmers: ReadyScenario['farmers'] = [];
+  for (let i = 0; i < 3; i++) {
+    const f = await createFarmer(t, op, { firstName: ['Awa', 'Fatou', 'Mariama'][i], phone: `+2217720000${i}0`, nationalIdType: 'cni', nationalIdNumber: `17511990000${i}0`, mobileWalletProvider: 'wave', mobileWalletNumber: `+2217720000${i}0` });
+    expectStatus(await t.app.inject({ method: 'POST', url: `/v1/farmers/${f.id}/actions/verify-kyc`, headers: auth(op, { 'if-match': '"1"' }) }), 200);
+    expectStatus(await t.app.inject({ method: 'POST', url: `/v1/plots/${plots[i]!.id}/allocations`, headers: auth(op), payload: { farmerId: f.id } }), 201);
+    farmers.push(f);
+  }
+  const season = json<{ id: string }>(await t.app.inject({ method: 'POST', url: `/v1/blocks/${block.id}/seasons`, headers: auth(op), payload: { name: 'Contre-saison 2026-27', kind: 'cold_dry', startDate: '2026-11-15', endDate: '2027-04-30' } }));
+  const crops = json<{ data: { id: string; code: string }[] }>(await t.app.inject({ method: 'GET', url: '/v1/crops', headers: auth(op) })).data;
+  const maize = crops.find((c) => c.code === 'maize')!;
+  expectStatus(await t.app.inject({ method: 'POST', url: `/v1/seasons/${season.id}/plantings/actions/bulk-assign`, headers: auth(op), payload: { cropId: maize.id, plotIds: plots.map((p) => p.id), plannedHarvestDate: '2027-03-15' } }), 201);
+  if (opts.yieldBase !== undefined) {
+    const pl = json<{ data: { id: string; version: number }[] }>(await t.app.inject({ method: 'GET', url: `/v1/seasons/${season.id}/plantings`, headers: auth(op) })).data;
+    for (const p of pl) expectStatus(await t.app.inject({ method: 'PATCH', url: `/v1/plantings/${p.id}`, headers: auth(op, { 'if-match': `"${p.version}"` }), payload: { yieldBaseTHa: opts.yieldBase, yieldStressTHa: opts.yieldStress ?? opts.yieldBase * 0.8 } }), 200);
+  }
+  const svc = json<{ data: { id: string; code: string }[] }>(await t.app.inject({ method: 'GET', url: '/v1/services', headers: auth(op) })).data.find((s) => s.code === 'npk_15_15_15')!;
+  for (const [i, amount] of [1_200_000, 1_000_000, 800_000].entries()) {
+    expectStatus(await t.app.inject({ method: 'POST', url: `/v1/seasons/${season.id}/budget-lines`, headers: auth(op), payload: { scope: 'plot', plotId: plots[i]!.id, serviceId: svc.id, qty: 1, unitPriceXof: amount, payer: 'farmer_credit' } }), 201);
+  }
+  expectStatus(await t.app.inject({ method: 'PUT', url: `/v1/blocks/${block.id}/fee-policy`, headers: auth(op), payload: { operatorServiceFeeXofPerFarmerSeason: 50000, landFeeXofPerHaSeason: 0, investmentRecoveryFeeXofPerHaSeason: 100000 } }), 200);
+  const o = await t.app.inject({ method: 'POST', url: '/v1/offtake-contracts', headers: auth(op), payload: { blockId: block.id, buyerOrgId: buyer.orgId, cropId: maize.id, minVolumeKg: 15000, maxVolumeKg: 25000, priceType: 'fixed', priceXofPerKg: 250, paymentTermsDays: 30, paysIntoEscrow: true } });
+  expectStatus(o, 201);
+  expectStatus(await t.app.inject({ method: 'POST', url: `/v1/offtake-contracts/${o.json().id}/actions/mark-signed`, headers: auth(op, { 'if-match': '"1"' }), payload: {} }), 200);
+  expectStatus(await t.app.inject({ method: 'PUT', url: `/v1/seasons/${season.id}/model-assumptions`, headers: auth(op), payload: { seasonal: { rateBps: 1800, rateMethod: 'flat', upfrontFeeBps: 100, tenorMonths: 6, repaymentProfile: 'bullet', feesChargedTo: 'operator', borrowerType: 'farmers' }, investment: null } }), 200);
+  return { op, admin, buyer, blockId: block.id, seasonId: season.id, plots, farmers, offtakeId: o.json().id };
+}

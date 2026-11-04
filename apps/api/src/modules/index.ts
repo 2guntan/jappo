@@ -11,6 +11,9 @@ import { fieldRoutes } from './field/routes';
 import { catalogueRoutes } from './catalogue/routes';
 import { planningRoutes } from './planning/routes';
 import { offtakeRoutes } from './offtake/routes';
+import { financeRoutes } from './finance/routes';
+import { dossierRoutes } from './dossier/routes';
+import { renderDossierPdf } from './dossier/pdf';
 
 const ALL = ['platform', 'operator', 'lender', 'buyer', 'guarantor', 'insurer', 'supplier', 'farmer_group'] as const;
 
@@ -99,6 +102,15 @@ export const MODULES: JappoModule[] = validateModules([
         { key: 'buyer-contracts', href: '/app/buyer/contracts', labelKey: 'nav.buyerContracts', permission: 'dispatch:accept' },
       ],
     },
+  },
+  { name: 'finance', version: '1.0.0', core: true, dependsOn: ['planning'], routes: financeRoutes },
+  {
+    name: 'dossier',
+    version: '1.0.0',
+    core: true,
+    dependsOn: ['finance', 'offtake'],
+    routes: dossierRoutes,
+    eventHandlers: { 'dossier.frozen': async (e, ctx) => void (await renderDossierPdf(ctx, e.aggregate.id)) },
   },
   {
     name: 'field',

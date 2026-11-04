@@ -12,8 +12,11 @@ import { formatDate } from '@/lib/utils';
 import { Alert, Badge, Button, Input, PageHeader, Spinner } from '@/components/ui';
 import { PlanTab } from '@/components/seasons/plan-tab';
 import { BudgetTab } from '@/components/seasons/budget-tab';
+import { ModelTab } from '@/components/seasons/model-tab';
+import { ReadinessTab } from '@/components/seasons/readiness-tab';
+import { DossierTab } from '@/components/seasons/dossier-tab';
 
-const TABS = ['plan', 'budget'] as const;
+const TABS = ['plan', 'budget', 'model', 'readiness', 'dossier'] as const;
 
 function SeasonInner({ id }: { id: string }) {
   const t = useTranslations();
@@ -62,6 +65,9 @@ function SeasonInner({ id }: { id: string }) {
       </nav>
       {tab === 'plan' && <PlanTab season={s} />}
       {tab === 'budget' && <BudgetTab season={s} />}
+      {tab === 'model' && <ModelTab season={s} />}
+      {tab === 'readiness' && <ReadinessTab season={s} />}
+      {tab === 'dossier' && <DossierTab season={s} />}
     </>
   );
 }

@@ -5,3 +5,4 @@ export * from './geo';
 export * from './farmers';
 export * from './land';
 export * from './planning';
+export * from './finance';

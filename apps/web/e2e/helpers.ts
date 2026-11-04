@@ -132,3 +132,41 @@ export async function verifiedOrgViaApi(request: APIRequestContext, body: Record
   await admin.call('POST', `/v1/admin/orgs/${a.orgId}/kyc/actions/verify`, {});
   return a;
 }
+
+/**
+ * API-built block whose season passes all readiness gates (mirrors apps/api/test/helpers.readyScenario).
+ * Returns the operator email so the UI can log in.
+ */
+export async function readyScenarioViaApi(request: APIRequestContext, stamp = Date.now()) {
+  const opEmail = `ready.op.${stamp}@kawral.test`;
+  const op = await verifiedOrgViaApi(request, { orgType: 'operator', legalName: `Ferme Commune Kawral ${stamp % 10000} SARL`, email: opEmail });
+  const buyer = await verifiedOrgViaApi(request, { orgType: 'buyer', legalName: 'Agro-Négoce Zeta SA', legalForm: 'SA', email: `ready.buyer.${stamp}@zeta.test` });
+  const admin = await E2eApi.login(request, ADMIN.email, ADMIN.password, ADMIN.totp);
+  const block = await op.call<{ id: string; version: number }>('POST', '/v1/blocks', { name: 'Bloc de Niaguis', region: 'Ziguinchor', commune: 'Niaguis', tenureType: 'deliberation', irrigationType: 'drip', waterSource: 'borehole' });
+  const geometry = JSON.parse(boundaryFile(-16.27, 12.58, 300, 100).buffer.toString()).features[0].geometry;
+  await op.call('PUT', `/v1/blocks/${block.id}/boundary`, { geometry }, { 'if-match': `"${block.version}"` });
+  for (const docType of ['deliberation', 'approval_prefect', 'community_agreement']) {
+    const f = await op.upload('/v1/files', {}, pdf(`${docType}.pdf`));
+    const d = await op.call<{ id: string }>('POST', `/v1/blocks/${block.id}/land-documents`, { docType, fileId: f.id, number: `${docType.toUpperCase()}-2026` });
+    await admin.call('POST', `/v1/admin/land-documents/${d.id}/actions/verify`, {});
+  }
+  const plots = (await op.call<{ data: { id: string; code: string }[] }>('POST', `/v1/blocks/${block.id}/plots/actions/auto-grid`, { count: 3, soilType: 'sablo-argileux' })).data;
+  const farmers: { id: string; code: string }[] = [];
+  for (const [i, [fn, ln]] of [['Awa', 'Diatta'], ['Fatou', 'Sané'], ['Mariama', 'Badji']].entries()) {
+    const phone = `+2217${String(stamp).slice(-6)}${i}0`.slice(0, 13);
+    const f = await op.call<{ id: string; code: string; version: number }>('POST', '/v1/farmers', { firstName: fn, lastName: ln, sex: 'F', consentData: true, consentCreditBureau: true, phone, nationalIdType: 'cni', nationalIdNumber: `1751${String(stamp).slice(-6)}${i}00`, mobileWalletProvider: 'wave', mobileWalletNumber: phone });
+    await op.call('POST', `/v1/farmers/${f.id}/actions/verify-kyc`, undefined, { 'if-match': `"${f.version}"` });
+    await op.call('POST', `/v1/plots/${plots[i]!.id}/allocations`, { farmerId: f.id });
+    farmers.push(f);
+  }
+  const season = await op.call<{ id: string }>('POST', `/v1/blocks/${block.id}/seasons`, { name: 'Contre-saison 2026-27', kind: 'cold_dry', startDate: '2026-11-15', endDate: '2027-04-30' });
+  const maize = (await op.call<{ data: { id: string; code: string }[] }>('GET', '/v1/crops')).data.find((c) => c.code === 'maize')!;
+  const plantings = (await op.call<{ data: { id: string; version: number }[] }>('POST', `/v1/seasons/${season.id}/plantings/actions/bulk-assign`, { cropId: maize.id, plotIds: plots.map((p) => p.id), plannedHarvestDate: '2027-03-15' })).data;
+  for (const p of plantings) await op.call('PATCH', `/v1/plantings/${p.id}`, { yieldBaseTHa: 7, yieldStressTHa: 6 }, { 'if-match': `"${p.version}"` });
+  const npk = (await op.call<{ data: { id: string; code: string }[] }>('GET', '/v1/services')).data.find((s) => s.code === 'npk_15_15_15')!;
+  for (const [i, amount] of [1_200_000, 1_000_000, 800_000].entries()) await op.call('POST', `/v1/seasons/${season.id}/budget-lines`, { scope: 'plot', plotId: plots[i]!.id, serviceId: npk.id, qty: 1, unitPriceXof: amount, payer: 'farmer_credit' });
+  await op.call('PUT', `/v1/blocks/${block.id}/fee-policy`, { operatorServiceFeeXofPerFarmerSeason: 50000, landFeeXofPerHaSeason: 0, investmentRecoveryFeeXofPerHaSeason: 100000 });
+  const o = await op.call<{ id: string }>('POST', '/v1/offtake-contracts', { blockId: block.id, buyerOrgId: buyer.orgId, cropId: maize.id, minVolumeKg: 15000, maxVolumeKg: 25000, priceType: 'fixed', priceXofPerKg: 250, paymentTermsDays: 30, paysIntoEscrow: true });
+  await op.call('POST', `/v1/offtake-contracts/${o.id}/actions/mark-signed`, {}, { 'if-match': '"1"' });
+  return { op, opEmail, buyer, admin, blockId: block.id, seasonId: season.id, plots, farmers, offtakeId: o.id };
+}

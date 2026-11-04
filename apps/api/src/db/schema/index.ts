@@ -7,3 +7,5 @@ export * from '../../modules/field/schema';
 export * from '../../modules/catalogue/schema';
 export * from '../../modules/planning/schema';
 export * from '../../modules/offtake/schema';
+export * from '../../modules/finance/schema';
+export * from '../../modules/dossier/schema';

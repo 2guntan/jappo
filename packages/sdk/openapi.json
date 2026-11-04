@@ -2917,6 +2917,1820 @@
           "allowedActions"
         ]
       },
+      "ModelAssumptionsInput": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "$id": "#/components/schemas/ModelAssumptionsInput",
+        "type": "object",
+        "properties": {
+          "seasonId": {
+            "type": "string",
+            "format": "uuid",
+            "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+          },
+          "seasonal": {
+            "anyOf": [
+              {
+                "type": "object",
+                "properties": {
+                  "amountXof": {
+                    "type": "integer",
+                    "minimum": 0,
+                    "maximum": 9007199254740991
+                  },
+                  "rateBps": {
+                    "type": "integer",
+                    "minimum": 0,
+                    "maximum": 10000
+                  },
+                  "rateMethod": {
+                    "type": "string",
+                    "enum": [
+                      "flat",
+                      "declining"
+                    ]
+                  },
+                  "upfrontFeeBps": {
+                    "type": "integer",
+                    "minimum": 0,
+                    "maximum": 2000
+                  },
+                  "tenorMonths": {
+                    "type": "integer",
+                    "minimum": 1,
+                    "maximum": 36
+                  },
+                  "repaymentProfile": {
+                    "type": "string",
+                    "enum": [
+                      "bullet",
+                      "seasonal",
+                      "annuity",
+                      "equal_principal"
+                    ]
+                  },
+                  "feesChargedTo": {
+                    "type": "string",
+                    "enum": [
+                      "operator",
+                      "farmers"
+                    ]
+                  },
+                  "borrowerType": {
+                    "type": "string",
+                    "enum": [
+                      "operator",
+                      "farmers",
+                      "farmer_group"
+                    ]
+                  }
+                },
+                "required": [
+                  "rateBps",
+                  "rateMethod",
+                  "upfrontFeeBps",
+                  "tenorMonths",
+                  "repaymentProfile",
+                  "feesChargedTo",
+                  "borrowerType"
+                ]
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "investment": {
+            "anyOf": [
+              {
+                "type": "object",
+                "properties": {
+                  "amountXof": {
+                    "type": "integer",
+                    "minimum": 0,
+                    "maximum": 9007199254740991
+                  },
+                  "rateBps": {
+                    "type": "integer",
+                    "minimum": 0,
+                    "maximum": 10000
+                  },
+                  "rateMethod": {
+                    "type": "string",
+                    "enum": [
+                      "flat",
+                      "declining"
+                    ]
+                  },
+                  "upfrontFeeBps": {
+                    "type": "integer",
+                    "minimum": 0,
+                    "maximum": 2000
+                  },
+                  "tenorMonths": {
+                    "type": "integer",
+                    "minimum": 1,
+                    "maximum": 180
+                  },
+                  "graceMonths": {
+                    "type": "integer",
+                    "minimum": 0,
+                    "maximum": 60
+                  },
+                  "graceType": {
+                    "type": "string",
+                    "enum": [
+                      "interest_only",
+                      "capitalised"
+                    ]
+                  },
+                  "repaymentProfile": {
+                    "type": "string",
+                    "enum": [
+                      "bullet",
+                      "seasonal",
+                      "annuity",
+                      "equal_principal"
+                    ]
+                  }
+                },
+                "required": [
+                  "rateBps",
+                  "rateMethod",
+                  "upfrontFeeBps",
+                  "tenorMonths",
+                  "graceMonths",
+                  "graceType",
+                  "repaymentProfile"
+                ]
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "seasonsPerYear": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 4
+          },
+          "discountRateBps": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 10000
+          },
+          "version": {
+            "type": "integer",
+            "minimum": -9007199254740991,
+            "maximum": 9007199254740991
+          }
+        },
+        "required": [
+          "seasonId",
+          "seasonal",
+          "investment",
+          "seasonsPerYear",
+          "discountRateBps",
+          "version"
+        ]
+      },
+      "ModelOutputInput": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "$id": "#/components/schemas/ModelOutputInput",
+        "type": "object",
+        "properties": {
+          "engineVersion": {
+            "type": "string"
+          },
+          "inputsHash": {
+            "type": "string"
+          },
+          "scenarios": {
+            "type": "object",
+            "properties": {
+              "base": {
+                "type": "object",
+                "properties": {
+                  "farmers": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "farmerId": {
+                          "type": "string",
+                          "format": "uuid",
+                          "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+                        },
+                        "ha": {
+                          "type": "number"
+                        },
+                        "grossRevenueXof": {
+                          "type": "integer",
+                          "minimum": -9007199254740991,
+                          "maximum": 9007199254740991
+                        },
+                        "seasonalDebtDueXof": {
+                          "type": "integer",
+                          "minimum": -9007199254740991,
+                          "maximum": 9007199254740991
+                        },
+                        "investmentFeeXof": {
+                          "type": "integer",
+                          "minimum": -9007199254740991,
+                          "maximum": 9007199254740991
+                        },
+                        "landFeeXof": {
+                          "type": "integer",
+                          "minimum": -9007199254740991,
+                          "maximum": 9007199254740991
+                        },
+                        "operatorServiceFeeXof": {
+                          "type": "integer",
+                          "minimum": -9007199254740991,
+                          "maximum": 9007199254740991
+                        },
+                        "farmerCashCostsXof": {
+                          "type": "integer",
+                          "minimum": -9007199254740991,
+                          "maximum": 9007199254740991
+                        },
+                        "netIncomeXof": {
+                          "type": "integer",
+                          "minimum": -9007199254740991,
+                          "maximum": 9007199254740991
+                        },
+                        "valueCreatedXof": {
+                          "anyOf": [
+                            {
+                              "type": "integer",
+                              "minimum": -9007199254740991,
+                              "maximum": 9007199254740991
+                            },
+                            {
+                              "type": "null"
+                            }
+                          ]
+                        },
+                        "hcr": {
+                          "type": [
+                            "number",
+                            "null"
+                          ]
+                        }
+                      },
+                      "required": [
+                        "farmerId",
+                        "ha",
+                        "grossRevenueXof",
+                        "seasonalDebtDueXof",
+                        "investmentFeeXof",
+                        "landFeeXof",
+                        "operatorServiceFeeXof",
+                        "farmerCashCostsXof",
+                        "netIncomeXof",
+                        "valueCreatedXof",
+                        "hcr"
+                      ]
+                    }
+                  },
+                  "block": {
+                    "type": "object",
+                    "properties": {
+                      "grossRevenueXof": {
+                        "type": "integer",
+                        "minimum": -9007199254740991,
+                        "maximum": 9007199254740991
+                      },
+                      "seasonalDebtDueXof": {
+                        "type": "integer",
+                        "minimum": -9007199254740991,
+                        "maximum": 9007199254740991
+                      },
+                      "hcr": {
+                        "type": [
+                          "number",
+                          "null"
+                        ]
+                      },
+                      "breakevenYieldMultiplier": {
+                        "type": [
+                          "number",
+                          "null"
+                        ]
+                      },
+                      "breakevenPriceMultiplier": {
+                        "type": [
+                          "number",
+                          "null"
+                        ]
+                      },
+                      "minDscr": {
+                        "type": [
+                          "number",
+                          "null"
+                        ]
+                      },
+                      "avgDscr": {
+                        "type": [
+                          "number",
+                          "null"
+                        ]
+                      },
+                      "operatorNpvXof": {
+                        "type": "integer",
+                        "minimum": -9007199254740991,
+                        "maximum": 9007199254740991
+                      },
+                      "operatorIrr": {
+                        "type": [
+                          "number",
+                          "null"
+                        ]
+                      },
+                      "paybackMonth": {
+                        "anyOf": [
+                          {
+                            "type": "integer",
+                            "minimum": -9007199254740991,
+                            "maximum": 9007199254740991
+                          },
+                          {
+                            "type": "null"
+                          }
+                        ]
+                      }
+                    },
+                    "required": [
+                      "grossRevenueXof",
+                      "seasonalDebtDueXof",
+                      "hcr",
+                      "breakevenYieldMultiplier",
+                      "breakevenPriceMultiplier",
+                      "minDscr",
+                      "avgDscr",
+                      "operatorNpvXof",
+                      "operatorIrr",
+                      "paybackMonth"
+                    ]
+                  },
+                  "monthlyCashflow": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "month": {
+                          "type": "integer",
+                          "minimum": -9007199254740991,
+                          "maximum": 9007199254740991
+                        },
+                        "inflowXof": {
+                          "type": "integer",
+                          "minimum": -9007199254740991,
+                          "maximum": 9007199254740991
+                        },
+                        "outflowXof": {
+                          "type": "integer",
+                          "minimum": -9007199254740991,
+                          "maximum": 9007199254740991
+                        },
+                        "netXof": {
+                          "type": "integer",
+                          "minimum": -9007199254740991,
+                          "maximum": 9007199254740991
+                        },
+                        "cumulativeXof": {
+                          "type": "integer",
+                          "minimum": -9007199254740991,
+                          "maximum": 9007199254740991
+                        }
+                      },
+                      "required": [
+                        "month",
+                        "inflowXof",
+                        "outflowXof",
+                        "netXof",
+                        "cumulativeXof"
+                      ]
+                    }
+                  }
+                },
+                "required": [
+                  "farmers",
+                  "block",
+                  "monthlyCashflow"
+                ]
+              },
+              "yield_minus_20": {
+                "type": "object",
+                "properties": {
+                  "farmers": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "farmerId": {
+                          "type": "string",
+                          "format": "uuid",
+                          "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+                        },
+                        "ha": {
+                          "type": "number"
+                        },
+                        "grossRevenueXof": {
+                          "type": "integer",
+                          "minimum": -9007199254740991,
+                          "maximum": 9007199254740991
+                        },
+                        "seasonalDebtDueXof": {
+                          "type": "integer",
+                          "minimum": -9007199254740991,
+                          "maximum": 9007199254740991
+                        },
+                        "investmentFeeXof": {
+                          "type": "integer",
+                          "minimum": -9007199254740991,
+                          "maximum": 9007199254740991
+                        },
+                        "landFeeXof": {
+                          "type": "integer",
+                          "minimum": -9007199254740991,
+                          "maximum": 9007199254740991
+                        },
+                        "operatorServiceFeeXof": {
+                          "type": "integer",
+                          "minimum": -9007199254740991,
+                          "maximum": 9007199254740991
+                        },
+                        "farmerCashCostsXof": {
+                          "type": "integer",
+                          "minimum": -9007199254740991,
+                          "maximum": 9007199254740991
+                        },
+                        "netIncomeXof": {
+                          "type": "integer",
+                          "minimum": -9007199254740991,
+                          "maximum": 9007199254740991
+                        },
+                        "valueCreatedXof": {
+                          "anyOf": [
+                            {
+                              "type": "integer",
+                              "minimum": -9007199254740991,
+                              "maximum": 9007199254740991
+                            },
+                            {
+                              "type": "null"
+                            }
+                          ]
+                        },
+                        "hcr": {
+                          "type": [
+                            "number",
+                            "null"
+                          ]
+                        }
+                      },
+                      "required": [
+                        "farmerId",
+                        "ha",
+                        "grossRevenueXof",
+                        "seasonalDebtDueXof",
+                        "investmentFeeXof",
+                        "landFeeXof",
+                        "operatorServiceFeeXof",
+                        "farmerCashCostsXof",
+                        "netIncomeXof",
+                        "valueCreatedXof",
+                        "hcr"
+                      ]
+                    }
+                  },
+                  "block": {
+                    "type": "object",
+                    "properties": {
+                      "grossRevenueXof": {
+                        "type": "integer",
+                        "minimum": -9007199254740991,
+                        "maximum": 9007199254740991
+                      },
+                      "seasonalDebtDueXof": {
+                        "type": "integer",
+                        "minimum": -9007199254740991,
+                        "maximum": 9007199254740991
+                      },
+                      "hcr": {
+                        "type": [
+                          "number",
+                          "null"
+                        ]
+                      },
+                      "breakevenYieldMultiplier": {
+                        "type": [
+                          "number",
+                          "null"
+                        ]
+                      },
+                      "breakevenPriceMultiplier": {
+                        "type": [
+                          "number",
+                          "null"
+                        ]
+                      },
+                      "minDscr": {
+                        "type": [
+                          "number",
+                          "null"
+                        ]
+                      },
+                      "avgDscr": {
+                        "type": [
+                          "number",
+                          "null"
+                        ]
+                      },
+                      "operatorNpvXof": {
+                        "type": "integer",
+                        "minimum": -9007199254740991,
+                        "maximum": 9007199254740991
+                      },
+                      "operatorIrr": {
+                        "type": [
+                          "number",
+                          "null"
+                        ]
+                      },
+                      "paybackMonth": {
+                        "anyOf": [
+                          {
+                            "type": "integer",
+                            "minimum": -9007199254740991,
+                            "maximum": 9007199254740991
+                          },
+                          {
+                            "type": "null"
+                          }
+                        ]
+                      }
+                    },
+                    "required": [
+                      "grossRevenueXof",
+                      "seasonalDebtDueXof",
+                      "hcr",
+                      "breakevenYieldMultiplier",
+                      "breakevenPriceMultiplier",
+                      "minDscr",
+                      "avgDscr",
+                      "operatorNpvXof",
+                      "operatorIrr",
+                      "paybackMonth"
+                    ]
+                  },
+                  "monthlyCashflow": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "month": {
+                          "type": "integer",
+                          "minimum": -9007199254740991,
+                          "maximum": 9007199254740991
+                        },
+                        "inflowXof": {
+                          "type": "integer",
+                          "minimum": -9007199254740991,
+                          "maximum": 9007199254740991
+                        },
+                        "outflowXof": {
+                          "type": "integer",
+                          "minimum": -9007199254740991,
+                          "maximum": 9007199254740991
+                        },
+                        "netXof": {
+                          "type": "integer",
+                          "minimum": -9007199254740991,
+                          "maximum": 9007199254740991
+                        },
+                        "cumulativeXof": {
+                          "type": "integer",
+                          "minimum": -9007199254740991,
+                          "maximum": 9007199254740991
+                        }
+                      },
+                      "required": [
+                        "month",
+                        "inflowXof",
+                        "outflowXof",
+                        "netXof",
+                        "cumulativeXof"
+                      ]
+                    }
+                  }
+                },
+                "required": [
+                  "farmers",
+                  "block",
+                  "monthlyCashflow"
+                ]
+              },
+              "price_minus_15": {
+                "type": "object",
+                "properties": {
+                  "farmers": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "farmerId": {
+                          "type": "string",
+                          "format": "uuid",
+                          "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+                        },
+                        "ha": {
+                          "type": "number"
+                        },
+                        "grossRevenueXof": {
+                          "type": "integer",
+                          "minimum": -9007199254740991,
+                          "maximum": 9007199254740991
+                        },
+                        "seasonalDebtDueXof": {
+                          "type": "integer",
+                          "minimum": -9007199254740991,
+                          "maximum": 9007199254740991
+                        },
+                        "investmentFeeXof": {
+                          "type": "integer",
+                          "minimum": -9007199254740991,
+                          "maximum": 9007199254740991
+                        },
+                        "landFeeXof": {
+                          "type": "integer",
+                          "minimum": -9007199254740991,
+                          "maximum": 9007199254740991
+                        },
+                        "operatorServiceFeeXof": {
+                          "type": "integer",
+                          "minimum": -9007199254740991,
+                          "maximum": 9007199254740991
+                        },
+                        "farmerCashCostsXof": {
+                          "type": "integer",
+                          "minimum": -9007199254740991,
+                          "maximum": 9007199254740991
+                        },
+                        "netIncomeXof": {
+                          "type": "integer",
+                          "minimum": -9007199254740991,
+                          "maximum": 9007199254740991
+                        },
+                        "valueCreatedXof": {
+                          "anyOf": [
+                            {
+                              "type": "integer",
+                              "minimum": -9007199254740991,
+                              "maximum": 9007199254740991
+                            },
+                            {
+                              "type": "null"
+                            }
+                          ]
+                        },
+                        "hcr": {
+                          "type": [
+                            "number",
+                            "null"
+                          ]
+                        }
+                      },
+                      "required": [
+                        "farmerId",
+                        "ha",
+                        "grossRevenueXof",
+                        "seasonalDebtDueXof",
+                        "investmentFeeXof",
+                        "landFeeXof",
+                        "operatorServiceFeeXof",
+                        "farmerCashCostsXof",
+                        "netIncomeXof",
+                        "valueCreatedXof",
+                        "hcr"
+                      ]
+                    }
+                  },
+                  "block": {
+                    "type": "object",
+                    "properties": {
+                      "grossRevenueXof": {
+                        "type": "integer",
+                        "minimum": -9007199254740991,
+                        "maximum": 9007199254740991
+                      },
+                      "seasonalDebtDueXof": {
+                        "type": "integer",
+                        "minimum": -9007199254740991,
+                        "maximum": 9007199254740991
+                      },
+                      "hcr": {
+                        "type": [
+                          "number",
+                          "null"
+                        ]
+                      },
+                      "breakevenYieldMultiplier": {
+                        "type": [
+                          "number",
+                          "null"
+                        ]
+                      },
+                      "breakevenPriceMultiplier": {
+                        "type": [
+                          "number",
+                          "null"
+                        ]
+                      },
+                      "minDscr": {
+                        "type": [
+                          "number",
+                          "null"
+                        ]
+                      },
+                      "avgDscr": {
+                        "type": [
+                          "number",
+                          "null"
+                        ]
+                      },
+                      "operatorNpvXof": {
+                        "type": "integer",
+                        "minimum": -9007199254740991,
+                        "maximum": 9007199254740991
+                      },
+                      "operatorIrr": {
+                        "type": [
+                          "number",
+                          "null"
+                        ]
+                      },
+                      "paybackMonth": {
+                        "anyOf": [
+                          {
+                            "type": "integer",
+                            "minimum": -9007199254740991,
+                            "maximum": 9007199254740991
+                          },
+                          {
+                            "type": "null"
+                          }
+                        ]
+                      }
+                    },
+                    "required": [
+                      "grossRevenueXof",
+                      "seasonalDebtDueXof",
+                      "hcr",
+                      "breakevenYieldMultiplier",
+                      "breakevenPriceMultiplier",
+                      "minDscr",
+                      "avgDscr",
+                      "operatorNpvXof",
+                      "operatorIrr",
+                      "paybackMonth"
+                    ]
+                  },
+                  "monthlyCashflow": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "month": {
+                          "type": "integer",
+                          "minimum": -9007199254740991,
+                          "maximum": 9007199254740991
+                        },
+                        "inflowXof": {
+                          "type": "integer",
+                          "minimum": -9007199254740991,
+                          "maximum": 9007199254740991
+                        },
+                        "outflowXof": {
+                          "type": "integer",
+                          "minimum": -9007199254740991,
+                          "maximum": 9007199254740991
+                        },
+                        "netXof": {
+                          "type": "integer",
+                          "minimum": -9007199254740991,
+                          "maximum": 9007199254740991
+                        },
+                        "cumulativeXof": {
+                          "type": "integer",
+                          "minimum": -9007199254740991,
+                          "maximum": 9007199254740991
+                        }
+                      },
+                      "required": [
+                        "month",
+                        "inflowXof",
+                        "outflowXof",
+                        "netXof",
+                        "cumulativeXof"
+                      ]
+                    }
+                  }
+                },
+                "required": [
+                  "farmers",
+                  "block",
+                  "monthlyCashflow"
+                ]
+              },
+              "combined": {
+                "type": "object",
+                "properties": {
+                  "farmers": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "farmerId": {
+                          "type": "string",
+                          "format": "uuid",
+                          "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+                        },
+                        "ha": {
+                          "type": "number"
+                        },
+                        "grossRevenueXof": {
+                          "type": "integer",
+                          "minimum": -9007199254740991,
+                          "maximum": 9007199254740991
+                        },
+                        "seasonalDebtDueXof": {
+                          "type": "integer",
+                          "minimum": -9007199254740991,
+                          "maximum": 9007199254740991
+                        },
+                        "investmentFeeXof": {
+                          "type": "integer",
+                          "minimum": -9007199254740991,
+                          "maximum": 9007199254740991
+                        },
+                        "landFeeXof": {
+                          "type": "integer",
+                          "minimum": -9007199254740991,
+                          "maximum": 9007199254740991
+                        },
+                        "operatorServiceFeeXof": {
+                          "type": "integer",
+                          "minimum": -9007199254740991,
+                          "maximum": 9007199254740991
+                        },
+                        "farmerCashCostsXof": {
+                          "type": "integer",
+                          "minimum": -9007199254740991,
+                          "maximum": 9007199254740991
+                        },
+                        "netIncomeXof": {
+                          "type": "integer",
+                          "minimum": -9007199254740991,
+                          "maximum": 9007199254740991
+                        },
+                        "valueCreatedXof": {
+                          "anyOf": [
+                            {
+                              "type": "integer",
+                              "minimum": -9007199254740991,
+                              "maximum": 9007199254740991
+                            },
+                            {
+                              "type": "null"
+                            }
+                          ]
+                        },
+                        "hcr": {
+                          "type": [
+                            "number",
+                            "null"
+                          ]
+                        }
+                      },
+                      "required": [
+                        "farmerId",
+                        "ha",
+                        "grossRevenueXof",
+                        "seasonalDebtDueXof",
+                        "investmentFeeXof",
+                        "landFeeXof",
+                        "operatorServiceFeeXof",
+                        "farmerCashCostsXof",
+                        "netIncomeXof",
+                        "valueCreatedXof",
+                        "hcr"
+                      ]
+                    }
+                  },
+                  "block": {
+                    "type": "object",
+                    "properties": {
+                      "grossRevenueXof": {
+                        "type": "integer",
+                        "minimum": -9007199254740991,
+                        "maximum": 9007199254740991
+                      },
+                      "seasonalDebtDueXof": {
+                        "type": "integer",
+                        "minimum": -9007199254740991,
+                        "maximum": 9007199254740991
+                      },
+                      "hcr": {
+                        "type": [
+                          "number",
+                          "null"
+                        ]
+                      },
+                      "breakevenYieldMultiplier": {
+                        "type": [
+                          "number",
+                          "null"
+                        ]
+                      },
+                      "breakevenPriceMultiplier": {
+                        "type": [
+                          "number",
+                          "null"
+                        ]
+                      },
+                      "minDscr": {
+                        "type": [
+                          "number",
+                          "null"
+                        ]
+                      },
+                      "avgDscr": {
+                        "type": [
+                          "number",
+                          "null"
+                        ]
+                      },
+                      "operatorNpvXof": {
+                        "type": "integer",
+                        "minimum": -9007199254740991,
+                        "maximum": 9007199254740991
+                      },
+                      "operatorIrr": {
+                        "type": [
+                          "number",
+                          "null"
+                        ]
+                      },
+                      "paybackMonth": {
+                        "anyOf": [
+                          {
+                            "type": "integer",
+                            "minimum": -9007199254740991,
+                            "maximum": 9007199254740991
+                          },
+                          {
+                            "type": "null"
+                          }
+                        ]
+                      }
+                    },
+                    "required": [
+                      "grossRevenueXof",
+                      "seasonalDebtDueXof",
+                      "hcr",
+                      "breakevenYieldMultiplier",
+                      "breakevenPriceMultiplier",
+                      "minDscr",
+                      "avgDscr",
+                      "operatorNpvXof",
+                      "operatorIrr",
+                      "paybackMonth"
+                    ]
+                  },
+                  "monthlyCashflow": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "month": {
+                          "type": "integer",
+                          "minimum": -9007199254740991,
+                          "maximum": 9007199254740991
+                        },
+                        "inflowXof": {
+                          "type": "integer",
+                          "minimum": -9007199254740991,
+                          "maximum": 9007199254740991
+                        },
+                        "outflowXof": {
+                          "type": "integer",
+                          "minimum": -9007199254740991,
+                          "maximum": 9007199254740991
+                        },
+                        "netXof": {
+                          "type": "integer",
+                          "minimum": -9007199254740991,
+                          "maximum": 9007199254740991
+                        },
+                        "cumulativeXof": {
+                          "type": "integer",
+                          "minimum": -9007199254740991,
+                          "maximum": 9007199254740991
+                        }
+                      },
+                      "required": [
+                        "month",
+                        "inflowXof",
+                        "outflowXof",
+                        "netXof",
+                        "cumulativeXof"
+                      ]
+                    }
+                  }
+                },
+                "required": [
+                  "farmers",
+                  "block",
+                  "monthlyCashflow"
+                ]
+              },
+              "delay_2m": {
+                "type": "object",
+                "properties": {
+                  "farmers": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "farmerId": {
+                          "type": "string",
+                          "format": "uuid",
+                          "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+                        },
+                        "ha": {
+                          "type": "number"
+                        },
+                        "grossRevenueXof": {
+                          "type": "integer",
+                          "minimum": -9007199254740991,
+                          "maximum": 9007199254740991
+                        },
+                        "seasonalDebtDueXof": {
+                          "type": "integer",
+                          "minimum": -9007199254740991,
+                          "maximum": 9007199254740991
+                        },
+                        "investmentFeeXof": {
+                          "type": "integer",
+                          "minimum": -9007199254740991,
+                          "maximum": 9007199254740991
+                        },
+                        "landFeeXof": {
+                          "type": "integer",
+                          "minimum": -9007199254740991,
+                          "maximum": 9007199254740991
+                        },
+                        "operatorServiceFeeXof": {
+                          "type": "integer",
+                          "minimum": -9007199254740991,
+                          "maximum": 9007199254740991
+                        },
+                        "farmerCashCostsXof": {
+                          "type": "integer",
+                          "minimum": -9007199254740991,
+                          "maximum": 9007199254740991
+                        },
+                        "netIncomeXof": {
+                          "type": "integer",
+                          "minimum": -9007199254740991,
+                          "maximum": 9007199254740991
+                        },
+                        "valueCreatedXof": {
+                          "anyOf": [
+                            {
+                              "type": "integer",
+                              "minimum": -9007199254740991,
+                              "maximum": 9007199254740991
+                            },
+                            {
+                              "type": "null"
+                            }
+                          ]
+                        },
+                        "hcr": {
+                          "type": [
+                            "number",
+                            "null"
+                          ]
+                        }
+                      },
+                      "required": [
+                        "farmerId",
+                        "ha",
+                        "grossRevenueXof",
+                        "seasonalDebtDueXof",
+                        "investmentFeeXof",
+                        "landFeeXof",
+                        "operatorServiceFeeXof",
+                        "farmerCashCostsXof",
+                        "netIncomeXof",
+                        "valueCreatedXof",
+                        "hcr"
+                      ]
+                    }
+                  },
+                  "block": {
+                    "type": "object",
+                    "properties": {
+                      "grossRevenueXof": {
+                        "type": "integer",
+                        "minimum": -9007199254740991,
+                        "maximum": 9007199254740991
+                      },
+                      "seasonalDebtDueXof": {
+                        "type": "integer",
+                        "minimum": -9007199254740991,
+                        "maximum": 9007199254740991
+                      },
+                      "hcr": {
+                        "type": [
+                          "number",
+                          "null"
+                        ]
+                      },
+                      "breakevenYieldMultiplier": {
+                        "type": [
+                          "number",
+                          "null"
+                        ]
+                      },
+                      "breakevenPriceMultiplier": {
+                        "type": [
+                          "number",
+                          "null"
+                        ]
+                      },
+                      "minDscr": {
+                        "type": [
+                          "number",
+                          "null"
+                        ]
+                      },
+                      "avgDscr": {
+                        "type": [
+                          "number",
+                          "null"
+                        ]
+                      },
+                      "operatorNpvXof": {
+                        "type": "integer",
+                        "minimum": -9007199254740991,
+                        "maximum": 9007199254740991
+                      },
+                      "operatorIrr": {
+                        "type": [
+                          "number",
+                          "null"
+                        ]
+                      },
+                      "paybackMonth": {
+                        "anyOf": [
+                          {
+                            "type": "integer",
+                            "minimum": -9007199254740991,
+                            "maximum": 9007199254740991
+                          },
+                          {
+                            "type": "null"
+                          }
+                        ]
+                      }
+                    },
+                    "required": [
+                      "grossRevenueXof",
+                      "seasonalDebtDueXof",
+                      "hcr",
+                      "breakevenYieldMultiplier",
+                      "breakevenPriceMultiplier",
+                      "minDscr",
+                      "avgDscr",
+                      "operatorNpvXof",
+                      "operatorIrr",
+                      "paybackMonth"
+                    ]
+                  },
+                  "monthlyCashflow": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "month": {
+                          "type": "integer",
+                          "minimum": -9007199254740991,
+                          "maximum": 9007199254740991
+                        },
+                        "inflowXof": {
+                          "type": "integer",
+                          "minimum": -9007199254740991,
+                          "maximum": 9007199254740991
+                        },
+                        "outflowXof": {
+                          "type": "integer",
+                          "minimum": -9007199254740991,
+                          "maximum": 9007199254740991
+                        },
+                        "netXof": {
+                          "type": "integer",
+                          "minimum": -9007199254740991,
+                          "maximum": 9007199254740991
+                        },
+                        "cumulativeXof": {
+                          "type": "integer",
+                          "minimum": -9007199254740991,
+                          "maximum": 9007199254740991
+                        }
+                      },
+                      "required": [
+                        "month",
+                        "inflowXof",
+                        "outflowXof",
+                        "netXof",
+                        "cumulativeXof"
+                      ]
+                    }
+                  }
+                },
+                "required": [
+                  "farmers",
+                  "block",
+                  "monthlyCashflow"
+                ]
+              }
+            },
+            "required": [
+              "base",
+              "yield_minus_20",
+              "price_minus_15",
+              "combined",
+              "delay_2m"
+            ]
+          },
+          "details": {
+            "type": "object",
+            "propertyNames": {
+              "type": "string"
+            },
+            "additionalProperties": {}
+          },
+          "breakevenYieldByCrop": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "cropId": {
+                  "type": "string"
+                },
+                "yieldTHa": {
+                  "type": "number"
+                }
+              },
+              "required": [
+                "cropId",
+                "yieldTHa"
+              ]
+            }
+          },
+          "tranches": {
+            "type": "object",
+            "properties": {
+              "seasonalAmountXof": {
+                "type": "integer",
+                "minimum": -9007199254740991,
+                "maximum": 9007199254740991
+              },
+              "investmentAmountXof": {
+                "type": "integer",
+                "minimum": -9007199254740991,
+                "maximum": 9007199254740991
+              }
+            },
+            "required": [
+              "seasonalAmountXof",
+              "investmentAmountXof"
+            ]
+          },
+          "warnings": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "code": {
+                  "type": "string"
+                },
+                "message": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "code",
+                "message"
+              ]
+            }
+          }
+        },
+        "required": [
+          "engineVersion",
+          "inputsHash",
+          "scenarios",
+          "details",
+          "breakevenYieldByCrop",
+          "tranches",
+          "warnings"
+        ]
+      },
+      "ModelRunInput": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "$id": "#/components/schemas/ModelRunInput",
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid",
+            "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+          },
+          "blockId": {
+            "type": "string",
+            "format": "uuid",
+            "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+          },
+          "seasonId": {
+            "type": "string",
+            "format": "uuid",
+            "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+          },
+          "engineVersion": {
+            "type": "string"
+          },
+          "inputsHash": {
+            "type": "string"
+          },
+          "current": {
+            "type": "boolean"
+          },
+          "computedAt": {
+            "type": "string",
+            "format": "date-time",
+            "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))T(?:(?:[01]\\d|2[0-3]):[0-5]\\d:[0-5]\\d(?:\\.\\d+)?(?:Z|([+-](?:[01]\\d|2[0-3]):[0-5]\\d)))$"
+          },
+          "outputs": {
+            "$ref": "#/components/schemas/ModelOutputInput"
+          }
+        },
+        "required": [
+          "id",
+          "blockId",
+          "seasonId",
+          "engineVersion",
+          "inputsHash",
+          "current",
+          "computedAt",
+          "outputs"
+        ]
+      },
+      "ReadinessInput": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "$id": "#/components/schemas/ReadinessInput",
+        "type": "object",
+        "properties": {
+          "engineVersion": {
+            "type": "string"
+          },
+          "gates": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "code": {
+                  "type": "string"
+                },
+                "pass": {
+                  "type": "boolean"
+                },
+                "reasons": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "code": {
+                        "type": "string"
+                      },
+                      "entityIds": {
+                        "type": "array",
+                        "items": {
+                          "type": "string"
+                        }
+                      }
+                    },
+                    "required": [
+                      "code",
+                      "entityIds"
+                    ]
+                  }
+                }
+              },
+              "required": [
+                "code",
+                "pass",
+                "reasons"
+              ]
+            }
+          },
+          "allGatesPass": {
+            "type": "boolean"
+          },
+          "breakdown": {
+            "type": "object",
+            "properties": {
+              "landSecurity": {
+                "type": "number"
+              },
+              "offtakeStrength": {
+                "type": "number"
+              },
+              "financialRobustness": {
+                "type": "number"
+              },
+              "farmerQuality": {
+                "type": "number"
+              },
+              "riskCover": {
+                "type": "number"
+              },
+              "operatorCapacity": {
+                "type": "number"
+              },
+              "dataCompleteness": {
+                "type": "number"
+              }
+            },
+            "required": [
+              "landSecurity",
+              "offtakeStrength",
+              "financialRobustness",
+              "farmerQuality",
+              "riskCover",
+              "operatorCapacity",
+              "dataCompleteness"
+            ]
+          },
+          "rawScore": {
+            "type": "number"
+          },
+          "score": {
+            "type": "integer",
+            "minimum": -9007199254740991,
+            "maximum": 9007199254740991
+          },
+          "grade": {
+            "type": "string",
+            "enum": [
+              "A",
+              "B",
+              "C",
+              "D"
+            ]
+          }
+        },
+        "required": [
+          "engineVersion",
+          "gates",
+          "allGatesPass",
+          "breakdown",
+          "rawScore",
+          "score",
+          "grade"
+        ]
+      },
+      "DossierInput": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "$id": "#/components/schemas/DossierInput",
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid",
+            "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+          },
+          "ref": {
+            "type": "string"
+          },
+          "blockId": {
+            "type": "string",
+            "format": "uuid",
+            "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+          },
+          "seasonId": {
+            "type": "string",
+            "format": "uuid",
+            "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+          },
+          "version": {
+            "type": "integer",
+            "minimum": -9007199254740991,
+            "maximum": 9007199254740991
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "draft",
+              "frozen",
+              "superseded"
+            ]
+          },
+          "readinessScore": {
+            "type": "integer",
+            "minimum": -9007199254740991,
+            "maximum": 9007199254740991
+          },
+          "grade": {
+            "type": "string",
+            "enum": [
+              "A",
+              "B",
+              "C",
+              "D"
+            ]
+          },
+          "gates": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "code": {
+                  "type": "string"
+                },
+                "pass": {
+                  "type": "boolean"
+                },
+                "reasons": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "code": {
+                        "type": "string"
+                      },
+                      "entityIds": {
+                        "type": "array",
+                        "items": {
+                          "type": "string"
+                        }
+                      }
+                    },
+                    "required": [
+                      "code",
+                      "entityIds"
+                    ]
+                  }
+                }
+              },
+              "required": [
+                "code",
+                "pass",
+                "reasons"
+              ]
+            }
+          },
+          "scoreBreakdown": {
+            "type": "object",
+            "propertyNames": {
+              "type": "string"
+            },
+            "additionalProperties": {
+              "type": "number"
+            }
+          },
+          "modelRunId": {
+            "type": "string",
+            "format": "uuid",
+            "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+          },
+          "snapshot": {
+            "type": "object",
+            "propertyNames": {
+              "type": "string"
+            },
+            "additionalProperties": {}
+          },
+          "contentSha256": {
+            "type": "string"
+          },
+          "pdfFileId": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "uuid",
+                "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "pdfStatus": {
+            "type": "string"
+          },
+          "dataRoom": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "fileId": {
+                  "type": "string",
+                  "format": "uuid",
+                  "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+                },
+                "label": {
+                  "type": "string"
+                },
+                "category": {
+                  "type": "string"
+                },
+                "filename": {
+                  "type": "string"
+                },
+                "mime": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "fileId",
+                "label",
+                "category"
+              ]
+            }
+          },
+          "frozenAt": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "date-time",
+                "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))T(?:(?:[01]\\d|2[0-3]):[0-5]\\d:[0-5]\\d(?:\\.\\d+)?(?:Z|([+-](?:[01]\\d|2[0-3]):[0-5]\\d)))$"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "allowedActions": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        },
+        "required": [
+          "id",
+          "ref",
+          "blockId",
+          "seasonId",
+          "version",
+          "status",
+          "readinessScore",
+          "grade",
+          "gates",
+          "scoreBreakdown",
+          "modelRunId",
+          "snapshot",
+          "contentSha256",
+          "pdfFileId",
+          "pdfStatus",
+          "dataRoom",
+          "frozenAt",
+          "allowedActions"
+        ]
+      },
+      "RiskCoverInput": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "$id": "#/components/schemas/RiskCoverInput",
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid",
+            "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+          },
+          "blockId": {
+            "type": "string",
+            "format": "uuid",
+            "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+          },
+          "trancheId": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "uuid",
+                "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "type": {
+            "type": "string",
+            "enum": [
+              "guarantee",
+              "index_insurance",
+              "indemnity_insurance",
+              "first_loss"
+            ]
+          },
+          "providerOrgId": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "uuid",
+                "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "providerName": {
+            "type": "string"
+          },
+          "coveragePct": {
+            "type": "number"
+          },
+          "capXof": {
+            "anyOf": [
+              {
+                "type": "integer",
+                "minimum": -9007199254740991,
+                "maximum": 9007199254740991
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "premiumXof": {
+            "anyOf": [
+              {
+                "type": "integer",
+                "minimum": -9007199254740991,
+                "maximum": 9007199254740991
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "proposed",
+              "committed",
+              "active",
+              "expired"
+            ]
+          },
+          "fileId": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "uuid",
+                "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "version": {
+            "type": "integer",
+            "minimum": -9007199254740991,
+            "maximum": 9007199254740991
+          }
+        },
+        "required": [
+          "id",
+          "blockId",
+          "trancheId",
+          "type",
+          "providerOrgId",
+          "providerName",
+          "coveragePct",
+          "capXof",
+          "premiumXof",
+          "status",
+          "fileId",
+          "version"
+        ]
+      },
       "Problem": {
         "$schema": "https://json-schema.org/draft/2020-12/schema",
         "$id": "#/components/schemas/Problem",
@@ -5852,6 +7666,1858 @@
           "version",
           "createdAt",
           "allowedActions"
+        ],
+        "additionalProperties": false
+      },
+      "ModelAssumptions": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "$id": "#/components/schemas/ModelAssumptions",
+        "type": "object",
+        "properties": {
+          "seasonId": {
+            "type": "string",
+            "format": "uuid",
+            "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+          },
+          "seasonal": {
+            "anyOf": [
+              {
+                "type": "object",
+                "properties": {
+                  "amountXof": {
+                    "type": "integer",
+                    "minimum": 0,
+                    "maximum": 9007199254740991
+                  },
+                  "rateBps": {
+                    "type": "integer",
+                    "minimum": 0,
+                    "maximum": 10000
+                  },
+                  "rateMethod": {
+                    "type": "string",
+                    "enum": [
+                      "flat",
+                      "declining"
+                    ]
+                  },
+                  "upfrontFeeBps": {
+                    "type": "integer",
+                    "minimum": 0,
+                    "maximum": 2000
+                  },
+                  "tenorMonths": {
+                    "type": "integer",
+                    "minimum": 1,
+                    "maximum": 36
+                  },
+                  "repaymentProfile": {
+                    "type": "string",
+                    "enum": [
+                      "bullet",
+                      "seasonal",
+                      "annuity",
+                      "equal_principal"
+                    ]
+                  },
+                  "feesChargedTo": {
+                    "type": "string",
+                    "enum": [
+                      "operator",
+                      "farmers"
+                    ]
+                  },
+                  "borrowerType": {
+                    "type": "string",
+                    "enum": [
+                      "operator",
+                      "farmers",
+                      "farmer_group"
+                    ]
+                  }
+                },
+                "required": [
+                  "rateBps",
+                  "rateMethod",
+                  "upfrontFeeBps",
+                  "tenorMonths",
+                  "repaymentProfile",
+                  "feesChargedTo",
+                  "borrowerType"
+                ],
+                "additionalProperties": false
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "investment": {
+            "anyOf": [
+              {
+                "type": "object",
+                "properties": {
+                  "amountXof": {
+                    "type": "integer",
+                    "minimum": 0,
+                    "maximum": 9007199254740991
+                  },
+                  "rateBps": {
+                    "type": "integer",
+                    "minimum": 0,
+                    "maximum": 10000
+                  },
+                  "rateMethod": {
+                    "type": "string",
+                    "enum": [
+                      "flat",
+                      "declining"
+                    ]
+                  },
+                  "upfrontFeeBps": {
+                    "type": "integer",
+                    "minimum": 0,
+                    "maximum": 2000
+                  },
+                  "tenorMonths": {
+                    "type": "integer",
+                    "minimum": 1,
+                    "maximum": 180
+                  },
+                  "graceMonths": {
+                    "type": "integer",
+                    "minimum": 0,
+                    "maximum": 60
+                  },
+                  "graceType": {
+                    "type": "string",
+                    "enum": [
+                      "interest_only",
+                      "capitalised"
+                    ]
+                  },
+                  "repaymentProfile": {
+                    "type": "string",
+                    "enum": [
+                      "bullet",
+                      "seasonal",
+                      "annuity",
+                      "equal_principal"
+                    ]
+                  }
+                },
+                "required": [
+                  "rateBps",
+                  "rateMethod",
+                  "upfrontFeeBps",
+                  "tenorMonths",
+                  "graceMonths",
+                  "graceType",
+                  "repaymentProfile"
+                ],
+                "additionalProperties": false
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "seasonsPerYear": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 4
+          },
+          "discountRateBps": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 10000
+          },
+          "version": {
+            "type": "integer",
+            "minimum": -9007199254740991,
+            "maximum": 9007199254740991
+          }
+        },
+        "required": [
+          "seasonId",
+          "seasonal",
+          "investment",
+          "seasonsPerYear",
+          "discountRateBps",
+          "version"
+        ],
+        "additionalProperties": false
+      },
+      "ModelOutput": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "$id": "#/components/schemas/ModelOutput",
+        "type": "object",
+        "properties": {
+          "engineVersion": {
+            "type": "string"
+          },
+          "inputsHash": {
+            "type": "string"
+          },
+          "scenarios": {
+            "type": "object",
+            "properties": {
+              "base": {
+                "type": "object",
+                "properties": {
+                  "farmers": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "farmerId": {
+                          "type": "string",
+                          "format": "uuid",
+                          "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+                        },
+                        "ha": {
+                          "type": "number"
+                        },
+                        "grossRevenueXof": {
+                          "type": "integer",
+                          "minimum": -9007199254740991,
+                          "maximum": 9007199254740991
+                        },
+                        "seasonalDebtDueXof": {
+                          "type": "integer",
+                          "minimum": -9007199254740991,
+                          "maximum": 9007199254740991
+                        },
+                        "investmentFeeXof": {
+                          "type": "integer",
+                          "minimum": -9007199254740991,
+                          "maximum": 9007199254740991
+                        },
+                        "landFeeXof": {
+                          "type": "integer",
+                          "minimum": -9007199254740991,
+                          "maximum": 9007199254740991
+                        },
+                        "operatorServiceFeeXof": {
+                          "type": "integer",
+                          "minimum": -9007199254740991,
+                          "maximum": 9007199254740991
+                        },
+                        "farmerCashCostsXof": {
+                          "type": "integer",
+                          "minimum": -9007199254740991,
+                          "maximum": 9007199254740991
+                        },
+                        "netIncomeXof": {
+                          "type": "integer",
+                          "minimum": -9007199254740991,
+                          "maximum": 9007199254740991
+                        },
+                        "valueCreatedXof": {
+                          "anyOf": [
+                            {
+                              "type": "integer",
+                              "minimum": -9007199254740991,
+                              "maximum": 9007199254740991
+                            },
+                            {
+                              "type": "null"
+                            }
+                          ]
+                        },
+                        "hcr": {
+                          "type": [
+                            "number",
+                            "null"
+                          ]
+                        }
+                      },
+                      "required": [
+                        "farmerId",
+                        "ha",
+                        "grossRevenueXof",
+                        "seasonalDebtDueXof",
+                        "investmentFeeXof",
+                        "landFeeXof",
+                        "operatorServiceFeeXof",
+                        "farmerCashCostsXof",
+                        "netIncomeXof",
+                        "valueCreatedXof",
+                        "hcr"
+                      ],
+                      "additionalProperties": false
+                    }
+                  },
+                  "block": {
+                    "type": "object",
+                    "properties": {
+                      "grossRevenueXof": {
+                        "type": "integer",
+                        "minimum": -9007199254740991,
+                        "maximum": 9007199254740991
+                      },
+                      "seasonalDebtDueXof": {
+                        "type": "integer",
+                        "minimum": -9007199254740991,
+                        "maximum": 9007199254740991
+                      },
+                      "hcr": {
+                        "type": [
+                          "number",
+                          "null"
+                        ]
+                      },
+                      "breakevenYieldMultiplier": {
+                        "type": [
+                          "number",
+                          "null"
+                        ]
+                      },
+                      "breakevenPriceMultiplier": {
+                        "type": [
+                          "number",
+                          "null"
+                        ]
+                      },
+                      "minDscr": {
+                        "type": [
+                          "number",
+                          "null"
+                        ]
+                      },
+                      "avgDscr": {
+                        "type": [
+                          "number",
+                          "null"
+                        ]
+                      },
+                      "operatorNpvXof": {
+                        "type": "integer",
+                        "minimum": -9007199254740991,
+                        "maximum": 9007199254740991
+                      },
+                      "operatorIrr": {
+                        "type": [
+                          "number",
+                          "null"
+                        ]
+                      },
+                      "paybackMonth": {
+                        "anyOf": [
+                          {
+                            "type": "integer",
+                            "minimum": -9007199254740991,
+                            "maximum": 9007199254740991
+                          },
+                          {
+                            "type": "null"
+                          }
+                        ]
+                      }
+                    },
+                    "required": [
+                      "grossRevenueXof",
+                      "seasonalDebtDueXof",
+                      "hcr",
+                      "breakevenYieldMultiplier",
+                      "breakevenPriceMultiplier",
+                      "minDscr",
+                      "avgDscr",
+                      "operatorNpvXof",
+                      "operatorIrr",
+                      "paybackMonth"
+                    ],
+                    "additionalProperties": false
+                  },
+                  "monthlyCashflow": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "month": {
+                          "type": "integer",
+                          "minimum": -9007199254740991,
+                          "maximum": 9007199254740991
+                        },
+                        "inflowXof": {
+                          "type": "integer",
+                          "minimum": -9007199254740991,
+                          "maximum": 9007199254740991
+                        },
+                        "outflowXof": {
+                          "type": "integer",
+                          "minimum": -9007199254740991,
+                          "maximum": 9007199254740991
+                        },
+                        "netXof": {
+                          "type": "integer",
+                          "minimum": -9007199254740991,
+                          "maximum": 9007199254740991
+                        },
+                        "cumulativeXof": {
+                          "type": "integer",
+                          "minimum": -9007199254740991,
+                          "maximum": 9007199254740991
+                        }
+                      },
+                      "required": [
+                        "month",
+                        "inflowXof",
+                        "outflowXof",
+                        "netXof",
+                        "cumulativeXof"
+                      ],
+                      "additionalProperties": false
+                    }
+                  }
+                },
+                "required": [
+                  "farmers",
+                  "block",
+                  "monthlyCashflow"
+                ],
+                "additionalProperties": false
+              },
+              "yield_minus_20": {
+                "type": "object",
+                "properties": {
+                  "farmers": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "farmerId": {
+                          "type": "string",
+                          "format": "uuid",
+                          "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+                        },
+                        "ha": {
+                          "type": "number"
+                        },
+                        "grossRevenueXof": {
+                          "type": "integer",
+                          "minimum": -9007199254740991,
+                          "maximum": 9007199254740991
+                        },
+                        "seasonalDebtDueXof": {
+                          "type": "integer",
+                          "minimum": -9007199254740991,
+                          "maximum": 9007199254740991
+                        },
+                        "investmentFeeXof": {
+                          "type": "integer",
+                          "minimum": -9007199254740991,
+                          "maximum": 9007199254740991
+                        },
+                        "landFeeXof": {
+                          "type": "integer",
+                          "minimum": -9007199254740991,
+                          "maximum": 9007199254740991
+                        },
+                        "operatorServiceFeeXof": {
+                          "type": "integer",
+                          "minimum": -9007199254740991,
+                          "maximum": 9007199254740991
+                        },
+                        "farmerCashCostsXof": {
+                          "type": "integer",
+                          "minimum": -9007199254740991,
+                          "maximum": 9007199254740991
+                        },
+                        "netIncomeXof": {
+                          "type": "integer",
+                          "minimum": -9007199254740991,
+                          "maximum": 9007199254740991
+                        },
+                        "valueCreatedXof": {
+                          "anyOf": [
+                            {
+                              "type": "integer",
+                              "minimum": -9007199254740991,
+                              "maximum": 9007199254740991
+                            },
+                            {
+                              "type": "null"
+                            }
+                          ]
+                        },
+                        "hcr": {
+                          "type": [
+                            "number",
+                            "null"
+                          ]
+                        }
+                      },
+                      "required": [
+                        "farmerId",
+                        "ha",
+                        "grossRevenueXof",
+                        "seasonalDebtDueXof",
+                        "investmentFeeXof",
+                        "landFeeXof",
+                        "operatorServiceFeeXof",
+                        "farmerCashCostsXof",
+                        "netIncomeXof",
+                        "valueCreatedXof",
+                        "hcr"
+                      ],
+                      "additionalProperties": false
+                    }
+                  },
+                  "block": {
+                    "type": "object",
+                    "properties": {
+                      "grossRevenueXof": {
+                        "type": "integer",
+                        "minimum": -9007199254740991,
+                        "maximum": 9007199254740991
+                      },
+                      "seasonalDebtDueXof": {
+                        "type": "integer",
+                        "minimum": -9007199254740991,
+                        "maximum": 9007199254740991
+                      },
+                      "hcr": {
+                        "type": [
+                          "number",
+                          "null"
+                        ]
+                      },
+                      "breakevenYieldMultiplier": {
+                        "type": [
+                          "number",
+                          "null"
+                        ]
+                      },
+                      "breakevenPriceMultiplier": {
+                        "type": [
+                          "number",
+                          "null"
+                        ]
+                      },
+                      "minDscr": {
+                        "type": [
+                          "number",
+                          "null"
+                        ]
+                      },
+                      "avgDscr": {
+                        "type": [
+                          "number",
+                          "null"
+                        ]
+                      },
+                      "operatorNpvXof": {
+                        "type": "integer",
+                        "minimum": -9007199254740991,
+                        "maximum": 9007199254740991
+                      },
+                      "operatorIrr": {
+                        "type": [
+                          "number",
+                          "null"
+                        ]
+                      },
+                      "paybackMonth": {
+                        "anyOf": [
+                          {
+                            "type": "integer",
+                            "minimum": -9007199254740991,
+                            "maximum": 9007199254740991
+                          },
+                          {
+                            "type": "null"
+                          }
+                        ]
+                      }
+                    },
+                    "required": [
+                      "grossRevenueXof",
+                      "seasonalDebtDueXof",
+                      "hcr",
+                      "breakevenYieldMultiplier",
+                      "breakevenPriceMultiplier",
+                      "minDscr",
+                      "avgDscr",
+                      "operatorNpvXof",
+                      "operatorIrr",
+                      "paybackMonth"
+                    ],
+                    "additionalProperties": false
+                  },
+                  "monthlyCashflow": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "month": {
+                          "type": "integer",
+                          "minimum": -9007199254740991,
+                          "maximum": 9007199254740991
+                        },
+                        "inflowXof": {
+                          "type": "integer",
+                          "minimum": -9007199254740991,
+                          "maximum": 9007199254740991
+                        },
+                        "outflowXof": {
+                          "type": "integer",
+                          "minimum": -9007199254740991,
+                          "maximum": 9007199254740991
+                        },
+                        "netXof": {
+                          "type": "integer",
+                          "minimum": -9007199254740991,
+                          "maximum": 9007199254740991
+                        },
+                        "cumulativeXof": {
+                          "type": "integer",
+                          "minimum": -9007199254740991,
+                          "maximum": 9007199254740991
+                        }
+                      },
+                      "required": [
+                        "month",
+                        "inflowXof",
+                        "outflowXof",
+                        "netXof",
+                        "cumulativeXof"
+                      ],
+                      "additionalProperties": false
+                    }
+                  }
+                },
+                "required": [
+                  "farmers",
+                  "block",
+                  "monthlyCashflow"
+                ],
+                "additionalProperties": false
+              },
+              "price_minus_15": {
+                "type": "object",
+                "properties": {
+                  "farmers": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "farmerId": {
+                          "type": "string",
+                          "format": "uuid",
+                          "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+                        },
+                        "ha": {
+                          "type": "number"
+                        },
+                        "grossRevenueXof": {
+                          "type": "integer",
+                          "minimum": -9007199254740991,
+                          "maximum": 9007199254740991
+                        },
+                        "seasonalDebtDueXof": {
+                          "type": "integer",
+                          "minimum": -9007199254740991,
+                          "maximum": 9007199254740991
+                        },
+                        "investmentFeeXof": {
+                          "type": "integer",
+                          "minimum": -9007199254740991,
+                          "maximum": 9007199254740991
+                        },
+                        "landFeeXof": {
+                          "type": "integer",
+                          "minimum": -9007199254740991,
+                          "maximum": 9007199254740991
+                        },
+                        "operatorServiceFeeXof": {
+                          "type": "integer",
+                          "minimum": -9007199254740991,
+                          "maximum": 9007199254740991
+                        },
+                        "farmerCashCostsXof": {
+                          "type": "integer",
+                          "minimum": -9007199254740991,
+                          "maximum": 9007199254740991
+                        },
+                        "netIncomeXof": {
+                          "type": "integer",
+                          "minimum": -9007199254740991,
+                          "maximum": 9007199254740991
+                        },
+                        "valueCreatedXof": {
+                          "anyOf": [
+                            {
+                              "type": "integer",
+                              "minimum": -9007199254740991,
+                              "maximum": 9007199254740991
+                            },
+                            {
+                              "type": "null"
+                            }
+                          ]
+                        },
+                        "hcr": {
+                          "type": [
+                            "number",
+                            "null"
+                          ]
+                        }
+                      },
+                      "required": [
+                        "farmerId",
+                        "ha",
+                        "grossRevenueXof",
+                        "seasonalDebtDueXof",
+                        "investmentFeeXof",
+                        "landFeeXof",
+                        "operatorServiceFeeXof",
+                        "farmerCashCostsXof",
+                        "netIncomeXof",
+                        "valueCreatedXof",
+                        "hcr"
+                      ],
+                      "additionalProperties": false
+                    }
+                  },
+                  "block": {
+                    "type": "object",
+                    "properties": {
+                      "grossRevenueXof": {
+                        "type": "integer",
+                        "minimum": -9007199254740991,
+                        "maximum": 9007199254740991
+                      },
+                      "seasonalDebtDueXof": {
+                        "type": "integer",
+                        "minimum": -9007199254740991,
+                        "maximum": 9007199254740991
+                      },
+                      "hcr": {
+                        "type": [
+                          "number",
+                          "null"
+                        ]
+                      },
+                      "breakevenYieldMultiplier": {
+                        "type": [
+                          "number",
+                          "null"
+                        ]
+                      },
+                      "breakevenPriceMultiplier": {
+                        "type": [
+                          "number",
+                          "null"
+                        ]
+                      },
+                      "minDscr": {
+                        "type": [
+                          "number",
+                          "null"
+                        ]
+                      },
+                      "avgDscr": {
+                        "type": [
+                          "number",
+                          "null"
+                        ]
+                      },
+                      "operatorNpvXof": {
+                        "type": "integer",
+                        "minimum": -9007199254740991,
+                        "maximum": 9007199254740991
+                      },
+                      "operatorIrr": {
+                        "type": [
+                          "number",
+                          "null"
+                        ]
+                      },
+                      "paybackMonth": {
+                        "anyOf": [
+                          {
+                            "type": "integer",
+                            "minimum": -9007199254740991,
+                            "maximum": 9007199254740991
+                          },
+                          {
+                            "type": "null"
+                          }
+                        ]
+                      }
+                    },
+                    "required": [
+                      "grossRevenueXof",
+                      "seasonalDebtDueXof",
+                      "hcr",
+                      "breakevenYieldMultiplier",
+                      "breakevenPriceMultiplier",
+                      "minDscr",
+                      "avgDscr",
+                      "operatorNpvXof",
+                      "operatorIrr",
+                      "paybackMonth"
+                    ],
+                    "additionalProperties": false
+                  },
+                  "monthlyCashflow": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "month": {
+                          "type": "integer",
+                          "minimum": -9007199254740991,
+                          "maximum": 9007199254740991
+                        },
+                        "inflowXof": {
+                          "type": "integer",
+                          "minimum": -9007199254740991,
+                          "maximum": 9007199254740991
+                        },
+                        "outflowXof": {
+                          "type": "integer",
+                          "minimum": -9007199254740991,
+                          "maximum": 9007199254740991
+                        },
+                        "netXof": {
+                          "type": "integer",
+                          "minimum": -9007199254740991,
+                          "maximum": 9007199254740991
+                        },
+                        "cumulativeXof": {
+                          "type": "integer",
+                          "minimum": -9007199254740991,
+                          "maximum": 9007199254740991
+                        }
+                      },
+                      "required": [
+                        "month",
+                        "inflowXof",
+                        "outflowXof",
+                        "netXof",
+                        "cumulativeXof"
+                      ],
+                      "additionalProperties": false
+                    }
+                  }
+                },
+                "required": [
+                  "farmers",
+                  "block",
+                  "monthlyCashflow"
+                ],
+                "additionalProperties": false
+              },
+              "combined": {
+                "type": "object",
+                "properties": {
+                  "farmers": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "farmerId": {
+                          "type": "string",
+                          "format": "uuid",
+                          "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+                        },
+                        "ha": {
+                          "type": "number"
+                        },
+                        "grossRevenueXof": {
+                          "type": "integer",
+                          "minimum": -9007199254740991,
+                          "maximum": 9007199254740991
+                        },
+                        "seasonalDebtDueXof": {
+                          "type": "integer",
+                          "minimum": -9007199254740991,
+                          "maximum": 9007199254740991
+                        },
+                        "investmentFeeXof": {
+                          "type": "integer",
+                          "minimum": -9007199254740991,
+                          "maximum": 9007199254740991
+                        },
+                        "landFeeXof": {
+                          "type": "integer",
+                          "minimum": -9007199254740991,
+                          "maximum": 9007199254740991
+                        },
+                        "operatorServiceFeeXof": {
+                          "type": "integer",
+                          "minimum": -9007199254740991,
+                          "maximum": 9007199254740991
+                        },
+                        "farmerCashCostsXof": {
+                          "type": "integer",
+                          "minimum": -9007199254740991,
+                          "maximum": 9007199254740991
+                        },
+                        "netIncomeXof": {
+                          "type": "integer",
+                          "minimum": -9007199254740991,
+                          "maximum": 9007199254740991
+                        },
+                        "valueCreatedXof": {
+                          "anyOf": [
+                            {
+                              "type": "integer",
+                              "minimum": -9007199254740991,
+                              "maximum": 9007199254740991
+                            },
+                            {
+                              "type": "null"
+                            }
+                          ]
+                        },
+                        "hcr": {
+                          "type": [
+                            "number",
+                            "null"
+                          ]
+                        }
+                      },
+                      "required": [
+                        "farmerId",
+                        "ha",
+                        "grossRevenueXof",
+                        "seasonalDebtDueXof",
+                        "investmentFeeXof",
+                        "landFeeXof",
+                        "operatorServiceFeeXof",
+                        "farmerCashCostsXof",
+                        "netIncomeXof",
+                        "valueCreatedXof",
+                        "hcr"
+                      ],
+                      "additionalProperties": false
+                    }
+                  },
+                  "block": {
+                    "type": "object",
+                    "properties": {
+                      "grossRevenueXof": {
+                        "type": "integer",
+                        "minimum": -9007199254740991,
+                        "maximum": 9007199254740991
+                      },
+                      "seasonalDebtDueXof": {
+                        "type": "integer",
+                        "minimum": -9007199254740991,
+                        "maximum": 9007199254740991
+                      },
+                      "hcr": {
+                        "type": [
+                          "number",
+                          "null"
+                        ]
+                      },
+                      "breakevenYieldMultiplier": {
+                        "type": [
+                          "number",
+                          "null"
+                        ]
+                      },
+                      "breakevenPriceMultiplier": {
+                        "type": [
+                          "number",
+                          "null"
+                        ]
+                      },
+                      "minDscr": {
+                        "type": [
+                          "number",
+                          "null"
+                        ]
+                      },
+                      "avgDscr": {
+                        "type": [
+                          "number",
+                          "null"
+                        ]
+                      },
+                      "operatorNpvXof": {
+                        "type": "integer",
+                        "minimum": -9007199254740991,
+                        "maximum": 9007199254740991
+                      },
+                      "operatorIrr": {
+                        "type": [
+                          "number",
+                          "null"
+                        ]
+                      },
+                      "paybackMonth": {
+                        "anyOf": [
+                          {
+                            "type": "integer",
+                            "minimum": -9007199254740991,
+                            "maximum": 9007199254740991
+                          },
+                          {
+                            "type": "null"
+                          }
+                        ]
+                      }
+                    },
+                    "required": [
+                      "grossRevenueXof",
+                      "seasonalDebtDueXof",
+                      "hcr",
+                      "breakevenYieldMultiplier",
+                      "breakevenPriceMultiplier",
+                      "minDscr",
+                      "avgDscr",
+                      "operatorNpvXof",
+                      "operatorIrr",
+                      "paybackMonth"
+                    ],
+                    "additionalProperties": false
+                  },
+                  "monthlyCashflow": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "month": {
+                          "type": "integer",
+                          "minimum": -9007199254740991,
+                          "maximum": 9007199254740991
+                        },
+                        "inflowXof": {
+                          "type": "integer",
+                          "minimum": -9007199254740991,
+                          "maximum": 9007199254740991
+                        },
+                        "outflowXof": {
+                          "type": "integer",
+                          "minimum": -9007199254740991,
+                          "maximum": 9007199254740991
+                        },
+                        "netXof": {
+                          "type": "integer",
+                          "minimum": -9007199254740991,
+                          "maximum": 9007199254740991
+                        },
+                        "cumulativeXof": {
+                          "type": "integer",
+                          "minimum": -9007199254740991,
+                          "maximum": 9007199254740991
+                        }
+                      },
+                      "required": [
+                        "month",
+                        "inflowXof",
+                        "outflowXof",
+                        "netXof",
+                        "cumulativeXof"
+                      ],
+                      "additionalProperties": false
+                    }
+                  }
+                },
+                "required": [
+                  "farmers",
+                  "block",
+                  "monthlyCashflow"
+                ],
+                "additionalProperties": false
+              },
+              "delay_2m": {
+                "type": "object",
+                "properties": {
+                  "farmers": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "farmerId": {
+                          "type": "string",
+                          "format": "uuid",
+                          "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+                        },
+                        "ha": {
+                          "type": "number"
+                        },
+                        "grossRevenueXof": {
+                          "type": "integer",
+                          "minimum": -9007199254740991,
+                          "maximum": 9007199254740991
+                        },
+                        "seasonalDebtDueXof": {
+                          "type": "integer",
+                          "minimum": -9007199254740991,
+                          "maximum": 9007199254740991
+                        },
+                        "investmentFeeXof": {
+                          "type": "integer",
+                          "minimum": -9007199254740991,
+                          "maximum": 9007199254740991
+                        },
+                        "landFeeXof": {
+                          "type": "integer",
+                          "minimum": -9007199254740991,
+                          "maximum": 9007199254740991
+                        },
+                        "operatorServiceFeeXof": {
+                          "type": "integer",
+                          "minimum": -9007199254740991,
+                          "maximum": 9007199254740991
+                        },
+                        "farmerCashCostsXof": {
+                          "type": "integer",
+                          "minimum": -9007199254740991,
+                          "maximum": 9007199254740991
+                        },
+                        "netIncomeXof": {
+                          "type": "integer",
+                          "minimum": -9007199254740991,
+                          "maximum": 9007199254740991
+                        },
+                        "valueCreatedXof": {
+                          "anyOf": [
+                            {
+                              "type": "integer",
+                              "minimum": -9007199254740991,
+                              "maximum": 9007199254740991
+                            },
+                            {
+                              "type": "null"
+                            }
+                          ]
+                        },
+                        "hcr": {
+                          "type": [
+                            "number",
+                            "null"
+                          ]
+                        }
+                      },
+                      "required": [
+                        "farmerId",
+                        "ha",
+                        "grossRevenueXof",
+                        "seasonalDebtDueXof",
+                        "investmentFeeXof",
+                        "landFeeXof",
+                        "operatorServiceFeeXof",
+                        "farmerCashCostsXof",
+                        "netIncomeXof",
+                        "valueCreatedXof",
+                        "hcr"
+                      ],
+                      "additionalProperties": false
+                    }
+                  },
+                  "block": {
+                    "type": "object",
+                    "properties": {
+                      "grossRevenueXof": {
+                        "type": "integer",
+                        "minimum": -9007199254740991,
+                        "maximum": 9007199254740991
+                      },
+                      "seasonalDebtDueXof": {
+                        "type": "integer",
+                        "minimum": -9007199254740991,
+                        "maximum": 9007199254740991
+                      },
+                      "hcr": {
+                        "type": [
+                          "number",
+                          "null"
+                        ]
+                      },
+                      "breakevenYieldMultiplier": {
+                        "type": [
+                          "number",
+                          "null"
+                        ]
+                      },
+                      "breakevenPriceMultiplier": {
+                        "type": [
+                          "number",
+                          "null"
+                        ]
+                      },
+                      "minDscr": {
+                        "type": [
+                          "number",
+                          "null"
+                        ]
+                      },
+                      "avgDscr": {
+                        "type": [
+                          "number",
+                          "null"
+                        ]
+                      },
+                      "operatorNpvXof": {
+                        "type": "integer",
+                        "minimum": -9007199254740991,
+                        "maximum": 9007199254740991
+                      },
+                      "operatorIrr": {
+                        "type": [
+                          "number",
+                          "null"
+                        ]
+                      },
+                      "paybackMonth": {
+                        "anyOf": [
+                          {
+                            "type": "integer",
+                            "minimum": -9007199254740991,
+                            "maximum": 9007199254740991
+                          },
+                          {
+                            "type": "null"
+                          }
+                        ]
+                      }
+                    },
+                    "required": [
+                      "grossRevenueXof",
+                      "seasonalDebtDueXof",
+                      "hcr",
+                      "breakevenYieldMultiplier",
+                      "breakevenPriceMultiplier",
+                      "minDscr",
+                      "avgDscr",
+                      "operatorNpvXof",
+                      "operatorIrr",
+                      "paybackMonth"
+                    ],
+                    "additionalProperties": false
+                  },
+                  "monthlyCashflow": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "month": {
+                          "type": "integer",
+                          "minimum": -9007199254740991,
+                          "maximum": 9007199254740991
+                        },
+                        "inflowXof": {
+                          "type": "integer",
+                          "minimum": -9007199254740991,
+                          "maximum": 9007199254740991
+                        },
+                        "outflowXof": {
+                          "type": "integer",
+                          "minimum": -9007199254740991,
+                          "maximum": 9007199254740991
+                        },
+                        "netXof": {
+                          "type": "integer",
+                          "minimum": -9007199254740991,
+                          "maximum": 9007199254740991
+                        },
+                        "cumulativeXof": {
+                          "type": "integer",
+                          "minimum": -9007199254740991,
+                          "maximum": 9007199254740991
+                        }
+                      },
+                      "required": [
+                        "month",
+                        "inflowXof",
+                        "outflowXof",
+                        "netXof",
+                        "cumulativeXof"
+                      ],
+                      "additionalProperties": false
+                    }
+                  }
+                },
+                "required": [
+                  "farmers",
+                  "block",
+                  "monthlyCashflow"
+                ],
+                "additionalProperties": false
+              }
+            },
+            "required": [
+              "base",
+              "yield_minus_20",
+              "price_minus_15",
+              "combined",
+              "delay_2m"
+            ],
+            "additionalProperties": false
+          },
+          "details": {
+            "type": "object",
+            "propertyNames": {
+              "type": "string"
+            },
+            "additionalProperties": {}
+          },
+          "breakevenYieldByCrop": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "cropId": {
+                  "type": "string"
+                },
+                "yieldTHa": {
+                  "type": "number"
+                }
+              },
+              "required": [
+                "cropId",
+                "yieldTHa"
+              ],
+              "additionalProperties": false
+            }
+          },
+          "tranches": {
+            "type": "object",
+            "properties": {
+              "seasonalAmountXof": {
+                "type": "integer",
+                "minimum": -9007199254740991,
+                "maximum": 9007199254740991
+              },
+              "investmentAmountXof": {
+                "type": "integer",
+                "minimum": -9007199254740991,
+                "maximum": 9007199254740991
+              }
+            },
+            "required": [
+              "seasonalAmountXof",
+              "investmentAmountXof"
+            ],
+            "additionalProperties": false
+          },
+          "warnings": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "code": {
+                  "type": "string"
+                },
+                "message": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "code",
+                "message"
+              ],
+              "additionalProperties": false
+            }
+          }
+        },
+        "required": [
+          "engineVersion",
+          "inputsHash",
+          "scenarios",
+          "details",
+          "breakevenYieldByCrop",
+          "tranches",
+          "warnings"
+        ],
+        "additionalProperties": false
+      },
+      "ModelRun": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "$id": "#/components/schemas/ModelRun",
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid",
+            "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+          },
+          "blockId": {
+            "type": "string",
+            "format": "uuid",
+            "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+          },
+          "seasonId": {
+            "type": "string",
+            "format": "uuid",
+            "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+          },
+          "engineVersion": {
+            "type": "string"
+          },
+          "inputsHash": {
+            "type": "string"
+          },
+          "current": {
+            "type": "boolean"
+          },
+          "computedAt": {
+            "type": "string",
+            "format": "date-time",
+            "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))T(?:(?:[01]\\d|2[0-3]):[0-5]\\d:[0-5]\\d(?:\\.\\d+)?(?:Z|([+-](?:[01]\\d|2[0-3]):[0-5]\\d)))$"
+          },
+          "outputs": {
+            "$ref": "#/components/schemas/ModelOutput"
+          }
+        },
+        "required": [
+          "id",
+          "blockId",
+          "seasonId",
+          "engineVersion",
+          "inputsHash",
+          "current",
+          "computedAt",
+          "outputs"
+        ],
+        "additionalProperties": false
+      },
+      "Readiness": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "$id": "#/components/schemas/Readiness",
+        "type": "object",
+        "properties": {
+          "engineVersion": {
+            "type": "string"
+          },
+          "gates": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "code": {
+                  "type": "string"
+                },
+                "pass": {
+                  "type": "boolean"
+                },
+                "reasons": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "code": {
+                        "type": "string"
+                      },
+                      "entityIds": {
+                        "type": "array",
+                        "items": {
+                          "type": "string"
+                        }
+                      }
+                    },
+                    "required": [
+                      "code",
+                      "entityIds"
+                    ],
+                    "additionalProperties": false
+                  }
+                }
+              },
+              "required": [
+                "code",
+                "pass",
+                "reasons"
+              ],
+              "additionalProperties": false
+            }
+          },
+          "allGatesPass": {
+            "type": "boolean"
+          },
+          "breakdown": {
+            "type": "object",
+            "properties": {
+              "landSecurity": {
+                "type": "number"
+              },
+              "offtakeStrength": {
+                "type": "number"
+              },
+              "financialRobustness": {
+                "type": "number"
+              },
+              "farmerQuality": {
+                "type": "number"
+              },
+              "riskCover": {
+                "type": "number"
+              },
+              "operatorCapacity": {
+                "type": "number"
+              },
+              "dataCompleteness": {
+                "type": "number"
+              }
+            },
+            "required": [
+              "landSecurity",
+              "offtakeStrength",
+              "financialRobustness",
+              "farmerQuality",
+              "riskCover",
+              "operatorCapacity",
+              "dataCompleteness"
+            ],
+            "additionalProperties": false
+          },
+          "rawScore": {
+            "type": "number"
+          },
+          "score": {
+            "type": "integer",
+            "minimum": -9007199254740991,
+            "maximum": 9007199254740991
+          },
+          "grade": {
+            "type": "string",
+            "enum": [
+              "A",
+              "B",
+              "C",
+              "D"
+            ]
+          }
+        },
+        "required": [
+          "engineVersion",
+          "gates",
+          "allGatesPass",
+          "breakdown",
+          "rawScore",
+          "score",
+          "grade"
+        ],
+        "additionalProperties": false
+      },
+      "Dossier": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "$id": "#/components/schemas/Dossier",
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid",
+            "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+          },
+          "ref": {
+            "type": "string"
+          },
+          "blockId": {
+            "type": "string",
+            "format": "uuid",
+            "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+          },
+          "seasonId": {
+            "type": "string",
+            "format": "uuid",
+            "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+          },
+          "version": {
+            "type": "integer",
+            "minimum": -9007199254740991,
+            "maximum": 9007199254740991
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "draft",
+              "frozen",
+              "superseded"
+            ]
+          },
+          "readinessScore": {
+            "type": "integer",
+            "minimum": -9007199254740991,
+            "maximum": 9007199254740991
+          },
+          "grade": {
+            "type": "string",
+            "enum": [
+              "A",
+              "B",
+              "C",
+              "D"
+            ]
+          },
+          "gates": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "code": {
+                  "type": "string"
+                },
+                "pass": {
+                  "type": "boolean"
+                },
+                "reasons": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "code": {
+                        "type": "string"
+                      },
+                      "entityIds": {
+                        "type": "array",
+                        "items": {
+                          "type": "string"
+                        }
+                      }
+                    },
+                    "required": [
+                      "code",
+                      "entityIds"
+                    ],
+                    "additionalProperties": false
+                  }
+                }
+              },
+              "required": [
+                "code",
+                "pass",
+                "reasons"
+              ],
+              "additionalProperties": false
+            }
+          },
+          "scoreBreakdown": {
+            "type": "object",
+            "propertyNames": {
+              "type": "string"
+            },
+            "additionalProperties": {
+              "type": "number"
+            }
+          },
+          "modelRunId": {
+            "type": "string",
+            "format": "uuid",
+            "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+          },
+          "snapshot": {
+            "type": "object",
+            "propertyNames": {
+              "type": "string"
+            },
+            "additionalProperties": {}
+          },
+          "contentSha256": {
+            "type": "string"
+          },
+          "pdfFileId": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "uuid",
+                "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "pdfStatus": {
+            "type": "string"
+          },
+          "dataRoom": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "fileId": {
+                  "type": "string",
+                  "format": "uuid",
+                  "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+                },
+                "label": {
+                  "type": "string"
+                },
+                "category": {
+                  "type": "string"
+                },
+                "filename": {
+                  "type": "string"
+                },
+                "mime": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "fileId",
+                "label",
+                "category"
+              ],
+              "additionalProperties": false
+            }
+          },
+          "frozenAt": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "date-time",
+                "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))T(?:(?:[01]\\d|2[0-3]):[0-5]\\d:[0-5]\\d(?:\\.\\d+)?(?:Z|([+-](?:[01]\\d|2[0-3]):[0-5]\\d)))$"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "allowedActions": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        },
+        "required": [
+          "id",
+          "ref",
+          "blockId",
+          "seasonId",
+          "version",
+          "status",
+          "readinessScore",
+          "grade",
+          "gates",
+          "scoreBreakdown",
+          "modelRunId",
+          "snapshot",
+          "contentSha256",
+          "pdfFileId",
+          "pdfStatus",
+          "dataRoom",
+          "frozenAt",
+          "allowedActions"
+        ],
+        "additionalProperties": false
+      },
+      "RiskCover": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "$id": "#/components/schemas/RiskCover",
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid",
+            "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+          },
+          "blockId": {
+            "type": "string",
+            "format": "uuid",
+            "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+          },
+          "trancheId": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "uuid",
+                "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "type": {
+            "type": "string",
+            "enum": [
+              "guarantee",
+              "index_insurance",
+              "indemnity_insurance",
+              "first_loss"
+            ]
+          },
+          "providerOrgId": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "uuid",
+                "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "providerName": {
+            "type": "string"
+          },
+          "coveragePct": {
+            "type": "number"
+          },
+          "capXof": {
+            "anyOf": [
+              {
+                "type": "integer",
+                "minimum": -9007199254740991,
+                "maximum": 9007199254740991
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "premiumXof": {
+            "anyOf": [
+              {
+                "type": "integer",
+                "minimum": -9007199254740991,
+                "maximum": 9007199254740991
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "proposed",
+              "committed",
+              "active",
+              "expired"
+            ]
+          },
+          "fileId": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "uuid",
+                "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "version": {
+            "type": "integer",
+            "minimum": -9007199254740991,
+            "maximum": 9007199254740991
+          }
+        },
+        "required": [
+          "id",
+          "blockId",
+          "trancheId",
+          "type",
+          "providerOrgId",
+          "providerName",
+          "coveragePct",
+          "capXof",
+          "premiumXof",
+          "status",
+          "fileId",
+          "version"
         ],
         "additionalProperties": false
       }
@@ -16122,6 +19788,1032 @@
                     "data"
                   ],
                   "additionalProperties": false
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/seasons/{id}/model-assumptions": {
+      "get": {
+        "operationId": "getModelAssumptions",
+        "tags": [
+          "finance"
+        ],
+        "parameters": [
+          {
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+            },
+            "in": "path",
+            "name": "id",
+            "required": true
+          }
+        ],
+        "x-permission": "model_run:read",
+        "responses": {
+          "200": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ModelAssumptions"
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "operationId": "putModelAssumptions",
+        "summary": "Tranche terms assumed for modelling (seasonal / investment)",
+        "tags": [
+          "finance"
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "seasonal": {
+                    "anyOf": [
+                      {
+                        "type": "object",
+                        "properties": {
+                          "amountXof": {
+                            "type": "integer",
+                            "minimum": 0,
+                            "maximum": 9007199254740991
+                          },
+                          "rateBps": {
+                            "type": "integer",
+                            "minimum": 0,
+                            "maximum": 10000
+                          },
+                          "rateMethod": {
+                            "type": "string",
+                            "enum": [
+                              "flat",
+                              "declining"
+                            ]
+                          },
+                          "upfrontFeeBps": {
+                            "type": "integer",
+                            "minimum": 0,
+                            "maximum": 2000
+                          },
+                          "tenorMonths": {
+                            "type": "integer",
+                            "minimum": 1,
+                            "maximum": 36
+                          },
+                          "repaymentProfile": {
+                            "type": "string",
+                            "enum": [
+                              "bullet",
+                              "seasonal",
+                              "annuity",
+                              "equal_principal"
+                            ]
+                          },
+                          "feesChargedTo": {
+                            "type": "string",
+                            "enum": [
+                              "operator",
+                              "farmers"
+                            ]
+                          },
+                          "borrowerType": {
+                            "type": "string",
+                            "enum": [
+                              "operator",
+                              "farmers",
+                              "farmer_group"
+                            ]
+                          }
+                        },
+                        "required": [
+                          "rateBps",
+                          "rateMethod",
+                          "upfrontFeeBps",
+                          "tenorMonths",
+                          "repaymentProfile",
+                          "feesChargedTo",
+                          "borrowerType"
+                        ]
+                      },
+                      {
+                        "type": "null"
+                      }
+                    ]
+                  },
+                  "investment": {
+                    "anyOf": [
+                      {
+                        "type": "object",
+                        "properties": {
+                          "amountXof": {
+                            "type": "integer",
+                            "minimum": 0,
+                            "maximum": 9007199254740991
+                          },
+                          "rateBps": {
+                            "type": "integer",
+                            "minimum": 0,
+                            "maximum": 10000
+                          },
+                          "rateMethod": {
+                            "type": "string",
+                            "enum": [
+                              "flat",
+                              "declining"
+                            ]
+                          },
+                          "upfrontFeeBps": {
+                            "type": "integer",
+                            "minimum": 0,
+                            "maximum": 2000
+                          },
+                          "tenorMonths": {
+                            "type": "integer",
+                            "minimum": 1,
+                            "maximum": 180
+                          },
+                          "graceMonths": {
+                            "type": "integer",
+                            "minimum": 0,
+                            "maximum": 60
+                          },
+                          "graceType": {
+                            "type": "string",
+                            "enum": [
+                              "interest_only",
+                              "capitalised"
+                            ]
+                          },
+                          "repaymentProfile": {
+                            "type": "string",
+                            "enum": [
+                              "bullet",
+                              "seasonal",
+                              "annuity",
+                              "equal_principal"
+                            ]
+                          }
+                        },
+                        "required": [
+                          "rateBps",
+                          "rateMethod",
+                          "upfrontFeeBps",
+                          "tenorMonths",
+                          "graceMonths",
+                          "graceType",
+                          "repaymentProfile"
+                        ]
+                      },
+                      {
+                        "type": "null"
+                      }
+                    ]
+                  },
+                  "seasonsPerYear": {
+                    "default": 1,
+                    "type": "integer",
+                    "minimum": 1,
+                    "maximum": 4
+                  },
+                  "discountRateBps": {
+                    "default": 1200,
+                    "type": "integer",
+                    "minimum": 0,
+                    "maximum": 10000
+                  }
+                },
+                "required": [
+                  "seasonal",
+                  "investment"
+                ]
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+            },
+            "in": "path",
+            "name": "id",
+            "required": true
+          }
+        ],
+        "x-permission": "model_run:create",
+        "responses": {
+          "200": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ModelAssumptions"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/seasons/{id}/model-runs": {
+      "post": {
+        "operationId": "runModel",
+        "summary": "Compute and store the block financial model (SPEC §9.1)",
+        "tags": [
+          "finance"
+        ],
+        "parameters": [
+          {
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+            },
+            "in": "path",
+            "name": "id",
+            "required": true
+          }
+        ],
+        "x-permission": "model_run:create",
+        "responses": {
+          "201": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ModelRun"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/seasons/{id}/model-runs/preview": {
+      "post": {
+        "operationId": "previewModel",
+        "summary": "Unsaved what-if with yield/price shocks and rate",
+        "tags": [
+          "finance"
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "yieldShockPct": {
+                    "default": 0,
+                    "type": "number",
+                    "minimum": -100,
+                    "maximum": 100
+                  },
+                  "priceShockPct": {
+                    "default": 0,
+                    "type": "number",
+                    "minimum": -100,
+                    "maximum": 100
+                  },
+                  "seasonalRateBps": {
+                    "type": "integer",
+                    "minimum": 0,
+                    "maximum": 10000
+                  }
+                }
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+            },
+            "in": "path",
+            "name": "id",
+            "required": true
+          }
+        ],
+        "x-permission": "model_run:read",
+        "responses": {
+          "200": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ModelRun"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/seasons/{id}/model-runs/current": {
+      "get": {
+        "operationId": "getCurrentModelRun",
+        "tags": [
+          "finance"
+        ],
+        "parameters": [
+          {
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+            },
+            "in": "path",
+            "name": "id",
+            "required": true
+          }
+        ],
+        "x-permission": "model_run:read",
+        "responses": {
+          "200": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ModelRun"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/model-runs/{id}": {
+      "get": {
+        "operationId": "getModelRun",
+        "tags": [
+          "finance"
+        ],
+        "parameters": [
+          {
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+            },
+            "in": "path",
+            "name": "id",
+            "required": true
+          }
+        ],
+        "x-permission": "model_run:read",
+        "responses": {
+          "200": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ModelRun"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/seasons/{id}/readiness": {
+      "get": {
+        "operationId": "getReadiness",
+        "summary": "Hard gates and readiness score (SPEC §9.2)",
+        "tags": [
+          "dossier"
+        ],
+        "parameters": [
+          {
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+            },
+            "in": "path",
+            "name": "id",
+            "required": true
+          }
+        ],
+        "x-permission": "readiness:read",
+        "responses": {
+          "200": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Readiness"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/blocks/{id}/actions/check-readiness": {
+      "post": {
+        "operationId": "checkBlockReadiness",
+        "summary": "Move the block documenting ↔ ready from a season readiness",
+        "tags": [
+          "land"
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "seasonId": {
+                    "type": "string",
+                    "format": "uuid",
+                    "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+                  }
+                },
+                "required": [
+                  "seasonId"
+                ]
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+            },
+            "in": "path",
+            "name": "id",
+            "required": true
+          }
+        ],
+        "x-permission": "block:update",
+        "responses": {
+          "200": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Readiness"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/seasons/{id}/dossiers": {
+      "get": {
+        "operationId": "listDossiers",
+        "tags": [
+          "dossier"
+        ],
+        "parameters": [
+          {
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+            },
+            "in": "path",
+            "name": "id",
+            "required": true
+          }
+        ],
+        "x-permission": "dossier:read",
+        "responses": {
+          "200": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/Dossier"
+                      }
+                    }
+                  },
+                  "required": [
+                    "data"
+                  ],
+                  "additionalProperties": false
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "operationId": "freezeDossier",
+        "summary": "Freeze a dossier version (all gates must pass); PDF rendered asynchronously",
+        "tags": [
+          "dossier"
+        ],
+        "parameters": [
+          {
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+            },
+            "in": "path",
+            "name": "id",
+            "required": true
+          }
+        ],
+        "x-permission": "dossier:freeze",
+        "responses": {
+          "201": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Dossier"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/dossiers/{id}": {
+      "get": {
+        "operationId": "getDossier",
+        "tags": [
+          "dossier"
+        ],
+        "parameters": [
+          {
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+            },
+            "in": "path",
+            "name": "id",
+            "required": true
+          }
+        ],
+        "x-permission": "dossier:read",
+        "responses": {
+          "200": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Dossier"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/dossiers/{id}/pdf": {
+      "get": {
+        "operationId": "getDossierPdf",
+        "summary": "Signed URL of the dossier PDF (409 while rendering)",
+        "tags": [
+          "dossier"
+        ],
+        "parameters": [
+          {
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+            },
+            "in": "path",
+            "name": "id",
+            "required": true
+          }
+        ],
+        "x-permission": "dossier:read",
+        "responses": {
+          "200": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "url": {
+                      "type": "string"
+                    },
+                    "fileId": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "url",
+                    "fileId"
+                  ],
+                  "additionalProperties": false
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/dossiers/{id}/data-room": {
+      "get": {
+        "operationId": "getDossierDataRoom",
+        "tags": [
+          "dossier"
+        ],
+        "parameters": [
+          {
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+            },
+            "in": "path",
+            "name": "id",
+            "required": true
+          }
+        ],
+        "x-permission": "dossier:read",
+        "responses": {
+          "200": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "fileId": {
+                            "type": "string",
+                            "format": "uuid",
+                            "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+                          },
+                          "label": {
+                            "type": "string"
+                          },
+                          "category": {
+                            "type": "string"
+                          },
+                          "filename": {
+                            "type": "string"
+                          },
+                          "mime": {
+                            "type": "string"
+                          }
+                        },
+                        "required": [
+                          "fileId",
+                          "label",
+                          "category"
+                        ],
+                        "additionalProperties": false
+                      }
+                    }
+                  },
+                  "required": [
+                    "data"
+                  ],
+                  "additionalProperties": false
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/blocks/{id}/risk-covers": {
+      "get": {
+        "operationId": "listRiskCovers",
+        "tags": [
+          "dossier"
+        ],
+        "parameters": [
+          {
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+            },
+            "in": "path",
+            "name": "id",
+            "required": true
+          }
+        ],
+        "x-permission": "risk_cover:read",
+        "responses": {
+          "200": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/RiskCover"
+                      }
+                    }
+                  },
+                  "required": [
+                    "data"
+                  ],
+                  "additionalProperties": false
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "operationId": "createRiskCover",
+        "tags": [
+          "dossier"
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "type": {
+                    "type": "string",
+                    "enum": [
+                      "guarantee",
+                      "index_insurance",
+                      "indemnity_insurance",
+                      "first_loss"
+                    ]
+                  },
+                  "providerOrgId": {
+                    "anyOf": [
+                      {
+                        "type": "string",
+                        "format": "uuid",
+                        "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+                      },
+                      {
+                        "type": "null"
+                      }
+                    ]
+                  },
+                  "providerName": {
+                    "type": "string",
+                    "minLength": 2
+                  },
+                  "coveragePct": {
+                    "type": "number",
+                    "minimum": 0,
+                    "maximum": 100
+                  },
+                  "capXof": {
+                    "anyOf": [
+                      {
+                        "type": "integer",
+                        "minimum": 0,
+                        "maximum": 9007199254740991
+                      },
+                      {
+                        "type": "null"
+                      }
+                    ]
+                  },
+                  "premiumXof": {
+                    "anyOf": [
+                      {
+                        "type": "integer",
+                        "minimum": 0,
+                        "maximum": 9007199254740991
+                      },
+                      {
+                        "type": "null"
+                      }
+                    ]
+                  },
+                  "status": {
+                    "default": "proposed",
+                    "type": "string",
+                    "enum": [
+                      "proposed",
+                      "committed",
+                      "active",
+                      "expired"
+                    ]
+                  },
+                  "fileId": {
+                    "anyOf": [
+                      {
+                        "type": "string",
+                        "format": "uuid",
+                        "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+                      },
+                      {
+                        "type": "null"
+                      }
+                    ]
+                  },
+                  "trancheId": {
+                    "anyOf": [
+                      {
+                        "type": "string",
+                        "format": "uuid",
+                        "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+                      },
+                      {
+                        "type": "null"
+                      }
+                    ]
+                  }
+                },
+                "required": [
+                  "type",
+                  "providerName",
+                  "coveragePct"
+                ]
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+            },
+            "in": "path",
+            "name": "id",
+            "required": true
+          }
+        ],
+        "x-permission": "risk_cover:manage",
+        "responses": {
+          "201": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RiskCover"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/risk-covers/{id}": {
+      "patch": {
+        "operationId": "updateRiskCover",
+        "tags": [
+          "dossier"
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "type": {
+                    "type": "string",
+                    "enum": [
+                      "guarantee",
+                      "index_insurance",
+                      "indemnity_insurance",
+                      "first_loss"
+                    ]
+                  },
+                  "providerOrgId": {
+                    "anyOf": [
+                      {
+                        "type": "string",
+                        "format": "uuid",
+                        "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+                      },
+                      {
+                        "type": "null"
+                      }
+                    ]
+                  },
+                  "providerName": {
+                    "type": "string",
+                    "minLength": 2
+                  },
+                  "coveragePct": {
+                    "type": "number",
+                    "minimum": 0,
+                    "maximum": 100
+                  },
+                  "capXof": {
+                    "anyOf": [
+                      {
+                        "type": "integer",
+                        "minimum": 0,
+                        "maximum": 9007199254740991
+                      },
+                      {
+                        "type": "null"
+                      }
+                    ]
+                  },
+                  "premiumXof": {
+                    "anyOf": [
+                      {
+                        "type": "integer",
+                        "minimum": 0,
+                        "maximum": 9007199254740991
+                      },
+                      {
+                        "type": "null"
+                      }
+                    ]
+                  },
+                  "status": {
+                    "default": "proposed",
+                    "type": "string",
+                    "enum": [
+                      "proposed",
+                      "committed",
+                      "active",
+                      "expired"
+                    ]
+                  },
+                  "fileId": {
+                    "anyOf": [
+                      {
+                        "type": "string",
+                        "format": "uuid",
+                        "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+                      },
+                      {
+                        "type": "null"
+                      }
+                    ]
+                  },
+                  "trancheId": {
+                    "anyOf": [
+                      {
+                        "type": "string",
+                        "format": "uuid",
+                        "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+                      },
+                      {
+                        "type": "null"
+                      }
+                    ]
+                  }
+                }
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+            },
+            "in": "path",
+            "name": "id",
+            "required": true
+          }
+        ],
+        "x-permission": "risk_cover:manage",
+        "responses": {
+          "200": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RiskCover"
                 }
               }
             }

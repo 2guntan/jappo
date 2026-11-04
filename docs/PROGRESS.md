@@ -8,7 +8,7 @@ Source of truth for the next session. Phases from SPEC §17. Update after every 
 - [x] P1 Identity & core
 - [x] P2 Land & farmers
 - [x] P3 Catalogue, planning, offtake
-- [ ] P4 Model, readiness, dossier
+- [x] P4 Model, readiness, dossier
 - [ ] P5 Marketplace
 - [ ] P6 Agreements & facilities
 - [ ] P7 Operations & harvest
@@ -43,9 +43,17 @@ Web: block tabs *Seasons*, *Offtake*, *Investment* (capex, opex, fee policy); se
 Tests: domain 14 tests (100 % lines); 54 integration tests (adds `planning.test.ts`: overrides, plantings defaults & offtake price, budget generation + per-farmer manual totals, season start guard/lock, capex/opex/fees, offtake lifecycle & buyer access; P3 authz negatives); Playwright `p3-planning.spec.ts`.
 Known limitations: `/buyer/dispatches` arrives with dispatches in P7; contract expiry (`expired`) is set by a job added with alert rules in P7.
 
+## P4 Model, readiness, dossier — done
+
+Domain (golden tests written first, unchanged numbers): FM-1, FM-2, RS-1 pass (`packages/domain/test/golden-fm-rs.test.ts`); engines `buildSchedule` (bullet, seasonal, annuity, equal principal; flat/declining; interest-only/capitalised grace), `computeBlockModel` (5 scenarios, farmer P&L, HCR, breakevens, operator monthly cash flow, DSCR, NPV, IRR, payback, warnings, inputs hash), `computeReadiness` (G1–G10 with reason codes + entity ids, 7 score components, grade), `irrMonthly` (Newton + bisection), pure `sha256Hex`. Domain coverage 99 % lines.
+API: `financing_assumptions`, `model_runs`, `dossiers`, `risk_covers`; `GET/PUT /seasons/{id}/model-assumptions`, `POST /seasons/{id}/model-runs` (+ `/preview` what-if, `/current` with staleness), `GET /model-runs/{id}`, `GET /seasons/{id}/readiness`, `POST /blocks/{id}/actions/check-readiness`, `POST /seasons/{id}/dossiers` (freeze: gates + current model, snapshot without PII, data-room manifest, content SHA-256, supersede previous, block → ready), `GET /dossiers/{id}`, `/pdf` (signed URL / 409 pending), `/data-room`, risk covers CRUD. PDF: Handlebars template fr/en with inline SVG map & charts → Playwright Chromium (`core/adapters/pdf`), rendered by the `dossier.frozen` event handler.
+Web: season tabs *Model* (assumptions form, run, scenario table, Recharts revenue/debt + cash flow, what-if sliders, farmer P&L), *Readiness* (score ring, breakdown bars, gate checklist with fix links, block status update), *Dossier* (freeze, versions, PDF download, data room); block tab *Risk covers* (add, commit, activate).
+Tests: domain 29 tests; integration `dossier.test.ts` (model debts 1 308 000 / 1 090 000 / 872 000, gates, freeze, PDF bytes, supersede, stale model, preview, risk-cover scoring, authz + dossier grant) — 58 integration tests total; Playwright `p4-dossier.spec.ts` (model → gates → freeze → PDF). Reusable fixtures: `apps/api/test/helpers.readyScenario`, `apps/web/e2e/helpers.readyScenarioViaApi`.
+Known limitations: data-room PDF watermarking for lenders arrives with lender downloads in P5; farmer arrears (`inArrears`) and field visits feed readiness once P7/P8 tables exist (currently false / season-not-started).
+
 ## In progress
 
-Nothing half-built. **Next concrete step:** P4 — write golden tests FM-1, FM-2, RS-1 first in `packages/domain/test/` (exact SPEC §9 numbers), then `buildSchedule` (§9.5), `computeBlockModel` (§9.1), `computeReadiness` (§9.2); API: `model_runs`, `dossiers`, `risk_covers` tables; `POST /seasons/{id}/model-runs`, `/preview`, `GET …/current`, `GET /seasons/{id}/readiness`, `POST /seasons/{id}/dossiers` (freeze + PDF via Playwright in worker), data room; UI Model / Readiness / Dossier tabs.
+Nothing half-built. **Next concrete step:** P5 Marketplace — write golden test BE-1 (EAR 2122 bps) first; domain `matchLenders` (§9.3) and `evaluateBids` (§9.4: EAR, component scores, ranking, greedy suggested allocation); migrations `lender_profiles`, `financing_requests`, `tranches`, `rfps`, `rfp_invitations`, `rfp_questions`, `bids`, `bid_evaluations`, `awards`; RFP lifecycle with working-day deadline job (pg-boss cron), grants to invited lenders (dossier, block, data room, expiry close+30 d), sealed-bid authz tests, award/accept/decline; lender workspace UI (profiles, opportunities, RFP page, bid form with live EAR), operator financing tab.
 
 ## How to run
 

@@ -334,7 +334,10 @@
     "OFFTAKE_LOCKED": "Un contrat signé ne peut plus être modifié.",
     "END_BEFORE_START": "La date de fin précède la date de début.",
     "QUOTE_SERVICE_MISMATCH": "Le devis concerne un autre service.",
-    "SERVICE_CODE_TAKEN": "Ce code de service existe déjà."
+    "SERVICE_CODE_TAKEN": "Ce code de service existe déjà.",
+    "GATES_FAILING": "Toutes les conditions obligatoires doivent être remplies.",
+    "MODEL_NOT_CURRENT": "Recalculez le modèle avant de figer.",
+    "PDF_PENDING": "Le PDF est en cours de génération."
   },
   "blocks": {
     "title": "Blocs",
@@ -365,7 +368,8 @@
       "community": "Communauté",
       "seasons": "Saisons",
       "offtake": "Débouchés",
-      "investment": "Investissement"
+      "investment": "Investissement",
+      "risk": "Couvertures"
     },
     "boundary": "Limite du bloc",
     "noBoundary": "Aucune limite définie. Dessinez-la sur la carte ou importez un fichier GeoJSON/KML.",
@@ -589,7 +593,10 @@
     "budget": "Budget",
     "tabs": {
       "plan": "Plan de culture",
-      "budget": "Budget"
+      "budget": "Budget",
+      "model": "Modèle",
+      "readiness": "Préparation",
+      "dossier": "Dossier"
     },
     "kinds": {
       "rainy": "Hivernage",
@@ -767,5 +774,156 @@
     "title": "Mes contrats d'achat",
     "empty": "Aucun contrat. Les opérateurs vous associent à leurs contrats d'achat.",
     "operator": "Opérateur"
+  },
+  "model": {
+    "assumptions": "Hypothèses de financement",
+    "seasonal": "Tranche de campagne",
+    "investment": "Tranche d'investissement",
+    "enable": "Inclure",
+    "rate": "Taux annuel (bps)",
+    "method": "Méthode",
+    "fee": "Frais d'ouverture (bps)",
+    "tenor": "Durée (mois)",
+    "grace": "Différé (mois)",
+    "graceType": "Type de différé",
+    "profile": "Profil",
+    "feesTo": "Frais à la charge de",
+    "borrower": "Emprunteur",
+    "seasonsPerYear": "Saisons par an",
+    "discount": "Taux d'actualisation (bps)",
+    "saveAssumptions": "Enregistrer les hypothèses",
+    "run": "Calculer le modèle",
+    "rerun": "Recalculer",
+    "current": "À jour",
+    "stale": "Données modifiées depuis le dernier calcul",
+    "none": "Aucun calcul. Enregistrez les hypothèses puis calculez le modèle.",
+    "computedAt": "Calculé le",
+    "scenario": "Scénario",
+    "revenue": "Revenu brut",
+    "debt": "Dette de campagne",
+    "hcr": "HCR",
+    "minDscr": "DSCR min.",
+    "npv": "VAN opérateur",
+    "irr": "TRI opérateur",
+    "payback": "Retour (mois)",
+    "breakeven": "Seuil (multiplicateur)",
+    "farmers": "Compte d'exploitation par producteur (base)",
+    "net": "Revenu net",
+    "valueCreated": "Valeur créée",
+    "fees": "Frais",
+    "cashflow": "Flux de trésorerie opérateur",
+    "cumulative": "Cumulé",
+    "net2": "Net",
+    "whatIf": "Simulation",
+    "yieldShock": "Choc rendement (%)",
+    "priceShock": "Choc prix (%)",
+    "rateOverride": "Taux (bps)",
+    "simulate": "Simuler",
+    "warnings": "Alertes",
+    "tranches": "Montants demandés",
+    "scenarios": {
+      "base": "Base",
+      "yield_minus_20": "Rendement stress",
+      "price_minus_15": "Prix stress",
+      "combined": "Combiné",
+      "delay_2m": "Retard 2 mois"
+    },
+    "methods": {
+      "flat": "Linéaire (flat)",
+      "declining": "Dégressif"
+    },
+    "profiles": {
+      "bullet": "In fine",
+      "seasonal": "Saisonnier",
+      "annuity": "Annuités",
+      "equal_principal": "Amortissement constant"
+    },
+    "graceTypes": {
+      "interest_only": "Intérêts seuls",
+      "capitalised": "Capitalisé"
+    },
+    "borrowers": {
+      "operator": "Opérateur",
+      "farmers": "Producteurs",
+      "farmer_group": "Groupement"
+    },
+    "feesToOptions": {
+      "operator": "Opérateur",
+      "farmers": "Producteurs"
+    }
+  },
+  "readiness": {
+    "title": "Préparation du dossier",
+    "score": "Note",
+    "grade": "Classe",
+    "gates": "Conditions obligatoires",
+    "pass": "OK",
+    "fail": "À corriger",
+    "breakdown": "Détail de la note",
+    "check": "Mettre à jour le statut du bloc",
+    "fix": "Corriger",
+    "gateNames": {
+      "G1_BOUNDARY": "Limite et parcelles",
+      "G2_LAND_TITLE": "Titre foncier ou équivalent",
+      "G3_COMMUNITY": "Accord communautaire",
+      "G4_FARMERS": "Producteurs (attribution, KYC, consentements)",
+      "G5_PLAN": "Plan de culture complet",
+      "G6_OFFTAKE": "Débouchés ≥ 60 % du volume",
+      "G7_MODEL": "Modèle à jour",
+      "G8_HCR": "Couverture de la dette (HCR)",
+      "G9_OPERATOR_KYC": "KYC de l'opérateur",
+      "G10_ESCROW": "Paiement sur séquestre ≥ 60 %"
+    },
+    "components": {
+      "landSecurity": "Sécurité foncière",
+      "offtakeStrength": "Solidité du débouché",
+      "financialRobustness": "Robustesse financière",
+      "farmerQuality": "Qualité des producteurs",
+      "riskCover": "Couverture des risques",
+      "operatorCapacity": "Capacité de l'opérateur",
+      "dataCompleteness": "Complétude des données"
+    },
+    "max": "sur {max}"
+  },
+  "dossier": {
+    "title": "Dossiers",
+    "freeze": "Figer le dossier",
+    "freezeHelp": "Le dossier figé est la version partagée avec les prêteurs. Toutes les conditions doivent être remplies.",
+    "version": "Version",
+    "frozenAt": "Figé le",
+    "pdf": "PDF",
+    "pdfPending": "PDF en cours de génération…",
+    "download": "Télécharger le PDF",
+    "dataRoom": "Salle de données",
+    "none": "Aucun dossier figé.",
+    "status": {
+      "draft": "Brouillon",
+      "frozen": "Figé",
+      "superseded": "Remplacé"
+    }
+  },
+  "risk": {
+    "title": "Couvertures de risque",
+    "type": "Type",
+    "provider": "Fournisseur",
+    "coverage": "Couverture (%)",
+    "cap": "Plafond",
+    "premium": "Prime",
+    "add": "Ajouter",
+    "commit": "Engager",
+    "activate": "Activer",
+    "types": {
+      "guarantee": "Garantie",
+      "index_insurance": "Assurance indicielle",
+      "indemnity_insurance": "Assurance indemnitaire",
+      "first_loss": "Première perte"
+    },
+    "statuses": {
+      "proposed": "Proposée",
+      "committed": "Engagée",
+      "active": "Active",
+      "expired": "Expirée"
+    },
+    "empty": "Aucune couverture. Une garantie engagée améliore la note du dossier."
   }
 }

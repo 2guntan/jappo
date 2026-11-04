@@ -51,3 +51,5 @@ export function renderNotification(code: string, locale: string, data: Record<st
 export function renderString(src: string, data: unknown): string {
   return hb.compile(src, { strict: false })(data);
 }
+export { renderDossierHtml, type DossierRenderInput } from './dossier';
+export { svgMap, svgBars, svgLine } from './svg';

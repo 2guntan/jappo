@@ -17,8 +17,9 @@ import { AssetsTab, CommunityTab } from '@/components/blocks/assets-community';
 import { SeasonsTab } from '@/components/blocks/seasons-tab';
 import { OfftakeTab } from '@/components/blocks/offtake-tab';
 import { InvestmentTab } from '@/components/blocks/investment-tab';
+import { RiskTab } from '@/components/blocks/risk-tab';
 
-const TABS = ['overview', 'land', 'plots', 'farmers', 'seasons', 'offtake', 'investment', 'assets', 'community'] as const;
+const TABS = ['overview', 'land', 'plots', 'farmers', 'seasons', 'offtake', 'investment', 'risk', 'assets', 'community'] as const;
 type Tab = (typeof TABS)[number];
 
 function BlockInner({ id }: { id: string }) {
@@ -63,6 +64,7 @@ function BlockInner({ id }: { id: string }) {
       {tab === 'seasons' && <SeasonsTab block={b} />}
       {tab === 'offtake' && <OfftakeTab block={b} />}
       {tab === 'investment' && <InvestmentTab block={b} />}
+      {tab === 'risk' && <RiskTab block={b} />}
       {tab === 'assets' && <AssetsTab block={b} />}
       {tab === 'community' && <CommunityTab block={b} />}
     </>

@@ -27,6 +27,7 @@ const apiEnv = {
   LOG_LEVEL: 'warn',
   SEED_ADMIN_PASSWORD: 'Jappo-Admin-2026!',
   SEED_ADMIN_TOTP_SECRET: 'JBSWY3DPEHPK3PXPJBSWY3DPEHPK3PXP',
+  WORKER_IN_PROCESS: 'true',
 };
 
 export default defineConfig({

@@ -1,0 +1,14 @@
+{
+  "title": "Dossier de financement", "version": "Version", "frozen": "Figé le", "hash": "Empreinte du contenu", "score": "Note de préparation", "grade": "Classe",
+  "summary": "Synthèse", "block": "Bloc", "region": "Région", "area": "Superficie", "tenure": "Régime foncier", "water": "Source d'eau", "irrigation": "Irrigation",
+  "map": "Plan du bloc", "farmers": "Producteurs", "count": "Nombre", "women": "Femmes", "youth": "Jeunes (< 35 ans)", "wallets": "Portefeuilles vérifiés", "kyc": "KYC vérifiés",
+  "plan": "Plan de culture", "crop": "Culture", "yieldBase": "Rdt base (t/ha)", "yieldStress": "Rdt stress (t/ha)", "priceBase": "Prix base", "priceStress": "Prix stress",
+  "budget": "Budget de campagne", "farmerCredit": "Crédit producteurs", "farmerCash": "Comptant producteurs", "operator": "Opérateur", "grant": "Subventions", "perHa": "Par ha", "quoted": "Couvert par devis",
+  "offtake": "Débouchés contractualisés", "buyer": "Acheteur", "minVolume": "Volume min.", "price": "Prix", "status": "Statut", "escrow": "Séquestre",
+  "model": "Modèle financier", "scenario": "Scénario", "revenue": "Revenu brut", "debt": "Dette de campagne", "hcr": "HCR", "dscr": "DSCR min.", "npv": "VAN opérateur", "breakeven": "Rendement d'équilibre",
+  "scenarios": { "base": "Base", "yield_minus_20": "Rendement −20 %", "price_minus_15": "Prix −15 %", "combined": "Combiné", "delay_2m": "Retard 2 mois" },
+  "cashflow": "Flux de trésorerie opérateur (24 mois)", "risk": "Couvertures de risque", "provider": "Fournisseur", "coverage": "Couverture",
+  "gates": "Conditions obligatoires", "pass": "Conforme", "fail": "Non conforme", "breakdownTitle": "Détail de la note", "dataRoom": "Salle de données",
+  "components": { "landSecurity": "Sécurité foncière", "offtakeStrength": "Solidité du débouché", "financialRobustness": "Robustesse financière", "farmerQuality": "Qualité des producteurs", "riskCover": "Couverture des risques", "operatorCapacity": "Capacité de l'opérateur", "dataCompleteness": "Complétude des données" },
+  "disclaimer": "Document généré par Jappo. Les décisions de crédit appartiennent aux prêteurs. Jappo ne détient aucun fonds."
+}
