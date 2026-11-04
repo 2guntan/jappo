@@ -271,3 +271,58 @@ export async function lenderProfile(t: TestApp, s: Session, body: Record<string,
   expectStatus(r, 201);
   return json<{ id: string }>(r);
 }
+
+/** Minimal PNG (signature + IHDR) accepted by the MIME sniffer, used as signing-photo evidence. */
+export const PNG_BYTES = Buffer.from('89504e470d0a1a0a0000000d49484452000000010000000108060000001f15c4890000000d4944415478da63f8ffff3f0005fe02fea7d6a4b10000000049454e44ae426082', 'hex');
+
+/** Invite a member into the session's organisation and log them in. */
+export async function inviteMember(t: TestApp, s: Session, roles: string[], name = 'Second Membre') {
+  const email = `m${Math.random().toString(36).slice(2, 8)}@member.test`;
+  expectStatus(await t.app.inject({ method: 'POST', url: '/v1/orgs/current/invitations', headers: auth(s), payload: { email, roles } }), 201);
+  await flushNotifications(t);
+  const mail = t.email.outbox.find((m) => m.to === email)!;
+  const token = /token=([A-Za-z0-9_-]+)/.exec(mail.text)![1]!;
+  expectStatus(await t.app.inject({ method: 'POST', url: '/v1/invitations/accept', payload: { token, fullName: name, password: PASSWORD } }), 200);
+  return { ...(await login(t, email, PASSWORD)), email };
+}
+
+/** Latest 6-digit code sent to an email address or phone number (after delivering pending notifications). */
+export async function lastCode(t: TestApp, to: string): Promise<string> {
+  await flushNotifications(t);
+  const texts = [...t.email.outbox.filter((m) => m.to === to).map((m) => m.text), ...t.sms.sent.filter((m) => m.to === to).map((m) => m.text)];
+  const code = /(\d{6})/.exec(texts.at(-1) ?? '')?.[1];
+  if (!code) throw new Error(`no code sent to ${to}`);
+  return code;
+}
+
+/**
+ * readyScenario + model run + frozen dossier + tender won by "Mutuelle Alpha SFD" (3 000 000 XOF, 18 % flat, 1 % fee,
+ * 6 months bullet) and accepted → facility pending_cp.
+ */
+export async function awardedScenario(t: TestApp) {
+  const s = await readyScenario(t, { yieldBase: 7, yieldStress: 6 });
+  expectStatus(await t.app.inject({ method: 'POST', url: `/v1/seasons/${s.seasonId}/model-runs`, headers: auth(s.op) }), 201);
+  const dossier = json<{ id: string }>(await t.app.inject({ method: 'POST', url: `/v1/seasons/${s.seasonId}/dossiers`, headers: auth(s.op) }));
+  const alpha = await verifiedLender(t, 'Mutuelle Alpha SFD', 'sfd');
+  await lenderProfile(t, alpha, { name: 'Campagne', minReadinessScore: 40 });
+  const fr = json<{ id: string; tranches: { id: string }[] }>(await t.app.inject({ method: 'POST', url: '/v1/financing-requests', headers: auth(s.op), payload: { dossierId: dossier.id } }));
+  expectStatus(await t.app.inject({ method: 'POST', url: `/v1/financing-requests/${fr.id}/actions/submit`, headers: auth(s.op, { 'if-match': '"1"' }) }), 200);
+  const rfp = json<{ id: string }>(await t.app.inject({ method: 'POST', url: '/v1/rfps', headers: auth(s.op), payload: { financingRequestId: fr.id } }));
+  expectStatus(await t.app.inject({ method: 'POST', url: `/v1/rfps/${rfp.id}/actions/open`, headers: auth(s.op, { 'if-match': '"1"' }), payload: {} }), 200);
+  const bid = json<{ id: string }>(
+    await t.app.inject({
+      method: 'POST',
+      url: `/v1/rfps/${rfp.id}/bids`,
+      headers: auth(alpha),
+      payload: { trancheId: fr.tranches[0]!.id, amountXof: 3_000_000, rateBps: 1800, rateMethod: 'flat', upfrontFeeBps: 100, tenorMonths: 6, graceMonths: 0, graceType: 'interest_only', repaymentProfile: 'bullet', securityRequirements: ['escrow_domiciliation'], cashCollateralPct: 0, conditionsPrecedent: ['Signature de la convention-cadre'], daysToDisbursement: 10, validUntil: '2027-06-30', acceptsPartial: true },
+    }),
+  );
+  expectStatus(await t.app.inject({ method: 'POST', url: `/v1/bids/${bid.id}/actions/submit`, headers: auth(alpha, { 'if-match': '"1"' }) }), 200);
+  expectStatus(await t.app.inject({ method: 'POST', url: `/v1/rfps/${rfp.id}/actions/close-early`, headers: auth(s.op, { 'if-match': '"2"' }), payload: {} }), 200);
+  const closed = json<{ version: number }>(await t.app.inject({ method: 'GET', url: `/v1/rfps/${rfp.id}`, headers: auth(s.op) }));
+  expectStatus(await t.app.inject({ method: 'POST', url: `/v1/rfps/${rfp.id}/actions/award`, headers: auth(s.op, { 'if-match': `"${closed.version}"` }), payload: { awards: [{ bidId: bid.id, amountXof: 3_000_000 }] } }), 200);
+  const aw = json<{ data: { id: string }[] }>(await t.app.inject({ method: 'GET', url: '/v1/lender/awards', headers: auth(alpha) }));
+  expectStatus(await t.app.inject({ method: 'POST', url: `/v1/awards/${aw.data[0]!.id}/actions/accept`, headers: auth(alpha), payload: {} }), 200);
+  const facs = json<{ data: { id: string }[] }>(await t.app.inject({ method: 'GET', url: `/v1/facilities?blockId=${s.blockId}`, headers: auth(alpha) }));
+  return { ...s, alpha, frId: fr.id, rfpId: rfp.id, facilityId: facs.data[0]!.id };
+}

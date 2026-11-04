@@ -78,5 +78,61 @@
     "title": "Attribution déclinée : {{lenderName}}",
     "subject": "Jappo — {{lenderName}} décline {{rfpRef}}",
     "body": "{{lenderName}} a décliné l'attribution sur {{rfpRef}}. Motif : {{reason}}. Vous pouvez réattribuer le montant : {{link}}"
+  },
+  "contract.otp": {
+    "title": "Code de signature",
+    "subject": "Jappo — code de signature {{ref}}",
+    "body": "Votre code de signature du contrat {{ref}} est {{code}}. Valable 10 minutes. Ne le communiquez à personne.",
+    "sms": "Jappo : code de signature {{ref}} : {{code}} (10 min). Ne le partagez pas."
+  },
+  "contract.to_sign": {
+    "title": "Contrat à signer : {{ref}}",
+    "subject": "Jappo — {{title}} à signer",
+    "body": "Le contrat {{ref}} ({{title}}, bloc {{blockRef}}) attend votre signature. {{link}}"
+  },
+  "contract.signed": {
+    "title": "Contrat signé : {{ref}}",
+    "subject": "Jappo — {{ref}} signé par toutes les parties",
+    "body": "Le contrat {{ref}} ({{title}}) est signé par toutes les parties. {{link}}"
+  },
+  "facility.created": {
+    "title": "Facilité créée : {{ref}}",
+    "subject": "Jappo — facilité {{ref}}",
+    "body": "La facilité {{ref}} de {{amount}} a été créée (conditions préalables à lever). {{link}}"
+  },
+  "facility.activated": {
+    "title": "Facilité active : {{ref}}",
+    "subject": "Jappo — facilité {{ref}} active",
+    "body": "Les conditions préalables de la facilité {{ref}} ({{amount}}) sont levées. Les décaissements peuvent être demandés. {{link}}"
+  },
+  "facility.in_arrears": {
+    "title": "Impayé : {{ref}}",
+    "subject": "Jappo — échéance impayée sur {{ref}}",
+    "body": "La facilité {{ref}} présente une échéance impayée de {{amount}} depuis le {{dueDate}}. {{link}}"
+  },
+  "disbursement.requested": {
+    "title": "Décaissement demandé : {{ref}}",
+    "subject": "Jappo — demande de décaissement {{ref}}",
+    "body": "{{operatorName}} demande un décaissement de {{amount}} ({{purpose}}) sur la facilité {{facilityRef}}. {{link}}"
+  },
+  "disbursement.approved": {
+    "title": "Décaissement approuvé : {{ref}}",
+    "subject": "Jappo — décaissement {{ref}} approuvé",
+    "body": "Le décaissement {{ref}} de {{amount}} est approuvé et en attente d'exécution. {{link}}"
+  },
+  "disbursement.executed": {
+    "title": "Décaissement exécuté : {{ref}}",
+    "subject": "Jappo — décaissement {{ref}} exécuté",
+    "body": "Le décaissement {{ref}} de {{amount}} a été exécuté (référence bancaire {{bankReference}}). {{link}}"
+  },
+  "disbursement.confirmed": {
+    "title": "Décaissement confirmé : {{ref}}",
+    "subject": "Jappo — décaissement {{ref}} confirmé",
+    "body": "Le décaissement {{ref}} de {{amount}} est confirmé. {{link}}"
+  },
+  "disbursement.rejected": {
+    "title": "Décaissement refusé : {{ref}}",
+    "subject": "Jappo — décaissement {{ref}} refusé",
+    "body": "Le décaissement {{ref}} de {{amount}} a été refusé : {{reason}}. {{link}}"
   }
 }

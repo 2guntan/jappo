@@ -11,3 +11,4 @@ export * from './sha256';
 export * from './marketplace';
 
 export const ENGINE_VERSION = '1.0.0';
+export * from './facility';

@@ -1,5 +1,6 @@
 'use client';
 
+import Link from 'next/link';
 import { useState } from 'react';
 import { useQuery, useQueryClient } from '@tanstack/react-query';
 import { useTranslations } from 'next-intl';
@@ -16,6 +17,7 @@ export default function LenderAwardsPage() {
   const { msg, run } = useAction();
   const [reason, setReason] = useState<Record<string, string>>({});
   const q = useQuery({ queryKey: ['lender-awards'], queryFn: () => unwrap(api.GET('/v1/lender/awards')) });
+  const facs = useQuery({ queryKey: ['facilities'], queryFn: () => unwrap(api.GET('/v1/facilities')) });
   if (q.isLoading) return <Spinner />;
   const rows = q.data?.data ?? [];
   const refresh = () => qc.invalidateQueries({ queryKey: ['lender-awards'] });
@@ -37,7 +39,8 @@ export default function LenderAwardsPage() {
                     <Td>{formatDateTime(a.decidedAt)}</Td>
                     <Td><Badge tone={a.status === 'accepted_by_lender' ? 'green' : a.status === 'proposed' ? 'blue' : 'red'} data-testid={`my-award-${a.rfpRef}`}>{t(`rfp.awardStatus.${a.status}`)}</Badge></Td>
                     <Td className="space-x-1 whitespace-nowrap">
-                      {a.allowedActions.includes('accept') && <Button size="sm" onClick={() => run('a', async () => { await unwrap(api.POST('/v1/awards/{id}/actions/accept', { params: { path: { id: a.id } }, body: {} })); await refresh(); })}>{t('lender.accept')}</Button>}
+                      {facs.data?.data.filter((f) => f.awardId === a.id).map((f) => <Link key={f.id} className="text-brand-700 hover:underline" href={`/app/facilities/${f.id}`} data-testid={`award-facility-${a.rfpRef}`}>{f.ref} · {t('facility.setup')}</Link>)}
+                      {a.allowedActions.includes('accept') && <Button size="sm" onClick={() => run('a', async () => { await unwrap(api.POST('/v1/awards/{id}/actions/accept', { params: { path: { id: a.id } }, body: {} })); await refresh(); await qc.invalidateQueries({ queryKey: ['facilities'] }); })}>{t('lender.accept')}</Button>}
                       {a.allowedActions.includes('decline') && (
                         <span className="inline-flex gap-1">
                           <Input className="h-8 w-32" placeholder={t('rfp.reason')} aria-label={t('rfp.reason')} value={reason[a.id] ?? ''} onChange={(e) => setReason({ ...reason, [a.id]: e.target.value })} />

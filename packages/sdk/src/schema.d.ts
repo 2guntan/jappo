@@ -2343,6 +2343,388 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/v1/contract-templates": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["listContractTemplates"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v1/contract-templates/{id}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        /** Platform admin: creates a new active template version. Template text must be reviewed by counsel before production use. */
+        patch: operations["reviseContractTemplate"];
+        trace?: never;
+    };
+    "/v1/contracts": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["listContracts"];
+        put?: never;
+        /** Type + related entity; data assembled from block, season, award, offtake */
+        post: operations["createContract"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v1/contracts/{id}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["getContract"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        /** Draft only: editable clauses; `refresh` re-assembles data from source entities */
+        patch: operations["updateContract"];
+        trace?: never;
+    };
+    "/v1/contracts/{id}/pdf": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Signed URL of the contract PDF (signed version once fully signed) */
+        get: operations["getContractPdf"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v1/contracts/{id}/actions/send": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** Render, fix the content hash, store the PDF, notify signatories */
+        post: operations["sendContract"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v1/contracts/{id}/actions/void": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post: operations["voidContract"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v1/contracts/{id}/signatures/actions/request-otp": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** Send a signature code to the current principal's party (or a farmer party, for field agents) */
+        post: operations["requestSignatureOtp"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v1/contracts/{id}/signatures": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** Sign with the OTP code; or in person (field agent witness + photo) for farmers */
+        post: operations["signContract"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v1/blocks/{id}/contracts/actions/generate-pack": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** Framework, plot contracts for allocated farmers, offtake, loan contracts from facilities, escrow mandate */
+        post: operations["generateContractPack"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v1/facilities": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["listFacilities"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v1/facilities/{id}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Facility with schedule, farmer allocations and CP checklist */
+        get: operations["getFacility"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        /** Lender: core-banking loan reference, escrow account */
+        patch: operations["updateFacility"];
+        trace?: never;
+    };
+    "/v1/facilities/{id}/actions/confirm-cp": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** Conditions precedent met → active; schedule dated from today */
+        post: operations["confirmFacilityCp"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v1/facilities/{id}/actions/mark-default": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post: operations["markFacilityDefault"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v1/facilities/{id}/actions/restructure": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post: operations["restructureFacility"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v1/escrow-accounts": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["listEscrowAccounts"];
+        put?: never;
+        /** Lender: block escrow account; linked to the lender's facilities and the block's offtake contracts */
+        post: operations["createEscrowAccount"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v1/facilities/{id}/disbursements": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["listDisbursements"];
+        put?: never;
+        post: operations["requestDisbursement"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v1/disbursements/pending": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Requested, approved or executed disbursements of the current organisation */
+        get: operations["listPendingDisbursements"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v1/disbursements/{id}/actions/approve": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post: operations["approveDisbursement"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v1/disbursements/{id}/actions/reject": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post: operations["rejectDisbursement"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v1/disbursements/{id}/actions/execute": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** Four-eyes: a different credit officer than the approver when the lender has ≥ 2 */
+        post: operations["executeDisbursement"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v1/disbursements/{id}/actions/confirm": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post: operations["confirmDisbursement"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v1/facilities/{id}/repayments": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["listRepayments"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/v1/field/bootstrap": {
         parameters: {
             query?: never;
@@ -3541,6 +3923,234 @@ export interface components {
             rfpRef: string;
             allowedActions: string[];
         };
+        ContractTemplateInput: {
+            /** Format: uuid */
+            id: string;
+            /** @enum {string} */
+            code: "block_framework" | "plot_production" | "offtake" | "loan_seasonal" | "loan_investment" | "escrow_mandate";
+            locale: string;
+            templateVersion: number;
+            title: string;
+            bodyHbs: string;
+            variablesSchema: {
+                name: string;
+                editable?: boolean;
+                description?: string;
+            }[];
+            active: boolean;
+            /** Format: date-time */
+            updatedAt: string;
+            version: number;
+        };
+        ContractPartyInput: {
+            /** Format: uuid */
+            id: string;
+            /** @enum {string} */
+            partyType: "org" | "farmer";
+            orgId: string | null;
+            farmerId: string | null;
+            name: string;
+            roleLabel: string;
+            signOrder: number;
+            signedAt: string | null;
+            signatureMethod: ("otp_sms" | "otp_email" | "in_person_witnessed") | null;
+            signerName: string | null;
+            canSign: boolean;
+        };
+        ContractInput: {
+            /** Format: uuid */
+            id: string;
+            ref: string;
+            /** @enum {string} */
+            type: "block_framework" | "plot_production" | "offtake" | "loan_seasonal" | "loan_investment" | "escrow_mandate";
+            title: string;
+            templateVersion: number;
+            locale: string;
+            /** Format: uuid */
+            blockId: string;
+            blockRef: string;
+            blockName: string;
+            seasonId: string | null;
+            relatedType: string;
+            /** Format: uuid */
+            relatedId: string;
+            /** @enum {string} */
+            status: "draft" | "out_for_signature" | "partially_signed" | "signed" | "voided";
+            clauses: {
+                [key: string]: string;
+            };
+            editableClauses: {
+                name: string;
+                description: string | null;
+            }[];
+            contentSha256: string | null;
+            hasPdf: boolean;
+            hasSignedPdf: boolean;
+            sentAt: string | null;
+            signedAt: string | null;
+            voidedAt: string | null;
+            voidReason: string | null;
+            parties: components["schemas"]["ContractPartyInput"][];
+            /** Format: date-time */
+            createdAt: string;
+            version: number;
+            allowedActions: string[];
+        };
+        SignatureOtpResultInput: {
+            /** Format: uuid */
+            partyId: string;
+            /** @enum {string} */
+            channel: "sms" | "email";
+            destination: string;
+        };
+        FacilityScheduleLineInput: {
+            seq: number;
+            /** Format: date */
+            dueDate: string;
+            principalXof: number;
+            interestXof: number;
+            feesXof: number;
+            totalXof: number;
+            paidXof: number;
+            /** @enum {string} */
+            status: "due" | "paid" | "partial" | "overdue";
+        };
+        FacilityFarmerAllocationInput: {
+            /** Format: uuid */
+            farmerId: string;
+            farmerCode: string;
+            principalXof: number;
+            interestXof: number;
+            feesXof: number;
+            dueXof: number;
+        };
+        FacilityInput: {
+            /** Format: uuid */
+            id: string;
+            ref: string;
+            /** Format: uuid */
+            awardId: string;
+            /** @enum {string} */
+            trancheType: "seasonal" | "investment";
+            /** Format: uuid */
+            lenderOrgId: string;
+            lenderName: string;
+            /** Format: uuid */
+            operatorOrgId: string;
+            operatorName: string;
+            /** Format: uuid */
+            blockId: string;
+            blockRef: string;
+            blockName: string;
+            /** Format: uuid */
+            seasonId: string;
+            /** @enum {string} */
+            borrowerType: "operator" | "farmers" | "farmer_group";
+            borrowerOrgId: string | null;
+            principalXof: number;
+            rateBps: number;
+            /** @enum {string} */
+            rateMethod: "flat" | "declining";
+            upfrontFeeBps: number;
+            upfrontFeeXof: number;
+            tenorMonths: number;
+            graceMonths: number;
+            /** @enum {string} */
+            graceType: "interest_only" | "capitalised";
+            /** @enum {string} */
+            repaymentProfile: "bullet" | "seasonal" | "annuity" | "equal_principal";
+            /** Format: date */
+            startDate: string;
+            /** Format: date */
+            maturityDate: string;
+            escrowAccountId: string | null;
+            lenderLoanRef: string | null;
+            /** @enum {string} */
+            status: "pending_cp" | "active" | "in_arrears" | "repaid" | "defaulted" | "restructured";
+            activatedAt: string | null;
+            requestedXof: number;
+            disbursedXof: number;
+            repaidXof: number;
+            repaidPrincipalXof: number;
+            outstandingPrincipalXof: number;
+            overdueXof: number;
+            oldestOverdueDate: string | null;
+            conditionsPrecedent: {
+                code: string;
+                met: boolean;
+            }[];
+            schedule: components["schemas"]["FacilityScheduleLineInput"][];
+            farmerAllocations: components["schemas"]["FacilityFarmerAllocationInput"][];
+            version: number;
+            allowedActions: string[];
+        };
+        EscrowAccountInput: {
+            /** Format: uuid */
+            id: string;
+            /** Format: uuid */
+            lenderOrgId: string;
+            lenderName: string;
+            /** Format: uuid */
+            blockId: string;
+            bankName: string;
+            accountLabel: string;
+            accountNumberMasked: string;
+            hasIban: boolean;
+            status: string;
+            /** Format: date-time */
+            createdAt: string;
+        };
+        DisbursementInput: {
+            /** Format: uuid */
+            id: string;
+            ref: string;
+            /** Format: uuid */
+            facilityId: string;
+            facilityRef: string;
+            amountXof: number;
+            purpose: string;
+            /** @enum {string} */
+            beneficiaryType: "supplier" | "operator" | "farmer";
+            beneficiaryOrgId: string | null;
+            beneficiaryFarmerId: string | null;
+            beneficiaryName: string;
+            budgetLineIds: string[];
+            capexItemIds: string[];
+            /** @enum {string} */
+            status: "requested" | "approved" | "executed" | "confirmed" | "rejected";
+            requestedBy: string | null;
+            approvedBy: string | null;
+            approvedAt: string | null;
+            executedBy: string | null;
+            executedAt: string | null;
+            confirmedBy: string | null;
+            confirmedAt: string | null;
+            bankReference: string | null;
+            proofFileId: string | null;
+            rejectReason: string | null;
+            /** Format: date-time */
+            createdAt: string;
+            version: number;
+            allowedActions: string[];
+        };
+        RepaymentInput: {
+            /** Format: uuid */
+            id: string;
+            /** Format: uuid */
+            facilityId: string;
+            settlementRunId: string | null;
+            amountXof: number;
+            principalXof: number;
+            interestXof: number;
+            feesXof: number;
+            /** Format: date */
+            valueDate: string;
+            /** @enum {string} */
+            source: "settlement" | "direct" | "guarantee_call" | "insurance";
+            reference: string | null;
+            /** Format: date-time */
+            createdAt: string;
+        };
         Problem: {
             type: string;
             title: string;
@@ -4700,6 +5310,234 @@ export interface components {
             blockName: string;
             rfpRef: string;
             allowedActions: string[];
+        };
+        ContractTemplate: {
+            /** Format: uuid */
+            id: string;
+            /** @enum {string} */
+            code: "block_framework" | "plot_production" | "offtake" | "loan_seasonal" | "loan_investment" | "escrow_mandate";
+            locale: string;
+            templateVersion: number;
+            title: string;
+            bodyHbs: string;
+            variablesSchema: {
+                name: string;
+                editable?: boolean;
+                description?: string;
+            }[];
+            active: boolean;
+            /** Format: date-time */
+            updatedAt: string;
+            version: number;
+        };
+        ContractParty: {
+            /** Format: uuid */
+            id: string;
+            /** @enum {string} */
+            partyType: "org" | "farmer";
+            orgId: string | null;
+            farmerId: string | null;
+            name: string;
+            roleLabel: string;
+            signOrder: number;
+            signedAt: string | null;
+            signatureMethod: ("otp_sms" | "otp_email" | "in_person_witnessed") | null;
+            signerName: string | null;
+            canSign: boolean;
+        };
+        Contract: {
+            /** Format: uuid */
+            id: string;
+            ref: string;
+            /** @enum {string} */
+            type: "block_framework" | "plot_production" | "offtake" | "loan_seasonal" | "loan_investment" | "escrow_mandate";
+            title: string;
+            templateVersion: number;
+            locale: string;
+            /** Format: uuid */
+            blockId: string;
+            blockRef: string;
+            blockName: string;
+            seasonId: string | null;
+            relatedType: string;
+            /** Format: uuid */
+            relatedId: string;
+            /** @enum {string} */
+            status: "draft" | "out_for_signature" | "partially_signed" | "signed" | "voided";
+            clauses: {
+                [key: string]: string;
+            };
+            editableClauses: {
+                name: string;
+                description: string | null;
+            }[];
+            contentSha256: string | null;
+            hasPdf: boolean;
+            hasSignedPdf: boolean;
+            sentAt: string | null;
+            signedAt: string | null;
+            voidedAt: string | null;
+            voidReason: string | null;
+            parties: components["schemas"]["ContractParty"][];
+            /** Format: date-time */
+            createdAt: string;
+            version: number;
+            allowedActions: string[];
+        };
+        SignatureOtpResult: {
+            /** Format: uuid */
+            partyId: string;
+            /** @enum {string} */
+            channel: "sms" | "email";
+            destination: string;
+        };
+        FacilityScheduleLine: {
+            seq: number;
+            /** Format: date */
+            dueDate: string;
+            principalXof: number;
+            interestXof: number;
+            feesXof: number;
+            totalXof: number;
+            paidXof: number;
+            /** @enum {string} */
+            status: "due" | "paid" | "partial" | "overdue";
+        };
+        FacilityFarmerAllocation: {
+            /** Format: uuid */
+            farmerId: string;
+            farmerCode: string;
+            principalXof: number;
+            interestXof: number;
+            feesXof: number;
+            dueXof: number;
+        };
+        Facility: {
+            /** Format: uuid */
+            id: string;
+            ref: string;
+            /** Format: uuid */
+            awardId: string;
+            /** @enum {string} */
+            trancheType: "seasonal" | "investment";
+            /** Format: uuid */
+            lenderOrgId: string;
+            lenderName: string;
+            /** Format: uuid */
+            operatorOrgId: string;
+            operatorName: string;
+            /** Format: uuid */
+            blockId: string;
+            blockRef: string;
+            blockName: string;
+            /** Format: uuid */
+            seasonId: string;
+            /** @enum {string} */
+            borrowerType: "operator" | "farmers" | "farmer_group";
+            borrowerOrgId: string | null;
+            principalXof: number;
+            rateBps: number;
+            /** @enum {string} */
+            rateMethod: "flat" | "declining";
+            upfrontFeeBps: number;
+            upfrontFeeXof: number;
+            tenorMonths: number;
+            graceMonths: number;
+            /** @enum {string} */
+            graceType: "interest_only" | "capitalised";
+            /** @enum {string} */
+            repaymentProfile: "bullet" | "seasonal" | "annuity" | "equal_principal";
+            /** Format: date */
+            startDate: string;
+            /** Format: date */
+            maturityDate: string;
+            escrowAccountId: string | null;
+            lenderLoanRef: string | null;
+            /** @enum {string} */
+            status: "pending_cp" | "active" | "in_arrears" | "repaid" | "defaulted" | "restructured";
+            activatedAt: string | null;
+            requestedXof: number;
+            disbursedXof: number;
+            repaidXof: number;
+            repaidPrincipalXof: number;
+            outstandingPrincipalXof: number;
+            overdueXof: number;
+            oldestOverdueDate: string | null;
+            conditionsPrecedent: {
+                code: string;
+                met: boolean;
+            }[];
+            schedule: components["schemas"]["FacilityScheduleLine"][];
+            farmerAllocations: components["schemas"]["FacilityFarmerAllocation"][];
+            version: number;
+            allowedActions: string[];
+        };
+        EscrowAccount: {
+            /** Format: uuid */
+            id: string;
+            /** Format: uuid */
+            lenderOrgId: string;
+            lenderName: string;
+            /** Format: uuid */
+            blockId: string;
+            bankName: string;
+            accountLabel: string;
+            accountNumberMasked: string;
+            hasIban: boolean;
+            status: string;
+            /** Format: date-time */
+            createdAt: string;
+        };
+        Disbursement: {
+            /** Format: uuid */
+            id: string;
+            ref: string;
+            /** Format: uuid */
+            facilityId: string;
+            facilityRef: string;
+            amountXof: number;
+            purpose: string;
+            /** @enum {string} */
+            beneficiaryType: "supplier" | "operator" | "farmer";
+            beneficiaryOrgId: string | null;
+            beneficiaryFarmerId: string | null;
+            beneficiaryName: string;
+            budgetLineIds: string[];
+            capexItemIds: string[];
+            /** @enum {string} */
+            status: "requested" | "approved" | "executed" | "confirmed" | "rejected";
+            requestedBy: string | null;
+            approvedBy: string | null;
+            approvedAt: string | null;
+            executedBy: string | null;
+            executedAt: string | null;
+            confirmedBy: string | null;
+            confirmedAt: string | null;
+            bankReference: string | null;
+            proofFileId: string | null;
+            rejectReason: string | null;
+            /** Format: date-time */
+            createdAt: string;
+            version: number;
+            allowedActions: string[];
+        };
+        Repayment: {
+            /** Format: uuid */
+            id: string;
+            /** Format: uuid */
+            facilityId: string;
+            settlementRunId: string | null;
+            amountXof: number;
+            principalXof: number;
+            interestXof: number;
+            feesXof: number;
+            /** Format: date */
+            valueDate: string;
+            /** @enum {string} */
+            source: "settlement" | "direct" | "guarantee_call" | "insurance";
+            reference: string | null;
+            /** Format: date-time */
+            createdAt: string;
         };
     };
     responses: never;
@@ -10273,6 +11111,799 @@ export interface operations {
                     "application/json": {
                         /** @enum {boolean} */
                         ok: true;
+                    };
+                };
+            };
+        };
+    };
+    listContractTemplates: {
+        parameters: {
+            query?: {
+                code?: "block_framework" | "plot_production" | "offtake" | "loan_seasonal" | "loan_investment" | "escrow_mandate";
+                locale?: "fr" | "en";
+                includeInactive?: boolean;
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Default Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        data: components["schemas"]["ContractTemplate"][];
+                    };
+                };
+            };
+        };
+    };
+    reviseContractTemplate: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": {
+                    title?: string;
+                    bodyHbs?: string;
+                    variablesSchema?: {
+                        name: string;
+                        editable?: boolean;
+                        description?: string;
+                    }[];
+                };
+            };
+        };
+        responses: {
+            /** @description Default Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ContractTemplate"];
+                };
+            };
+        };
+    };
+    listContracts: {
+        parameters: {
+            query?: {
+                blockId?: string;
+                seasonId?: string;
+                type?: "block_framework" | "plot_production" | "offtake" | "loan_seasonal" | "loan_investment" | "escrow_mandate";
+                status?: "draft" | "out_for_signature" | "partially_signed" | "signed" | "voided";
+                relatedId?: string;
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Default Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        data: components["schemas"]["Contract"][];
+                    };
+                };
+            };
+        };
+    };
+    createContract: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": {
+                    /** @enum {string} */
+                    type: "block_framework" | "plot_production" | "offtake" | "loan_seasonal" | "loan_investment" | "escrow_mandate";
+                    /** Format: uuid */
+                    relatedId: string;
+                    seasonId?: string | null;
+                    /** @enum {string} */
+                    locale?: "fr" | "en";
+                    clauses?: {
+                        [key: string]: string;
+                    };
+                };
+            };
+        };
+        responses: {
+            /** @description Default Response */
+            201: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Contract"];
+                };
+            };
+        };
+    };
+    getContract: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Default Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Contract"];
+                };
+            };
+        };
+    };
+    updateContract: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": {
+                    clauses?: {
+                        [key: string]: string;
+                    };
+                    refresh?: boolean;
+                };
+            };
+        };
+        responses: {
+            /** @description Default Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Contract"];
+                };
+            };
+        };
+    };
+    getContractPdf: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Default Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        url: string;
+                        fileId: string;
+                        signed: boolean;
+                    };
+                };
+            };
+        };
+    };
+    sendContract: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Default Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Contract"];
+                };
+            };
+        };
+    };
+    voidContract: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": {
+                    reason: string;
+                };
+            };
+        };
+        responses: {
+            /** @description Default Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Contract"];
+                };
+            };
+        };
+    };
+    requestSignatureOtp: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": {
+                    /** Format: uuid */
+                    partyId?: string;
+                    /** @enum {string} */
+                    channel?: "sms" | "email";
+                };
+            };
+        };
+        responses: {
+            /** @description Default Response */
+            202: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["SignatureOtpResult"];
+                };
+            };
+        };
+    };
+    signContract: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": {
+                    /** Format: uuid */
+                    partyId?: string;
+                    /** @enum {string} */
+                    method: "otp" | "in_person_witnessed";
+                    code?: string;
+                    /** @enum {string} */
+                    channel?: "sms" | "email";
+                    /** Format: uuid */
+                    evidenceFileId?: string;
+                    geo?: components["schemas"]["GeoPointInput"] | null;
+                };
+            };
+        };
+        responses: {
+            /** @description Default Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Contract"];
+                };
+            };
+        };
+    };
+    generateContractPack: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": {
+                    /** Format: uuid */
+                    seasonId: string;
+                    /** @default false */
+                    send?: boolean;
+                    /** @enum {string} */
+                    locale?: "fr" | "en";
+                };
+            };
+        };
+        responses: {
+            /** @description Default Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        created: number;
+                        data: components["schemas"]["Contract"][];
+                    };
+                };
+            };
+        };
+    };
+    listFacilities: {
+        parameters: {
+            query?: {
+                blockId?: string;
+                seasonId?: string;
+                status?: "pending_cp" | "active" | "in_arrears" | "repaid" | "defaulted" | "restructured";
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Default Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        data: components["schemas"]["Facility"][];
+                    };
+                };
+            };
+        };
+    };
+    getFacility: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Default Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Facility"];
+                };
+            };
+        };
+    };
+    updateFacility: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": {
+                    lenderLoanRef?: string | null;
+                    escrowAccountId?: string | null;
+                };
+            };
+        };
+        responses: {
+            /** @description Default Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Facility"];
+                };
+            };
+        };
+    };
+    confirmFacilityCp: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Default Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Facility"];
+                };
+            };
+        };
+    };
+    markFacilityDefault: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": {
+                    reason: string;
+                };
+            };
+        };
+        responses: {
+            /** @description Default Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Facility"];
+                };
+            };
+        };
+    };
+    restructureFacility: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": {
+                    reason: string;
+                    extendMonths: number;
+                };
+            };
+        };
+        responses: {
+            /** @description Default Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Facility"];
+                };
+            };
+        };
+    };
+    listEscrowAccounts: {
+        parameters: {
+            query?: {
+                blockId?: string;
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Default Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        data: components["schemas"]["EscrowAccount"][];
+                    };
+                };
+            };
+        };
+    };
+    createEscrowAccount: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": {
+                    /** Format: uuid */
+                    blockId: string;
+                    bankName: string;
+                    accountLabel: string;
+                    accountNumber: string;
+                    iban?: string | null;
+                };
+            };
+        };
+        responses: {
+            /** @description Default Response */
+            201: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["EscrowAccount"];
+                };
+            };
+        };
+    };
+    listDisbursements: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Default Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        data: components["schemas"]["Disbursement"][];
+                    };
+                };
+            };
+        };
+    };
+    requestDisbursement: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": {
+                    amountXof: number;
+                    purpose: string;
+                    /** @enum {string} */
+                    beneficiaryType: "supplier" | "operator" | "farmer";
+                    beneficiaryOrgId?: string | null;
+                    beneficiaryFarmerId?: string | null;
+                    beneficiaryName?: string | null;
+                    budgetLineIds?: string[];
+                    capexItemIds?: string[];
+                };
+            };
+        };
+        responses: {
+            /** @description Default Response */
+            201: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Disbursement"];
+                };
+            };
+        };
+    };
+    listPendingDisbursements: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Default Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        data: components["schemas"]["Disbursement"][];
+                    };
+                };
+            };
+        };
+    };
+    approveDisbursement: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": {
+                    reason?: string;
+                    bankReference?: string;
+                    proofFileId?: string | null;
+                };
+            };
+        };
+        responses: {
+            /** @description Default Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Disbursement"];
+                };
+            };
+        };
+    };
+    rejectDisbursement: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": {
+                    reason?: string;
+                    bankReference?: string;
+                    proofFileId?: string | null;
+                };
+            };
+        };
+        responses: {
+            /** @description Default Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Disbursement"];
+                };
+            };
+        };
+    };
+    executeDisbursement: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": {
+                    reason?: string;
+                    bankReference?: string;
+                    proofFileId?: string | null;
+                };
+            };
+        };
+        responses: {
+            /** @description Default Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Disbursement"];
+                };
+            };
+        };
+    };
+    confirmDisbursement: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": {
+                    reason?: string;
+                    bankReference?: string;
+                    proofFileId?: string | null;
+                };
+            };
+        };
+        responses: {
+            /** @description Default Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Disbursement"];
+                };
+            };
+        };
+    };
+    listRepayments: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Default Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        data: components["schemas"]["Repayment"][];
                     };
                 };
             };

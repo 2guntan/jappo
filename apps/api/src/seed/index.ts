@@ -1,3 +1,5 @@
+import { CONTRACT_TEMPLATE_SEEDS } from '@jappo/templates';
+import { contractTemplates } from '../modules/agreements/schema';
 import { eq } from 'drizzle-orm';
 import { ROLES, ROLE_ORG_TYPES, ORG_TYPES } from '@jappo/contracts';
 import { senegalFixedHolidays } from '@jappo/domain';
@@ -49,6 +51,10 @@ export async function seedReference(db: Db): Promise<void> {
   }
   for (const y of [2026, 2027, 2028]) {
     for (const h of senegalFixedHolidays(y)) await db.insert(holidays).values({ date: h.date, name: h.name }).onConflictDoNothing();
+  }
+  // Contract templates v1, fr + en (SPEC §14.2) — structured drafts to be reviewed by counsel.
+  for (const t of CONTRACT_TEMPLATE_SEEDS) {
+    await db.insert(contractTemplates).values({ code: t.code, locale: t.locale, templateVersion: 1, title: t.title, bodyHbs: t.bodyHbs, variablesSchema: t.variablesSchema, active: true }).onConflictDoNothing();
   }
 }
 

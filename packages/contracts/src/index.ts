@@ -7,3 +7,4 @@ export * from './land';
 export * from './planning';
 export * from './finance';
 export * from './marketplace';
+export * from './agreements';

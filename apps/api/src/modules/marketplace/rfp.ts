@@ -19,6 +19,7 @@ import { notifyOrgRoles } from '../../core/notify';
 import { getSetting, holidayDates } from '../../core/settings';
 import { env } from '../../env';
 import { assertVerifiedLender, loadRequest, matches, tranchesOf } from './requests';
+import { createFacilityFromAward } from '../facilities/service';
 
 type RfpRow = typeof rfps.$inferSelect;
 type BidRow = typeof bids.$inferSelect;
@@ -584,6 +585,7 @@ export async function respondAward(db: Db, actor: ActorContext, id: string, deci
       // Award accepted → lender reads block, seasons, operations, harvest, settlement for the facility life (SPEC §6.3).
       await grant(tx, { resourceType: 'block', resourceId: r!.blockId, granteeOrgId: a.lenderOrgId, scope: 'act', grantedByEvent: 'award.accepted', expiresAt: null });
       await grant(tx, { resourceType: 'dossier', resourceId: fr!.dossierId, granteeOrgId: a.lenderOrgId, scope: 'read', grantedByEvent: 'award.accepted', expiresAt: null });
+      await createFacilityFromAward(tx, actor, a.id);
     } else {
       await tx.update(bids).set({ status: 'not_awarded' }).where(eq(bids.id, a.bidId));
       await refreshTrancheStatus(tx, fr!.id);

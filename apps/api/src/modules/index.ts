@@ -16,6 +16,13 @@ import { dossierRoutes } from './dossier/routes';
 import { renderDossierPdf } from './dossier/pdf';
 import { marketplaceRoutes } from './marketplace/routes';
 import { runDeadlines } from './marketplace/rfp';
+import { agreementRoutes } from './agreements/routes';
+import { facilityRoutes } from './facilities/routes';
+import { hasConfirmedDisbursement, runArrears } from './facilities/service';
+import { seasonStartGuards } from './planning/routes';
+
+// Season start guard (SPEC §8.2) is provided by the facilities module.
+seasonStartGuards.hasConfirmedDisbursement = (tx, seasonId) => hasConfirmedDisbursement(tx, seasonId);
 
 const ALL = ['platform', 'operator', 'lender', 'buyer', 'guarantor', 'insurer', 'supplier', 'farmer_group'] as const;
 
@@ -129,6 +136,29 @@ export const MODULES: JappoModule[] = validateModules([
         { key: 'profiles', href: '/app/lender/profiles', labelKey: 'nav.profiles', permission: 'lender_profile:manage' },
         { key: 'financing', href: '/app/financing', labelKey: 'nav.financing', permission: 'financing_request:manage' },
       ],
+    },
+  },
+  {
+    name: 'agreements',
+    version: '1.0.0',
+    core: true,
+    dependsOn: ['marketplace'],
+    routes: agreementRoutes,
+    ui: {
+      workspace: ['operator', 'lender', 'buyer'],
+      navItems: [{ key: 'contracts', href: '/app/contracts', labelKey: 'nav.contracts', permission: 'contract:read' }],
+    },
+  },
+  {
+    name: 'facilities',
+    version: '1.0.0',
+    core: true,
+    dependsOn: ['agreements'],
+    routes: facilityRoutes,
+    jobs: [{ name: 'facilities.arrears', cron: '15 0 * * *', handler: async (ctx) => void (await runArrears(ctx.db)) }],
+    ui: {
+      workspace: ['operator', 'lender'],
+      navItems: [{ key: 'facilities', href: '/app/facilities', labelKey: 'nav.facilities', permission: 'facility:read' }],
     },
   },
   {

@@ -71,6 +71,7 @@ export function FinancingTab({ season }: { season: Schemas['Season'] }) {
         </CardHeader>
         <CardBody className="p-0"><TrancheTable tranches={active.tranches} /></CardBody>
       </Card>
+      {['awarded', 'contracted'].includes(active.status) && <ContractsAndFacilities season={season} />}
       {matches.data && (
         <Card>
           <CardHeader><CardTitle>{t('fin.matches')}</CardTitle></CardHeader>
@@ -103,5 +104,50 @@ export function FinancingTab({ season }: { season: Schemas['Season'] }) {
         </Card>
       )}
     </div>
+  );
+}
+
+function ContractsAndFacilities({ season }: { season: Schemas['Season'] }) {
+  const t = useTranslations();
+  const { api, hasPermission } = useSession();
+  const qc = useQueryClient();
+  const { busy, msg, run } = useAction();
+  const facs = useQuery({ queryKey: ['facilities', season.id], queryFn: () => unwrap(api.GET('/v1/facilities', { params: { query: { seasonId: season.id } } })) });
+  const cs = useQuery({ queryKey: ['contracts', season.id], queryFn: () => unwrap(api.GET('/v1/contracts', { params: { query: { seasonId: season.id } } })) });
+  const contracts = cs.data?.data ?? [];
+  const signed = contracts.filter((c) => c.status === 'signed').length;
+  return (
+    <Card>
+      <CardHeader className="flex flex-wrap items-center justify-between gap-2">
+        <CardTitle>{t('contracts.packTitle')}</CardTitle>
+        <div className="flex gap-2">
+          {hasPermission('contract:manage') && (facs.data?.data.length ?? 0) > 0 && (
+            <Button
+              loading={busy === 'pack'}
+              data-testid="generate-pack"
+              onClick={() => run('pack', async () => {
+                const r = await unwrap(api.POST('/v1/blocks/{id}/contracts/actions/generate-pack', { params: { path: { id: season.blockId } }, body: { seasonId: season.id, send: true } }));
+                await qc.invalidateQueries({ queryKey: ['contracts'] });
+                return r;
+              }, t('contracts.packDone'))}
+            >
+              {t('contracts.generatePack')}
+            </Button>
+          )}
+          <Link className={buttonVariants({ variant: 'secondary' })} href={`/app/contracts?seasonId=${season.id}`}>{t('contracts.title')}</Link>
+        </div>
+      </CardHeader>
+      <CardBody className="space-y-3">
+        {msg && <Alert tone={msg.tone}>{msg.text}</Alert>}
+        <p className="text-sm text-neutral-600" data-testid="pack-progress">{t('contracts.packProgress', { signed, total: contracts.length })}</p>
+        <ul className="space-y-1 text-sm">
+          {(facs.data?.data ?? []).map((f) => (
+            <li key={f.id}>
+              <Link className="font-medium text-brand-700 hover:underline" href={`/app/facilities/${f.id}`}>{f.ref}</Link> · {f.lenderName} · {formatXof(f.principalXof)} · <Badge>{t(`facility.status.${f.status}`)}</Badge>
+            </li>
+          ))}
+        </ul>
+      </CardBody>
+    </Card>
   );
 }

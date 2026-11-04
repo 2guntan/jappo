@@ -78,5 +78,61 @@
     "title": "Award declined: {{lenderName}}",
     "subject": "Jappo — {{lenderName}} declines {{rfpRef}}",
     "body": "{{lenderName}} declined the award on {{rfpRef}}. Reason: {{reason}}. You can re-award the amount: {{link}}"
+  },
+  "contract.otp": {
+    "title": "Signature code",
+    "subject": "Jappo — signature code {{ref}}",
+    "body": "Your signature code for contract {{ref}} is {{code}}. Valid for 10 minutes. Do not share it.",
+    "sms": "Jappo: signature code {{ref}}: {{code}} (10 min). Do not share it."
+  },
+  "contract.to_sign": {
+    "title": "Contract to sign: {{ref}}",
+    "subject": "Jappo — {{title}} to sign",
+    "body": "Contract {{ref}} ({{title}}, block {{blockRef}}) awaits your signature. {{link}}"
+  },
+  "contract.signed": {
+    "title": "Contract signed: {{ref}}",
+    "subject": "Jappo — {{ref}} signed by all parties",
+    "body": "Contract {{ref}} ({{title}}) is signed by all parties. {{link}}"
+  },
+  "facility.created": {
+    "title": "Facility created: {{ref}}",
+    "subject": "Jappo — facility {{ref}}",
+    "body": "Facility {{ref}} of {{amount}} has been created (conditions precedent pending). {{link}}"
+  },
+  "facility.activated": {
+    "title": "Facility active: {{ref}}",
+    "subject": "Jappo — facility {{ref}} active",
+    "body": "Conditions precedent of facility {{ref}} ({{amount}}) are met. Disbursements can be requested. {{link}}"
+  },
+  "facility.in_arrears": {
+    "title": "Arrears: {{ref}}",
+    "subject": "Jappo — unpaid instalment on {{ref}}",
+    "body": "Facility {{ref}} has an unpaid instalment of {{amount}} since {{dueDate}}. {{link}}"
+  },
+  "disbursement.requested": {
+    "title": "Disbursement requested: {{ref}}",
+    "subject": "Jappo — disbursement request {{ref}}",
+    "body": "{{operatorName}} requests a disbursement of {{amount}} ({{purpose}}) on facility {{facilityRef}}. {{link}}"
+  },
+  "disbursement.approved": {
+    "title": "Disbursement approved: {{ref}}",
+    "subject": "Jappo — disbursement {{ref}} approved",
+    "body": "Disbursement {{ref}} of {{amount}} is approved and awaiting execution. {{link}}"
+  },
+  "disbursement.executed": {
+    "title": "Disbursement executed: {{ref}}",
+    "subject": "Jappo — disbursement {{ref}} executed",
+    "body": "Disbursement {{ref}} of {{amount}} has been executed (bank reference {{bankReference}}). {{link}}"
+  },
+  "disbursement.confirmed": {
+    "title": "Disbursement confirmed: {{ref}}",
+    "subject": "Jappo — disbursement {{ref}} confirmed",
+    "body": "Disbursement {{ref}} of {{amount}} is confirmed. {{link}}"
+  },
+  "disbursement.rejected": {
+    "title": "Disbursement rejected: {{ref}}",
+    "subject": "Jappo — disbursement {{ref}} rejected",
+    "body": "Disbursement {{ref}} of {{amount}} was rejected: {{reason}}. {{link}}"
   }
 }

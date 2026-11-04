@@ -10,7 +10,7 @@ Source of truth for the next session. Phases from SPEC §17. Update after every 
 - [x] P3 Catalogue, planning, offtake
 - [x] P4 Model, readiness, dossier
 - [x] P5 Marketplace
-- [ ] P6 Agreements & facilities
+- [x] P6 Agreements & facilities
 - [ ] P7 Operations & harvest
 - [ ] P8 Settlement
 - [ ] P9 Monitoring
@@ -59,9 +59,18 @@ Web: season tab *Financing* (create/submit request, tranches, matched lenders wi
 Tests: domain 33 tests (99 % lines); integration `marketplace.test.ts` (full tender incl. sealed-bid authz, MFA-gated submission, min share, deadline job, evaluation 2122/2100, override award, acceptance grants; extensions/cancel; watermark) — 61 integration tests; Playwright `p5-marketplace.spec.ts`.
 Known limitations: seasonal-profile bids use the schedule's default harvest month (tenor) for EAR; the structuring-fee invoice on `award.accepted` arrives with billing (P10).
 
+## P6 Agreements & facilities — done
+
+Domain: `addMonthsIso`, `datedSchedule`, `allocateFacility` (pro rata, exact column sums), `upfrontFeeXof`, `daysOverdue`, `harvestMonthsFor` (+ unit tests).
+Templates: six contract templates fr + en (`packages/templates/src/contract-seeds.ts`, structured drafts with all variables wired, counsel notice in the admin API summary), `renderContractBody` / `renderContractHtml` (signature page + content hash footer).
+API: tables `contract_templates`, `contracts`, `contract_parties`, `signatures`, `escrow_accounts`, `facilities`, `facility_farmer_allocations`, `schedule_lines`, `disbursements`, `repayments` (migration 0006); templates list + admin revision; contracts create (data assembled from block/season/award/offtake), edit editable clauses (draft), send (render, SHA-256 content hash, PDF via Chromium, notify signatories), void, PDF (signed version once complete), OTP request + sign (org parties by SMS/email code; farmers by SMS code or in person with witness, photo evidence and GPS), `generate-pack` (framework, plot contracts for allocated farmers, offtake drafts, loan contracts per facility, escrow mandate; optional send); signed plot contracts link allocations, signed offtake contracts become `signed`. Facilities created on award acceptance (schedule + farmer allocations), list/detail with CP checklist and totals, PATCH (loan ref, escrow), confirm-CP (re-dated schedule, block `financed`, financing request `contracted`), mark-default, restructure, escrow accounts, disbursement request/approve/reject/execute (four-eyes)/confirm, pending disbursements, repayments list, nightly arrears job; season start guard wired.
+Web: contracts list + detail (signatories, OTP signing, in-person signing, clauses, void, PDF), facilities portfolio + facility page (terms, schedule, disbursements with lender actions and operator request form, farmer allocations, repayments, CP checklist, escrow account setup/link, loan ref, restructure/default), season Financing tab *Contracts and facilities* (generate & send pack, progress), lender awards → facility link, field PWA *Farmer signatures* (photo + GPS, or SMS code).
+Tests: domain +5; integration `agreements-facilities.test.ts` (full pack signing incl. sign order, wrong code, in-person and SMS farmer signatures, CPs, four-eyes, season guard, arrears/restructure; template revision, clause rules, void; authz negatives for an unrelated lender) — 76 integration tests; Playwright `p6-agreements.spec.ts`.
+Known limitations: OTP codes remain readable in the `notifications.data` of queued messages (as for login OTPs) — redact after delivery in P11; repayments are only listed (posting comes with settlement in P8).
+
 ## In progress
 
-Nothing half-built. **Next concrete step:** P6 Agreements & facilities — tables `contract_templates`, `contracts`, `contract_parties`, `signatures`, `escrow_accounts`, `facilities`, `facility_farmer_allocations`, `schedule_lines`, `disbursements`, `repayments`; seed fr/en Handlebars templates (block_framework, plot_production, offtake, loan_seasonal, loan_investment, escrow_mandate) with the counsel notice; `POST /blocks/{id}/contracts/actions/generate-pack`, send/void, OTP e-signature (org parties) and in-person witnessed signature with photo (farmers, PWA), content hash fixed at send, signed PDF; facilities created from accepted awards (schedule via `buildSchedule`, farmer allocations from §9.1.3), confirm-CP (lender), escrow accounts, disbursement four-eyes flow (request → approve → execute → confirm by a different user), wire `seasonStartGuards.hasConfirmedDisbursement`, block `in_financing → financed` on first active facility.
+Nothing half-built. **Next concrete step:** P7 Operations & harvest — tables for service deliveries, visits, alerts (rules engine §9.8, nightly + on events), harvest weighing tickets (PWA, offline), dispatches, buyer acceptance with quality grades, buyer invoices (grade-adjusted amounts, OHADA mentions), escrow receipts with lender confirmation; block `financed → active` already happens at season start. Write fixture-based alert-rule tests and invoice amount tests first.
 
 ## How to run
 

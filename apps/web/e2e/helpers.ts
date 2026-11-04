@@ -183,3 +183,46 @@ export async function lenderViaApi(request: APIRequestContext, legalName: string
   await a.call('POST', '/v1/lender-profiles', { name: 'Profil', minTicketXof: 500_000, maxTicketXof: 50_000_000, maxTenorMonths: 12, trancheTypes: ['seasonal'], ...profile });
   return { api: a, email, totpSecret: secret };
 }
+
+/** Latest contract signature code sent to an email address or phone number. */
+export async function signatureCode(destination: string): Promise<string> {
+  const rows = await dbQuery<{ code: string }>("select data->>'code' as code from notifications where destination = $1 and template_code = 'contract.otp' order by id desc limit 1", [destination]);
+  if (!rows[0]?.code) throw new Error(`no signature code for ${destination}`);
+  return rows[0].code;
+}
+
+export const png = (name: string) => ({ name, mimeType: 'image/png', buffer: Buffer.from('89504e470d0a1a0a0000000d49484452000000010000000108060000001f15c4890000000d4944415478da63f8ffff3f0005fe02fea7d6a4b10000000049454e44ae426082', 'hex') });
+
+type ContractView = { id: string; type: string; status: string; parties: { id: string; partyType: string; farmerId: string | null; canSign: boolean }[] };
+
+/** Sign a contract through the API as the caller's organisation party (OTP read from the e2e DB). */
+export async function signAsOrg(a: E2eApi, contractId: string, destination: string) {
+  await a.call('POST', `/v1/contracts/${contractId}/signatures/actions/request-otp`, {});
+  return a.call<ContractView>('POST', `/v1/contracts/${contractId}/signatures`, { method: 'otp', code: await signatureCode(destination) });
+}
+
+/**
+ * readyScenarioViaApi + model run + frozen dossier + tender won and accepted by one lender
+ * (3 000 000 XOF, 18 % flat, 1 % fee, 6 months bullet) → facility pending_cp.
+ */
+export async function awardedViaApi(request: APIRequestContext, stamp = Date.now()) {
+  const s = await readyScenarioViaApi(request, stamp);
+  await s.op.call('PUT', `/v1/seasons/${s.seasonId}/model-assumptions`, { seasonal: { rateBps: 1800, rateMethod: 'flat', upfrontFeeBps: 100, tenorMonths: 6, repaymentProfile: 'bullet', feesChargedTo: 'operator', borrowerType: 'farmers' }, investment: null });
+  await s.op.call('POST', `/v1/seasons/${s.seasonId}/model-runs`);
+  const dossier = await s.op.call<{ id: string }>('POST', `/v1/seasons/${s.seasonId}/dossiers`);
+  const lenderName = `Mutuelle Alpha ${stamp % 10000} SFD`;
+  const alpha = await lenderViaApi(request, lenderName, 'sfd', { name: 'Campagne', regions: ['Ziguinchor'] }, stamp);
+  const fr = await s.op.call<{ id: string; version: number; tranches: { id: string }[] }>('POST', '/v1/financing-requests', { dossierId: dossier.id });
+  await s.op.call('POST', `/v1/financing-requests/${fr.id}/actions/submit`, undefined, { 'if-match': `"${fr.version}"` });
+  const rfp = await s.op.call<{ id: string; version: number }>('POST', '/v1/rfps', { financingRequestId: fr.id, lenderOrgIds: [alpha.api.orgId] });
+  await s.op.call('POST', `/v1/rfps/${rfp.id}/actions/open`, {}, { 'if-match': `"${rfp.version}"` });
+  const bid = await alpha.api.call<{ id: string; version: number }>('POST', `/v1/rfps/${rfp.id}/bids`, { trancheId: fr.tranches[0]!.id, amountXof: 3_000_000, rateBps: 1800, rateMethod: 'flat', upfrontFeeBps: 100, tenorMonths: 6, repaymentProfile: 'bullet', daysToDisbursement: 10, validUntil: '2027-06-30' });
+  await alpha.api.call('POST', `/v1/bids/${bid.id}/actions/submit`, undefined, { 'if-match': `"${bid.version}"` });
+  await s.op.call('POST', `/v1/rfps/${rfp.id}/actions/close-early`, {});
+  const closed = await s.op.call<{ version: number }>('GET', `/v1/rfps/${rfp.id}`);
+  await s.op.call('POST', `/v1/rfps/${rfp.id}/actions/award`, { awards: [{ bidId: bid.id, amountXof: 3_000_000 }] }, { 'if-match': `"${closed.version}"` });
+  const aw = await alpha.api.call<{ data: { id: string }[] }>('GET', '/v1/lender/awards');
+  await alpha.api.call('POST', `/v1/awards/${aw.data[0]!.id}/actions/accept`, {});
+  const fac = (await alpha.api.call<{ data: { id: string; ref: string }[] }>('GET', `/v1/facilities?blockId=${s.blockId}`)).data[0]!;
+  return { ...s, alpha, lenderName, buyerEmail: `ready.buyer.${stamp}@zeta.test`, frId: fr.id, facilityId: fac.id, facilityRef: fac.ref };
+}

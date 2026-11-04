@@ -10,3 +10,5 @@ export * from '../../modules/offtake/schema';
 export * from '../../modules/finance/schema';
 export * from '../../modules/dossier/schema';
 export * from '../../modules/marketplace/schema';
+export * from '../../modules/agreements/schema';
+export * from '../../modules/facilities/schema';

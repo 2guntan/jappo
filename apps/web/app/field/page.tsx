@@ -10,8 +10,9 @@ import { fieldDb, kvGet, kvSet, newClientId, type LocalFarmer, type QueuedOp } f
 import { formatDateTime } from '@/lib/utils';
 import { Alert, Badge, Button, Field, Input, Select } from '@/components/ui';
 import { LocaleSwitcher } from '@/components/layout/locale-switcher';
+import { SignContractsScreen } from '@/components/field/sign-contracts';
 
-type Screen = 'home' | 'enrol' | 'map' | 'allocate' | 'queue';
+type Screen = 'home' | 'enrol' | 'map' | 'allocate' | 'queue' | 'sign';
 
 function useOnline() {
   const [online, setOnline] = useState(true);
@@ -174,6 +175,7 @@ export default function FieldApp() {
                 ))}
               </div>
             )}
+            {canSync && <Button variant="secondary" className="w-full" data-testid="field-sign" onClick={() => setScreen('sign')}>{t('signContracts')}</Button>}
             <p className="text-xs text-neutral-500">{t('farmersLocal')} : {farmers.length} · {blocks.map((b) => b.ref).join(', ')}</p>
             {me && <Link href="/app" className="block text-center text-sm text-brand-700">{t('back')}</Link>}
           </>
@@ -181,6 +183,7 @@ export default function FieldApp() {
         {screen === 'enrol' && <EnrolScreen onDone={(text) => { setMsg({ tone: 'success', text }); setScreen('home'); }} />}
         {screen === 'map' && <MapPlotScreen blocks={blocks} onDone={(text) => { setMsg({ tone: 'success', text }); setScreen('home'); }} />}
         {screen === 'allocate' && <AllocateScreen plots={plots} farmers={farmers} onDone={(text) => { setMsg({ tone: 'success', text }); setScreen('home'); }} />}
+        {screen === 'sign' && (canSync ? <SignContractsScreen /> : <Alert tone="info">{t('signOnline')}</Alert>)}
         {screen === 'queue' && (
           <ul className="divide-y divide-neutral-100 rounded-lg border border-neutral-200 text-sm" data-testid="sync-queue">
             {queue.map((q) => (

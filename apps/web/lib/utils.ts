@@ -39,3 +39,6 @@ export const kycTone = (s: string) => (s === 'verified' ? 'green' : s === 'rejec
 
 export const statusTone = (s: string) =>
   (({ draft: 'neutral', documenting: 'blue', ready: 'green', in_financing: 'amber', financed: 'green', active: 'green', archived: 'neutral', available: 'neutral', allocated: 'green', fallow: 'amber', excluded: 'red', submitted: 'blue', verified: 'green', rejected: 'red', expired: 'red', pending: 'amber', open: 'amber', in_progress: 'blue', resolved: 'green', closed: 'neutral' }) as Record<string, 'neutral' | 'blue' | 'green' | 'amber' | 'red'>)[s] ?? 'neutral';
+
+export const contractTone = (s: string) => (({ draft: 'neutral', out_for_signature: 'amber', partially_signed: 'blue', signed: 'green', voided: 'red' }) as Record<string, 'neutral' | 'amber' | 'blue' | 'green' | 'red'>)[s] ?? 'neutral';
+export const facilityTone = (s: string) => (({ pending_cp: 'amber', active: 'green', in_arrears: 'red', repaid: 'neutral', defaulted: 'red', restructured: 'blue', requested: 'amber', approved: 'blue', executed: 'blue', confirmed: 'green', rejected: 'red', due: 'neutral', paid: 'green', partial: 'amber', overdue: 'red' }) as Record<string, 'neutral' | 'amber' | 'blue' | 'green' | 'red'>)[s] ?? 'neutral';
