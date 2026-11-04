@@ -1,0 +1,32 @@
+{
+  "asOf": "2027-06-30",
+  "plantedHa": 3,
+  "baseProductionT": 21,
+  "farmers": [
+    { "sex": "F", "birthYear": 1990 },
+    { "sex": "F", "birthYear": 1996 },
+    { "sex": "M", "birthYear": 1975 },
+    { "sex": "M", "birthYear": null }
+  ],
+  "facilities": [
+    { "trancheType": "seasonal", "disbursedXof": 3000000, "outstandingPrincipalXof": 122000, "lines": [{ "dueDate": "2027-05-15", "totalXof": 3270000, "paidXof": 3148000 }] },
+    { "trancheType": "investment", "disbursedXof": 8000000, "outstandingPrincipalXof": 6000000, "lines": [{ "dueDate": "2027-03-31", "totalXof": 1200000, "paidXof": 1200000 }, { "dueDate": "2027-09-30", "totalXof": 1200000, "paidXof": 0 }] },
+    { "trancheType": "seasonal", "disbursedXof": 1000000, "outstandingPrincipalXof": 1000000, "lines": [{ "dueDate": "2027-03-01", "totalXof": 1090000, "paidXof": 0 }] }
+  ],
+  "expectedKg": 20000,
+  "deliveredKg": 23000,
+  "invoices": [
+    { "issuedAt": "2027-04-01", "amountXof": 5750000, "paidAt": "2027-04-21" },
+    { "issuedAt": "2027-05-01", "amountXof": 100000, "paidAt": "2027-05-06" },
+    { "issuedAt": "2027-06-01", "amountXof": 100000, "paidAt": null }
+  ],
+  "settlement": [
+    { "payoutXof": 1542000, "baselineIncomeXof": 900000, "feesPaidXof": 150000 },
+    { "payoutXof": 760000, "baselineIncomeXof": 600000, "feesPaidXof": 150000 },
+    { "payoutXof": 0, "baselineIncomeXof": null, "feesPaidXof": 0 }
+  ],
+  "serviceCostXof": 3000000,
+  "submittedAt": "2026-11-20",
+  "firstDisbursementAt": "2026-12-15",
+  "openAlerts": [{ "severity": "critical" }, { "severity": "warning" }, { "severity": "warning" }]
+}

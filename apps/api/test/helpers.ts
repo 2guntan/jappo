@@ -373,3 +373,43 @@ export async function activeSeasonScenario(t: TestApp) {
   expectStatus(await t.app.inject({ method: 'POST', url: `/v1/seasons/${s.seasonId}/actions/start`, headers: auth(s.op, { 'if-match': `"${season.version}"` }), payload: { selfFinanced: false } }), 200);
   return { ...s, opEmail, buyerEmail, escrowAccountId: esc.id };
 }
+
+/** WF-1 harvest on exactly 1 ha plots: 12 000 / 8 000 / 3 000 kg at 250 XOF accepted, invoiced and paid 5 750 000 into escrow. */
+export async function wf1Harvest(t: TestApp, s: Awaited<ReturnType<typeof activeSeasonScenario>>) {
+  const { plots: plotsTable } = await import('../src/modules/land/schema');
+  const { plantings: plantingsTable } = await import('../src/modules/planning/schema');
+  const { eq } = await import('drizzle-orm');
+  for (const p of s.plots) {
+    await t.ctx.db.update(plotsTable).set({ areaHa: '1' }).where(eq(plotsTable.id, p.id));
+    await t.ctx.db.update(plantingsTable).set({ areaHa: '1' }).where(eq(plantingsTable.plotId, p.id));
+  }
+  const tickets: string[] = [];
+  for (const [i, kg] of [12_000, 8_000, 3_000].entries()) {
+    const r = await t.app.inject({ method: 'POST', url: `/v1/seasons/${s.seasonId}/harvest-deliveries`, headers: auth(s.op), payload: { plotId: s.plots[i]!.id, farmerId: s.farmers[i]!.id, grossKg: kg, tareKg: 0, grade: 'A' } });
+    expectStatus(r, 201);
+    tickets.push(r.json().id);
+  }
+  const d = json<{ id: string }>(await t.app.inject({ method: 'POST', url: `/v1/seasons/${s.seasonId}/dispatches`, headers: auth(s.op), payload: { offtakeContractId: s.offtakeId, deliveryIds: tickets } }));
+  expectStatus(await t.app.inject({ method: 'POST', url: `/v1/dispatches/${d.id}/actions/accept`, headers: auth(s.buyer, { 'if-match': '"1"' }), payload: { acceptedKg: 23_000, rejectedKg: 0 } }), 200);
+  const inv = json<{ id: string }>(await t.app.inject({ method: 'POST', url: '/v1/buyer-invoices', headers: auth(s.op), payload: { dispatchIds: [d.id] } }));
+  expectStatus(await t.app.inject({ method: 'POST', url: '/v1/escrow-receipts', headers: auth(s.alpha), payload: { escrowAccountId: s.escrowAccountId, amountXof: 5_750_000, valueDate: new Date().toISOString().slice(0, 10), bankReference: 'ZETA-VIR-5750', buyerInvoiceId: inv.id } }), 201);
+}
+
+/** Settle the season end to end (compute → approvals → instruct → confirm all → executed → reconciled). */
+export async function settleSeason(t: TestApp, s: Awaited<ReturnType<typeof activeSeasonScenario>>) {
+  let run = json<{ id: string; version: number }>(await t.app.inject({ method: 'POST', url: `/v1/seasons/${s.seasonId}/settlement-runs`, headers: auth(s.op) }));
+  const step = async (action: string, who: Session, ifMatch = true) => {
+    const r = await t.app.inject({ method: 'POST', url: `/v1/settlement-runs/${run.id}/actions/${action}`, headers: auth(who, ifMatch ? { 'if-match': `"${run.version}"` } : {}) });
+    expectStatus(r, 200);
+    run = r.json();
+  };
+  await step('approve-operator', s.op);
+  await step('approve-lender', s.alpha, false);
+  await step('instruct', s.op);
+  const ins = json<{ data: { id: string; beneficiaryType: string }[] }>(await t.app.inject({ method: 'GET', url: `/v1/settlement-runs/${run.id}/instructions`, headers: auth(s.op) })).data;
+  for (const i of ins) expectStatus(await t.app.inject({ method: 'POST', url: `/v1/payout-instructions/${i.id}/actions/confirm`, headers: auth(i.beneficiaryType === 'lender' ? s.alpha : s.op), payload: {} }), 200);
+  run = json(await t.app.inject({ method: 'GET', url: `/v1/settlement-runs/${run.id}`, headers: auth(s.op) }));
+  await step('mark-executed', s.op);
+  await step('reconcile', s.op);
+  return run.id;
+}

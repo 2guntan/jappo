@@ -162,7 +162,9 @@
     "buyerDispatches": "Receipts",
     "buyerInvoices": "Invoices and payments",
     "adminAlertRules": "Alert rules",
-    "settlements": "Settlements"
+    "settlements": "Settlements",
+    "guarantor": "Covered portfolio",
+    "reports": "Reports"
   },
   "app": {
     "welcome": "Hello {name}",
@@ -394,7 +396,8 @@
       "offtake": "Offtake",
       "investment": "Investment",
       "risk": "Risk covers",
-      "alerts": "Alerts"
+      "alerts": "Alerts",
+      "monitoring": "Monitoring"
     },
     "boundary": "Block boundary",
     "noBoundary": "No boundary yet. Draw it on the map or import a GeoJSON/KML file.",
@@ -1494,5 +1497,58 @@
     "paid": "paid",
     "arrears": "arrears",
     "logout": "Sign out"
+  },
+  "kpi": {
+    "areaFinancedHa": "Area financed",
+    "farmers": "Farmers",
+    "womenPct": "Women",
+    "youthPct": "Youth < 35",
+    "disbursed": "Disbursed",
+    "outstanding": "Outstanding",
+    "par30Pct": "PAR 30",
+    "par90Pct": "PAR 90",
+    "repaymentRatePct": "Repayment rate",
+    "deliveryRatePct": "Delivered / expected",
+    "deliveredKg": "Delivered",
+    "yieldAchievedTHa": "Yield achieved",
+    "buyerPaymentDelayDays": "Buyer payment delay",
+    "farmerNetIncomeAvgXof": "Average farmer net income",
+    "farmerNetIncomeMedianXof": "Median net income",
+    "directCostRecoveryPct": "Cost recovery",
+    "alerts": "Critical / warning alerts"
+  },
+  "dashboard": {
+    "blocksByStatus": "Blocks by status",
+    "tasks": "To do",
+    "contractsPending": "{count} contract(s) out for signature",
+    "disbursements": "{count} disbursement(s) in progress",
+    "settlements": "{count} open settlement(s)",
+    "pending": "Pending",
+    "opportunities": "{count} open opportunit(ies)",
+    "cps": "{count} facilit(ies) awaiting CPs",
+    "settlementsToApprove": "{count} settlement(s) to approve"
+  },
+  "reports": {
+    "title": "Reports",
+    "subtitle": "Monitoring PDF reports",
+    "type": "Type",
+    "period": "Period (YYYY or YYYY-MM)",
+    "generate": "Generate report",
+    "generated": "Report generated.",
+    "generatedAt": "Generated",
+    "types": {
+      "lender_monthly": "Lender monthly report",
+      "season_close": "Season close",
+      "guarantor_portfolio": "Guarantee portfolio"
+    }
+  },
+  "guarantor": {
+    "title": "Covered portfolio",
+    "exposure": "Exposure",
+    "threshold": "claim threshold: {days} days",
+    "empty": "No covered facility.",
+    "coverage": "Coverage",
+    "overdueDays": "Days overdue",
+    "claimCandidate": "Claim candidate"
   }
 }

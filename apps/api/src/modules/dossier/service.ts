@@ -23,6 +23,8 @@ import { budgetSummary, listPlantings, loadSeason } from '../planning/service';
 import { blockVisible, loadBlock } from '../land/service';
 import { currentInputsHash, getAssumptions, latestRun, assembleModelInput } from '../finance/service';
 import { linkFile } from '../files/service';
+import { grant } from '../../core/authz/visibility';
+import { facilities } from '../facilities/schema';
 
 const today = () => new Date().toISOString().slice(0, 10);
 
@@ -302,12 +304,21 @@ export async function listCovers(db: DbOrTx, actor: ActorContext, blockId: strin
   return (await db.select().from(riskCovers).where(eq(riskCovers.blockId, blockId)).orderBy(desc(riskCovers.id))).map(coverDto);
 }
 
+/** Committed/active covers with a provider org: read grants on the block and the covered facilities (SPEC §12.6). */
+async function grantCoverProvider(tx: DbOrTx, c: typeof riskCovers.$inferSelect) {
+  if (!c.providerOrgId || !['committed', 'active'].includes(c.status)) return;
+  await grant(tx, { resourceType: 'block', resourceId: c.blockId, granteeOrgId: c.providerOrgId, scope: 'read', grantedByEvent: 'risk_cover.committed', expiresAt: null });
+  const facs = await tx.select({ id: facilities.id, trancheId: facilities.trancheId }).from(facilities).where(eq(facilities.blockId, c.blockId));
+  for (const f of facs) if (!c.trancheId || c.trancheId === f.trancheId) await grant(tx, { resourceType: 'facility', resourceId: f.id, granteeOrgId: c.providerOrgId, scope: 'read', grantedByEvent: 'risk_cover.committed', expiresAt: null });
+}
+
 export async function createCover(db: Db, actor: ActorContext, blockId: string, body: { type: typeof riskCovers.$inferInsert.type; providerOrgId?: string | null; providerName: string; coveragePct: number; capXof?: number | null; premiumXof?: number | null; status: typeof riskCovers.$inferInsert.status; fileId?: string | null; trancheId?: string | null }) {
   return db.transaction(async (tx) => {
     const b = await loadBlock(tx, actor, blockId, true);
     if (body.fileId) await linkFile(tx, actor, body.fileId, 'block', blockId);
     const [c] = await tx.insert(riskCovers).values({ ...body, coveragePct: String(body.coveragePct), blockId, ownerOrgId: b.ownerOrgId, createdBy: actorUserId(actor) }).returning();
     await audit(tx, actor, { action: 'risk_cover.created', resourceType: 'risk_cover', resourceId: c!.id, after: body });
+    await grantCoverProvider(tx, c!);
     return coverDto(c!);
   });
 }
@@ -323,6 +334,7 @@ export async function updateCover(db: Db, actor: ActorContext, id: string, expec
     if (body.fileId) await linkFile(tx, actor, body.fileId, 'block', c.blockId);
     const [after] = await tx.update(riskCovers).set({ ...body, coveragePct: body.coveragePct === undefined ? undefined : String(body.coveragePct), version: c.version + 1 }).where(eq(riskCovers.id, id)).returning();
     await audit(tx, actor, { action: 'risk_cover.updated', resourceType: 'risk_cover', resourceId: id, before: coverDto(c), after: body });
+    await grantCoverProvider(tx, after!);
     return coverDto(after!);
   });
 }

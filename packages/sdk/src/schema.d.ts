@@ -3432,6 +3432,123 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/v1/dashboards/operator": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** KPIs, blocks by status, open alerts, tasks */
+        get: operations["getOperatorDashboard"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v1/dashboards/lender": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Portfolio KPIs (outstanding, PAR, repayment rate) and pending approvals */
+        get: operations["getLenderDashboard"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v1/dashboards/block/{id}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["getBlockDashboard"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v1/dashboards/guarantor": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Covered facilities, exposure, PAR, claim candidates */
+        get: operations["getGuarantorDashboard"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v1/kpis": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Nightly KPI snapshots for a scope */
+        get: operations["listKpis"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v1/reports": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["listReports"];
+        put?: never;
+        /** Generate a PDF report (lender monthly, season close, guarantor portfolio) */
+        post: operations["createReport"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v1/reports/{id}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["getReport"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/v1/field/bootstrap": {
         parameters: {
             query?: never;
@@ -5226,6 +5343,173 @@ export interface components {
             /** Format: date-time */
             createdAt: string;
         };
+        KpisInput: {
+            areaFinancedHa: number;
+            farmers: number;
+            womenPct: number | null;
+            youthPct: number | null;
+            disbursedXof: {
+                seasonal: number;
+                investment: number;
+                total: number;
+            };
+            outstandingXof: {
+                seasonal: number;
+                investment: number;
+                total: number;
+            };
+            par30Pct: number | null;
+            par90Pct: number | null;
+            repaymentRatePct: number | null;
+            expectedKg: number;
+            deliveredKg: number;
+            deliveryRatePct: number | null;
+            yieldAchievedTHa: number | null;
+            yieldBaseTHa: number | null;
+            yieldAchievedPctOfBase: number | null;
+            buyerPaymentDelayDays: number | null;
+            farmerNetIncomeAvgXof: number | null;
+            farmerNetIncomeMedianXof: number | null;
+            valueCreatedAvgXof: number | null;
+            serviceCostPerFarmerXof: number | null;
+            directCostRecoveryPct: number | null;
+            daysSubmissionToFirstDisbursement: number | null;
+            alerts: {
+                info: number;
+                warning: number;
+                critical: number;
+            };
+        };
+        KpiSeriesInput: {
+            data: {
+                /** Format: date */
+                date: string;
+                metrics: components["schemas"]["KpisInput"];
+            }[];
+        };
+        OperatorDashboardInput: {
+            blocksByStatus: {
+                [key: string]: number;
+            };
+            blocks: {
+                /** Format: uuid */
+                id: string;
+                ref: string;
+                name: string;
+                status: string;
+                region: string;
+            }[];
+            kpis: components["schemas"]["KpisInput"];
+            alerts: {
+                /** Format: uuid */
+                id: string;
+                /** @enum {string} */
+                severity: "info" | "warning" | "critical";
+                message: string;
+                /** Format: date-time */
+                createdAt: string;
+                /** Format: uuid */
+                blockId: string;
+            }[];
+            tasks: {
+                contractsPendingSignature: number;
+                disbursementsInProgress: number;
+                settlementsOpen: number;
+            };
+        };
+        LenderDashboardInput: {
+            kpis: components["schemas"]["KpisInput"];
+            facilities: {
+                /** Format: uuid */
+                id: string;
+                ref: string;
+                blockRef: string;
+                blockName: string;
+                status: string;
+                principalXof: number;
+                trancheType: string;
+            }[];
+            pending: {
+                cpToConfirm: number;
+                disbursements: number;
+                settlementsToApprove: number;
+                contractsToSign: number;
+            };
+            openOpportunities: number;
+        };
+        BlockDashboardInput: {
+            block: {
+                /** Format: uuid */
+                id: string;
+                ref: string;
+                name: string;
+                status: string;
+            };
+            season: {
+                /** Format: uuid */
+                id: string;
+                name: string;
+                status: string;
+                /** Format: date */
+                startDate: string;
+                /** Format: date */
+                endDate: string;
+            } | null;
+            kpis: components["schemas"]["KpisInput"];
+            harvestProgressPct: number | null;
+            alerts: {
+                /** Format: uuid */
+                id: string;
+                /** @enum {string} */
+                severity: "info" | "warning" | "critical";
+                message: string;
+                /** Format: date-time */
+                createdAt: string;
+                status: string;
+            }[];
+            recentVisits: {
+                plotCode: string;
+                /** Format: date-time */
+                visitedAt: string;
+                healthScore: number;
+                cropStage: string;
+            }[];
+        };
+        GuarantorDashboardInput: {
+            kpis: components["schemas"]["KpisInput"];
+            claimThresholdDays: number;
+            totalExposureXof: number;
+            facilities: {
+                /** Format: uuid */
+                facilityId: string;
+                facilityRef: string;
+                /** Format: uuid */
+                blockId: string;
+                blockRef: string;
+                blockName: string;
+                lenderName: string;
+                coverType: string;
+                coveragePct: number;
+                outstandingXof: number;
+                exposureXof: number;
+                maxOverdueDays: number;
+                claimCandidate: boolean;
+                status: string;
+            }[];
+        };
+        ReportInput: {
+            /** Format: uuid */
+            id: string;
+            /** @enum {string} */
+            type: "lender_monthly" | "season_close" | "guarantor_portfolio";
+            scopeId: string | null;
+            period: string;
+            status: string;
+            hasPdf: boolean;
+            generatedAt: string | null;
+            /** Format: date-time */
+            createdAt: string;
+        };
         Problem: {
             type: string;
             title: string;
@@ -6979,6 +7263,173 @@ export interface components {
             grossCreditXof: number;
             payoutXof: number;
             arrearsXof: number;
+            /** Format: date-time */
+            createdAt: string;
+        };
+        Kpis: {
+            areaFinancedHa: number;
+            farmers: number;
+            womenPct: number | null;
+            youthPct: number | null;
+            disbursedXof: {
+                seasonal: number;
+                investment: number;
+                total: number;
+            };
+            outstandingXof: {
+                seasonal: number;
+                investment: number;
+                total: number;
+            };
+            par30Pct: number | null;
+            par90Pct: number | null;
+            repaymentRatePct: number | null;
+            expectedKg: number;
+            deliveredKg: number;
+            deliveryRatePct: number | null;
+            yieldAchievedTHa: number | null;
+            yieldBaseTHa: number | null;
+            yieldAchievedPctOfBase: number | null;
+            buyerPaymentDelayDays: number | null;
+            farmerNetIncomeAvgXof: number | null;
+            farmerNetIncomeMedianXof: number | null;
+            valueCreatedAvgXof: number | null;
+            serviceCostPerFarmerXof: number | null;
+            directCostRecoveryPct: number | null;
+            daysSubmissionToFirstDisbursement: number | null;
+            alerts: {
+                info: number;
+                warning: number;
+                critical: number;
+            };
+        };
+        KpiSeries: {
+            data: {
+                /** Format: date */
+                date: string;
+                metrics: components["schemas"]["Kpis"];
+            }[];
+        };
+        OperatorDashboard: {
+            blocksByStatus: {
+                [key: string]: number;
+            };
+            blocks: {
+                /** Format: uuid */
+                id: string;
+                ref: string;
+                name: string;
+                status: string;
+                region: string;
+            }[];
+            kpis: components["schemas"]["Kpis"];
+            alerts: {
+                /** Format: uuid */
+                id: string;
+                /** @enum {string} */
+                severity: "info" | "warning" | "critical";
+                message: string;
+                /** Format: date-time */
+                createdAt: string;
+                /** Format: uuid */
+                blockId: string;
+            }[];
+            tasks: {
+                contractsPendingSignature: number;
+                disbursementsInProgress: number;
+                settlementsOpen: number;
+            };
+        };
+        LenderDashboard: {
+            kpis: components["schemas"]["Kpis"];
+            facilities: {
+                /** Format: uuid */
+                id: string;
+                ref: string;
+                blockRef: string;
+                blockName: string;
+                status: string;
+                principalXof: number;
+                trancheType: string;
+            }[];
+            pending: {
+                cpToConfirm: number;
+                disbursements: number;
+                settlementsToApprove: number;
+                contractsToSign: number;
+            };
+            openOpportunities: number;
+        };
+        BlockDashboard: {
+            block: {
+                /** Format: uuid */
+                id: string;
+                ref: string;
+                name: string;
+                status: string;
+            };
+            season: {
+                /** Format: uuid */
+                id: string;
+                name: string;
+                status: string;
+                /** Format: date */
+                startDate: string;
+                /** Format: date */
+                endDate: string;
+            } | null;
+            kpis: components["schemas"]["Kpis"];
+            harvestProgressPct: number | null;
+            alerts: {
+                /** Format: uuid */
+                id: string;
+                /** @enum {string} */
+                severity: "info" | "warning" | "critical";
+                message: string;
+                /** Format: date-time */
+                createdAt: string;
+                status: string;
+            }[];
+            recentVisits: {
+                plotCode: string;
+                /** Format: date-time */
+                visitedAt: string;
+                healthScore: number;
+                cropStage: string;
+            }[];
+        };
+        GuarantorDashboard: {
+            kpis: components["schemas"]["Kpis"];
+            claimThresholdDays: number;
+            totalExposureXof: number;
+            facilities: {
+                /** Format: uuid */
+                facilityId: string;
+                facilityRef: string;
+                /** Format: uuid */
+                blockId: string;
+                blockRef: string;
+                blockName: string;
+                lenderName: string;
+                coverType: string;
+                coveragePct: number;
+                outstandingXof: number;
+                exposureXof: number;
+                maxOverdueDays: number;
+                claimCandidate: boolean;
+                status: string;
+            }[];
+        };
+        Report: {
+            /** Format: uuid */
+            id: string;
+            /** @enum {string} */
+            type: "lender_monthly" | "season_close" | "guarantor_portfolio";
+            scopeId: string | null;
+            period: string;
+            status: string;
+            hasPdf: boolean;
+            generatedAt: string | null;
             /** Format: date-time */
             createdAt: string;
         };
@@ -14693,6 +15144,199 @@ export interface operations {
                     "application/json": {
                         url: string;
                         fileId: string;
+                    };
+                };
+            };
+        };
+    };
+    getOperatorDashboard: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Default Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["OperatorDashboard"];
+                };
+            };
+        };
+    };
+    getLenderDashboard: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Default Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["LenderDashboard"];
+                };
+            };
+        };
+    };
+    getBlockDashboard: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Default Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["BlockDashboard"];
+                };
+            };
+        };
+    };
+    getGuarantorDashboard: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Default Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["GuarantorDashboard"];
+                };
+            };
+        };
+    };
+    listKpis: {
+        parameters: {
+            query: {
+                scopeType: "block" | "season" | "lender_portfolio" | "platform";
+                scopeId?: string;
+                from?: string;
+                to?: string;
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Default Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["KpiSeries"];
+                };
+            };
+        };
+    };
+    listReports: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Default Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        data: components["schemas"]["Report"][];
+                    };
+                };
+            };
+        };
+    };
+    createReport: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": {
+                    /** @enum {string} */
+                    type: "lender_monthly" | "season_close" | "guarantor_portfolio";
+                    scopeId?: string | null;
+                    period: string;
+                };
+            };
+        };
+        responses: {
+            /** @description Default Response */
+            201: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Report"];
+                };
+            };
+        };
+    };
+    getReport: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Default Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** Format: uuid */
+                        id: string;
+                        /** @enum {string} */
+                        type: "lender_monthly" | "season_close" | "guarantor_portfolio";
+                        scopeId: string | null;
+                        period: string;
+                        status: string;
+                        hasPdf: boolean;
+                        generatedAt: string | null;
+                        /** Format: date-time */
+                        createdAt: string;
+                        url: string | null;
                     };
                 };
             };

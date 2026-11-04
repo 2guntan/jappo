@@ -13,7 +13,7 @@ Source of truth for the next session. Phases from SPEC §17. Update after every 
 - [x] P6 Agreements & facilities
 - [x] P7 Operations & harvest
 - [x] P8 Settlement
-- [ ] P9 Monitoring
+- [x] P9 Monitoring
 - [ ] P10 Commercial
 - [ ] P11 Hardening & acceptance
 
@@ -84,9 +84,17 @@ Web: settlements list + run page (distribution cards, lines, approvals, actions,
 Tests: domain 53; integration `settlement.test.ts` reproduces WF-1 end to end (lines, distribution, instructions Σ = 5 750 000, exports, approvals incl. recompute, authz negatives, arrears, statements, lender confirmation posting 270 000 interest + 2 878 000 principal, CSV import with failure, reconciliation blocked then passing, season closed, block financed, farmer portal own-data only) and WF-2 (solidarity 81 722 / 40 278) — 67 integration tests; Playwright `p8-settlement.spec.ts`.
 Known limitations: payout providers are manual/CSV (no live Wave/Orange API calls); without an operator investment facility the investment fees go to the operator (WF-1's 200 000 "investment" line needs the investment tranche of P11's scenario).
 
+## P9 Monitoring — done
+
+Domain: `computeKpis` (§9.9) with fixture + expected-values file (`test/fixtures/kpi-fixture.json`, `kpi-expected.json`) and zero-division test.
+API: tables `kpi_snapshots`, `reports` (migration 0009); nightly snapshot job (blocks, lender portfolios, platform; idempotent per date), `GET /kpis`, dashboards operator / lender / block / guarantor, reports (lender monthly, season close, guarantor portfolio PDFs); guarantor read grants from committed risk covers.
+Web: home dashboards (operator KPIs, blocks by status, tasks, alerts; lender portfolio KPIs and pending approvals), block tab *Monitoring*, reports page, guarantor portfolio page (exposure, claim candidates, links to read-only block monitoring).
+Tests: domain 55; integration `monitoring.test.ts` (snapshots on a settled WF-1 season: farmers 3, women 100 %, disbursed 3 000 000, outstanding 122 000, delivered 23 000 kg, net income avg 767 333 / median 760 000; dashboards; guarantor exposure 61 000; reports; authz negatives) — 68 integration tests; Playwright `p9-monitoring.spec.ts`.
+Known limitations: dashboards are tables and tiles (no time-series charts yet; the KPI series endpoint is ready for them).
+
 ## In progress
 
-Nothing half-built. **Next concrete step:** P9 Monitoring — KPI snapshot job (§9.9, nightly per block/season and per lender portfolio; table `kpi_snapshots`), `GET /dashboards/operator|lender|block/{id}`, `GET /kpis`, reports (`POST /reports` → PDF job: `lender_report`, `settlement_summary`), guarantor/insurer view (§12.6); write a KPI fixture with an expected-values file first, then the engine (`computeKpis` in `packages/domain`).
+Nothing half-built. **Next concrete step:** P10 Commercial — read SPEC §15 (billing) and §10.17; tables plans, subscriptions, platform invoices (+ PDF, OHADA mentions, VAT 18 %), invoicing jobs (season start, structuring fee on award acceptance), overdue rules, public site pricing page, admin console completion (plans, subscriptions, invoices, settings, holidays, contract template editor with preview, webhooks delivery monitor), webhooks UI (`/v1/webhooks` already planned in §11.2), `/v1/modules`-generated navigation check. DoD: a new operator can self-signup, subscribe, and is invoiced at season start.
 
 ## How to run
 

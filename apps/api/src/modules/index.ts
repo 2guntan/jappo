@@ -24,6 +24,8 @@ import { operationsRoutes } from './operations/routes';
 import { runAlerts } from './operations/service';
 import { harvestRoutes } from './harvest/routes';
 import { settlementRoutes } from './settlement/routes';
+import { monitoringRoutes } from './monitoring/routes';
+import { snapshotKpis } from './monitoring/service';
 
 // Season start guard (SPEC §8.2) is provided by the facilities module.
 seasonStartGuards.hasConfirmedDisbursement = (tx, seasonId) => hasConfirmedDisbursement(tx, seasonId);
@@ -199,6 +201,26 @@ export const MODULES: JappoModule[] = validateModules([
       workspace: ['operator', 'lender'],
       navItems: [{ key: 'settlements', href: '/app/settlements', labelKey: 'nav.settlements', permission: 'settlement:read' }],
     },
+  },
+  {
+    name: 'monitoring',
+    version: '1.0.0',
+    core: true,
+    dependsOn: ['settlement'],
+    routes: monitoringRoutes,
+    jobs: [{ name: 'kpis.snapshot', cron: '0 2 * * *', handler: async (ctx) => void (await snapshotKpis(ctx.db)) }],
+    ui: {
+      workspace: ['operator', 'lender', 'guarantor', 'insurer'],
+      navItems: [{ key: 'reports', href: '/app/reports', labelKey: 'nav.reports', permission: 'report:read' }],
+    },
+  },
+  {
+    // Guarantor / insurer workspace (SPEC §12.6); API routes live in `monitoring`.
+    name: 'guarantor-portfolio',
+    version: '1.0.0',
+    core: true,
+    dependsOn: ['monitoring'],
+    ui: { workspace: ['guarantor', 'insurer'], navItems: [{ key: 'portfolio', href: '/app/guarantor', labelKey: 'nav.guarantor', permission: 'kpi:read' }] },
   },
   {
     name: 'field',

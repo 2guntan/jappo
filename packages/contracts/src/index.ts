@@ -10,3 +10,4 @@ export * from './marketplace';
 export * from './agreements';
 export * from './operations';
 export * from './settlement';
+export * from './monitoring';

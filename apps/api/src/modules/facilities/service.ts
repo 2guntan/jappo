@@ -5,7 +5,7 @@ import {
 import type { Db, DbOrTx } from '../../db/client';
 import { disbursements, escrowAccounts, facilities, facilityFarmerAllocations, repayments, scheduleLines } from './schema';
 import { awards, bids, financingRequests, rfps, tranches } from '../marketplace/schema';
-import { dossiers } from '../dossier/schema';
+import { dossiers, riskCovers } from '../dossier/schema';
 import { financingAssumptions, modelRuns } from '../finance/schema';
 import { memberships, organizations } from '../identity/schema';
 import { farmers } from '../farmers/schema';
@@ -120,6 +120,13 @@ export async function createFacilityFromAward(tx: DbOrTx, actor: ActorContext, a
   const lines = await writeSchedule(tx, f!, m.harvestMonths);
   await writeAllocations(tx, f!, lines.reduce((s, l) => s + l.interestXof, 0), m.farmerCredit);
   await grant(tx, { resourceType: 'facility', resourceId: f!.id, granteeOrgId: a.lenderOrgId, scope: 'act', grantedByEvent: 'facility.created', expiresAt: null });
+  // Guarantors / insurers covering the tranche (or the whole block) get read access to the facility and the block (SPEC §12.6).
+  const covers = await tx.select().from(riskCovers).where(and(eq(riskCovers.blockId, f!.blockId), inArray(riskCovers.status, ['committed', 'active'])));
+  for (const c of covers) {
+    if (!c.providerOrgId || (c.trancheId && c.trancheId !== f!.trancheId)) continue;
+    await grant(tx, { resourceType: 'facility', resourceId: f!.id, granteeOrgId: c.providerOrgId, scope: 'read', grantedByEvent: 'facility.created', expiresAt: null });
+    await grant(tx, { resourceType: 'block', resourceId: f!.blockId, granteeOrgId: c.providerOrgId, scope: 'read', grantedByEvent: 'facility.created', expiresAt: null });
+  }
   await audit(tx, actor, { action: 'facility.created', resourceType: 'facility', resourceId: f!.id, after: { ref: f!.ref, awardId, principalXof: f!.principalXof } });
   await emit(tx, actor, 'facility.created', { type: 'facility', id: f!.id }, { ref: f!.ref, blockId: f!.blockId, lenderOrgId: f!.lenderOrgId, principalXof: f!.principalXof }, f!.operatorOrgId);
   await notifyOrgRoles(tx, f!.operatorOrgId, ['operator_manager', 'finance_officer'], { channels: ['in_app'], templateCode: 'facility.created', data: { ref: f!.ref, amount: formatXof(f!.principalXof), link: link(`/app/facilities/${f!.id}`) }, link: `/app/facilities/${f!.id}` });

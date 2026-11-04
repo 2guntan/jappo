@@ -57,3 +57,4 @@ export { renderContractBody, renderContractHtml, type ContractSignatureView } fr
 export { CONTRACT_CODES, CONTRACT_TEMPLATE_SEEDS, type ContractCode, type ContractTemplateSeed } from './contract-seeds';
 export { renderBuyerInvoiceHtml, type BuyerInvoiceRenderInput } from './invoice';
 export { renderFarmerStatementHtml, type FarmerStatementInput } from './statement';
+export { renderReportHtml, type ReportRenderInput } from './report';

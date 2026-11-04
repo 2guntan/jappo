@@ -255,3 +255,32 @@ export async function activeSeasonViaApi(request: APIRequestContext, stamp = Dat
   await s.op.call('POST', `/v1/seasons/${s.seasonId}/actions/start`, { selfFinanced: false }, { 'if-match': `"${season.version}"` });
   return { ...s, escrowAccountId: esc.id };
 }
+
+/** activeSeasonViaApi + WF-1 harvest (1 ha plots, 12 000 / 8 000 / 3 000 kg) paid into escrow + settlement reconciled. */
+export async function settledViaApi(request: APIRequestContext, stamp = Date.now(), beforeHarvest?: (s: Awaited<ReturnType<typeof activeSeasonViaApi>>) => Promise<void>) {
+  const s = await activeSeasonViaApi(request, stamp);
+  if (beforeHarvest) await beforeHarvest(s);
+  await dbQuery('update plots set area_ha = 1 where block_id = $1', [s.blockId]);
+  await dbQuery('update plantings set area_ha = 1 where season_id = $1', [s.seasonId]);
+  const plots = (await s.op.call<{ data: { id: string; farmers: { farmerId: string }[] }[] }>('GET', `/v1/blocks/${s.blockId}/plots`)).data;
+  const tickets: string[] = [];
+  for (const [i, f] of s.farmers.entries()) {
+    const p = plots.find((x) => x.farmers.some((y) => y.farmerId === f.id))!;
+    tickets.push((await s.op.call<{ id: string }>('POST', `/v1/seasons/${s.seasonId}/harvest-deliveries`, { plotId: p.id, farmerId: f.id, grossKg: [12_000, 8_000, 3_000][i], grade: 'A' })).id);
+  }
+  const d = await s.op.call<{ id: string }>('POST', `/v1/seasons/${s.seasonId}/dispatches`, { offtakeContractId: s.offtakeId, deliveryIds: tickets });
+  await s.buyer.call('POST', `/v1/dispatches/${d.id}/actions/accept`, { acceptedKg: 23_000, rejectedKg: 0 }, { 'if-match': '"1"' });
+  const inv = await s.op.call<{ id: string }>('POST', '/v1/buyer-invoices', { dispatchIds: [d.id] });
+  await s.alpha.api.call('POST', '/v1/escrow-receipts', { escrowAccountId: s.escrowAccountId, amountXof: 5_750_000, valueDate: new Date().toISOString().slice(0, 10), bankReference: `ZETA-${stamp}`, buyerInvoiceId: inv.id });
+  let run = await s.op.call<{ id: string; version: number }>('POST', `/v1/seasons/${s.seasonId}/settlement-runs`);
+  run = await s.op.call('POST', `/v1/settlement-runs/${run.id}/actions/approve-operator`, undefined, { 'if-match': `"${run.version}"` });
+  run = await s.alpha.api.call('POST', `/v1/settlement-runs/${run.id}/actions/approve-lender`);
+  run = await s.op.call('POST', `/v1/settlement-runs/${run.id}/actions/instruct`, undefined, { 'if-match': `"${run.version}"` });
+  for (const i of (await s.op.call<{ data: { id: string; beneficiaryType: string }[] }>('GET', `/v1/settlement-runs/${run.id}/instructions`)).data) {
+    await (i.beneficiaryType === 'lender' ? s.alpha.api : s.op).call('POST', `/v1/payout-instructions/${i.id}/actions/confirm`, {});
+  }
+  run = await s.op.call('GET', `/v1/settlement-runs/${run.id}`);
+  run = await s.op.call('POST', `/v1/settlement-runs/${run.id}/actions/mark-executed`, undefined, { 'if-match': `"${run.version}"` });
+  await s.op.call('POST', `/v1/settlement-runs/${run.id}/actions/reconcile`, undefined, { 'if-match': `"${run.version}"` });
+  return { ...s, runId: run.id };
+}

@@ -9355,6 +9355,797 @@
           "createdAt"
         ]
       },
+      "KpisInput": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "$id": "#/components/schemas/KpisInput",
+        "type": "object",
+        "properties": {
+          "areaFinancedHa": {
+            "type": "number"
+          },
+          "farmers": {
+            "type": "integer",
+            "minimum": -9007199254740991,
+            "maximum": 9007199254740991
+          },
+          "womenPct": {
+            "type": [
+              "number",
+              "null"
+            ]
+          },
+          "youthPct": {
+            "type": [
+              "number",
+              "null"
+            ]
+          },
+          "disbursedXof": {
+            "type": "object",
+            "properties": {
+              "seasonal": {
+                "type": "integer",
+                "minimum": -9007199254740991,
+                "maximum": 9007199254740991
+              },
+              "investment": {
+                "type": "integer",
+                "minimum": -9007199254740991,
+                "maximum": 9007199254740991
+              },
+              "total": {
+                "type": "integer",
+                "minimum": -9007199254740991,
+                "maximum": 9007199254740991
+              }
+            },
+            "required": [
+              "seasonal",
+              "investment",
+              "total"
+            ]
+          },
+          "outstandingXof": {
+            "type": "object",
+            "properties": {
+              "seasonal": {
+                "type": "integer",
+                "minimum": -9007199254740991,
+                "maximum": 9007199254740991
+              },
+              "investment": {
+                "type": "integer",
+                "minimum": -9007199254740991,
+                "maximum": 9007199254740991
+              },
+              "total": {
+                "type": "integer",
+                "minimum": -9007199254740991,
+                "maximum": 9007199254740991
+              }
+            },
+            "required": [
+              "seasonal",
+              "investment",
+              "total"
+            ]
+          },
+          "par30Pct": {
+            "type": [
+              "number",
+              "null"
+            ]
+          },
+          "par90Pct": {
+            "type": [
+              "number",
+              "null"
+            ]
+          },
+          "repaymentRatePct": {
+            "type": [
+              "number",
+              "null"
+            ]
+          },
+          "expectedKg": {
+            "type": "number"
+          },
+          "deliveredKg": {
+            "type": "number"
+          },
+          "deliveryRatePct": {
+            "type": [
+              "number",
+              "null"
+            ]
+          },
+          "yieldAchievedTHa": {
+            "type": [
+              "number",
+              "null"
+            ]
+          },
+          "yieldBaseTHa": {
+            "type": [
+              "number",
+              "null"
+            ]
+          },
+          "yieldAchievedPctOfBase": {
+            "type": [
+              "number",
+              "null"
+            ]
+          },
+          "buyerPaymentDelayDays": {
+            "type": [
+              "number",
+              "null"
+            ]
+          },
+          "farmerNetIncomeAvgXof": {
+            "type": [
+              "number",
+              "null"
+            ]
+          },
+          "farmerNetIncomeMedianXof": {
+            "type": [
+              "number",
+              "null"
+            ]
+          },
+          "valueCreatedAvgXof": {
+            "type": [
+              "number",
+              "null"
+            ]
+          },
+          "serviceCostPerFarmerXof": {
+            "type": [
+              "number",
+              "null"
+            ]
+          },
+          "directCostRecoveryPct": {
+            "type": [
+              "number",
+              "null"
+            ]
+          },
+          "daysSubmissionToFirstDisbursement": {
+            "type": [
+              "number",
+              "null"
+            ]
+          },
+          "alerts": {
+            "type": "object",
+            "properties": {
+              "info": {
+                "type": "integer",
+                "minimum": -9007199254740991,
+                "maximum": 9007199254740991
+              },
+              "warning": {
+                "type": "integer",
+                "minimum": -9007199254740991,
+                "maximum": 9007199254740991
+              },
+              "critical": {
+                "type": "integer",
+                "minimum": -9007199254740991,
+                "maximum": 9007199254740991
+              }
+            },
+            "required": [
+              "info",
+              "warning",
+              "critical"
+            ]
+          }
+        },
+        "required": [
+          "areaFinancedHa",
+          "farmers",
+          "womenPct",
+          "youthPct",
+          "disbursedXof",
+          "outstandingXof",
+          "par30Pct",
+          "par90Pct",
+          "repaymentRatePct",
+          "expectedKg",
+          "deliveredKg",
+          "deliveryRatePct",
+          "yieldAchievedTHa",
+          "yieldBaseTHa",
+          "yieldAchievedPctOfBase",
+          "buyerPaymentDelayDays",
+          "farmerNetIncomeAvgXof",
+          "farmerNetIncomeMedianXof",
+          "valueCreatedAvgXof",
+          "serviceCostPerFarmerXof",
+          "directCostRecoveryPct",
+          "daysSubmissionToFirstDisbursement",
+          "alerts"
+        ]
+      },
+      "KpiSeriesInput": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "$id": "#/components/schemas/KpiSeriesInput",
+        "type": "object",
+        "properties": {
+          "data": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "date": {
+                  "type": "string",
+                  "format": "date",
+                  "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))$"
+                },
+                "metrics": {
+                  "$ref": "#/components/schemas/KpisInput"
+                }
+              },
+              "required": [
+                "date",
+                "metrics"
+              ]
+            }
+          }
+        },
+        "required": [
+          "data"
+        ]
+      },
+      "OperatorDashboardInput": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "$id": "#/components/schemas/OperatorDashboardInput",
+        "type": "object",
+        "properties": {
+          "blocksByStatus": {
+            "type": "object",
+            "propertyNames": {
+              "type": "string"
+            },
+            "additionalProperties": {
+              "type": "integer",
+              "minimum": -9007199254740991,
+              "maximum": 9007199254740991
+            }
+          },
+          "blocks": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "string",
+                  "format": "uuid",
+                  "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+                },
+                "ref": {
+                  "type": "string"
+                },
+                "name": {
+                  "type": "string"
+                },
+                "status": {
+                  "type": "string"
+                },
+                "region": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "id",
+                "ref",
+                "name",
+                "status",
+                "region"
+              ]
+            }
+          },
+          "kpis": {
+            "$ref": "#/components/schemas/KpisInput"
+          },
+          "alerts": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "string",
+                  "format": "uuid",
+                  "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+                },
+                "severity": {
+                  "type": "string",
+                  "enum": [
+                    "info",
+                    "warning",
+                    "critical"
+                  ]
+                },
+                "message": {
+                  "type": "string"
+                },
+                "createdAt": {
+                  "type": "string",
+                  "format": "date-time",
+                  "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))T(?:(?:[01]\\d|2[0-3]):[0-5]\\d:[0-5]\\d(?:\\.\\d+)?(?:Z|([+-](?:[01]\\d|2[0-3]):[0-5]\\d)))$"
+                },
+                "blockId": {
+                  "type": "string",
+                  "format": "uuid",
+                  "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+                }
+              },
+              "required": [
+                "id",
+                "severity",
+                "message",
+                "createdAt",
+                "blockId"
+              ]
+            }
+          },
+          "tasks": {
+            "type": "object",
+            "properties": {
+              "contractsPendingSignature": {
+                "type": "integer",
+                "minimum": -9007199254740991,
+                "maximum": 9007199254740991
+              },
+              "disbursementsInProgress": {
+                "type": "integer",
+                "minimum": -9007199254740991,
+                "maximum": 9007199254740991
+              },
+              "settlementsOpen": {
+                "type": "integer",
+                "minimum": -9007199254740991,
+                "maximum": 9007199254740991
+              }
+            },
+            "required": [
+              "contractsPendingSignature",
+              "disbursementsInProgress",
+              "settlementsOpen"
+            ]
+          }
+        },
+        "required": [
+          "blocksByStatus",
+          "blocks",
+          "kpis",
+          "alerts",
+          "tasks"
+        ]
+      },
+      "LenderDashboardInput": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "$id": "#/components/schemas/LenderDashboardInput",
+        "type": "object",
+        "properties": {
+          "kpis": {
+            "$ref": "#/components/schemas/KpisInput"
+          },
+          "facilities": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "string",
+                  "format": "uuid",
+                  "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+                },
+                "ref": {
+                  "type": "string"
+                },
+                "blockRef": {
+                  "type": "string"
+                },
+                "blockName": {
+                  "type": "string"
+                },
+                "status": {
+                  "type": "string"
+                },
+                "principalXof": {
+                  "type": "integer",
+                  "minimum": -9007199254740991,
+                  "maximum": 9007199254740991
+                },
+                "trancheType": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "id",
+                "ref",
+                "blockRef",
+                "blockName",
+                "status",
+                "principalXof",
+                "trancheType"
+              ]
+            }
+          },
+          "pending": {
+            "type": "object",
+            "properties": {
+              "cpToConfirm": {
+                "type": "integer",
+                "minimum": -9007199254740991,
+                "maximum": 9007199254740991
+              },
+              "disbursements": {
+                "type": "integer",
+                "minimum": -9007199254740991,
+                "maximum": 9007199254740991
+              },
+              "settlementsToApprove": {
+                "type": "integer",
+                "minimum": -9007199254740991,
+                "maximum": 9007199254740991
+              },
+              "contractsToSign": {
+                "type": "integer",
+                "minimum": -9007199254740991,
+                "maximum": 9007199254740991
+              }
+            },
+            "required": [
+              "cpToConfirm",
+              "disbursements",
+              "settlementsToApprove",
+              "contractsToSign"
+            ]
+          },
+          "openOpportunities": {
+            "type": "integer",
+            "minimum": -9007199254740991,
+            "maximum": 9007199254740991
+          }
+        },
+        "required": [
+          "kpis",
+          "facilities",
+          "pending",
+          "openOpportunities"
+        ]
+      },
+      "BlockDashboardInput": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "$id": "#/components/schemas/BlockDashboardInput",
+        "type": "object",
+        "properties": {
+          "block": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string",
+                "format": "uuid",
+                "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+              },
+              "ref": {
+                "type": "string"
+              },
+              "name": {
+                "type": "string"
+              },
+              "status": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id",
+              "ref",
+              "name",
+              "status"
+            ]
+          },
+          "season": {
+            "anyOf": [
+              {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "type": "string",
+                    "format": "uuid",
+                    "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+                  },
+                  "name": {
+                    "type": "string"
+                  },
+                  "status": {
+                    "type": "string"
+                  },
+                  "startDate": {
+                    "type": "string",
+                    "format": "date",
+                    "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))$"
+                  },
+                  "endDate": {
+                    "type": "string",
+                    "format": "date",
+                    "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))$"
+                  }
+                },
+                "required": [
+                  "id",
+                  "name",
+                  "status",
+                  "startDate",
+                  "endDate"
+                ]
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "kpis": {
+            "$ref": "#/components/schemas/KpisInput"
+          },
+          "harvestProgressPct": {
+            "type": [
+              "number",
+              "null"
+            ]
+          },
+          "alerts": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "string",
+                  "format": "uuid",
+                  "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+                },
+                "severity": {
+                  "type": "string",
+                  "enum": [
+                    "info",
+                    "warning",
+                    "critical"
+                  ]
+                },
+                "message": {
+                  "type": "string"
+                },
+                "createdAt": {
+                  "type": "string",
+                  "format": "date-time",
+                  "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))T(?:(?:[01]\\d|2[0-3]):[0-5]\\d:[0-5]\\d(?:\\.\\d+)?(?:Z|([+-](?:[01]\\d|2[0-3]):[0-5]\\d)))$"
+                },
+                "status": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "id",
+                "severity",
+                "message",
+                "createdAt",
+                "status"
+              ]
+            }
+          },
+          "recentVisits": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "plotCode": {
+                  "type": "string"
+                },
+                "visitedAt": {
+                  "type": "string",
+                  "format": "date-time",
+                  "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))T(?:(?:[01]\\d|2[0-3]):[0-5]\\d:[0-5]\\d(?:\\.\\d+)?(?:Z|([+-](?:[01]\\d|2[0-3]):[0-5]\\d)))$"
+                },
+                "healthScore": {
+                  "type": "integer",
+                  "minimum": -9007199254740991,
+                  "maximum": 9007199254740991
+                },
+                "cropStage": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "plotCode",
+                "visitedAt",
+                "healthScore",
+                "cropStage"
+              ]
+            }
+          }
+        },
+        "required": [
+          "block",
+          "season",
+          "kpis",
+          "harvestProgressPct",
+          "alerts",
+          "recentVisits"
+        ]
+      },
+      "GuarantorDashboardInput": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "$id": "#/components/schemas/GuarantorDashboardInput",
+        "type": "object",
+        "properties": {
+          "kpis": {
+            "$ref": "#/components/schemas/KpisInput"
+          },
+          "claimThresholdDays": {
+            "type": "integer",
+            "minimum": -9007199254740991,
+            "maximum": 9007199254740991
+          },
+          "totalExposureXof": {
+            "type": "integer",
+            "minimum": -9007199254740991,
+            "maximum": 9007199254740991
+          },
+          "facilities": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "facilityId": {
+                  "type": "string",
+                  "format": "uuid",
+                  "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+                },
+                "facilityRef": {
+                  "type": "string"
+                },
+                "blockId": {
+                  "type": "string",
+                  "format": "uuid",
+                  "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+                },
+                "blockRef": {
+                  "type": "string"
+                },
+                "blockName": {
+                  "type": "string"
+                },
+                "lenderName": {
+                  "type": "string"
+                },
+                "coverType": {
+                  "type": "string"
+                },
+                "coveragePct": {
+                  "type": "number"
+                },
+                "outstandingXof": {
+                  "type": "integer",
+                  "minimum": -9007199254740991,
+                  "maximum": 9007199254740991
+                },
+                "exposureXof": {
+                  "type": "integer",
+                  "minimum": -9007199254740991,
+                  "maximum": 9007199254740991
+                },
+                "maxOverdueDays": {
+                  "type": "integer",
+                  "minimum": -9007199254740991,
+                  "maximum": 9007199254740991
+                },
+                "claimCandidate": {
+                  "type": "boolean"
+                },
+                "status": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "facilityId",
+                "facilityRef",
+                "blockId",
+                "blockRef",
+                "blockName",
+                "lenderName",
+                "coverType",
+                "coveragePct",
+                "outstandingXof",
+                "exposureXof",
+                "maxOverdueDays",
+                "claimCandidate",
+                "status"
+              ]
+            }
+          }
+        },
+        "required": [
+          "kpis",
+          "claimThresholdDays",
+          "totalExposureXof",
+          "facilities"
+        ]
+      },
+      "ReportInput": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "$id": "#/components/schemas/ReportInput",
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid",
+            "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+          },
+          "type": {
+            "type": "string",
+            "enum": [
+              "lender_monthly",
+              "season_close",
+              "guarantor_portfolio"
+            ]
+          },
+          "scopeId": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "uuid",
+                "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "period": {
+            "type": "string"
+          },
+          "status": {
+            "type": "string"
+          },
+          "hasPdf": {
+            "type": "boolean"
+          },
+          "generatedAt": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "date-time",
+                "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))T(?:(?:[01]\\d|2[0-3]):[0-5]\\d:[0-5]\\d(?:\\.\\d+)?(?:Z|([+-](?:[01]\\d|2[0-3]):[0-5]\\d)))$"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time",
+            "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))T(?:(?:[01]\\d|2[0-3]):[0-5]\\d:[0-5]\\d(?:\\.\\d+)?(?:Z|([+-](?:[01]\\d|2[0-3]):[0-5]\\d)))$"
+          }
+        },
+        "required": [
+          "id",
+          "type",
+          "scopeId",
+          "period",
+          "status",
+          "hasPdf",
+          "generatedAt",
+          "createdAt"
+        ]
+      },
       "Problem": {
         "$schema": "https://json-schema.org/draft/2020-12/schema",
         "$id": "#/components/schemas/Problem",
@@ -18822,6 +19613,818 @@
           "grossCreditXof",
           "payoutXof",
           "arrearsXof",
+          "createdAt"
+        ],
+        "additionalProperties": false
+      },
+      "Kpis": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "$id": "#/components/schemas/Kpis",
+        "type": "object",
+        "properties": {
+          "areaFinancedHa": {
+            "type": "number"
+          },
+          "farmers": {
+            "type": "integer",
+            "minimum": -9007199254740991,
+            "maximum": 9007199254740991
+          },
+          "womenPct": {
+            "type": [
+              "number",
+              "null"
+            ]
+          },
+          "youthPct": {
+            "type": [
+              "number",
+              "null"
+            ]
+          },
+          "disbursedXof": {
+            "type": "object",
+            "properties": {
+              "seasonal": {
+                "type": "integer",
+                "minimum": -9007199254740991,
+                "maximum": 9007199254740991
+              },
+              "investment": {
+                "type": "integer",
+                "minimum": -9007199254740991,
+                "maximum": 9007199254740991
+              },
+              "total": {
+                "type": "integer",
+                "minimum": -9007199254740991,
+                "maximum": 9007199254740991
+              }
+            },
+            "required": [
+              "seasonal",
+              "investment",
+              "total"
+            ],
+            "additionalProperties": false
+          },
+          "outstandingXof": {
+            "type": "object",
+            "properties": {
+              "seasonal": {
+                "type": "integer",
+                "minimum": -9007199254740991,
+                "maximum": 9007199254740991
+              },
+              "investment": {
+                "type": "integer",
+                "minimum": -9007199254740991,
+                "maximum": 9007199254740991
+              },
+              "total": {
+                "type": "integer",
+                "minimum": -9007199254740991,
+                "maximum": 9007199254740991
+              }
+            },
+            "required": [
+              "seasonal",
+              "investment",
+              "total"
+            ],
+            "additionalProperties": false
+          },
+          "par30Pct": {
+            "type": [
+              "number",
+              "null"
+            ]
+          },
+          "par90Pct": {
+            "type": [
+              "number",
+              "null"
+            ]
+          },
+          "repaymentRatePct": {
+            "type": [
+              "number",
+              "null"
+            ]
+          },
+          "expectedKg": {
+            "type": "number"
+          },
+          "deliveredKg": {
+            "type": "number"
+          },
+          "deliveryRatePct": {
+            "type": [
+              "number",
+              "null"
+            ]
+          },
+          "yieldAchievedTHa": {
+            "type": [
+              "number",
+              "null"
+            ]
+          },
+          "yieldBaseTHa": {
+            "type": [
+              "number",
+              "null"
+            ]
+          },
+          "yieldAchievedPctOfBase": {
+            "type": [
+              "number",
+              "null"
+            ]
+          },
+          "buyerPaymentDelayDays": {
+            "type": [
+              "number",
+              "null"
+            ]
+          },
+          "farmerNetIncomeAvgXof": {
+            "type": [
+              "number",
+              "null"
+            ]
+          },
+          "farmerNetIncomeMedianXof": {
+            "type": [
+              "number",
+              "null"
+            ]
+          },
+          "valueCreatedAvgXof": {
+            "type": [
+              "number",
+              "null"
+            ]
+          },
+          "serviceCostPerFarmerXof": {
+            "type": [
+              "number",
+              "null"
+            ]
+          },
+          "directCostRecoveryPct": {
+            "type": [
+              "number",
+              "null"
+            ]
+          },
+          "daysSubmissionToFirstDisbursement": {
+            "type": [
+              "number",
+              "null"
+            ]
+          },
+          "alerts": {
+            "type": "object",
+            "properties": {
+              "info": {
+                "type": "integer",
+                "minimum": -9007199254740991,
+                "maximum": 9007199254740991
+              },
+              "warning": {
+                "type": "integer",
+                "minimum": -9007199254740991,
+                "maximum": 9007199254740991
+              },
+              "critical": {
+                "type": "integer",
+                "minimum": -9007199254740991,
+                "maximum": 9007199254740991
+              }
+            },
+            "required": [
+              "info",
+              "warning",
+              "critical"
+            ],
+            "additionalProperties": false
+          }
+        },
+        "required": [
+          "areaFinancedHa",
+          "farmers",
+          "womenPct",
+          "youthPct",
+          "disbursedXof",
+          "outstandingXof",
+          "par30Pct",
+          "par90Pct",
+          "repaymentRatePct",
+          "expectedKg",
+          "deliveredKg",
+          "deliveryRatePct",
+          "yieldAchievedTHa",
+          "yieldBaseTHa",
+          "yieldAchievedPctOfBase",
+          "buyerPaymentDelayDays",
+          "farmerNetIncomeAvgXof",
+          "farmerNetIncomeMedianXof",
+          "valueCreatedAvgXof",
+          "serviceCostPerFarmerXof",
+          "directCostRecoveryPct",
+          "daysSubmissionToFirstDisbursement",
+          "alerts"
+        ],
+        "additionalProperties": false
+      },
+      "KpiSeries": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "$id": "#/components/schemas/KpiSeries",
+        "type": "object",
+        "properties": {
+          "data": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "date": {
+                  "type": "string",
+                  "format": "date",
+                  "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))$"
+                },
+                "metrics": {
+                  "$ref": "#/components/schemas/Kpis"
+                }
+              },
+              "required": [
+                "date",
+                "metrics"
+              ],
+              "additionalProperties": false
+            }
+          }
+        },
+        "required": [
+          "data"
+        ],
+        "additionalProperties": false
+      },
+      "OperatorDashboard": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "$id": "#/components/schemas/OperatorDashboard",
+        "type": "object",
+        "properties": {
+          "blocksByStatus": {
+            "type": "object",
+            "propertyNames": {
+              "type": "string"
+            },
+            "additionalProperties": {
+              "type": "integer",
+              "minimum": -9007199254740991,
+              "maximum": 9007199254740991
+            }
+          },
+          "blocks": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "string",
+                  "format": "uuid",
+                  "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+                },
+                "ref": {
+                  "type": "string"
+                },
+                "name": {
+                  "type": "string"
+                },
+                "status": {
+                  "type": "string"
+                },
+                "region": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "id",
+                "ref",
+                "name",
+                "status",
+                "region"
+              ],
+              "additionalProperties": false
+            }
+          },
+          "kpis": {
+            "$ref": "#/components/schemas/Kpis"
+          },
+          "alerts": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "string",
+                  "format": "uuid",
+                  "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+                },
+                "severity": {
+                  "type": "string",
+                  "enum": [
+                    "info",
+                    "warning",
+                    "critical"
+                  ]
+                },
+                "message": {
+                  "type": "string"
+                },
+                "createdAt": {
+                  "type": "string",
+                  "format": "date-time",
+                  "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))T(?:(?:[01]\\d|2[0-3]):[0-5]\\d:[0-5]\\d(?:\\.\\d+)?(?:Z|([+-](?:[01]\\d|2[0-3]):[0-5]\\d)))$"
+                },
+                "blockId": {
+                  "type": "string",
+                  "format": "uuid",
+                  "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+                }
+              },
+              "required": [
+                "id",
+                "severity",
+                "message",
+                "createdAt",
+                "blockId"
+              ],
+              "additionalProperties": false
+            }
+          },
+          "tasks": {
+            "type": "object",
+            "properties": {
+              "contractsPendingSignature": {
+                "type": "integer",
+                "minimum": -9007199254740991,
+                "maximum": 9007199254740991
+              },
+              "disbursementsInProgress": {
+                "type": "integer",
+                "minimum": -9007199254740991,
+                "maximum": 9007199254740991
+              },
+              "settlementsOpen": {
+                "type": "integer",
+                "minimum": -9007199254740991,
+                "maximum": 9007199254740991
+              }
+            },
+            "required": [
+              "contractsPendingSignature",
+              "disbursementsInProgress",
+              "settlementsOpen"
+            ],
+            "additionalProperties": false
+          }
+        },
+        "required": [
+          "blocksByStatus",
+          "blocks",
+          "kpis",
+          "alerts",
+          "tasks"
+        ],
+        "additionalProperties": false
+      },
+      "LenderDashboard": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "$id": "#/components/schemas/LenderDashboard",
+        "type": "object",
+        "properties": {
+          "kpis": {
+            "$ref": "#/components/schemas/Kpis"
+          },
+          "facilities": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "string",
+                  "format": "uuid",
+                  "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+                },
+                "ref": {
+                  "type": "string"
+                },
+                "blockRef": {
+                  "type": "string"
+                },
+                "blockName": {
+                  "type": "string"
+                },
+                "status": {
+                  "type": "string"
+                },
+                "principalXof": {
+                  "type": "integer",
+                  "minimum": -9007199254740991,
+                  "maximum": 9007199254740991
+                },
+                "trancheType": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "id",
+                "ref",
+                "blockRef",
+                "blockName",
+                "status",
+                "principalXof",
+                "trancheType"
+              ],
+              "additionalProperties": false
+            }
+          },
+          "pending": {
+            "type": "object",
+            "properties": {
+              "cpToConfirm": {
+                "type": "integer",
+                "minimum": -9007199254740991,
+                "maximum": 9007199254740991
+              },
+              "disbursements": {
+                "type": "integer",
+                "minimum": -9007199254740991,
+                "maximum": 9007199254740991
+              },
+              "settlementsToApprove": {
+                "type": "integer",
+                "minimum": -9007199254740991,
+                "maximum": 9007199254740991
+              },
+              "contractsToSign": {
+                "type": "integer",
+                "minimum": -9007199254740991,
+                "maximum": 9007199254740991
+              }
+            },
+            "required": [
+              "cpToConfirm",
+              "disbursements",
+              "settlementsToApprove",
+              "contractsToSign"
+            ],
+            "additionalProperties": false
+          },
+          "openOpportunities": {
+            "type": "integer",
+            "minimum": -9007199254740991,
+            "maximum": 9007199254740991
+          }
+        },
+        "required": [
+          "kpis",
+          "facilities",
+          "pending",
+          "openOpportunities"
+        ],
+        "additionalProperties": false
+      },
+      "BlockDashboard": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "$id": "#/components/schemas/BlockDashboard",
+        "type": "object",
+        "properties": {
+          "block": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string",
+                "format": "uuid",
+                "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+              },
+              "ref": {
+                "type": "string"
+              },
+              "name": {
+                "type": "string"
+              },
+              "status": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id",
+              "ref",
+              "name",
+              "status"
+            ],
+            "additionalProperties": false
+          },
+          "season": {
+            "anyOf": [
+              {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "type": "string",
+                    "format": "uuid",
+                    "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+                  },
+                  "name": {
+                    "type": "string"
+                  },
+                  "status": {
+                    "type": "string"
+                  },
+                  "startDate": {
+                    "type": "string",
+                    "format": "date",
+                    "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))$"
+                  },
+                  "endDate": {
+                    "type": "string",
+                    "format": "date",
+                    "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))$"
+                  }
+                },
+                "required": [
+                  "id",
+                  "name",
+                  "status",
+                  "startDate",
+                  "endDate"
+                ],
+                "additionalProperties": false
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "kpis": {
+            "$ref": "#/components/schemas/Kpis"
+          },
+          "harvestProgressPct": {
+            "type": [
+              "number",
+              "null"
+            ]
+          },
+          "alerts": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "string",
+                  "format": "uuid",
+                  "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+                },
+                "severity": {
+                  "type": "string",
+                  "enum": [
+                    "info",
+                    "warning",
+                    "critical"
+                  ]
+                },
+                "message": {
+                  "type": "string"
+                },
+                "createdAt": {
+                  "type": "string",
+                  "format": "date-time",
+                  "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))T(?:(?:[01]\\d|2[0-3]):[0-5]\\d:[0-5]\\d(?:\\.\\d+)?(?:Z|([+-](?:[01]\\d|2[0-3]):[0-5]\\d)))$"
+                },
+                "status": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "id",
+                "severity",
+                "message",
+                "createdAt",
+                "status"
+              ],
+              "additionalProperties": false
+            }
+          },
+          "recentVisits": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "plotCode": {
+                  "type": "string"
+                },
+                "visitedAt": {
+                  "type": "string",
+                  "format": "date-time",
+                  "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))T(?:(?:[01]\\d|2[0-3]):[0-5]\\d:[0-5]\\d(?:\\.\\d+)?(?:Z|([+-](?:[01]\\d|2[0-3]):[0-5]\\d)))$"
+                },
+                "healthScore": {
+                  "type": "integer",
+                  "minimum": -9007199254740991,
+                  "maximum": 9007199254740991
+                },
+                "cropStage": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "plotCode",
+                "visitedAt",
+                "healthScore",
+                "cropStage"
+              ],
+              "additionalProperties": false
+            }
+          }
+        },
+        "required": [
+          "block",
+          "season",
+          "kpis",
+          "harvestProgressPct",
+          "alerts",
+          "recentVisits"
+        ],
+        "additionalProperties": false
+      },
+      "GuarantorDashboard": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "$id": "#/components/schemas/GuarantorDashboard",
+        "type": "object",
+        "properties": {
+          "kpis": {
+            "$ref": "#/components/schemas/Kpis"
+          },
+          "claimThresholdDays": {
+            "type": "integer",
+            "minimum": -9007199254740991,
+            "maximum": 9007199254740991
+          },
+          "totalExposureXof": {
+            "type": "integer",
+            "minimum": -9007199254740991,
+            "maximum": 9007199254740991
+          },
+          "facilities": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "facilityId": {
+                  "type": "string",
+                  "format": "uuid",
+                  "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+                },
+                "facilityRef": {
+                  "type": "string"
+                },
+                "blockId": {
+                  "type": "string",
+                  "format": "uuid",
+                  "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+                },
+                "blockRef": {
+                  "type": "string"
+                },
+                "blockName": {
+                  "type": "string"
+                },
+                "lenderName": {
+                  "type": "string"
+                },
+                "coverType": {
+                  "type": "string"
+                },
+                "coveragePct": {
+                  "type": "number"
+                },
+                "outstandingXof": {
+                  "type": "integer",
+                  "minimum": -9007199254740991,
+                  "maximum": 9007199254740991
+                },
+                "exposureXof": {
+                  "type": "integer",
+                  "minimum": -9007199254740991,
+                  "maximum": 9007199254740991
+                },
+                "maxOverdueDays": {
+                  "type": "integer",
+                  "minimum": -9007199254740991,
+                  "maximum": 9007199254740991
+                },
+                "claimCandidate": {
+                  "type": "boolean"
+                },
+                "status": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "facilityId",
+                "facilityRef",
+                "blockId",
+                "blockRef",
+                "blockName",
+                "lenderName",
+                "coverType",
+                "coveragePct",
+                "outstandingXof",
+                "exposureXof",
+                "maxOverdueDays",
+                "claimCandidate",
+                "status"
+              ],
+              "additionalProperties": false
+            }
+          }
+        },
+        "required": [
+          "kpis",
+          "claimThresholdDays",
+          "totalExposureXof",
+          "facilities"
+        ],
+        "additionalProperties": false
+      },
+      "Report": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "$id": "#/components/schemas/Report",
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid",
+            "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+          },
+          "type": {
+            "type": "string",
+            "enum": [
+              "lender_monthly",
+              "season_close",
+              "guarantor_portfolio"
+            ]
+          },
+          "scopeId": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "uuid",
+                "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "period": {
+            "type": "string"
+          },
+          "status": {
+            "type": "string"
+          },
+          "hasPdf": {
+            "type": "boolean"
+          },
+          "generatedAt": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "date-time",
+                "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))T(?:(?:[01]\\d|2[0-3]):[0-5]\\d:[0-5]\\d(?:\\.\\d+)?(?:Z|([+-](?:[01]\\d|2[0-3]):[0-5]\\d)))$"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time",
+            "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))T(?:(?:[01]\\d|2[0-3]):[0-5]\\d:[0-5]\\d(?:\\.\\d+)?(?:Z|([+-](?:[01]\\d|2[0-3]):[0-5]\\d)))$"
+          }
+        },
+        "required": [
+          "id",
+          "type",
+          "scopeId",
+          "period",
+          "status",
+          "hasPdf",
+          "generatedAt",
           "createdAt"
         ],
         "additionalProperties": false
@@ -37052,6 +38655,370 @@
                   "required": [
                     "url",
                     "fileId"
+                  ],
+                  "additionalProperties": false
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/dashboards/operator": {
+      "get": {
+        "operationId": "getOperatorDashboard",
+        "summary": "KPIs, blocks by status, open alerts, tasks",
+        "tags": [
+          "monitoring"
+        ],
+        "x-permission": "dashboard:read",
+        "responses": {
+          "200": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OperatorDashboard"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/dashboards/lender": {
+      "get": {
+        "operationId": "getLenderDashboard",
+        "summary": "Portfolio KPIs (outstanding, PAR, repayment rate) and pending approvals",
+        "tags": [
+          "monitoring"
+        ],
+        "x-permission": "dashboard:read",
+        "responses": {
+          "200": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/LenderDashboard"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/dashboards/block/{id}": {
+      "get": {
+        "operationId": "getBlockDashboard",
+        "tags": [
+          "monitoring"
+        ],
+        "parameters": [
+          {
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+            },
+            "in": "path",
+            "name": "id",
+            "required": true
+          }
+        ],
+        "x-permission": "dashboard:read",
+        "responses": {
+          "200": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BlockDashboard"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/dashboards/guarantor": {
+      "get": {
+        "operationId": "getGuarantorDashboard",
+        "summary": "Covered facilities, exposure, PAR, claim candidates",
+        "tags": [
+          "monitoring"
+        ],
+        "x-permission": "dashboard:read",
+        "responses": {
+          "200": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GuarantorDashboard"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/kpis": {
+      "get": {
+        "operationId": "listKpis",
+        "summary": "Nightly KPI snapshots for a scope",
+        "tags": [
+          "monitoring"
+        ],
+        "parameters": [
+          {
+            "schema": {
+              "type": "string",
+              "enum": [
+                "block",
+                "season",
+                "lender_portfolio",
+                "platform"
+              ]
+            },
+            "in": "query",
+            "name": "scopeType",
+            "required": true
+          },
+          {
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+            },
+            "in": "query",
+            "name": "scopeId",
+            "required": false
+          },
+          {
+            "schema": {
+              "type": "string",
+              "format": "date",
+              "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))$"
+            },
+            "in": "query",
+            "name": "from",
+            "required": false
+          },
+          {
+            "schema": {
+              "type": "string",
+              "format": "date",
+              "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))$"
+            },
+            "in": "query",
+            "name": "to",
+            "required": false
+          }
+        ],
+        "x-permission": "kpi:read",
+        "responses": {
+          "200": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/KpiSeries"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/reports": {
+      "get": {
+        "operationId": "listReports",
+        "tags": [
+          "monitoring"
+        ],
+        "x-permission": "report:read",
+        "responses": {
+          "200": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/Report"
+                      }
+                    }
+                  },
+                  "required": [
+                    "data"
+                  ],
+                  "additionalProperties": false
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "operationId": "createReport",
+        "summary": "Generate a PDF report (lender monthly, season close, guarantor portfolio)",
+        "tags": [
+          "monitoring"
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "type": {
+                    "type": "string",
+                    "enum": [
+                      "lender_monthly",
+                      "season_close",
+                      "guarantor_portfolio"
+                    ]
+                  },
+                  "scopeId": {
+                    "anyOf": [
+                      {
+                        "type": "string",
+                        "format": "uuid",
+                        "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+                      },
+                      {
+                        "type": "null"
+                      }
+                    ]
+                  },
+                  "period": {
+                    "type": "string",
+                    "pattern": "^\\d{4}(-\\d{2})?$"
+                  }
+                },
+                "required": [
+                  "type",
+                  "period"
+                ]
+              }
+            }
+          }
+        },
+        "x-permission": "report:create",
+        "responses": {
+          "201": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Report"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/reports/{id}": {
+      "get": {
+        "operationId": "getReport",
+        "tags": [
+          "monitoring"
+        ],
+        "parameters": [
+          {
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+            },
+            "in": "path",
+            "name": "id",
+            "required": true
+          }
+        ],
+        "x-permission": "report:read",
+        "responses": {
+          "200": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "string",
+                      "format": "uuid",
+                      "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+                    },
+                    "type": {
+                      "type": "string",
+                      "enum": [
+                        "lender_monthly",
+                        "season_close",
+                        "guarantor_portfolio"
+                      ]
+                    },
+                    "scopeId": {
+                      "anyOf": [
+                        {
+                          "type": "string",
+                          "format": "uuid",
+                          "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+                        },
+                        {
+                          "type": "null"
+                        }
+                      ]
+                    },
+                    "period": {
+                      "type": "string"
+                    },
+                    "status": {
+                      "type": "string"
+                    },
+                    "hasPdf": {
+                      "type": "boolean"
+                    },
+                    "generatedAt": {
+                      "anyOf": [
+                        {
+                          "type": "string",
+                          "format": "date-time",
+                          "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))T(?:(?:[01]\\d|2[0-3]):[0-5]\\d:[0-5]\\d(?:\\.\\d+)?(?:Z|([+-](?:[01]\\d|2[0-3]):[0-5]\\d)))$"
+                        },
+                        {
+                          "type": "null"
+                        }
+                      ]
+                    },
+                    "createdAt": {
+                      "type": "string",
+                      "format": "date-time",
+                      "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))T(?:(?:[01]\\d|2[0-3]):[0-5]\\d:[0-5]\\d(?:\\.\\d+)?(?:Z|([+-](?:[01]\\d|2[0-3]):[0-5]\\d)))$"
+                    },
+                    "url": {
+                      "type": [
+                        "string",
+                        "null"
+                      ]
+                    }
+                  },
+                  "required": [
+                    "id",
+                    "type",
+                    "scopeId",
+                    "period",
+                    "status",
+                    "hasPdf",
+                    "generatedAt",
+                    "createdAt",
+                    "url"
                   ],
                   "additionalProperties": false
                 }

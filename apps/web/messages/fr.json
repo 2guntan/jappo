@@ -162,7 +162,9 @@
     "buyerDispatches": "Réceptions",
     "buyerInvoices": "Factures et paiements",
     "adminAlertRules": "Règles d'alerte",
-    "settlements": "Règlements"
+    "settlements": "Règlements",
+    "guarantor": "Portefeuille garanti",
+    "reports": "Rapports"
   },
   "app": {
     "welcome": "Bonjour {name}",
@@ -394,7 +396,8 @@
       "offtake": "Débouchés",
       "investment": "Investissement",
       "risk": "Couvertures",
-      "alerts": "Alertes"
+      "alerts": "Alertes",
+      "monitoring": "Suivi"
     },
     "boundary": "Limite du bloc",
     "noBoundary": "Aucune limite définie. Dessinez-la sur la carte ou importez un fichier GeoJSON/KML.",
@@ -1494,5 +1497,58 @@
     "paid": "versé",
     "arrears": "arriérés",
     "logout": "Se déconnecter"
+  },
+  "kpi": {
+    "areaFinancedHa": "Surface financée",
+    "farmers": "Producteurs",
+    "womenPct": "Femmes",
+    "youthPct": "Jeunes < 35 ans",
+    "disbursed": "Décaissé",
+    "outstanding": "Encours",
+    "par30Pct": "PAR 30",
+    "par90Pct": "PAR 90",
+    "repaymentRatePct": "Taux de remboursement",
+    "deliveryRatePct": "Livré / attendu",
+    "deliveredKg": "Livré",
+    "yieldAchievedTHa": "Rendement réalisé",
+    "buyerPaymentDelayDays": "Délai de paiement acheteur",
+    "farmerNetIncomeAvgXof": "Revenu net moyen producteur",
+    "farmerNetIncomeMedianXof": "Revenu net médian",
+    "directCostRecoveryPct": "Recouvrement des coûts",
+    "alerts": "Alertes critiques / attention"
+  },
+  "dashboard": {
+    "blocksByStatus": "Blocs par statut",
+    "tasks": "À faire",
+    "contractsPending": "{count} contrat(s) en signature",
+    "disbursements": "{count} décaissement(s) en cours",
+    "settlements": "{count} règlement(s) ouverts",
+    "pending": "En attente",
+    "opportunities": "{count} opportunité(s) ouverte(s)",
+    "cps": "{count} facilité(s) en conditions préalables",
+    "settlementsToApprove": "{count} règlement(s) à approuver"
+  },
+  "reports": {
+    "title": "Rapports",
+    "subtitle": "Rapports PDF de suivi",
+    "type": "Type",
+    "period": "Période (AAAA ou AAAA-MM)",
+    "generate": "Générer le rapport",
+    "generated": "Rapport généré.",
+    "generatedAt": "Généré le",
+    "types": {
+      "lender_monthly": "Rapport mensuel prêteur",
+      "season_close": "Clôture de campagne",
+      "guarantor_portfolio": "Portefeuille garanti"
+    }
+  },
+  "guarantor": {
+    "title": "Portefeuille garanti",
+    "exposure": "Exposition",
+    "threshold": "seuil de mise en jeu : {days} jours",
+    "empty": "Aucune facilité couverte.",
+    "coverage": "Couverture",
+    "overdueDays": "Jours de retard",
+    "claimCandidate": "Mise en jeu possible"
   }
 }

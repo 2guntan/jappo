@@ -15,3 +15,4 @@ export * from '../../modules/facilities/schema';
 export * from '../../modules/operations/schema';
 export * from '../../modules/harvest/schema';
 export * from '../../modules/settlement/schema';
+export * from '../../modules/monitoring/schema';

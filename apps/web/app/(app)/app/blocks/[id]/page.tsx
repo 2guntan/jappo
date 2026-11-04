@@ -1,6 +1,7 @@
 'use client';
 
 import { AlertsTab } from '@/components/blocks/alerts-tab';
+import { MonitoringTab } from '@/components/blocks/monitoring-tab';
 import Link from 'next/link';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { Suspense, use } from 'react';
@@ -20,7 +21,7 @@ import { OfftakeTab } from '@/components/blocks/offtake-tab';
 import { InvestmentTab } from '@/components/blocks/investment-tab';
 import { RiskTab } from '@/components/blocks/risk-tab';
 
-const TABS = ['overview', 'land', 'plots', 'farmers', 'seasons', 'offtake', 'investment', 'risk', 'alerts', 'assets', 'community'] as const;
+const TABS = ['overview', 'land', 'plots', 'farmers', 'seasons', 'offtake', 'investment', 'risk', 'alerts', 'monitoring', 'assets', 'community'] as const;
 type Tab = (typeof TABS)[number];
 
 function BlockInner({ id }: { id: string }) {
@@ -60,6 +61,7 @@ function BlockInner({ id }: { id: string }) {
       </nav>
       {tab === 'overview' && <OverviewTab block={b} />}
       {tab === 'alerts' && <AlertsTab block={b} />}
+      {tab === 'monitoring' && <MonitoringTab block={b} />}
       {tab === 'land' && <LandTab block={b} />}
       {tab === 'plots' && <PlotsTab block={b} />}
       {tab === 'farmers' && <BlockFarmersTab block={b} />}

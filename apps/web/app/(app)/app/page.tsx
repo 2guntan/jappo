@@ -5,6 +5,7 @@ import { useTranslations } from 'next-intl';
 import { CheckCircle2, Circle } from 'lucide-react';
 import { useSession } from '@/lib/session';
 import { Alert, Card, CardBody, CardHeader, CardTitle, PageHeader, buttonVariants } from '@/components/ui';
+import { RoleDashboard } from '@/components/monitoring/role-dashboard';
 
 export default function Home() {
   const t = useTranslations('app');
@@ -31,6 +32,7 @@ export default function Home() {
           </Alert>
         )}
       </div>
+      <RoleDashboard />
       <Card className="mt-6">
         <CardHeader>
           <CardTitle>{t('nextSteps')}</CardTitle>
