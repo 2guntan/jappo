@@ -13,3 +13,4 @@ export * from './marketplace';
 export const ENGINE_VERSION = '1.0.0';
 export * from './facility';
 export * from './operations';
+export * from './settlement';

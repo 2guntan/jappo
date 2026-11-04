@@ -170,5 +170,30 @@
     "title": "Encaissement confirmé : {{amount}}",
     "subject": "Jappo — encaissement confirmé",
     "body": "Le prêteur a confirmé l'encaissement de {{amount}} (référence {{bankReference}}) sur le compte séquestre. {{link}}"
+  },
+  "settlement.to_approve": {
+    "title": "Règlement à approuver : {{ref}}",
+    "subject": "Jappo — règlement {{ref}} à approuver",
+    "body": "Le règlement {{ref}} ({{amount}} encaissés) est approuvé par l'opérateur et attend votre approbation. {{link}}"
+  },
+  "settlement.approved": {
+    "title": "Règlement approuvé : {{ref}}",
+    "subject": "Jappo — règlement {{ref}} approuvé",
+    "body": "Tous les prêteurs ont approuvé le règlement {{ref}}. Vous pouvez émettre les instructions de paiement. {{link}}"
+  },
+  "settlement.statement": {
+    "title": "Relevé de campagne",
+    "body": "{{name}}, ventes {{gross}}, crédit remboursé {{debt}}, frais {{fees}}, versé {{payout}}, arriérés {{arrears}}. Réf {{ref}}.",
+    "sms": "Jappo {{name}} : ventes {{gross}}, credit {{debt}}, frais {{fees}}, verse {{payout}}, arrieres {{arrears}}. Ref {{ref}}"
+  },
+  "settlement.statement_sms": {
+    "title": "Relevé de campagne",
+    "body": "{{text}}",
+    "sms": "{{text}}"
+  },
+  "farmer.login_otp": {
+    "title": "Code de connexion",
+    "body": "Votre code Jappo : {{code}} (10 min).",
+    "sms": "Jappo : votre code de connexion est {{code}} (10 min)."
   }
 }

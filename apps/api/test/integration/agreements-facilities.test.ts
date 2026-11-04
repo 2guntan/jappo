@@ -60,11 +60,12 @@ describe('agreements & facilities (P6)', () => {
     const f0 = json<Facility>(await t.app.inject({ method: 'GET', url: `/v1/facilities/${s.facilityId}`, headers: auth(s.alpha) }));
     expect(f0).toMatchObject({ status: 'pending_cp', principalXof: 3_000_000, upfrontFeeXof: 30_000, escrowAccountId: null });
     expect(f0.schedule).toEqual([expect.objectContaining({ seq: 1, principalXof: 3_000_000, interestXof: 270_000, totalXof: 3_270_000, status: 'due' })]);
+    // Fees are charged to the operator in the scenario assumptions → farmer due = principal + interest (SPEC §9.6.3: 1 308 000 / 1 090 000 / 872 000).
     expect(f0.farmerAllocations.map((a) => [a.principalXof, a.interestXof, a.feesXof])).toEqual(
       expect.arrayContaining([
-        [1_200_000, 108_000, 12_000],
-        [1_000_000, 90_000, 10_000],
-        [800_000, 72_000, 8_000],
+        [1_200_000, 108_000, 0],
+        [1_000_000, 90_000, 0],
+        [800_000, 72_000, 0],
       ]),
     );
     expect(f0.conditionsPrecedent.every((c) => !c.met)).toBe(true);

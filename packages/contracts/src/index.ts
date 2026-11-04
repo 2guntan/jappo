@@ -9,3 +9,4 @@ export * from './finance';
 export * from './marketplace';
 export * from './agreements';
 export * from './operations';
+export * from './settlement';

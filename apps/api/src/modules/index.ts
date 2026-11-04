@@ -23,6 +23,7 @@ import { seasonStartGuards } from './planning/routes';
 import { operationsRoutes } from './operations/routes';
 import { runAlerts } from './operations/service';
 import { harvestRoutes } from './harvest/routes';
+import { settlementRoutes } from './settlement/routes';
 
 // Season start guard (SPEC §8.2) is provided by the facilities module.
 seasonStartGuards.hasConfirmedDisbursement = (tx, seasonId) => hasConfirmedDisbursement(tx, seasonId);
@@ -186,6 +187,17 @@ export const MODULES: JappoModule[] = validateModules([
         { key: 'buyer-dispatches', href: '/app/buyer/dispatches', labelKey: 'nav.buyerDispatches', permission: 'dispatch:accept' },
         { key: 'buyer-invoices', href: '/app/buyer/invoices', labelKey: 'nav.buyerInvoices', permission: 'dispatch:accept' },
       ],
+    },
+  },
+  {
+    name: 'settlement',
+    version: '1.0.0',
+    core: true,
+    dependsOn: ['harvest'],
+    routes: settlementRoutes,
+    ui: {
+      workspace: ['operator', 'lender'],
+      navItems: [{ key: 'settlements', href: '/app/settlements', labelKey: 'nav.settlements', permission: 'settlement:read' }],
     },
   },
   {

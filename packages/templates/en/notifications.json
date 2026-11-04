@@ -170,5 +170,30 @@
     "title": "Receipt confirmed: {{amount}}",
     "subject": "Jappo — receipt confirmed",
     "body": "The lender confirmed the receipt of {{amount}} (reference {{bankReference}}) on the escrow account. {{link}}"
+  },
+  "settlement.to_approve": {
+    "title": "Settlement to approve: {{ref}}",
+    "subject": "Jappo — settlement {{ref}} to approve",
+    "body": "Settlement {{ref}} ({{amount}} received) is approved by the operator and awaits your approval. {{link}}"
+  },
+  "settlement.approved": {
+    "title": "Settlement approved: {{ref}}",
+    "subject": "Jappo — settlement {{ref}} approved",
+    "body": "All lenders approved settlement {{ref}}. You can issue the payment instructions. {{link}}"
+  },
+  "settlement.statement": {
+    "title": "Season statement",
+    "body": "{{name}}, sales {{gross}}, credit repaid {{debt}}, fees {{fees}}, paid {{payout}}, arrears {{arrears}}. Ref {{ref}}.",
+    "sms": "Jappo {{name}}: sales {{gross}}, credit {{debt}}, fees {{fees}}, paid {{payout}}, arrears {{arrears}}. Ref {{ref}}"
+  },
+  "settlement.statement_sms": {
+    "title": "Season statement",
+    "body": "{{text}}",
+    "sms": "{{text}}"
+  },
+  "farmer.login_otp": {
+    "title": "Login code",
+    "body": "Your Jappo code: {{code}} (10 min).",
+    "sms": "Jappo: your login code is {{code}} (10 min)."
   }
 }

@@ -12,7 +12,7 @@ Source of truth for the next session. Phases from SPEC §17. Update after every 
 - [x] P5 Marketplace
 - [x] P6 Agreements & facilities
 - [x] P7 Operations & harvest
-- [ ] P8 Settlement
+- [x] P8 Settlement
 - [ ] P9 Monitoring
 - [ ] P10 Commercial
 - [ ] P11 Hardening & acceptance
@@ -76,9 +76,17 @@ Web: season tabs *Operations* (service deliveries with acknowledgement, visits) 
 Tests: domain +5; integration `operations-harvest.test.ts` (acknowledgements, idempotency, HEALTH_LOW/YIELD_FORECAST_DROP/VISIT_GAP/DELIVERY_SHORTFALL raised, no duplicates, auto-resolve, rule admin, grades, tickets, dispatch rules, invoice 2 780 000 XOF, receipts and invoice payment, authz negatives for stranger lender/buyer; PWA ops) — 65 integration tests; Playwright `p7-operations-harvest.spec.ts`. Fixed a flaky P1 test (signature tamper could be a no-op).
 Known limitations: invoice amounts exclude VAT by default (setting); visits' crop-stage timeline is listed, not charted.
 
+## P8 Settlement — done
+
+Domain: golden WF-1 and WF-2 written first (`golden-wf.test.ts`, numbers unchanged), then `computeSettlement` (§9.6.2: scaling to receipts, per-farmer waterfall, capped group solidarity, block distribution, invariant) + edge-case tests (`settlement.test.ts`).
+API: tables `settlement_runs`, `settlement_lender_approvals`, `settlement_lines`, `payout_instructions`, `farmer_arrears`, `farmer_statements` (migration 0008); compute from confirmed receipts and accepted deliveries (season → settlement), recompute (voids approvals), operator then every-lender approval, instruct (instructions, arrears, statement PDFs + SMS text), CSV exports (bank generic, Wave, Orange Money), single confirm/fail and CSV confirmation import, repayment posting to schedule lines (facility repaid / cured), mark executed, reconcile (Σ confirmed = receipts → season closed, block financed), statements list/PDF/send, farmer arrears; farmer portal API (phone OTP login, profile, plots, statements, PDF). Fix: farmer-borne upfront fee only when assumptions say so (D-082).
+Web: settlements list + run page (distribution cards, lines, approvals, actions, instructions with exports, confirm/fail, CSV import, statements + send), season Harvest tab *Settlement* card (compute), farmer portal `/me` (SMS login, plots, statements with PDF).
+Tests: domain 53; integration `settlement.test.ts` reproduces WF-1 end to end (lines, distribution, instructions Σ = 5 750 000, exports, approvals incl. recompute, authz negatives, arrears, statements, lender confirmation posting 270 000 interest + 2 878 000 principal, CSV import with failure, reconciliation blocked then passing, season closed, block financed, farmer portal own-data only) and WF-2 (solidarity 81 722 / 40 278) — 67 integration tests; Playwright `p8-settlement.spec.ts`.
+Known limitations: payout providers are manual/CSV (no live Wave/Orange API calls); without an operator investment facility the investment fees go to the operator (WF-1's 200 000 "investment" line needs the investment tranche of P11's scenario).
+
 ## In progress
 
-Nothing half-built. **Next concrete step:** P8 Settlement — write golden tests WF-1 and WF-2 (SPEC §9.6.3/§9.6.4) exactly as specified **before** `computeSettlement` (§9.6.2), then tables `settlement_runs`, `settlement_lines`, `payout_instructions`, `farmer_arrears`, `farmer_statements`; runs from confirmed escrow receipts + accepted harvest per farmer + facility farmer allocations; approvals (operator + every lender with a facility on the block), instructions export (3 formats), confirmations import, arrears, repayments posting to schedule lines (marks lines paid, facility `repaid`), statements PDF + SMS, farmer portal `/me`; reconciliation invariant enforced; season `settlement → closed`, block `active → financed`.
+Nothing half-built. **Next concrete step:** P9 Monitoring — KPI snapshot job (§9.9, nightly per block/season and per lender portfolio; table `kpi_snapshots`), `GET /dashboards/operator|lender|block/{id}`, `GET /kpis`, reports (`POST /reports` → PDF job: `lender_report`, `settlement_summary`), guarantor/insurer view (§12.6); write a KPI fixture with an expected-values file first, then the engine (`computeKpis` in `packages/domain`).
 
 ## How to run
 

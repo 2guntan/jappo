@@ -6,7 +6,7 @@ import type { Db, DbOrTx } from '../../db/client';
 import { disbursements, escrowAccounts, facilities, facilityFarmerAllocations, repayments, scheduleLines } from './schema';
 import { awards, bids, financingRequests, rfps, tranches } from '../marketplace/schema';
 import { dossiers } from '../dossier/schema';
-import { modelRuns } from '../finance/schema';
+import { financingAssumptions, modelRuns } from '../finance/schema';
 import { memberships, organizations } from '../identity/schema';
 import { farmers } from '../farmers/schema';
 import { blocks, plotAllocations } from '../land/schema';
@@ -72,7 +72,10 @@ async function writeSchedule(tx: DbOrTx, f: FacilityRow, harvestMonths: number[]
 async function writeAllocations(tx: DbOrTx, f: FacilityRow, interestXof: number, farmerCredit: { farmerId: string; seasonalPrincipalXof: number }[]) {
   await tx.delete(facilityFarmerAllocations).where(eq(facilityFarmerAllocations.facilityId, f.id));
   if (f.trancheType !== 'seasonal' || f.borrowerType === 'operator' || !farmerCredit.length) return;
-  const alloc = allocateFacility({ principalXof: f.principalXof, interestXof, feesXof: upfrontFeeXof(f.principalXof, f.upfrontFeeBps), farmers: farmerCredit.map((x) => ({ farmerId: x.farmerId, weightXof: x.seasonalPrincipalXof })) });
+  // The upfront fee is farmer-borne only when the season assumptions charge fees to farmers (as in the model, §9.1.4).
+  const [fa] = await tx.select({ seasonal: financingAssumptions.seasonal }).from(financingAssumptions).where(eq(financingAssumptions.seasonId, f.seasonId));
+  const feesXof = fa?.seasonal?.feesChargedTo === 'farmers' ? upfrontFeeXof(f.principalXof, f.upfrontFeeBps) : 0;
+  const alloc = allocateFacility({ principalXof: f.principalXof, interestXof, feesXof, farmers: farmerCredit.map((x) => ({ farmerId: x.farmerId, weightXof: x.seasonalPrincipalXof })) });
   if (alloc.length) await tx.insert(facilityFarmerAllocations).values(alloc.map((a) => ({ facilityId: f.id, ...a })));
 }
 

@@ -3056,6 +3056,382 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/v1/settlement-runs": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["listVisibleSettlementRuns"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v1/seasons/{id}/settlement-runs": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["listSettlementRuns"];
+        put?: never;
+        /** Compute the waterfall (SPEC §9.6) from confirmed receipts and accepted deliveries; season → settlement */
+        post: operations["computeSettlementRun"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v1/settlement-runs/{id}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** With lines and distribution */
+        get: operations["getSettlementRun"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v1/settlement-runs/{id}/actions/recompute": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post: operations["recomputeSettlementRun"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v1/settlement-runs/{id}/actions/approve-operator": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post: operations["approveSettlementOperator"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v1/settlement-runs/{id}/actions/approve-lender": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post: operations["approveSettlementLender"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v1/settlement-runs/{id}/actions/instruct": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post: operations["instructSettlementRun"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v1/settlement-runs/{id}/actions/mark-executed": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post: operations["markSettlementExecuted"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v1/settlement-runs/{id}/actions/reconcile": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post: operations["reconcileSettlementRun"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v1/settlement-runs/{id}/instructions": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** `?format=generic|wave|orange_money` returns the CSV export (operator) and marks rows exported */
+        get: operations["listPayoutInstructions"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v1/payout-instructions/{id}/actions/confirm": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** Operator for farmer/operator payouts; the receiving lender for its own lines (posts the repayment) */
+        post: operations["confirmPayoutInstruction"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v1/payout-instructions/{id}/actions/fail": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** Operator for farmer/operator payouts; the receiving lender for its own lines (posts the repayment) */
+        post: operations["failPayoutInstruction"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v1/settlement-runs/{id}/instructions/actions/import-confirmations": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** CSV `reference,status,provider_ref,reason` from the bank or mobile-money provider */
+        post: operations["importPayoutConfirmations"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v1/settlement-runs/{id}/statements": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["listFarmerStatements"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v1/farmer-statements/{id}/pdf": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["getFarmerStatementPdf"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v1/settlement-runs/{id}/statements/actions/send": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** SMS summary to every farmer (PDF available in the farmer portal) */
+        post: operations["sendFarmerStatements"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v1/farmers/{id}/arrears": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["listFarmerArrears"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v1/auth/farmer/otp/request": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post: operations["requestFarmerLoginOtp"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v1/auth/farmer/otp/verify": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** Short-lived farmer token (1 h, no refresh) */
+        post: operations["verifyFarmerLoginOtp"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v1/me/farmer": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["getMeFarmer"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v1/me/farmer/plots": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["listMeFarmerPlots"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v1/me/farmer/statements": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["listMeFarmerStatements"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v1/me/farmer/statements/{id}/pdf": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["getMeFarmerStatementPdf"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/v1/field/bootstrap": {
         parameters: {
             query?: never;
@@ -4691,6 +5067,165 @@ export interface components {
             version: number;
             allowedActions: string[];
         };
+        SettlementRunInput: {
+            /** Format: uuid */
+            id: string;
+            ref: string;
+            /** Format: uuid */
+            blockId: string;
+            blockRef: string;
+            blockName: string;
+            /** Format: uuid */
+            seasonId: string;
+            /** @enum {string} */
+            status: "draft" | "computed" | "approved_operator" | "approved_lenders" | "instructed" | "executed" | "reconciled";
+            receiptsTotalXof: number;
+            grossCreditTotalXof: number;
+            engineVersion: string;
+            computedAt: string | null;
+            approvedOperatorAt: string | null;
+            instructedAt: string | null;
+            executedAt: string | null;
+            reconciledAt: string | null;
+            lines: {
+                /** Format: uuid */
+                farmerId: string;
+                farmerCode: string;
+                farmerName: string;
+                grossCreditXof: number;
+                seasonalPaidXof: number;
+                investmentFeePaidXof: number;
+                operatorFeesPaidXof: number;
+                otherDeductionsXof: number;
+                solidarityContributionXof: number;
+                solidarityReceivedXof: number;
+                payoutXof: number;
+                arrears: {
+                    seasonalDebtXof: number;
+                    investmentFeeXof: number;
+                    operatorFeesXof: number;
+                };
+            }[];
+            distribution: {
+                seasonalByFacility: {
+                    /** Format: uuid */
+                    facilityId: string;
+                    amountXof: number;
+                }[];
+                investmentToLenderXof: number;
+                investmentExcessToOperatorXof: number;
+                operatorXof: number;
+                farmersTotalXof: number;
+                roundingToOperatorXof: number;
+            };
+            invariantOk: boolean;
+            lenderApprovals: {
+                /** Format: uuid */
+                lenderOrgId: string;
+                lenderName: string;
+                approvedAt: string | null;
+            }[];
+            version: number;
+            allowedActions: string[];
+        };
+        PayoutInstructionInput: {
+            /** Format: uuid */
+            id: string;
+            ref: string;
+            /** @enum {string} */
+            beneficiaryType: "lender" | "operator" | "farmer" | "supplier";
+            /** Format: uuid */
+            beneficiaryId: string;
+            beneficiaryName: string;
+            facilityId: string | null;
+            /** @enum {string} */
+            channel: "bank_transfer" | "mobile_money";
+            destinationMasked: string;
+            heldForFarmer: boolean;
+            amountXof: number;
+            /** @enum {string} */
+            status: "pending" | "exported" | "sent" | "confirmed" | "failed";
+            provider: string;
+            providerRef: string | null;
+            confirmedAt: string | null;
+            failureReason: string | null;
+            version: number;
+        };
+        ImportConfirmationsResultInput: {
+            results: {
+                reference: string;
+                /** @enum {string} */
+                status: "confirmed" | "failed" | "skipped";
+                error: string | null;
+            }[];
+        };
+        FarmerStatementInput: {
+            /** Format: uuid */
+            id: string;
+            /** Format: uuid */
+            farmerId: string;
+            farmerCode: string;
+            farmerName: string;
+            smsText: string;
+            hasPdf: boolean;
+            sentAt: string | null;
+        };
+        FarmerArrearInput: {
+            /** Format: uuid */
+            id: string;
+            /** Format: uuid */
+            blockId: string;
+            /** Format: uuid */
+            originRunId: string;
+            /** @enum {string} */
+            bucket: "seasonal_debt" | "investment_fee" | "operator_fees";
+            amountXof: number;
+            remainingXof: number;
+            facilityId: string | null;
+            /** @enum {string} */
+            status: "open" | "settled" | "written_off" | "claimed_guarantee";
+            /** Format: date-time */
+            createdAt: string;
+        };
+        FarmerTokenInput: {
+            accessToken: string;
+            expiresIn: number;
+        };
+        MeFarmerInput: {
+            /** Format: uuid */
+            id: string;
+            code: string;
+            firstName: string;
+            lastName: string;
+            village: string | null;
+            phoneMasked: string | null;
+            walletMasked: string | null;
+            walletVerified: boolean;
+            operatorName: string;
+            locale: string;
+        };
+        MeFarmerPlotInput: {
+            /** Format: uuid */
+            plotId: string;
+            plotCode: string;
+            blockRef: string;
+            blockName: string;
+            areaHa: number;
+            sharePct: number;
+            status: string;
+        };
+        MeFarmerStatementInput: {
+            /** Format: uuid */
+            id: string;
+            runRef: string;
+            seasonName: string;
+            blockName: string;
+            grossCreditXof: number;
+            payoutXof: number;
+            arrearsXof: number;
+            /** Format: date-time */
+            createdAt: string;
+        };
         Problem: {
             type: string;
             title: string;
@@ -6287,6 +6822,165 @@ export interface components {
             createdAt: string;
             version: number;
             allowedActions: string[];
+        };
+        SettlementRun: {
+            /** Format: uuid */
+            id: string;
+            ref: string;
+            /** Format: uuid */
+            blockId: string;
+            blockRef: string;
+            blockName: string;
+            /** Format: uuid */
+            seasonId: string;
+            /** @enum {string} */
+            status: "draft" | "computed" | "approved_operator" | "approved_lenders" | "instructed" | "executed" | "reconciled";
+            receiptsTotalXof: number;
+            grossCreditTotalXof: number;
+            engineVersion: string;
+            computedAt: string | null;
+            approvedOperatorAt: string | null;
+            instructedAt: string | null;
+            executedAt: string | null;
+            reconciledAt: string | null;
+            lines: {
+                /** Format: uuid */
+                farmerId: string;
+                farmerCode: string;
+                farmerName: string;
+                grossCreditXof: number;
+                seasonalPaidXof: number;
+                investmentFeePaidXof: number;
+                operatorFeesPaidXof: number;
+                otherDeductionsXof: number;
+                solidarityContributionXof: number;
+                solidarityReceivedXof: number;
+                payoutXof: number;
+                arrears: {
+                    seasonalDebtXof: number;
+                    investmentFeeXof: number;
+                    operatorFeesXof: number;
+                };
+            }[];
+            distribution: {
+                seasonalByFacility: {
+                    /** Format: uuid */
+                    facilityId: string;
+                    amountXof: number;
+                }[];
+                investmentToLenderXof: number;
+                investmentExcessToOperatorXof: number;
+                operatorXof: number;
+                farmersTotalXof: number;
+                roundingToOperatorXof: number;
+            };
+            invariantOk: boolean;
+            lenderApprovals: {
+                /** Format: uuid */
+                lenderOrgId: string;
+                lenderName: string;
+                approvedAt: string | null;
+            }[];
+            version: number;
+            allowedActions: string[];
+        };
+        PayoutInstruction: {
+            /** Format: uuid */
+            id: string;
+            ref: string;
+            /** @enum {string} */
+            beneficiaryType: "lender" | "operator" | "farmer" | "supplier";
+            /** Format: uuid */
+            beneficiaryId: string;
+            beneficiaryName: string;
+            facilityId: string | null;
+            /** @enum {string} */
+            channel: "bank_transfer" | "mobile_money";
+            destinationMasked: string;
+            heldForFarmer: boolean;
+            amountXof: number;
+            /** @enum {string} */
+            status: "pending" | "exported" | "sent" | "confirmed" | "failed";
+            provider: string;
+            providerRef: string | null;
+            confirmedAt: string | null;
+            failureReason: string | null;
+            version: number;
+        };
+        ImportConfirmationsResult: {
+            results: {
+                reference: string;
+                /** @enum {string} */
+                status: "confirmed" | "failed" | "skipped";
+                error: string | null;
+            }[];
+        };
+        FarmerStatement: {
+            /** Format: uuid */
+            id: string;
+            /** Format: uuid */
+            farmerId: string;
+            farmerCode: string;
+            farmerName: string;
+            smsText: string;
+            hasPdf: boolean;
+            sentAt: string | null;
+        };
+        FarmerArrear: {
+            /** Format: uuid */
+            id: string;
+            /** Format: uuid */
+            blockId: string;
+            /** Format: uuid */
+            originRunId: string;
+            /** @enum {string} */
+            bucket: "seasonal_debt" | "investment_fee" | "operator_fees";
+            amountXof: number;
+            remainingXof: number;
+            facilityId: string | null;
+            /** @enum {string} */
+            status: "open" | "settled" | "written_off" | "claimed_guarantee";
+            /** Format: date-time */
+            createdAt: string;
+        };
+        FarmerToken: {
+            accessToken: string;
+            expiresIn: number;
+        };
+        MeFarmer: {
+            /** Format: uuid */
+            id: string;
+            code: string;
+            firstName: string;
+            lastName: string;
+            village: string | null;
+            phoneMasked: string | null;
+            walletMasked: string | null;
+            walletVerified: boolean;
+            operatorName: string;
+            locale: string;
+        };
+        MeFarmerPlot: {
+            /** Format: uuid */
+            plotId: string;
+            plotCode: string;
+            blockRef: string;
+            blockName: string;
+            areaHa: number;
+            sharePct: number;
+            status: string;
+        };
+        MeFarmerStatement: {
+            /** Format: uuid */
+            id: string;
+            runRef: string;
+            seasonName: string;
+            blockName: string;
+            grossCreditXof: number;
+            payoutXof: number;
+            arrearsXof: number;
+            /** Format: date-time */
+            createdAt: string;
         };
     };
     responses: never;
@@ -13424,6 +14118,582 @@ export interface operations {
                 };
                 content: {
                     "application/json": components["schemas"]["EscrowReceipt"];
+                };
+            };
+        };
+    };
+    listVisibleSettlementRuns: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Default Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        data: components["schemas"]["SettlementRun"][];
+                    };
+                };
+            };
+        };
+    };
+    listSettlementRuns: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Default Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        data: components["schemas"]["SettlementRun"][];
+                    };
+                };
+            };
+        };
+    };
+    computeSettlementRun: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Default Response */
+            201: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["SettlementRun"];
+                };
+            };
+        };
+    };
+    getSettlementRun: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Default Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["SettlementRun"];
+                };
+            };
+        };
+    };
+    recomputeSettlementRun: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Default Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["SettlementRun"];
+                };
+            };
+        };
+    };
+    approveSettlementOperator: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Default Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["SettlementRun"];
+                };
+            };
+        };
+    };
+    approveSettlementLender: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Default Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["SettlementRun"];
+                };
+            };
+        };
+    };
+    instructSettlementRun: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Default Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["SettlementRun"];
+                };
+            };
+        };
+    };
+    markSettlementExecuted: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Default Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["SettlementRun"];
+                };
+            };
+        };
+    };
+    reconcileSettlementRun: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Default Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["SettlementRun"];
+                };
+            };
+        };
+    };
+    listPayoutInstructions: {
+        parameters: {
+            query?: {
+                format?: "generic" | "wave" | "orange_money";
+            };
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Default Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        data: components["schemas"]["PayoutInstruction"][];
+                    } | string;
+                };
+            };
+        };
+    };
+    confirmPayoutInstruction: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": {
+                    providerRef?: string | null;
+                    reason?: string | null;
+                };
+            };
+        };
+        responses: {
+            /** @description Default Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["PayoutInstruction"];
+                };
+            };
+        };
+    };
+    failPayoutInstruction: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": {
+                    providerRef?: string | null;
+                    reason?: string | null;
+                };
+            };
+        };
+        responses: {
+            /** @description Default Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["PayoutInstruction"];
+                };
+            };
+        };
+    };
+    importPayoutConfirmations: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": {
+                    csv: string;
+                };
+            };
+        };
+        responses: {
+            /** @description Default Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ImportConfirmationsResult"];
+                };
+            };
+        };
+    };
+    listFarmerStatements: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Default Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        data: components["schemas"]["FarmerStatement"][];
+                    };
+                };
+            };
+        };
+    };
+    getFarmerStatementPdf: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Default Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        url: string;
+                        fileId: string;
+                    };
+                };
+            };
+        };
+    };
+    sendFarmerStatements: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Default Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        sent: number;
+                    };
+                };
+            };
+        };
+    };
+    listFarmerArrears: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Default Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        data: components["schemas"]["FarmerArrear"][];
+                    };
+                };
+            };
+        };
+    };
+    requestFarmerLoginOtp: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": {
+                    phone: string;
+                };
+            };
+        };
+        responses: {
+            /** @description Default Response */
+            202: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @enum {boolean} */
+                        ok: true;
+                    };
+                };
+            };
+        };
+    };
+    verifyFarmerLoginOtp: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": {
+                    phone: string;
+                    code: string;
+                };
+            };
+        };
+        responses: {
+            /** @description Default Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["FarmerToken"];
+                };
+            };
+        };
+    };
+    getMeFarmer: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Default Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["MeFarmer"];
+                };
+            };
+        };
+    };
+    listMeFarmerPlots: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Default Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        data: components["schemas"]["MeFarmerPlot"][];
+                    };
+                };
+            };
+        };
+    };
+    listMeFarmerStatements: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Default Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        data: components["schemas"]["MeFarmerStatement"][];
+                    };
+                };
+            };
+        };
+    };
+    getMeFarmerStatementPdf: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Default Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        url: string;
+                        fileId: string;
+                    };
                 };
             };
         };

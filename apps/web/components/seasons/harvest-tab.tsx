@@ -22,6 +22,7 @@ export function HarvestTab({ season }: { season: Schemas['Season'] }) {
   const tickets = useQuery({ queryKey: ['harvest', season.id], queryFn: () => unwrap(api.GET('/v1/seasons/{id}/harvest-deliveries', { params: { path: { id: season.id } } })) });
   const disp = useQuery({ queryKey: ['dispatches', season.id], queryFn: () => unwrap(api.GET('/v1/seasons/{id}/dispatches', { params: { path: { id: season.id } } })) });
   const invs = useQuery({ queryKey: ['invoices', season.id], queryFn: () => unwrap(api.GET('/v1/buyer-invoices', { params: { query: { seasonId: season.id } } })) });
+  const runs = useQuery({ queryKey: ['settlement-runs', season.id], queryFn: () => unwrap(api.GET('/v1/seasons/{id}/settlement-runs', { params: { path: { id: season.id } } })) });
   const receipts = useQuery({ queryKey: ['receipts', season.blockId], queryFn: () => unwrap(api.GET('/v1/escrow-receipts', { params: { query: { blockId: season.blockId } } })) });
   const [w, setW] = useState({ plotId: '', farmerId: '', grossKg: '', tareKg: '0', moisturePct: '', grade: '' });
   const [sel, setSel] = useState<string[]>([]);
@@ -145,6 +146,17 @@ export function HarvestTab({ season }: { season: Schemas['Season'] }) {
         </CardBody>
       </Card>
 
+      <Card>
+        <CardHeader className="flex items-center justify-between">
+          <CardTitle>{t('settlement.title')}</CardTitle>
+          {hasPermission('settlement:compute') && !(runs.data?.data.length) && (
+            <Button loading={busy === 'stl'} data-testid="compute-settlement" onClick={() => run('stl', async () => { const r = await unwrap(api.POST('/v1/seasons/{id}/settlement-runs', { params: { path: { id: season.id } } })); window.location.href = `/app/settlements/${r.id}`; })}>{t('settlement.compute')}</Button>
+          )}
+        </CardHeader>
+        <CardBody className="text-sm">
+          {(runs.data?.data ?? []).length === 0 ? <p className="text-neutral-600">{t('settlement.computeHint')}</p> : runs.data!.data.map((r) => <a key={r.id} className="text-brand-700 hover:underline" href={`/app/settlements/${r.id}`}>{r.ref} · {t(`settlement.status.${r.status}`)}</a>)}
+        </CardBody>
+      </Card>
       <Card>
         <CardHeader><CardTitle>{t('harvest.receipts')}</CardTitle></CardHeader>
         <CardBody className="p-0">

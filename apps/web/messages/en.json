@@ -161,7 +161,8 @@
     "facilities": "Facilities",
     "buyerDispatches": "Receipts",
     "buyerInvoices": "Invoices and payments",
-    "adminAlertRules": "Alert rules"
+    "adminAlertRules": "Alert rules",
+    "settlements": "Settlements"
   },
   "app": {
     "welcome": "Hello {name}",
@@ -1405,5 +1406,93 @@
       "warning": "Warning",
       "critical": "Critical"
     }
+  },
+  "settlement": {
+    "title": "Settlements",
+    "subtitle": "Receipts waterfall (§9.6), approvals and payouts",
+    "empty": "No settlements.",
+    "receipts": "Receipts",
+    "farmersTotal": "Farmers",
+    "computedAt": "Computed",
+    "grossCredit": "Gross credit",
+    "seasonalLenders": "Seasonal lenders",
+    "investment": "Investment",
+    "operator": "Operator",
+    "invariantBroken": "The distribution does not equal receipts.",
+    "lines": "Lines per farmer",
+    "seasonal": "Credit repaid",
+    "invest": "Investment fee",
+    "fees": "Fees",
+    "solidarity": "Solidarity",
+    "payout": "Paid out",
+    "arrears": "Arrears",
+    "approvals": "Approvals",
+    "operatorApproval": "Operator",
+    "pending": "pending",
+    "instructions": "Payout instructions",
+    "channel": "Channel",
+    "bank": "Transfer",
+    "heldForFarmer": "held for the farmer",
+    "fail": "Failed",
+    "importTitle": "Import confirmations (CSV)",
+    "import": "Import",
+    "imported": "Confirmations imported.",
+    "statements": "Farmer statements",
+    "sendStatements": "Send statements (SMS)",
+    "statementsSent": "Statements sent.",
+    "sentAt": "Sent",
+    "compute": "Compute settlement",
+    "computeHint": "The settlement is computed from lender-confirmed escrow receipts and accepted deliveries.",
+    "status": {
+      "draft": "Draft",
+      "computed": "Computed",
+      "approved_operator": "Approved (operator)",
+      "approved_lenders": "Approved (lenders)",
+      "instructed": "Instructed",
+      "executed": "Executed",
+      "reconciled": "Reconciled"
+    },
+    "actions": {
+      "recompute": "Recompute",
+      "approve_operator": "Approve (operator)",
+      "approve_lender": "Approve (lender)",
+      "instruct": "Issue instructions",
+      "mark_executed": "Mark executed",
+      "reconcile": "Reconcile"
+    },
+    "formats": {
+      "generic": "Bank CSV",
+      "wave": "Wave CSV",
+      "orange_money": "Orange Money CSV"
+    },
+    "beneficiaries": {
+      "lender": "Lender",
+      "operator": "Operator",
+      "farmer": "Farmer",
+      "supplier": "Supplier"
+    },
+    "insStatus": {
+      "pending": "Pending",
+      "exported": "Exported",
+      "sent": "Sent",
+      "confirmed": "Confirmed",
+      "failed": "Failed"
+    }
+  },
+  "farmerPortal": {
+    "title": "My farmer space",
+    "intro": "Sign in with your phone number: you will receive a code by SMS.",
+    "phone": "Phone",
+    "sendCode": "Get the code",
+    "code": "Code received by SMS",
+    "login": "Sign in",
+    "wallet": "Mobile wallet",
+    "plots": "My plots",
+    "statements": "My season statements",
+    "noStatements": "No statement yet.",
+    "sales": "sales",
+    "paid": "paid",
+    "arrears": "arrears",
+    "logout": "Sign out"
   }
 }

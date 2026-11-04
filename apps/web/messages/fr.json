@@ -161,7 +161,8 @@
     "facilities": "Facilités",
     "buyerDispatches": "Réceptions",
     "buyerInvoices": "Factures et paiements",
-    "adminAlertRules": "Règles d'alerte"
+    "adminAlertRules": "Règles d'alerte",
+    "settlements": "Règlements"
   },
   "app": {
     "welcome": "Bonjour {name}",
@@ -1405,5 +1406,93 @@
       "warning": "Attention",
       "critical": "Critique"
     }
+  },
+  "settlement": {
+    "title": "Règlements",
+    "subtitle": "Cascade de répartition des encaissements (§9.6), approbations et paiements",
+    "empty": "Aucun règlement.",
+    "receipts": "Encaissements",
+    "farmersTotal": "Producteurs",
+    "computedAt": "Calculé le",
+    "grossCredit": "Crédit brut",
+    "seasonalLenders": "Prêteurs de campagne",
+    "investment": "Investissement",
+    "operator": "Opérateur",
+    "invariantBroken": "La répartition ne correspond pas aux encaissements.",
+    "lines": "Lignes par producteur",
+    "seasonal": "Crédit remboursé",
+    "invest": "Frais investissement",
+    "fees": "Frais",
+    "solidarity": "Solidarité",
+    "payout": "Versé",
+    "arrears": "Arriérés",
+    "approvals": "Approbations",
+    "operatorApproval": "Opérateur",
+    "pending": "en attente",
+    "instructions": "Instructions de paiement",
+    "channel": "Canal",
+    "bank": "Virement",
+    "heldForFarmer": "détenu pour le producteur",
+    "fail": "Échec",
+    "importTitle": "Importer les confirmations (CSV)",
+    "import": "Importer",
+    "imported": "Confirmations importées.",
+    "statements": "Relevés producteurs",
+    "sendStatements": "Envoyer les relevés (SMS)",
+    "statementsSent": "Relevés envoyés.",
+    "sentAt": "Envoyé le",
+    "compute": "Calculer le règlement",
+    "computeHint": "Le règlement se calcule à partir des encaissements confirmés par le prêteur et des livraisons acceptées.",
+    "status": {
+      "draft": "Brouillon",
+      "computed": "Calculé",
+      "approved_operator": "Approuvé (opérateur)",
+      "approved_lenders": "Approuvé (prêteurs)",
+      "instructed": "Instructions émises",
+      "executed": "Exécuté",
+      "reconciled": "Rapproché"
+    },
+    "actions": {
+      "recompute": "Recalculer",
+      "approve_operator": "Approuver (opérateur)",
+      "approve_lender": "Approuver (prêteur)",
+      "instruct": "Émettre les instructions",
+      "mark_executed": "Marquer exécuté",
+      "reconcile": "Rapprocher"
+    },
+    "formats": {
+      "generic": "CSV banque",
+      "wave": "CSV Wave",
+      "orange_money": "CSV Orange Money"
+    },
+    "beneficiaries": {
+      "lender": "Prêteur",
+      "operator": "Opérateur",
+      "farmer": "Producteur",
+      "supplier": "Fournisseur"
+    },
+    "insStatus": {
+      "pending": "En attente",
+      "exported": "Exporté",
+      "sent": "Envoyé",
+      "confirmed": "Confirmé",
+      "failed": "Échec"
+    }
+  },
+  "farmerPortal": {
+    "title": "Mon espace producteur",
+    "intro": "Connectez-vous avec votre numéro de téléphone : vous recevrez un code par SMS.",
+    "phone": "Téléphone",
+    "sendCode": "Recevoir le code",
+    "code": "Code reçu par SMS",
+    "login": "Se connecter",
+    "wallet": "Portefeuille mobile",
+    "plots": "Mes parcelles",
+    "statements": "Mes relevés de campagne",
+    "noStatements": "Aucun relevé pour le moment.",
+    "sales": "ventes",
+    "paid": "versé",
+    "arrears": "arriérés",
+    "logout": "Se déconnecter"
   }
 }
