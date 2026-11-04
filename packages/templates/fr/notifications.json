@@ -1,0 +1,34 @@
+{
+  "auth.verify_email": {
+    "title": "Confirmez votre adresse e-mail",
+    "subject": "Jappo — confirmez votre adresse e-mail",
+    "body": "Bonjour {{fullName}},\n\nBienvenue sur Jappo. Confirmez votre adresse e-mail en ouvrant ce lien :\n{{link}}\n\nCe lien expire dans 48 heures."
+  },
+  "auth.password_reset": {
+    "title": "Réinitialisation du mot de passe",
+    "subject": "Jappo — réinitialisation de votre mot de passe",
+    "body": "Bonjour {{fullName}},\n\nPour choisir un nouveau mot de passe, ouvrez ce lien :\n{{link}}\n\nCe lien expire dans 1 heure. Si vous n'êtes pas à l'origine de cette demande, ignorez ce message."
+  },
+  "auth.otp": { "title": "Code de connexion", "sms": "Jappo : votre code est {{code}}. Il expire dans 5 minutes. Ne le partagez pas." },
+  "member.invited": {
+    "title": "Invitation à rejoindre {{orgName}}",
+    "subject": "Jappo — invitation à rejoindre {{orgName}}",
+    "body": "Bonjour,\n\n{{inviterName}} vous invite à rejoindre {{orgName}} sur Jappo (rôles : {{roles}}).\nAcceptez l'invitation : {{link}}\n\nCe lien expire dans 7 jours.",
+    "sms": "Jappo : {{inviterName}} vous invite à rejoindre {{orgName}}. {{link}}"
+  },
+  "org.kyc_submitted": {
+    "title": "Dossier KYC soumis : {{orgName}}",
+    "subject": "Jappo — KYC à examiner : {{orgName}}",
+    "body": "L'organisation {{orgName}} a soumis ses documents KYC. Examinez-les dans la console d'administration : {{link}}"
+  },
+  "org.kyc_verified": {
+    "title": "Votre organisation est vérifiée",
+    "subject": "Jappo — {{orgName}} est vérifiée",
+    "body": "Bonne nouvelle : la vérification KYC de {{orgName}} est validée. Toutes les fonctionnalités sont désormais disponibles."
+  },
+  "org.kyc_rejected": {
+    "title": "Vérification KYC refusée",
+    "subject": "Jappo — vérification KYC de {{orgName}} refusée",
+    "body": "La vérification KYC de {{orgName}} a été refusée.\nMotif : {{comment}}\nCorrigez vos documents puis soumettez-les à nouveau : {{link}}"
+  }
+}

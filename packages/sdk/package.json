@@ -1,0 +1,14 @@
+{
+  "name": "@jappo/sdk",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "exports": { ".": "./src/index.ts" },
+  "scripts": {
+    "gen": "openapi-typescript openapi.json -o src/schema.d.ts",
+    "typecheck": "tsc -p tsconfig.json",
+    "test": "echo 'sdk: generated'"
+  },
+  "dependencies": { "openapi-fetch": "^0.14.0" },
+  "devDependencies": { "@jappo/config": "workspace:*", "openapi-typescript": "^7.9.0" }
+}

@@ -1,0 +1,6 @@
+pnpm-lock.yaml
+apps/api/drizzle
+packages/sdk/src/schema.d.ts
+packages/sdk/openapi.json
+SPEC.md
+AGENTS.md

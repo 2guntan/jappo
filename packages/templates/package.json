@@ -1,0 +1,10 @@
+{
+  "name": "@jappo/templates",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "exports": { ".": "./src/index.ts" },
+  "scripts": { "typecheck": "tsc -p tsconfig.json", "test": "vitest run" },
+  "dependencies": { "handlebars": "^4.7.8" },
+  "devDependencies": { "@jappo/config": "workspace:*", "@types/node": "^22.18.0", "vitest": "^3.2.0" }
+}

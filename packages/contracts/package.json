@@ -1,0 +1,10 @@
+{
+  "name": "@jappo/contracts",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "exports": { ".": "./src/index.ts" },
+  "scripts": { "typecheck": "tsc -p tsconfig.json", "test": "echo 'contracts: schemas exercised by api tests'" },
+  "dependencies": { "zod": "^4.1.12" },
+  "devDependencies": { "@jappo/config": "workspace:*" }
+}
