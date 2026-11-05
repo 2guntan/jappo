@@ -7,10 +7,11 @@ import { useRouter, useSearchParams } from 'next/navigation';
 import { Suspense, use } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { useTranslations } from 'next-intl';
+import { ArrowLeft } from 'lucide-react';
 import { unwrap } from '@jappo/sdk';
 import { useSession } from '@/lib/session';
 import { statusTone } from '@/lib/utils';
-import { Badge, PageHeader, Spinner } from '@/components/ui';
+import { Badge, PageHeader, Spinner, Tabs } from '@/components/ui';
 import { OverviewTab } from '@/components/blocks/overview-tab';
 import { LandTab } from '@/components/blocks/land-tab';
 import { PlotsTab } from '@/components/blocks/plots-tab';
@@ -37,28 +38,23 @@ function BlockInner({ id }: { id: string }) {
   return (
     <>
       <PageHeader
+        eyebrow={
+          <Link href="/app/blocks" className="inline-flex items-center gap-1 normal-case tracking-normal text-neutral-500 hover:text-neutral-900">
+            <ArrowLeft className="size-3.5" aria-hidden />
+            {t('blocks.title')}
+          </Link>
+        }
         title={b.name}
         subtitle={
-          <span className="flex flex-wrap items-center gap-2">
-            <span>{b.ref}</span>·<span>{[b.village, b.commune, b.region].filter(Boolean).join(', ')}</span>
+          <span className="flex flex-wrap items-center gap-x-2 gap-y-1">
+            <span className="font-medium text-neutral-700">{b.ref}</span>
+            <span className="text-neutral-300">·</span>
+            <span>{[b.village, b.commune, b.region].filter(Boolean).join(', ')}</span>
             <Badge tone={statusTone(b.status)} data-testid="block-status">{t(`blockStatus.${b.status}`)}</Badge>
           </span>
         }
-        actions={<Link href="/app/blocks" className="text-sm text-brand-700">{t('common.back')}</Link>}
       />
-      <nav className="mb-6 flex gap-1 overflow-x-auto border-b border-neutral-200" role="tablist">
-        {TABS.map((k) => (
-          <button
-            key={k}
-            role="tab"
-            aria-selected={tab === k}
-            onClick={() => router.replace(`/app/blocks/${id}?tab=${k}`)}
-            className={`whitespace-nowrap border-b-2 px-3 py-2 text-sm ${tab === k ? 'border-brand-600 font-medium text-brand-700' : 'border-transparent text-neutral-600 hover:text-neutral-900'}`}
-          >
-            {t(`blocks.tabs.${k}`)}
-          </button>
-        ))}
-      </nav>
+      <Tabs items={TABS.map((k) => ({ key: k, label: t(`blocks.tabs.${k}`) }))} value={tab} onChange={(k) => router.replace(`/app/blocks/${id}?tab=${k}`)} label={b.name} />
       {tab === 'overview' && <OverviewTab block={b} />}
       {tab === 'alerts' && <AlertsTab block={b} />}
       {tab === 'monitoring' && <MonitoringTab block={b} />}

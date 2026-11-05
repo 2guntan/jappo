@@ -40,7 +40,8 @@
       "title": "Finance block farms, from plot to repayment.",
       "subtitle": "Jappo packages your block farm into a financeable dossier, runs a closed tender with lenders, monitors the season and computes settlement at source — without ever holding funds.",
       "ctaOperator": "I am an operator",
-      "ctaLender": "I am a lender"
+      "ctaLender": "I am a lender",
+      "eyebrow": "Structuring · Tender · Monitoring · Settlement"
     },
     "value": {
       "operatorTitle": "For operators",
@@ -48,7 +49,8 @@
       "lenderTitle": "For lenders",
       "lenderText": "A pipeline of standard dossiers, a data room, live monitoring and a repayment waterfall controlled from the escrow account.",
       "farmerTitle": "For farmers",
-      "farmerText": "Inputs on credit, a guaranteed buyer and a clear statement of every deduction, sent by SMS."
+      "farmerText": "Inputs on credit, a guaranteed buyer and a clear statement of every deduction, sent by SMS.",
+      "title": "Three parties, one source of truth"
     },
     "how": {
       "title": "The settlement waterfall",
@@ -64,6 +66,14 @@
       "terms": "Terms of use",
       "privacy": "Privacy",
       "rights": "Jappo provides technology and structuring services. Credit decisions belong to lenders."
+    },
+    "waterfall": {
+      "title": "A reference settlement",
+      "caption": "The waterfall is computed at source on the buyer’s payments; every farmer receives a statement by SMS."
+    },
+    "cta": {
+      "title": "Ready to structure your next season?",
+      "text": "Create your organisation, upload your documents and build your first block."
     }
   },
   "auth": {
@@ -130,6 +140,10 @@
       "etablissement_credit": "Credit institution",
       "sfd": "SFD",
       "other": "Other"
+    },
+    "panel": {
+      "title": "The season, from dossier to statement.",
+      "text": "One workspace for the operator, lenders, the buyer and the farmers."
     }
   },
   "nav": {
@@ -170,7 +184,8 @@
     "adminBilling": "Billing",
     "adminConsole": "Console",
     "billingOverdue": "Jappo invoices are more than 30 days overdue.",
-    "billingRestricted": "Read-only: invoices more than 60 days overdue (settlements and statements remain available)."
+    "billingRestricted": "Read-only: invoices more than 60 days overdue (settlements and statements remain available).",
+    "close": "Close"
   },
   "app": {
     "welcome": "Hello {name}",
@@ -1644,6 +1659,19 @@
       "buyer": "Buyers",
       "guarantor": "Guarantors",
       "insurer": "Insurers"
+    },
+    "included": "Included",
+    "features": {
+      "dossier": "Scored dossier and data room",
+      "marketplace": "Closed tender to lenders",
+      "settlement": "Settlement at source and statements",
+      "priority_support": "Priority support",
+      "api_keys": "API keys",
+      "webhooks": "Webhooks",
+      "opportunities": "Opportunities and sealed bids",
+      "monitoring": "Live portfolio monitoring",
+      "reports": "Monthly PDF reports",
+      "portal": "Partner portal"
     }
   }
 }

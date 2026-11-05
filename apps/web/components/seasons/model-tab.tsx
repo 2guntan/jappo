@@ -10,6 +10,7 @@ import { useSession } from '@/lib/session';
 import { useAction } from '@/lib/hooks';
 import { formatDateTime, formatXof } from '@/lib/utils';
 import { Alert, Badge, Button, Card, CardBody, CardHeader, CardTitle, Field, Input, Select, Table, Td, Th } from '@/components/ui';
+import { CHART } from '@/lib/chart-theme';
 
 type Seasonal = NonNullable<Schemas['ModelAssumptions']['seasonal']>;
 type Investment = NonNullable<Schemas['ModelAssumptions']['investment']>;
@@ -145,32 +146,32 @@ export function ModelTab({ season }: { season: Schemas['Season'] }) {
           <div className="grid gap-6 lg:grid-cols-2">
             <Card>
               <CardHeader><CardTitle>{t('model.revenue')} / {t('model.debt')}</CardTitle></CardHeader>
-              <CardBody style={{ height: 280 }}>
+              <CardBody className="pt-5" style={{ height: 300 }}>
                 <ResponsiveContainer width="100%" height="100%">
                   <BarChart data={SCENARIO_CODES.map((k) => ({ name: t(`model.scenarios.${k}`), revenue: out.scenarios[k].block.grossRevenueXof, debt: out.scenarios[k].block.seasonalDebtDueXof }))}>
-                    <CartesianGrid strokeDasharray="3 3" />
-                    <XAxis dataKey="name" fontSize={10} />
-                    <YAxis fontSize={10} tickFormatter={(v: number) => `${Math.round(v / 1000)}k`} />
-                    <Tooltip formatter={(v) => formatXof(Number(v))} />
-                    <Legend />
-                    <Bar dataKey="revenue" name={t('model.revenue')} fill="#23804a" />
-                    <Bar dataKey="debt" name={t('model.debt')} fill="#d97706" />
+                    <CartesianGrid vertical={false} stroke={CHART.grid} />
+                    <XAxis dataKey="name" fontSize={11} tickLine={false} axisLine={false} tick={{ fill: CHART.tick }} />
+                    <YAxis fontSize={11} tickLine={false} axisLine={false} tick={{ fill: CHART.tick }} tickFormatter={(v: number) => `${Math.round(v / 1000)}k`} width={44} />
+                    <Tooltip cursor={{ fill: CHART.cursor }} contentStyle={CHART.tooltip} formatter={(v) => formatXof(Number(v))} />
+                    <Legend iconType="circle" iconSize={8} wrapperStyle={CHART.legend} />
+                    <Bar dataKey="revenue" name={t('model.revenue')} fill={CHART.brand} radius={[3, 3, 0, 0]} maxBarSize={40} />
+                    <Bar dataKey="debt" name={t('model.debt')} fill={CHART.amber} radius={[3, 3, 0, 0]} maxBarSize={40} />
                   </BarChart>
                 </ResponsiveContainer>
               </CardBody>
             </Card>
             <Card>
               <CardHeader><CardTitle>{t('model.cashflow')}</CardTitle></CardHeader>
-              <CardBody style={{ height: 280 }}>
+              <CardBody className="pt-5" style={{ height: 300 }}>
                 <ResponsiveContainer width="100%" height="100%">
                   <LineChart data={out.scenarios.base.monthlyCashflow.slice(0, 36)}>
-                    <CartesianGrid strokeDasharray="3 3" />
-                    <XAxis dataKey="month" fontSize={10} />
-                    <YAxis fontSize={10} tickFormatter={(v: number) => `${Math.round(v / 1000)}k`} />
-                    <Tooltip formatter={(v) => formatXof(Number(v))} />
-                    <Legend />
-                    <Line dataKey="cumulativeXof" name={t('model.cumulative')} stroke="#23804a" dot={false} />
-                    <Line dataKey="netXof" name={t('model.net2')} stroke="#0284c7" dot={false} />
+                    <CartesianGrid vertical={false} stroke={CHART.grid} />
+                    <XAxis dataKey="month" fontSize={11} tickLine={false} axisLine={false} tick={{ fill: CHART.tick }} />
+                    <YAxis fontSize={11} tickLine={false} axisLine={false} tick={{ fill: CHART.tick }} tickFormatter={(v: number) => `${Math.round(v / 1000)}k`} width={44} />
+                    <Tooltip contentStyle={CHART.tooltip} formatter={(v) => formatXof(Number(v))} />
+                    <Legend iconType="circle" iconSize={8} wrapperStyle={CHART.legend} />
+                    <Line dataKey="cumulativeXof" name={t('model.cumulative')} stroke={CHART.brand} strokeWidth={2} dot={false} activeDot={{ r: 3 }} />
+                    <Line dataKey="netXof" name={t('model.net2')} stroke={CHART.ink} strokeWidth={1.5} dot={false} activeDot={{ r: 3 }} />
                   </LineChart>
                 </ResponsiveContainer>
               </CardBody>

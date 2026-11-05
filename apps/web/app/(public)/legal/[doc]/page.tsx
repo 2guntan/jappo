@@ -14,9 +14,9 @@ export default async function Legal({ params }: { params: Promise<{ doc: string 
     body = '';
   }
   return (
-    <article className="mx-auto max-w-3xl px-4 py-12">
-      <h1 className="text-2xl font-semibold">{doc === 'terms' ? t('terms') : t('privacy')}</h1>
-      <div className="mt-6 whitespace-pre-line text-sm leading-6 text-neutral-700">{body || t('rights')}</div>
+    <article className="mx-auto max-w-2xl px-5 py-20 sm:px-8">
+      <h1 className="text-3xl font-semibold tracking-[-0.025em] text-neutral-900">{doc === 'terms' ? t('terms') : t('privacy')}</h1>
+      <div className="mt-8 whitespace-pre-line text-[15px] leading-7 text-neutral-700">{body || t('rights')}</div>
     </article>
   );
 }

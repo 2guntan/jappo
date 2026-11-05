@@ -2,9 +2,8 @@
 
 import Link from 'next/link';
 import { useTranslations } from 'next-intl';
-import { CheckCircle2, Circle } from 'lucide-react';
 import { useSession } from '@/lib/session';
-import { Alert, Card, CardBody, CardHeader, CardTitle, PageHeader, buttonVariants } from '@/components/ui';
+import { Alert, Card, CardBody, CardHeader, CardTitle, Checklist, PageHeader, buttonVariants } from '@/components/ui';
 import { RoleDashboard } from '@/components/monitoring/role-dashboard';
 
 export default function Home() {
@@ -27,27 +26,22 @@ export default function Home() {
           <Alert tone={kyc === 'rejected' ? 'error' : 'warning'}>
             <div className="flex flex-wrap items-center justify-between gap-3">
               <span>{t(`kycBanner.${kyc}` as 'kycBanner.pending')}</span>
-              {kyc !== 'submitted' && <Link href="/app/settings/organization" className={buttonVariants({ size: 'sm' })}>{t('kycCta')}</Link>}
+              {kyc !== 'submitted' && (
+                <Link href="/app/settings/organization" className={buttonVariants({ size: 'sm' })}>
+                  {t('kycCta')}
+                </Link>
+              )}
             </div>
           </Alert>
         )}
       </div>
       <RoleDashboard />
-      <Card className="mt-6">
+      <Card className="mt-6 max-w-xl">
         <CardHeader>
           <CardTitle>{t('nextSteps')}</CardTitle>
         </CardHeader>
         <CardBody>
-          <ul className="space-y-2">
-            {steps.map((s) => (
-              <li key={s.key}>
-                <Link href={s.href} className="flex items-center gap-2 rounded px-2 py-1.5 text-sm hover:bg-neutral-50">
-                  {s.done ? <CheckCircle2 className="size-4 text-brand-600" /> : <Circle className="size-4 text-neutral-400" />}
-                  <span className={s.done ? 'text-neutral-500 line-through' : ''}>{t(`steps.${s.key}`)}</span>
-                </Link>
-              </li>
-            ))}
-          </ul>
+          <Checklist items={steps.map((s) => ({ key: s.key, label: t(`steps.${s.key}`), done: s.done, href: s.href }))} />
         </CardBody>
       </Card>
     </>

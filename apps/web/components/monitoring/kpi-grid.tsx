@@ -3,7 +3,7 @@
 import { useTranslations } from 'next-intl';
 import type { Schemas } from '@jappo/sdk';
 import { formatXof } from '@/lib/utils';
-import { Card, CardBody } from '@/components/ui';
+import { Stat } from '@/components/ui';
 
 type K = Schemas['Kpis'];
 const n = (v: number | null | undefined, suffix = '') => (v === null || v === undefined ? '—' : `${new Intl.NumberFormat('fr-SN', { maximumFractionDigits: 2 }).format(v)}${suffix}`);
@@ -31,14 +31,9 @@ export function KpiGrid({ kpis, keys }: { kpis: K; keys: string[] }) {
     alerts: `${kpis.alerts.critical} / ${kpis.alerts.warning}`,
   };
   return (
-    <div className="grid gap-3 sm:grid-cols-3 lg:grid-cols-4">
+    <div className="grid grid-cols-2 gap-3 lg:grid-cols-4">
       {keys.map((k) => (
-        <Card key={k}>
-          <CardBody>
-            <p className="text-xs text-neutral-500">{t(k)}</p>
-            <p className="text-xl font-semibold" data-testid={`kpi-${k}`}>{v[k]}</p>
-          </CardBody>
-        </Card>
+        <Stat key={k} label={t(k)} value={<span data-testid={`kpi-${k}`}>{v[k]}</span>} tone={k === 'alerts' && kpis.alerts.critical > 0 ? 'danger' : 'default'} />
       ))}
     </div>
   );

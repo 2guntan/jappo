@@ -7,7 +7,7 @@ import { unwrap } from '@jappo/sdk';
 import { useSession } from '@/lib/session';
 import { ifMatch, useAction } from '@/lib/hooks';
 import { formatDateTime, formatXof } from '@/lib/utils';
-import { Alert, Badge, Button, Card, CardBody, CardHeader, CardTitle, Input, PageHeader, Spinner, Table, Td, Textarea, Th } from '@/components/ui';
+import { Alert, Badge, Button, Card, CardBody, CardHeader, CardTitle, Input, PageHeader, Spinner, Stat, Table, Td, Textarea, Th } from '@/components/ui';
 
 const ACTIONS = { recompute: 'recompute', approve_operator: 'approve-operator', approve_lender: 'approve-lender', instruct: 'instruct', mark_executed: 'mark-executed', reconcile: 'reconcile' } as const;
 
@@ -66,11 +66,11 @@ export default function SettlementPage({ params }: { params: Promise<{ id: strin
         }
       />
       {msg && <Alert tone={msg.tone} className="mb-4">{msg.text}</Alert>}
-      <div className="mb-6 grid gap-4 sm:grid-cols-4">
-        <Card><CardBody><p className="text-xs text-neutral-500">{t('settlement.seasonalLenders')}</p><p className="text-xl font-semibold" data-testid="dist-seasonal">{formatXof(d.seasonalByFacility.reduce((s, x) => s + x.amountXof, 0))}</p></CardBody></Card>
-        <Card><CardBody><p className="text-xs text-neutral-500">{t('settlement.investment')}</p><p className="text-xl font-semibold">{formatXof(d.investmentToLenderXof)}</p></CardBody></Card>
-        <Card><CardBody><p className="text-xs text-neutral-500">{t('settlement.operator')}</p><p className="text-xl font-semibold" data-testid="dist-operator">{formatXof(d.operatorXof)}</p></CardBody></Card>
-        <Card><CardBody><p className="text-xs text-neutral-500">{t('settlement.farmersTotal')}</p><p className="text-xl font-semibold" data-testid="dist-farmers">{formatXof(d.farmersTotalXof)}</p></CardBody></Card>
+      <div className="mb-6 grid grid-cols-2 gap-3 lg:grid-cols-4">
+        <Stat label={t('settlement.seasonalLenders')} value={<span data-testid="dist-seasonal">{formatXof(d.seasonalByFacility.reduce((s, x) => s + x.amountXof, 0))}</span>} />
+        <Stat label={t('settlement.investment')} value={formatXof(d.investmentToLenderXof)} />
+        <Stat label={t('settlement.operator')} value={<span data-testid="dist-operator">{formatXof(d.operatorXof)}</span>} />
+        <Stat label={t('settlement.farmersTotal')} value={<span data-testid="dist-farmers">{formatXof(d.farmersTotalXof)}</span>} />
       </div>
       {!r.invariantOk && <Alert tone="error" className="mb-4">{t('settlement.invariantBroken')}</Alert>}
       <Card className="mb-6">

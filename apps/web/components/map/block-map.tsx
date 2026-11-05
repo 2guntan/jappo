@@ -16,8 +16,8 @@ export interface MapFeature {
 
 const TILE = process.env.NEXT_PUBLIC_TILE_URL || 'https://tile.openstreetmap.org/{z}/{x}/{y}.png';
 const STATUS_COLORS: Record<string, string> = {
-  available: '#a3a3a3', allocated: '#23804a', fallow: '#d97706', excluded: '#dc2626',
-  draft: '#a3a3a3', documenting: '#0284c7', ready: '#23804a', in_financing: '#7c3aed', financed: '#16a34a', active: '#15803d',
+  available: '#a8a399', allocated: '#256b46', fallow: '#d97706', excluded: '#dc2626',
+  draft: '#a8a399', documenting: '#0284c7', ready: '#256b46', in_financing: '#7c3aed', financed: '#37865a', active: '#1d5639',
 };
 
 function bounds(features: MapFeature[]): LngLatBoundsLike | null {
@@ -60,11 +60,11 @@ export function BlockMap({ features, drawMode = false, onDrawn, onSelect, height
     map.addControl(new maplibregl.NavigationControl(), 'top-right');
     map.on('load', () => {
       map.addSource('jappo', { type: 'geojson', data: { type: 'FeatureCollection', features: [] } });
-      map.addLayer({ id: 'fill', type: 'fill', source: 'jappo', filter: ['==', ['geometry-type'], 'Polygon'], paint: { 'fill-color': ['coalesce', ['get', '_color'], '#23804a'], 'fill-opacity': ['case', ['==', ['get', 'kind'], 'boundary'], 0.08, 0.35] } });
-      map.addLayer({ id: 'line', type: 'line', source: 'jappo', filter: ['in', ['geometry-type'], ['literal', ['Polygon', 'MultiPolygon']]], paint: { 'line-color': ['case', ['==', ['get', 'kind'], 'boundary'], '#133f27', '#ffffff'], 'line-width': ['case', ['==', ['get', 'kind'], 'boundary'], 2.5, 1] } });
-      map.addLayer({ id: 'mfill', type: 'fill', source: 'jappo', filter: ['==', ['geometry-type'], 'MultiPolygon'], paint: { 'fill-color': '#23804a', 'fill-opacity': 0.08 } });
+      map.addLayer({ id: 'fill', type: 'fill', source: 'jappo', filter: ['==', ['geometry-type'], 'Polygon'], paint: { 'fill-color': ['coalesce', ['get', '_color'], '#256b46'], 'fill-opacity': ['case', ['==', ['get', 'kind'], 'boundary'], 0.06, 0.38] } });
+      map.addLayer({ id: 'line', type: 'line', source: 'jappo', filter: ['in', ['geometry-type'], ['literal', ['Polygon', 'MultiPolygon']]], paint: { 'line-color': ['case', ['==', ['get', 'kind'], 'boundary'], '#153928', '#ffffff'], 'line-width': ['case', ['==', ['get', 'kind'], 'boundary'], 2, 1.25] } });
+      map.addLayer({ id: 'mfill', type: 'fill', source: 'jappo', filter: ['==', ['geometry-type'], 'MultiPolygon'], paint: { 'fill-color': '#256b46', 'fill-opacity': 0.06 } });
       map.addLayer({ id: 'points', type: 'circle', source: 'jappo', filter: ['==', ['geometry-type'], 'Point'], paint: { 'circle-radius': 6, 'circle-color': ['coalesce', ['get', '_color'], '#0284c7'], 'circle-stroke-color': '#fff', 'circle-stroke-width': 2 } });
-      map.addLayer({ id: 'labels', type: 'symbol', source: 'jappo', filter: ['has', 'code'], layout: { 'text-field': ['get', 'code'], 'text-size': 11 }, paint: { 'text-color': '#111', 'text-halo-color': '#fff', 'text-halo-width': 1 } });
+      map.addLayer({ id: 'labels', type: 'symbol', source: 'jappo', filter: ['has', 'code'], layout: { 'text-field': ['get', 'code'], 'text-size': 11 }, paint: { 'text-color': '#1b1a17', 'text-halo-color': '#fff', 'text-halo-width': 1.2 } });
       for (const layer of ['fill', 'points']) {
         map.on('click', layer, (e) => {
           const id = e.features?.[0]?.properties?._id as string | undefined;
@@ -123,5 +123,5 @@ export function BlockMap({ features, drawMode = false, onDrawn, onSelect, height
     };
   }, [drawMode]);
 
-  return <div ref={ref} style={{ height }} className="w-full overflow-hidden rounded-lg border border-neutral-200 bg-neutral-100" data-testid="block-map" />;
+  return <div ref={ref} style={{ height }} className="w-full overflow-hidden rounded-lg border border-neutral-200/80 bg-neutral-100 shadow-xs" data-testid="block-map" />;
 }

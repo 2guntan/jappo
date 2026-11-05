@@ -8,7 +8,7 @@ import { unwrap } from '@jappo/sdk';
 import { useSession } from '@/lib/session';
 import { ifMatch, useAction } from '@/lib/hooks';
 import { facilityTone, formatDate, formatXof } from '@/lib/utils';
-import { Alert, Badge, Button, Card, CardBody, CardHeader, CardTitle, Field, Input, PageHeader, Select, Spinner, Table, Td, Th } from '@/components/ui';
+import { Alert, Badge, Button, Card, CardBody, CardHeader, CardTitle, Checklist, Field, Input, Kv, KvGrid, PageHeader, Select, Spinner, Table, Td, Th } from '@/components/ui';
 import { Disbursements } from '@/components/facilities/disbursements';
 import { EscrowReceipts } from '@/components/facilities/escrow-receipts';
 
@@ -51,16 +51,18 @@ export default function FacilityPage({ params }: { params: Promise<{ id: string 
         <div className="space-y-6 lg:col-span-2">
           <Card>
             <CardHeader><CardTitle>{t('facility.terms')}</CardTitle></CardHeader>
-            <CardBody className="grid gap-3 text-sm sm:grid-cols-3">
-              <p><span className="block text-xs text-neutral-500">{t('fin.rate')}</span>{(f.rateBps / 100).toFixed(2)} % · {t(`model.methods.${f.rateMethod}`)}</p>
-              <p><span className="block text-xs text-neutral-500">{t('facility.upfrontFee')}</span>{formatXof(f.upfrontFeeXof)}</p>
-              <p><span className="block text-xs text-neutral-500">{t('fin.tenor')}</span>{f.tenorMonths} · {t(`model.profiles.${f.repaymentProfile}`)}</p>
-              <p><span className="block text-xs text-neutral-500">{t('facility.start')}</span>{formatDate(f.startDate)}</p>
-              <p><span className="block text-xs text-neutral-500">{t('facility.maturity')}</span>{formatDate(f.maturityDate)}</p>
-              <p><span className="block text-xs text-neutral-500">{t('fin.borrower')}</span>{t(`model.borrowers.${f.borrowerType}`)}</p>
-              <p><span className="block text-xs text-neutral-500">{t('facility.disbursed')}</span><span data-testid="disbursed">{formatXof(f.disbursedXof)}</span></p>
-              <p><span className="block text-xs text-neutral-500">{t('facility.outstanding')}</span>{formatXof(f.outstandingPrincipalXof)}</p>
-              <p><span className="block text-xs text-neutral-500">{t('facility.overdue')}</span>{formatXof(f.overdueXof)}</p>
+            <CardBody>
+              <KvGrid>
+                <Kv label={t('fin.rate')} value={`${(f.rateBps / 100).toFixed(2)} % · ${t(`model.methods.${f.rateMethod}`)}`} />
+                <Kv label={t('facility.upfrontFee')} value={formatXof(f.upfrontFeeXof)} />
+                <Kv label={t('fin.tenor')} value={`${f.tenorMonths} · ${t(`model.profiles.${f.repaymentProfile}`)}`} />
+                <Kv label={t('facility.start')} value={formatDate(f.startDate)} />
+                <Kv label={t('facility.maturity')} value={formatDate(f.maturityDate)} />
+                <Kv label={t('fin.borrower')} value={t(`model.borrowers.${f.borrowerType}`)} />
+                <Kv label={t('facility.disbursed')} value={<span data-testid="disbursed">{formatXof(f.disbursedXof)}</span>} />
+                <Kv label={t('facility.outstanding')} value={formatXof(f.outstandingPrincipalXof)} />
+                <Kv label={t('facility.overdue')} value={<span className={f.overdueXof > 0 ? 'font-medium text-red-700' : undefined}>{formatXof(f.overdueXof)}</span>} />
+              </KvGrid>
             </CardBody>
           </Card>
           <Card>
@@ -112,12 +114,19 @@ export default function FacilityPage({ params }: { params: Promise<{ id: string 
         <div className="space-y-6">
           <Card>
             <CardHeader><CardTitle>{t('facility.cp')}</CardTitle></CardHeader>
-            <CardBody className="space-y-2 text-sm">
-              <ul className="space-y-1">
-                {f.conditionsPrecedent.map((c) => <li key={c.code} data-testid={`cp-${c.code}`} className={c.met ? 'text-brand-700' : 'text-neutral-600'}>{c.met ? '✔' : '○'} {t(`facility.cps.${c.code}`)}</li>)}
-              </ul>
-              {(contracts.data?.data ?? []).map((c) => <Link key={c.id} className="block text-brand-700 hover:underline" href={`/app/contracts/${c.id}`}>{c.ref} · {t(`contracts.status.${c.status}`)}</Link>)}
-              {f.seasonId && <Link className="block text-brand-700 hover:underline" href={`/app/contracts?seasonId=${f.seasonId}`}>{t('facility.seasonContracts')}</Link>}
+            <CardBody className="space-y-3 text-sm">
+              <Checklist items={f.conditionsPrecedent.map((c) => ({ key: c.code, label: (
+                    <span data-testid={`cp-${c.code}`}>
+                      {t(`facility.cps.${c.code}`)}
+                      {c.met && <span className="sr-only"> ✔</span>}
+                    </span>
+                  ), done: c.met }))} />
+              {((contracts.data?.data ?? []).length > 0 || f.seasonId) && (
+                <div className="space-y-1 border-t border-neutral-200/70 pt-3">
+                  {(contracts.data?.data ?? []).map((c) => <Link key={c.id} className="block text-brand-700 hover:underline" href={`/app/contracts/${c.id}`}>{c.ref} · {t(`contracts.status.${c.status}`)}</Link>)}
+                  {f.seasonId && <Link className="block text-brand-700 hover:underline" href={`/app/contracts?seasonId=${f.seasonId}`}>{t('facility.seasonContracts')}</Link>}
+                </div>
+              )}
             </CardBody>
           </Card>
           <Card>

@@ -1,13 +1,11 @@
 'use client';
 
-import Link from 'next/link';
 import { useQuery } from '@tanstack/react-query';
 import { useTranslations } from 'next-intl';
-import { CheckCircle2, Circle } from 'lucide-react';
 import { unwrap } from '@jappo/sdk';
 import { useSession } from '@/lib/session';
 import { BlockMap } from '@/components/map';
-import { Card, CardBody, CardHeader, CardTitle } from '@/components/ui';
+import { Card, CardBody, CardHeader, CardTitle, Checklist, Stat } from '@/components/ui';
 import type { BlockT } from './types';
 
 export function OverviewTab({ block }: { block: BlockT }) {
@@ -24,30 +22,21 @@ export function OverviewTab({ block }: { block: BlockT }) {
   return (
     <div className="grid gap-6 lg:grid-cols-3">
       <div className="lg:col-span-2">
-        <BlockMap features={(map.data?.features ?? []) as never} />
+        <BlockMap features={(map.data?.features ?? []) as never} height={460} />
       </div>
       <div className="space-y-4">
+        <div className="grid grid-cols-2 gap-3">
+          <Stat label={t('area')} value={<span data-testid="block-area">{block.areaHa === null ? '—' : `${block.areaHa.toFixed(2)} ha`}</span>} />
+          <Stat label={t('plots')} value={<span data-testid="block-plots">{s.plots}</span>} />
+          <Stat label={t('farmers')} value={<span data-testid="block-farmers">{s.farmers}</span>} />
+          <Stat label={t('women')} value={s.womenFarmers} />
+        </div>
         <Card>
-          <CardBody className="grid grid-cols-2 gap-4 text-sm">
-            <div><p className="text-neutral-500">{t('area')}</p><p className="text-xl font-semibold" data-testid="block-area">{block.areaHa === null ? '—' : `${block.areaHa.toFixed(2)} ha`}</p></div>
-            <div><p className="text-neutral-500">{t('plots')}</p><p className="text-xl font-semibold" data-testid="block-plots">{s.plots}</p></div>
-            <div><p className="text-neutral-500">{t('farmers')}</p><p className="text-xl font-semibold" data-testid="block-farmers">{s.farmers}</p></div>
-            <div><p className="text-neutral-500">{t('women')}</p><p className="text-xl font-semibold">{s.womenFarmers}</p></div>
-          </CardBody>
-        </Card>
-        <Card>
-          <CardHeader><CardTitle>{t('nextActions')}</CardTitle></CardHeader>
+          <CardHeader>
+            <CardTitle>{t('nextActions')}</CardTitle>
+          </CardHeader>
           <CardBody>
-            <ul className="space-y-2 text-sm">
-              {steps.map((st) => (
-                <li key={st.k}>
-                  <Link href={`/app/blocks/${block.id}?tab=${st.tab}`} className="flex items-center gap-2 hover:underline">
-                    {st.done ? <CheckCircle2 className="size-4 text-brand-600" /> : <Circle className="size-4 text-neutral-400" />}
-                    <span className={st.done ? 'text-neutral-500 line-through' : ''}>{t(`na.${st.k}`)}</span>
-                  </Link>
-                </li>
-              ))}
-            </ul>
+            <Checklist items={steps.map((st) => ({ key: st.k, label: t(`na.${st.k}`), done: st.done, href: `/app/blocks/${block.id}?tab=${st.tab}` }))} />
           </CardBody>
         </Card>
       </div>

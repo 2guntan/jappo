@@ -8,8 +8,11 @@ import { unwrap } from '@jappo/sdk';
 import { useSession } from '@/lib/session';
 import { fieldDb, kvGet, kvSet, newClientId, type LocalFarmer, type QueuedOp } from '@/lib/field-db';
 import { formatDateTime } from '@/lib/utils';
-import { Alert, Badge, Button, Field, Input, Select } from '@/components/ui';
+import { ClipboardList, Handshake, MapPin, RefreshCw, Scale, UserPlus, Wifi, WifiOff } from 'lucide-react';
+import { Alert, Badge, Button, Card, CardBody, Checkbox, Field, Input, Select } from '@/components/ui';
 import { LocaleSwitcher } from '@/components/layout/locale-switcher';
+import { LogoMark } from '@/components/brand/logo';
+import { cn } from '@/lib/utils';
 import { SignContractsScreen } from '@/components/field/sign-contracts';
 import { VisitScreen, WeighScreen } from '@/components/field/ops-screens';
 
@@ -139,48 +142,75 @@ export default function FieldApp() {
   const canSync = online && status === 'authenticated';
   return (
     <div className="flex min-h-screen flex-col">
-      <header className="sticky top-0 z-10 flex items-center justify-between bg-brand-700 px-4 py-3 text-white">
-        <button onClick={() => setScreen('home')} className="font-semibold">{t('title')}</button>
+      <header className="sticky top-0 z-10 flex h-14 items-center justify-between border-b border-neutral-200/70 bg-neutral-50/90 px-4 backdrop-blur">
+        <button onClick={() => setScreen('home')} className="inline-flex items-center gap-2.5 rounded-md">
+          <LogoMark />
+          <span className="text-[15px] font-semibold tracking-tight text-neutral-900">{t('title')}</span>
+        </button>
         <div className="flex items-center gap-2">
-          <span className={`rounded-full px-2 py-0.5 text-xs ${online ? 'bg-brand-500' : 'bg-amber-500'}`} data-testid="online-status">{online ? t('online') : t('offline')}</span>
-          <div className="rounded bg-white/90"><LocaleSwitcher /></div>
+          <span className={cn('inline-flex items-center gap-1.5 rounded-full border px-2 py-0.5 text-xs font-medium', online ? 'border-brand-200/70 bg-brand-50 text-brand-800' : 'border-amber-200/70 bg-amber-50 text-amber-800')} data-testid="online-status">
+            {online ? <Wifi className="size-3" aria-hidden /> : <WifiOff className="size-3" aria-hidden />}
+            {online ? t('online') : t('offline')}
+          </span>
+          <LocaleSwitcher />
         </div>
       </header>
       <main className="flex-1 space-y-4 p-4">
         {msg && <Alert tone={msg.tone}>{msg.text}</Alert>}
         {screen === 'home' && (
           <>
-            <div className="rounded-lg border border-neutral-200 p-4 text-sm">
-              <p>{t('lastSync')} : {lastSync ? formatDateTime(lastSync) : t('never')}</p>
-              <p data-testid="pending-count">{t('pending', { count: pending.length })}</p>
-              <Button className="mt-3 w-full" disabled={!canSync || busy} loading={busy} onClick={sync}>{busy ? t('syncing') : t('sync')}</Button>
-            </div>
+            <Card>
+              <CardBody className="space-y-3 text-sm">
+                <div className="flex items-start justify-between gap-3">
+                  <div>
+                    <p className="text-xs text-neutral-500">{t('lastSync')}</p>
+                    <p className="mt-0.5 font-medium text-neutral-900 tabular-nums">{lastSync ? formatDateTime(lastSync) : t('never')}</p>
+                  </div>
+                  <Badge tone={pending.length ? 'amber' : 'neutral'} data-testid="pending-count">{t('pending', { count: pending.length })}</Badge>
+                </div>
+                <Button className="w-full" size="lg" disabled={!canSync || busy} loading={busy} onClick={sync}>
+                  {!busy && <RefreshCw />}
+                  {busy ? t('syncing') : t('sync')}
+                </Button>
+              </CardBody>
+            </Card>
             {canSync && (
-              <div className="space-y-2 rounded-lg border border-neutral-200 p-4">
-                <p className="text-sm font-medium">{t('chooseBlocks')}</p>
-                {serverBlocks.map((b) => (
-                  <label key={b.id} className="flex items-center gap-2 text-sm">
-                    <input type="checkbox" checked={chosen.includes(b.id)} onChange={(e) => setChosen(e.target.checked ? [...chosen, b.id] : chosen.filter((x) => x !== b.id))} />
-                    {b.ref} · {b.name}
-                  </label>
-                ))}
-                <Button variant="secondary" className="w-full" disabled={!chosen.length || busy} onClick={download}>{t('download')}</Button>
-              </div>
+              <Card>
+                <CardBody className="space-y-3">
+                  <p className="text-sm font-medium text-neutral-900">{t('chooseBlocks')}</p>
+                  <div className="space-y-2">
+                    {serverBlocks.map((b) => (
+                      <Checkbox key={b.id} label={<><span className="font-medium">{b.ref}</span> · {b.name}</>} checked={chosen.includes(b.id)} onChange={(e) => setChosen(e.target.checked ? [...chosen, b.id] : chosen.filter((x) => x !== b.id))} />
+                    ))}
+                  </div>
+                  <Button variant="secondary" className="w-full" disabled={!chosen.length || busy} onClick={download}>{t('download')}</Button>
+                </CardBody>
+              </Card>
             )}
             {blocks.length === 0 ? (
-              <p className="text-sm text-neutral-600">{t('noBlocks')}</p>
+              <p className="px-1 text-sm leading-relaxed text-neutral-500">{t('noBlocks')}</p>
             ) : (
               <div className="grid grid-cols-2 gap-3">
-                {(['enrol', 'map', 'allocate', 'visit', 'weigh', 'queue'] as const).map((s) => (
-                  <button key={s} onClick={() => setScreen(s)} className="rounded-lg border border-brand-100 bg-brand-50 p-4 text-left text-sm font-medium text-brand-900">
-                    {s === 'enrol' ? t('enrol') : s === 'map' ? t('mapPlot') : s === 'allocate' ? t('allocate') : s === 'visit' ? t('visit') : s === 'weigh' ? t('weigh') : t('queue')}
+                {(
+                  [
+                    { s: 'enrol', label: t('enrol'), Ic: UserPlus },
+                    { s: 'map', label: t('mapPlot'), Ic: MapPin },
+                    { s: 'allocate', label: t('allocate'), Ic: Handshake },
+                    { s: 'visit', label: t('visit'), Ic: ClipboardList },
+                    { s: 'weigh', label: t('weigh'), Ic: Scale },
+                    { s: 'queue', label: t('queue'), Ic: RefreshCw },
+                  ] as const
+                ).map(({ s, label, Ic }) => (
+                  <button key={s} onClick={() => setScreen(s)} className="flex min-h-24 flex-col justify-between rounded-lg border border-neutral-200/80 bg-white p-4 text-left shadow-xs transition-colors active:bg-neutral-100">
+                    <Ic className="size-5 text-brand-700" aria-hidden />
+                    <span className="text-sm font-medium leading-snug text-neutral-900">{label}</span>
                   </button>
                 ))}
               </div>
             )}
             {canSync && <Button variant="secondary" className="w-full" data-testid="field-sign" onClick={() => setScreen('sign')}>{t('signContracts')}</Button>}
-            <p className="text-xs text-neutral-500">{t('farmersLocal')} : {farmers.length} · {blocks.map((b) => b.ref).join(', ')}</p>
-            {me && <Link href="/app" className="block text-center text-sm text-brand-700">{t('back')}</Link>}
+            <p className="px-1 text-xs text-neutral-500">{t('farmersLocal')} : {farmers.length} · {blocks.map((b) => b.ref).join(', ')}</p>
+            {me && <Link href="/app" className="block text-center text-sm text-brand-700 hover:underline">{t('back')}</Link>}
           </>
         )}
         {screen === 'enrol' && <EnrolScreen onDone={(text) => { setMsg({ tone: 'success', text }); setScreen('home'); }} />}
@@ -190,7 +220,7 @@ export default function FieldApp() {
         {screen === 'weigh' && <WeighScreen plots={plots} farmers={farmers} allocations={allocations} onDone={(text) => { setMsg({ tone: 'success', text }); setScreen('home'); }} />}
         {screen === 'sign' && (canSync ? <SignContractsScreen /> : <Alert tone="info">{t('signOnline')}</Alert>)}
         {screen === 'queue' && (
-          <ul className="divide-y divide-neutral-100 rounded-lg border border-neutral-200 text-sm" data-testid="sync-queue">
+          <ul className="divide-y divide-neutral-200/60 rounded-lg border border-neutral-200/80 bg-white text-sm shadow-xs" data-testid="sync-queue">
             {queue.map((q) => (
               <li key={q.clientId} className="flex items-start justify-between gap-2 p-3">
                 <div>
@@ -242,8 +272,8 @@ function EnrolScreen({ onDone }: { onDone: (msg: string) => void }) {
       <Field label={t('farmers.village')} htmlFor="fe-village"><Input id="fe-village" value={f.village} onChange={(e) => setF({ ...f, village: e.target.value })} /></Field>
       <Field label={t('farmers.walletProvider')} htmlFor="fe-wp"><Select id="fe-wp" value={f.walletProvider} onChange={(e) => setF({ ...f, walletProvider: e.target.value })}>{['wave', 'orange_money', 'free_money', 'other'].map((w) => <option key={w} value={w}>{t(`enum.walletProvider.${w}`)}</option>)}</Select></Field>
       <Field label={t('farmers.walletNumber')} htmlFor="fe-wn"><Input id="fe-wn" type="tel" value={f.walletNumber} onChange={(e) => setF({ ...f, walletNumber: e.target.value })} /></Field>
-      <label className="flex items-start gap-2 text-sm"><input type="checkbox" checked={f.consentData} onChange={(e) => setF({ ...f, consentData: e.target.checked })} /> {t('farmers.consentData')}</label>
-      <label className="flex items-start gap-2 text-sm"><input type="checkbox" checked={f.consentCreditBureau} onChange={(e) => setF({ ...f, consentCreditBureau: e.target.checked })} /> {t('farmers.consentCreditBureau')}</label>
+      <Checkbox label={t('farmers.consentData')} checked={f.consentData} onChange={(e) => setF({ ...f, consentData: e.target.checked })} />
+      <Checkbox label={t('farmers.consentCreditBureau')} checked={f.consentCreditBureau} onChange={(e) => setF({ ...f, consentCreditBureau: e.target.checked })} />
       <Button type="button" variant="secondary" size="sm" onClick={() => navigator.geolocation?.getCurrentPosition((p) => setGps([p.coords.longitude, p.coords.latitude]), () => setGps(null), { enableHighAccuracy: true, timeout: 10000 })}>
         GPS {gps ? `✓ ${gps[1].toFixed(5)}, ${gps[0].toFixed(5)}` : ''}
       </Button>

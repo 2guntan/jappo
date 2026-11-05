@@ -9,7 +9,8 @@ import { unwrap } from '@jappo/sdk';
 import { useSession } from '@/lib/session';
 import { ifMatch, useAction } from '@/lib/hooks';
 import { formatDate } from '@/lib/utils';
-import { Alert, Badge, Button, Input, PageHeader, Spinner } from '@/components/ui';
+import { ArrowLeft } from 'lucide-react';
+import { Alert, Badge, Button, Checkbox, Input, PageHeader, Spinner, Tabs } from '@/components/ui';
 import { PlanTab } from '@/components/seasons/plan-tab';
 import { BudgetTab } from '@/components/seasons/budget-tab';
 import { ModelTab } from '@/components/seasons/model-tab';
@@ -38,16 +39,28 @@ function SeasonInner({ id }: { id: string }) {
   return (
     <>
       <PageHeader
+        eyebrow={
+          <Link href={`/app/blocks/${s.blockId}?tab=seasons`} className="inline-flex items-center gap-1 normal-case tracking-normal text-neutral-500 hover:text-neutral-900">
+            <ArrowLeft className="size-3.5" aria-hidden />
+            {t('common.back')}
+          </Link>
+        }
         title={s.name}
-        subtitle={<span className="flex flex-wrap items-center gap-2">{t(`seasons.kinds.${s.kind}`)} · {formatDate(s.startDate)} → {formatDate(s.endDate)} <Badge tone="blue" data-testid="season-status">{t(`seasons.status.${s.status}`)}</Badge></span>}
-        actions={<Link href={`/app/blocks/${s.blockId}?tab=seasons`} className="text-sm text-brand-700">{t('common.back')}</Link>}
+        subtitle={
+          <span className="flex flex-wrap items-center gap-x-2 gap-y-1">
+            <span>{t(`seasons.kinds.${s.kind}`)}</span>
+            <span className="text-neutral-300">·</span>
+            <span className="tabular-nums">{formatDate(s.startDate)} → {formatDate(s.endDate)}</span>
+            <Badge tone="blue" data-testid="season-status">{t(`seasons.status.${s.status}`)}</Badge>
+          </span>
+        }
       />
       {msg && <Alert tone={msg.tone} className="mb-4">{msg.text}</Alert>}
       {(s.allowedActions.includes('start') || s.allowedActions.includes('cancel')) && (
-        <div className="mb-4 flex flex-wrap items-center gap-3 rounded-lg border border-neutral-200 bg-white p-3 text-sm">
+        <div className="mb-6 flex flex-wrap items-center gap-3 rounded-lg border border-neutral-200/80 bg-white px-4 py-3 text-sm shadow-xs">
           {s.allowedActions.includes('start') && (
             <>
-              <label className="flex items-center gap-2"><input type="checkbox" checked={selfFinanced} onChange={(e) => setSelfFinanced(e.target.checked)} /> {t('seasons.selfFinanced')}</label>
+              <Checkbox label={t('seasons.selfFinanced')} checked={selfFinanced} onChange={(e) => setSelfFinanced(e.target.checked)} />
               <Button size="sm" loading={busy === 'start'} onClick={() => run('start', async () => { await unwrap(api.POST('/v1/seasons/{id}/actions/start', { params: { path: { id } }, headers: ifMatch(s.version), body: { selfFinanced } })); await refresh(); })}>{t('seasons.start')}</Button>
             </>
           )}
@@ -59,13 +72,7 @@ function SeasonInner({ id }: { id: string }) {
           )}
         </div>
       )}
-      <nav className="mb-6 flex gap-1 border-b border-neutral-200" role="tablist">
-        {TABS.map((k) => (
-          <button key={k} role="tab" aria-selected={tab === k} onClick={() => router.replace(`/app/seasons/${id}?tab=${k}`)} className={`border-b-2 px-3 py-2 text-sm ${tab === k ? 'border-brand-600 font-medium text-brand-700' : 'border-transparent text-neutral-600'}`}>
-            {t(`seasons.tabs.${k}`)}
-          </button>
-        ))}
-      </nav>
+      <Tabs items={TABS.map((k) => ({ key: k, label: t(`seasons.tabs.${k}`) }))} value={tab} onChange={(k) => router.replace(`/app/seasons/${id}?tab=${k}`)} label={s.name} />
       {tab === 'plan' && <PlanTab season={s} />}
       {tab === 'budget' && <BudgetTab season={s} />}
       {tab === 'model' && <ModelTab season={s} />}

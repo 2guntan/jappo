@@ -41,7 +41,7 @@ function LoginInner() {
       subtitle={t('auth.loginSubtitle')}
       footer={
         <>
-          {t('auth.noAccount')} <Link href="/signup" className="font-medium text-brand-700">{t('public.nav.signup')}</Link>
+          {t('auth.noAccount')} <Link href="/signup" className="font-medium text-brand-700 underline-offset-4 hover:underline">{t('public.nav.signup')}</Link>
         </>
       }
     >
@@ -59,10 +59,10 @@ function LoginInner() {
               <Input id="totp" inputMode="numeric" autoComplete="one-time-code" maxLength={6} autoFocus {...register('totp')} />
             </Field>
           )}
-          <Button type="submit" className="w-full" loading={formState.isSubmitting}>{t('auth.submitLogin')}</Button>
-          <div className="flex justify-between text-sm">
-            <Link href="/forgot-password" className="text-brand-700">{t('auth.forgot')}</Link>
-            <button type="button" className="text-brand-700" onClick={() => setMode('phone')}>{t('auth.phoneLogin')}</button>
+          <Button type="submit" size="lg" className="w-full" loading={formState.isSubmitting}>{t('auth.submitLogin')}</Button>
+          <div className="flex justify-between gap-4 text-sm">
+            <Link href="/forgot-password" className="text-neutral-600 underline-offset-4 hover:text-neutral-900 hover:underline">{t('auth.forgot')}</Link>
+            <button type="button" className="font-medium text-brand-700 underline-offset-4 hover:underline" onClick={() => setMode('phone')}>{t('auth.phoneLogin')}</button>
           </div>
         </form>
       ) : (

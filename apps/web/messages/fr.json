@@ -40,7 +40,8 @@
       "title": "Financer les fermes-blocs, de la parcelle au remboursement.",
       "subtitle": "Jappo structure votre bloc agricole en dossier finançable, organise l'appel d'offres auprès des prêteurs, suit la campagne et calcule le règlement à la source — sans jamais détenir les fonds.",
       "ctaOperator": "Je suis opérateur",
-      "ctaLender": "Je suis prêteur"
+      "ctaLender": "Je suis prêteur",
+      "eyebrow": "Structuration · Appel d’offres · Suivi · Règlement"
     },
     "value": {
       "operatorTitle": "Pour les opérateurs",
@@ -48,7 +49,8 @@
       "lenderTitle": "Pour les prêteurs",
       "lenderText": "Un pipeline de dossiers standardisés, une salle de données, un suivi en temps réel et une cascade de remboursement contrôlée depuis le compte séquestre.",
       "farmerTitle": "Pour les producteurs",
-      "farmerText": "Des intrants à crédit, un acheteur garanti et un relevé clair de chaque déduction, envoyé par SMS."
+      "farmerText": "Des intrants à crédit, un acheteur garanti et un relevé clair de chaque déduction, envoyé par SMS.",
+      "title": "Trois acteurs, une seule source de vérité"
     },
     "how": {
       "title": "La cascade de règlement",
@@ -64,6 +66,14 @@
       "terms": "Conditions d'utilisation",
       "privacy": "Confidentialité",
       "rights": "Jappo fournit des services technologiques et de structuration. Les décisions de crédit appartiennent aux prêteurs."
+    },
+    "waterfall": {
+      "title": "Un règlement de référence",
+      "caption": "Cascade calculée à la source sur les encaissements de l’acheteur ; chaque producteur reçoit un relevé par SMS."
+    },
+    "cta": {
+      "title": "Prêt à structurer votre prochaine campagne ?",
+      "text": "Créez votre organisation, déposez vos documents et construisez votre premier bloc."
     }
   },
   "auth": {
@@ -130,6 +140,10 @@
       "etablissement_credit": "Établissement de crédit",
       "sfd": "SFD",
       "other": "Autre"
+    },
+    "panel": {
+      "title": "La campagne, du dossier au relevé.",
+      "text": "Un seul espace pour l’opérateur, les prêteurs, l’acheteur et les producteurs."
     }
   },
   "nav": {
@@ -170,7 +184,8 @@
     "adminBilling": "Facturation",
     "adminConsole": "Console",
     "billingOverdue": "Des factures Jappo sont en retard de plus de 30 jours.",
-    "billingRestricted": "Lecture seule : factures en retard de plus de 60 jours (règlements et relevés restent disponibles)."
+    "billingRestricted": "Lecture seule : factures en retard de plus de 60 jours (règlements et relevés restent disponibles).",
+    "close": "Fermer"
   },
   "app": {
     "welcome": "Bonjour {name}",
@@ -1644,6 +1659,19 @@
       "buyer": "Acheteurs",
       "guarantor": "Garants",
       "insurer": "Assureurs"
+    },
+    "included": "Inclus",
+    "features": {
+      "dossier": "Dossier noté et salle de données",
+      "marketplace": "Appel d’offres fermé aux prêteurs",
+      "settlement": "Règlement à la source et relevés",
+      "priority_support": "Support prioritaire",
+      "api_keys": "Clés API",
+      "webhooks": "Webhooks",
+      "opportunities": "Opportunités et offres scellées",
+      "monitoring": "Suivi de portefeuille en temps réel",
+      "reports": "Rapports mensuels PDF",
+      "portal": "Portail partenaire"
     }
   }
 }

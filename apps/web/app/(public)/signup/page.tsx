@@ -55,7 +55,7 @@ function SignupInner() {
   });
 
   return (
-    <AuthCard title={t('auth.signupTitle')} subtitle={t('auth.signupSubtitle')} footer={<>{t('auth.haveAccount')} <Link href="/login" className="font-medium text-brand-700">{t('public.nav.login')}</Link></>}>
+    <AuthCard title={t('auth.signupTitle')} subtitle={t('auth.signupSubtitle')} footer={<>{t('auth.haveAccount')} <Link href="/login" className="font-medium text-brand-700 underline-offset-4 hover:underline">{t('public.nav.login')}</Link></>}>
       <form onSubmit={onSubmit} className="space-y-4" noValidate>
         {error && <Alert tone="error">{error}</Alert>}
         <Field label={t('auth.orgType')} htmlFor="orgType">
@@ -90,7 +90,7 @@ function SignupInner() {
         <Field label={t('auth.password')} htmlFor="password" error={err('password')} hint={t('auth.passwordHint')}>
           <Input id="password" type="password" autoComplete="new-password" {...register('password')} />
         </Field>
-        <Button type="submit" className="w-full" loading={formState.isSubmitting}>{t('auth.submitSignup')}</Button>
+        <Button type="submit" size="lg" className="w-full" loading={formState.isSubmitting}>{t('auth.submitSignup')}</Button>
       </form>
     </AuthCard>
   );
